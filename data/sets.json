@@ -1,0 +1,18 @@
+[
+  { "id": "graded-cards", "name": "Graded Cards", "imgUrl": "/images/charizard.png", "bannerUrl": "/images/charizard.png", "color": "#FFD700", "emoji": "🏆" },
+  { "id": "singles", "name": "Singles", "imgUrl": "/images/singles.jpg", "bannerUrl": "/images/singles.jpg", "color": "#4169E1", "emoji": "🃏" },
+  { "id": "all-pokemon", "name": "English Pokémon", "imgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png", "bannerUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/1200px-International_Pok%C3%A9mon_logo.svg.png", "color": "#E3350D", "emoji": "📦" },
+  { "id": "perfect-order", "parent": "all-pokemon", "name": "Perfect Order", "imgUrl": "/images/po-logo.png", "bannerUrl": "/images/po-logo.png", "color": "#1E90FF" },
+  { "id": "phantasmal-flames", "parent": "all-pokemon", "name": "Phantasmal Flames", "imgUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me02/logo/en-us/me02-logo.png", "bannerUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me02/logo/en-us/me02-logo.png", "color": "#7B2D8B" },
+  { "id": "mega-evolution", "parent": "all-pokemon", "name": "Mega Evolution", "imgUrl": "https://images.pokemontcg.io/me1/symbol.png", "bannerUrl": "https://images.pokemontcg.io/me1/logo.png", "color": "#E3350D" },
+  { "id": "journey-together", "parent": "all-pokemon", "name": "Journey Together", "imgUrl": "https://images.pokemontcg.io/sv9/symbol.png", "bannerUrl": "https://images.pokemontcg.io/sv9/logo.png", "color": "#2E8B57" },
+  { "id": "bw-era", "parent": "all-pokemon", "name": "Black & White Era", "imgUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/sv-expansions/sv10dot5/logo/en-us/sv10pt5-logo.png", "bannerUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/sv-expansions/sv10dot5/logo/en-us/sv10pt5-logo.png", "color": "#000000" },
+  { "id": "prismatic", "parent": "all-pokemon", "name": "Prismatic Evolutions", "imgUrl": "https://images.pokemontcg.io/sv8pt5/symbol.png", "bannerUrl": "https://images.pokemontcg.io/sv8pt5/logo.png", "color": "#ff66c4" },
+  { "id": "surging-sparks", "parent": "all-pokemon", "name": "Surging Sparks", "imgUrl": "https://images.pokemontcg.io/sv8/symbol.png", "bannerUrl": "https://images.pokemontcg.io/sv8/logo.png", "color": "#E0AA3E" },
+  { "id": "151", "parent": "all-pokemon", "name": "Scarlet & Violet 151", "imgUrl": "https://images.pokemontcg.io/sv3pt5/symbol.png", "bannerUrl": "https://images.pokemontcg.io/sv3pt5/logo.png", "color": "#8A2BE2" },
+  { "id": "misc", "parent": "all-pokemon", "name": "Miscellaneous / Collections", "imgUrl": "https://images.pokemontcg.io/sve/symbol.png", "bannerUrl": "https://images.pokemontcg.io/sve/logo.png", "color": "#666666", "emoji": "📦" },
+  { "id": "japanese", "name": "Japanese Pokémon", "imgUrl": "/images/japanese-box.png", "bannerUrl": "/images/japanese-box.png", "color": "#D0112b", "emoji": "🇯🇵" },
+  { "id": "chinese", "name": "Chinese Pokémon", "imgUrl": "/images/chinese-box.png", "bannerUrl": "/images/chinese-box.png", "color": "#DA251D", "emoji": "🇨🇳" },
+  { "id": "other-tcg", "name": "Other / Future TCGs", "imgUrl": "/images/singles.jpg", "bannerUrl": "/images/singles.jpg", "color": "#4B0082", "emoji": "🎴" },
+  { "id": "pokemon-merch", "name": "Pokémon Merchandise & Toys", "imgUrl": "/images/merch.svg", "bannerUrl": "/images/merch.svg", "color": "#FF8C00", "emoji": "🧸" }
+]

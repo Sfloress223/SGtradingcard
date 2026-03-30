@@ -1,0 +1,11 @@
+[
+  {
+    "id": "1774402578403",
+    "username": "sam",
+    "email": "samfloress03@gmail.com",
+    "password": "$2b$10$zg8znv25e87sbbJFSmaCs.ZtEq2RIu.PTygOrBOZ9q9BE4j4kKLCC",
+    "role": "seller",
+    "stripeAccountId": "acct_1TEhQKB7ZOOF58cz",
+    "charges_enabled": false
+  }
+]
