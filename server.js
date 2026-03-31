@@ -19,8 +19,8 @@ const USERS_FILE = path.join(__dirname, 'data', 'users.json');
 const SHIPPING_PRESETS_FILE = path.join(__dirname, 'data', 'shipping_presets.json');
 const ORDERS_FILE = path.join(__dirname, 'data', 'orders.json');
 
-import Shippo from 'shippo';
-const shippo = Shippo(process.env.SHIPPO_API_KEY || '');
+import shippoPkg from 'shippo';
+const shippo = shippoPkg(process.env.SHIPPO_API_KEY || '');
 
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-9relg96s6-sgtradingcards-projects.vercel.app', 'https://sg-tradingcard.vercel.app'] }));
 app.use(express.json());

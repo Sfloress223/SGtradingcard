@@ -20,7 +20,7 @@
     "jsonwebtoken": "^9.0.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "shippo": "^2.18.0",
+    "shippo": "^1.7.1",
     "stripe": "^20.4.1"
   },
   "devDependencies": {
