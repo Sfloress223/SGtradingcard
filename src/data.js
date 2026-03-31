@@ -133,7 +133,7 @@ export const PRODUCTS = [
     "price": "$38.99",
     "soldOut": true,
     "description": "Includes 6 Mega Evolution booster packs in exclusive bundle packaging. A solid way to start your Mega Evolution collection.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/02df7a19-02a1-4fc3-86ce-88c92fa159a5/SuzieQ+LOGO+%2847%29.png?format=500w"
+    "imgUrl": "/images/me-booster-bundle.png"
   },
   {
     "id": 403,
@@ -448,7 +448,7 @@ export const PRODUCTS = [
     "price": "$234.99",
     "soldOut": false,
     "description": "Contains 36 Surging Sparks booster packs.",
-    "imgUrl": "/images/po-logo.png"
+    "imgUrl": "/images/ss-booster-box.png"
   },
   {
     "id": 413,
@@ -493,7 +493,7 @@ export const PRODUCTS = [
     "price": "$46.99",
     "soldOut": false,
     "description": "A mystery surprise box full of Prismatic Evolutions boosters and collectibles.",
-    "imgUrl": "/images/po-logo.png"
+    "imgUrl": "/images/pe-surprise-box.png"
   },
   {
     "id": 1201,
@@ -511,7 +511,7 @@ export const PRODUCTS = [
     "price": "$10.99",
     "soldOut": false,
     "description": "Contains 10 cards from the gorgeous Prismatic Evolutions set.",
-    "imgUrl": "/images/po-logo.png"
+    "imgUrl": "/images/pe-sleeved.png"
   },
   {
     "id": 1004,
@@ -583,7 +583,7 @@ export const PRODUCTS = [
     "price": "$48.99",
     "soldOut": false,
     "description": "Contains 6 Surging Sparks booster packs to boost your collection.",
-    "imgUrl": "/images/po-logo.png"
+    "imgUrl": "/images/ss-booster-bundle.png"
   },
   {
     "id": 1203,
@@ -611,5 +611,32 @@ export const PRODUCTS = [
     "soldOut": false,
     "description": "A massive chest of Pokémon TCG treasures from the Paldea region.",
     "imgUrl": "/images/paldea-chest.png"
+  },
+  {
+    "id": 415,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Evolution Sleeved Booster Pack",
+    "price": "$4.99",
+    "soldOut": false,
+    "description": "A single sleeved booster pack containing 10 cards from the Mega Evolution expansion. Case-fresh and tamper-evident packaging.",
+    "imgUrl": "/coming-soon.png"
+  },
+  {
+    "id": 416,
+    "setId": "phantasmal-flames",
+    "title": "Pokémon TCG: Phantasmal Flames Sleeved Booster Pack",
+    "price": "$4.99",
+    "soldOut": false,
+    "description": "A single sleeved booster pack from the Phantasmal Flames set. Expand your collection with these haunted and fiery rare pulls!",
+    "imgUrl": "/coming-soon.png"
+  },
+  {
+    "id": 1106,
+    "setId": "perfect-order",
+    "title": "Pokémon TCG: Perfect Order Sleeved Booster Pack",
+    "price": "$4.99",
+    "soldOut": false,
+    "description": "A single sleeved booster pack from the Perfect Order expansion. Securely packed to guarantee authentic pulls.",
+    "imgUrl": "/coming-soon.png"
   }
 ];
