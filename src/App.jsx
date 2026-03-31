@@ -60,24 +60,36 @@ function App() {
         }
       }
 
+      const maxStock = product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50);
+
       const existing = prev.find(item => item.id === product.id);
       if (existing) {
+        if (existing.qty >= maxStock) {
+          showToast(`❌ Cannot add more, only ${maxStock} in stock!`);
+          return prev;
+        }
         return prev.map(item =>
           item.id === product.id ? { ...item, qty: item.qty + 1 } : item
         );
+      }
+      
+      if (maxStock <= 0) {
+        showToast(`❌ Item is completely sold out!`);
+        return prev;
       }
       return [...prev, { ...product, qty: 1 }];
     });
     showToast(`✓ ${product.title.substring(0, 40)}... added to cart`);
   };
 
-  const updateCartQty = (productId, newQty) => {
+  const updateCartQty = (productId, newQty, maxStock = 50) => {
     if (newQty <= 0) {
       setCartItems(prev => prev.filter(item => item.id !== productId));
     } else {
+      const clampedQty = Math.min(newQty, maxStock);
       setCartItems(prev =>
         prev.map(item =>
-          item.id === productId ? { ...item, qty: newQty } : item
+          item.id === productId ? { ...item, qty: clampedQty } : item
         )
       );
     }
@@ -93,7 +105,17 @@ function App() {
     window.scrollTo(0, 0);
   };
 
-  const handleOrderComplete = (order) => {
+  const handleOrderComplete = async (order) => {
+    try {
+      await fetch('https://sgtradingcard.onrender.com/api/orders/confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: order.items, orderId: order.id }),
+      });
+    } catch (err) {
+      console.error('Stock sync failed:', err);
+    }
+    
     setCompletedOrder(order);
     setCartItems([]);
     setCurrentPage('confirmation');
@@ -230,13 +252,13 @@ function App() {
           <h2 className="section-title">Featured Products</h2>
           
           <div className="product-grid">
-            {products.filter(p => !p.soldOut).sort((a,b) => b.id - a.id).slice(0, 8).map(product => (
+            {products.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut)).sort((a,b) => b.id - a.id).slice(0, 8).map(product => (
               <ProductCard 
                 key={product.id}
                 product={product}
                 title={product.title}
                 price={product.price}
-                soldOut={product.soldOut}
+                soldOut={product.stock === 0 || product.soldOut}
                 imgUrl={product.imgUrl}
                 onAddToCart={addToCart}
                 onViewProduct={viewProduct}

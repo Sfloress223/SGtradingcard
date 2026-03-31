@@ -13,7 +13,7 @@ const AdminDashboard = ({ token, onLogout }) => {
 
   const [editing, setEditing] = useState(null);
   const [adding, setAdding] = useState(false);
-  const [form, setForm] = useState({ title: '', price: '', setId: '', imgUrl: '', description: '', soldOut: false });
+  const [form, setForm] = useState({ title: '', price: '', setId: '', imgUrl: '', description: '', stock: 0 });
   const [toast, setToast] = useState(null);
 
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
@@ -28,11 +28,15 @@ const AdminDashboard = ({ token, onLogout }) => {
     fetch(`${API}/api/admin/shipping-presets`, { headers: fetchHeaders }).then(r => r.json()).then(setShippingPresets);
   }, [token]);
 
-  const toggleStock = async (id) => {
-    const res = await fetch(`${API}/api/admin/products/${id}/toggle-stock`, { method: 'PATCH', headers });
+  const toggleStock = async (id, currentStock) => {
+    // Legacy mapping fallback - toggling sets stock to 50 if currently 0
+    const newStock = currentStock === 0 ? 50 : 0;
+    const res = await fetch(`${API}/api/admin/products/${id}`, { 
+      method: 'PUT', headers, body: JSON.stringify({ stock: newStock, soldOut: newStock === 0 }) 
+    });
     const updated = await res.json();
     setProducts(prev => prev.map(p => p.id === id ? updated : p));
-    showToast(`Stock status updated`);
+    showToast(`Stock updated to ${newStock}`);
   };
 
   const deleteProduct = async (id) => {
@@ -44,14 +48,14 @@ const AdminDashboard = ({ token, onLogout }) => {
 
   const startEdit = (product) => {
     setEditing(product.id);
-    setForm({ title: product.title, price: product.price, setId: product.setId, imgUrl: product.imgUrl || '', description: product.description || '', soldOut: product.soldOut });
+    setForm({ title: product.title, price: product.price, setId: product.setId, imgUrl: product.imgUrl || '', description: product.description || '', stock: product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50) });
     setAdding(false);
   };
 
   const startAdd = () => {
     setAdding(true);
     setEditing(null);
-    setForm({ title: '', price: '', setId: sets[0]?.id || '', imgUrl: '', description: '', soldOut: false });
+    setForm({ title: '', price: '', setId: sets[0]?.id || '', imgUrl: '', description: '', stock: 50 });
   };
 
   const cancelEdit = () => { setEditing(null); setAdding(false); };
@@ -59,15 +63,17 @@ const AdminDashboard = ({ token, onLogout }) => {
   const saveProduct = async (e) => {
     e.preventDefault();
     if (editing) {
+      const payload = { ...form, soldOut: form.stock === 0 };
       const res = await fetch(`${API}/api/admin/products/${editing}`, {
-        method: 'PUT', headers, body: JSON.stringify(form)
+        method: 'PUT', headers, body: JSON.stringify(payload)
       });
       const updated = await res.json();
       setProducts(prev => prev.map(p => p.id === editing ? updated : p));
       showToast('Product updated');
     } else {
+      const payload = { ...form, soldOut: form.stock === 0 };
       const res = await fetch(`${API}/api/admin/products`, {
-        method: 'POST', headers, body: JSON.stringify(form)
+        method: 'POST', headers, body: JSON.stringify(payload)
       });
       const newProduct = await res.json();
       setProducts(prev => [...prev, newProduct]);
@@ -181,8 +187,8 @@ const AdminDashboard = ({ token, onLogout }) => {
   };
 
   const filtered = filterSet === 'all' ? products : products.filter(p => p.setId === filterSet);
-  const inStock = products.filter(p => !p.soldOut).length;
-  const soldOut = products.filter(p => p.soldOut).length;
+  const inStock = products.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut)).length;
+  const soldOut = products.filter(p => p.stock === 0 || (p.stock === undefined && p.soldOut)).length;
 
   return (
     <section className="admin-section">
@@ -248,10 +254,8 @@ const AdminDashboard = ({ token, onLogout }) => {
               <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows="3" placeholder="e.g. Includes 9 booster packs, a promo card, and 65 card sleeves..." style={{ padding: '12px 14px', border: '1px solid var(--border-color)', borderRadius: '6px', fontSize: '0.95rem', fontFamily: 'inherit', resize: 'vertical' }} />
             </div>
             <div className="form-group">
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
-                <input type="checkbox" checked={form.soldOut} onChange={e => setForm({...form, soldOut: e.target.checked})} />
-                Sold Out
-              </label>
+              <label>Stock Quantity</label>
+              <input type="number" min="0" value={form.stock} onChange={e => setForm({...form, stock: parseInt(e.target.value) || 0})} required />
             </div>
             <div className="admin-form-actions">
               <button type="submit" className="admin-save-btn">Save</button>
@@ -286,8 +290,8 @@ const AdminDashboard = ({ token, onLogout }) => {
                 <td><span className="admin-set-badge">{sets.find(s => s.id === product.setId)?.name || product.setId}</span></td>
                 <td>{product.price}</td>
                 <td>
-                  <button className={`stock-toggle ${product.soldOut ? 'out' : 'in'}`} onClick={() => toggleStock(product.id)}>
-                    {product.soldOut ? '❌ Sold Out' : '✅ In Stock'}
+                  <button className={`stock-toggle ${product.stock === 0 || product.soldOut ? 'out' : 'in'}`} onClick={() => toggleStock(product.id, product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50))}>
+                    {product.stock === 0 || product.soldOut ? '❌ Stock: 0' : `✅ Stock: ${product.stock !== undefined ? product.stock : 50}`}
                   </button>
                 </td>
                 <td>

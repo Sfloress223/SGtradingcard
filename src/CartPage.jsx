@@ -39,7 +39,7 @@ const CartPage = ({ cartItems, onUpdateQty, onRemove, onContinueShopping, onChec
                 <div className="cart-item-qty">
                   <button className="qty-btn" onClick={() => onUpdateQty(item.id, item.qty - 1)}>−</button>
                   <span className="qty-value">{item.qty}</span>
-                  <button className="qty-btn" onClick={() => onUpdateQty(item.id, item.qty + 1)}>+</button>
+                  <button className="qty-btn" onClick={() => onUpdateQty(item.id, item.qty + 1, item.stock !== undefined ? item.stock : 50)}>+</button>
                 </div>
                 <div className="cart-item-total">
                   ${(unitPrice * item.qty).toFixed(2)}

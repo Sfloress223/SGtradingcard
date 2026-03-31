@@ -451,6 +451,32 @@ app.post('/api/create-payment-intent', async (req, res) => {
   }
 });
 
+app.post('/api/orders/confirm', (req, res) => {
+  try {
+    const { items } = req.body;
+    if (!fs.existsSync(PRODUCTS_FILE)) return res.json({ success: false });
+    
+    let products = readJSON(PRODUCTS_FILE);
+    let updated = false;
+
+    (items || []).forEach(item => {
+      const idx = products.findIndex(p => p.id === item.id);
+      if (idx !== -1 && products[idx].stock !== undefined) {
+        products[idx].stock = Math.max(0, products[idx].stock - item.qty);
+        if (products[idx].stock === 0) products[idx].soldOut = true;
+        updated = true;
+      }
+    });
+
+    if (updated) {
+      writeJSON(PRODUCTS_FILE, products);
+    }
+    res.json({ success: true, updated });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`\n  💳 S&G Trading Server running on http://localhost:${PORT}`);

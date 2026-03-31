@@ -19,7 +19,7 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
         </div>
 
         <div className="product-page-info">
-          {product.soldOut && <span className="sold-out-badge" style={{ position: 'static', marginBottom: '1rem', display: 'inline-block' }}>Sold out</span>}
+          {(product.stock === 0 || product.soldOut) ? <span className="sold-out-badge" style={{ position: 'static', marginBottom: '1rem', display: 'inline-block' }}>Sold out</span> : (product.stock !== undefined && <span style={{ color: '#4ade80', fontWeight: 'bold', display: 'block', marginBottom: '1rem' }}>{product.stock} in stock</span>)}
           <h1 className="product-page-title">{product.title}</h1>
           <p className="product-page-price">{product.price}</p>
           
@@ -38,7 +38,7 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
             </div>
           </div>
 
-          {!product.soldOut ? (
+          {!(product.stock === 0 || product.soldOut) ? (
             <button 
               className="add-to-cart-btn product-page-atc"
               onClick={() => onAddToCart(product)}

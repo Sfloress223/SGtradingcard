@@ -90,7 +90,7 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
                 product={product}
                 title={product.title}
                 price={product.price}
-                soldOut={product.soldOut}
+                soldOut={product.stock === 0 || product.soldOut}
                 imgUrl={product.imgUrl}
                 onAddToCart={onAddToCart}
                 onViewProduct={onViewProduct}

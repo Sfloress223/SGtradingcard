@@ -25,7 +25,8 @@ export const PRODUCTS = [
     "price": "$7.99",
     "soldOut": false,
     "description": "Contains 10 cards from the Surging Sparks expansion. Each pack may include rare holographic, illustration rare, or special art rare cards.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/224a05f2-8828-4f97-9299-1d207332261a/SuzieQ+LOGO+%289%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/224a05f2-8828-4f97-9299-1d207332261a/SuzieQ+LOGO+%289%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 102,
@@ -34,7 +35,8 @@ export const PRODUCTS = [
     "price": "$65.99",
     "soldOut": true,
     "description": "Includes 9 Surging Sparks booster packs, 1 full-art promo card, 65 card sleeves, 45 energy cards, and a player's guide. Great for building competitive decks.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/3f7eaa48-463e-4eb7-848b-6beab5e61491/SuzieQ+LOGO+%2816%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/3f7eaa48-463e-4eb7-848b-6beab5e61491/SuzieQ+LOGO+%2816%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 201,
@@ -43,7 +45,8 @@ export const PRODUCTS = [
     "price": "$11.99",
     "soldOut": true,
     "description": "Contains 10 cards celebrating the original 151 Kanto Pokémon. Chase the iconic Charizard, Blastoise, and Venusaur illustration rares in this fan-favorite set.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/99353457-f7de-440e-b6ba-da27f7cc9f5a/SuzieQ+LOGO+%286%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/99353457-f7de-440e-b6ba-da27f7cc9f5a/SuzieQ+LOGO+%286%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 202,
@@ -52,7 +55,8 @@ export const PRODUCTS = [
     "price": "$165.99",
     "soldOut": true,
     "description": "Includes 11 Scarlet & Violet—151 booster packs, a full-art promo card, 65 card sleeves featuring Poké Ball designs, energy cards, damage counters, and a collector's box.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/b51a206d-68bd-4fe3-bafb-fdf198028551/SuzieQ+LOGO+%285%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/b51a206d-68bd-4fe3-bafb-fdf198028551/SuzieQ+LOGO+%285%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 203,
@@ -61,7 +65,8 @@ export const PRODUCTS = [
     "price": "$21.99",
     "soldOut": true,
     "description": "Compact collector's tin containing 2 Scarlet & Violet—151 booster packs and 1 art card. Each tin features a different original Kanto Pokémon design.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/73b5a3ce-c96c-44e2-9535-6f54feabc5db/SuzieQ+LOGO+%281%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/73b5a3ce-c96c-44e2-9535-6f54feabc5db/SuzieQ+LOGO+%281%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 301,
@@ -70,7 +75,8 @@ export const PRODUCTS = [
     "price": "$64.99",
     "soldOut": false,
     "description": "Includes 6 Prismatic Evolutions booster packs wrapped in exclusive bundle packaging.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1786c526-f588-4355-baeb-e42f2756edf4/SuzieQ+LOGO+%2839%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1786c526-f588-4355-baeb-e42f2756edf4/SuzieQ+LOGO+%2839%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 302,
@@ -79,7 +85,8 @@ export const PRODUCTS = [
     "price": "$69.99",
     "soldOut": true,
     "description": "Contains 9 Prismatic Evolutions booster packs, a special holographic promo card, 65 card sleeves, energy cards, and a premium storage box featuring Eevee artwork.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/cf3a8205-f4d4-4488-897a-e78baf4bc263/SuzieQ+LOGO+%287%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/cf3a8205-f4d4-4488-897a-e78baf4bc263/SuzieQ+LOGO+%287%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 303,
@@ -88,7 +95,8 @@ export const PRODUCTS = [
     "price": "$14.99",
     "soldOut": true,
     "description": "A pocket-sized collector's tin with 2 Prismatic Evolutions booster packs and 1 art card. Perfect for collecting all Eeveelution designs.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/05afc2f2-41a7-4475-a225-65d0a213e817/SuzieQ+LOGO+%2835%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/05afc2f2-41a7-4475-a225-65d0a213e817/SuzieQ+LOGO+%2835%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 351,
@@ -97,7 +105,8 @@ export const PRODUCTS = [
     "price": "$6.99",
     "soldOut": false,
     "description": "Contains 10 cards from the Journey Together expansion. Features Trainer & Pokémon duo cards and new illustration rares celebrating iconic partnerships.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f5c77db2-def7-4c5b-b7d6-7e54b86dee44/JT+%282%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f5c77db2-def7-4c5b-b7d6-7e54b86dee44/JT+%282%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 352,
@@ -106,7 +115,8 @@ export const PRODUCTS = [
     "price": "$38.99",
     "soldOut": true,
     "description": "Includes 6 Journey Together booster packs in a collectible bundle box. Great value for pulling rare Trainer duo cards.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/0e5d7006-cef4-4105-b64e-3a5b3d8e58a4/SuzieQ+LOGO+%2841%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/0e5d7006-cef4-4105-b64e-3a5b3d8e58a4/SuzieQ+LOGO+%2841%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 353,
@@ -115,7 +125,8 @@ export const PRODUCTS = [
     "price": "$65.99",
     "soldOut": true,
     "description": "Packed with 9 Journey Together booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, and condition markers. Everything you need to play and collect.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/55a7e684-ce92-425d-b893-286e4cae8179/SuzieQ+LOGO+%283%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/55a7e684-ce92-425d-b893-286e4cae8179/SuzieQ+LOGO+%283%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 401,
@@ -124,7 +135,8 @@ export const PRODUCTS = [
     "price": "$8.99",
     "soldOut": false,
     "description": "Contains 10 cards from the Mega Evolution expansion. Chance to pull powerful Mega EX cards featuring fan-favorite Pokémon like Charizard, Lucario, and Gardevoir.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2603873e-f184-4adc-8aa7-94a9c4520bb5/ME+%282%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2603873e-f184-4adc-8aa7-94a9c4520bb5/ME+%282%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 402,
@@ -133,7 +145,8 @@ export const PRODUCTS = [
     "price": "$38.99",
     "soldOut": true,
     "description": "Includes 6 Mega Evolution booster packs in exclusive bundle packaging. A solid way to start your Mega Evolution collection.",
-    "imgUrl": "/images/me-booster-bundle.png"
+    "imgUrl": "/images/me-booster-bundle.jpg",
+    "stock": 0
   },
   {
     "id": 403,
@@ -142,7 +155,8 @@ export const PRODUCTS = [
     "price": "$164.99",
     "soldOut": true,
     "description": "The ultimate collector's item! Includes 16 booster packs, a metal Mega Charizard X card, premium accessories, and exclusive full-art promo cards.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/4f78e0b9-dbe4-4d3d-8b06-aba438d6e4e9/SuzieQ+LOGO+%284%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/4f78e0b9-dbe4-4d3d-8b06-aba438d6e4e9/SuzieQ+LOGO+%284%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 405,
@@ -151,7 +165,8 @@ export const PRODUCTS = [
     "price": "$84.99",
     "soldOut": false,
     "description": "Features Mega Lucario artwork. Includes 9 booster packs, a full-art promo card.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/8f3ff6a1-bc2c-49aa-a80a-adffef6a3123/SuzieQ+LOGO+%2813%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/8f3ff6a1-bc2c-49aa-a80a-adffef6a3123/SuzieQ+LOGO+%2813%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 406,
@@ -160,7 +175,8 @@ export const PRODUCTS = [
     "price": "$84.99",
     "soldOut": false,
     "description": "Features Mega Gardevoir artwork. Includes 9 booster packs, a full-art promo card.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f8813c9a-f790-43e8-bdb7-e01b3d6932a1/SuzieQ+LOGO+%2814%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f8813c9a-f790-43e8-bdb7-e01b3d6932a1/SuzieQ+LOGO+%2814%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 409,
@@ -169,7 +185,8 @@ export const PRODUCTS = [
     "price": "$14.99",
     "soldOut": true,
     "description": "Collectible mini tin containing 2 Mega Evolution booster packs and 1 art card. Features different Mega Pokémon designs on each tin.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d57fbe9c-708f-4c55-a219-8af24b86706e/SuzieQ+LOGO+%2831%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d57fbe9c-708f-4c55-a219-8af24b86706e/SuzieQ+LOGO+%2831%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 410,
@@ -178,7 +195,8 @@ export const PRODUCTS = [
     "price": "$79.99",
     "soldOut": true,
     "description": "Includes 9 Phantasmal Flames booster packs, an exclusive promo card, 65 card sleeves, energy cards, and storage box. Features Ghost and Fire-type themed artwork.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a51eae64-e8b8-46c0-b3e0-dace5c6f33d3/SuzieQ+LOGO+%2815%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a51eae64-e8b8-46c0-b3e0-dace5c6f33d3/SuzieQ+LOGO+%2815%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 411,
@@ -187,7 +205,8 @@ export const PRODUCTS = [
     "price": "$38.99",
     "soldOut": true,
     "description": "Includes 6 Phantasmal Flames booster packs. Chase the rare illustration cards exclusive to this expansion.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/931f7b6e-91aa-44c2-aa2d-b8345eb01418/SuzieQ+LOGO+%2850%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/931f7b6e-91aa-44c2-aa2d-b8345eb01418/SuzieQ+LOGO+%2850%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 412,
@@ -196,7 +215,8 @@ export const PRODUCTS = [
     "price": "$7.99",
     "soldOut": false,
     "description": "Contains 10 cards from the Phantasmal Flames expansion.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/9c3cfcca-a812-49ec-8701-8b71a4b6616c/PF+%282%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/9c3cfcca-a812-49ec-8701-8b71a4b6616c/PF+%282%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 501,
@@ -205,7 +225,8 @@ export const PRODUCTS = [
     "price": "$68.99",
     "soldOut": true,
     "description": "Includes 9 White Flare booster packs, a full-art promo card, 65 card sleeves, energy cards, and a premium box. Features Reshiram-themed artwork from the Black & White era.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a7607e61-8abe-40e3-aff8-19eb155009cd/SuzieQ+LOGO+%2824%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a7607e61-8abe-40e3-aff8-19eb155009cd/SuzieQ+LOGO+%2824%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 502,
@@ -214,7 +235,8 @@ export const PRODUCTS = [
     "price": "$68.99",
     "soldOut": true,
     "description": "Includes 9 Black Bolt booster packs, a full-art promo card, 65 card sleeves, energy cards, and a premium box. Features Zekrom-themed artwork from the Black & White era.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/6014c06f-3e43-40f5-8700-b58c25d459a8/SuzieQ+LOGO+%2827%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/6014c06f-3e43-40f5-8700-b58c25d459a8/SuzieQ+LOGO+%2827%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 503,
@@ -223,7 +245,8 @@ export const PRODUCTS = [
     "price": "$38.99",
     "soldOut": true,
     "description": "Includes 6 White Flare booster packs in collectible bundle packaging. Pull powerful cards from the Black & White-inspired set.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/04ebf0f4-25fd-4afb-adaa-7ea2006526f8/SuzieQ+LOGO+%2843%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/04ebf0f4-25fd-4afb-adaa-7ea2006526f8/SuzieQ+LOGO+%2843%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 504,
@@ -232,7 +255,8 @@ export const PRODUCTS = [
     "price": "$56.99",
     "soldOut": false,
     "description": "Includes 6 Black Bolt booster packs in collectible bundle packaging.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/127d72d8-2c4d-4574-a842-3f596d782f52/SuzieQ+LOGO+%2848%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/127d72d8-2c4d-4574-a842-3f596d782f52/SuzieQ+LOGO+%2848%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 505,
@@ -241,7 +265,8 @@ export const PRODUCTS = [
     "price": "$7.49",
     "soldOut": true,
     "description": "Contains 10 cards from the White Flare expansion. Features classic Pokémon with modern Scarlet & Violet mechanics.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/998a969c-249d-4618-8e50-96f2a1c4b30a/WF+%282%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/998a969c-249d-4618-8e50-96f2a1c4b30a/WF+%282%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 506,
@@ -250,7 +275,8 @@ export const PRODUCTS = [
     "price": "$7.49",
     "soldOut": true,
     "description": "Contains 10 cards from the Black Bolt expansion. Features classic Pokémon with modern Scarlet & Violet mechanics.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/5ddb0c36-903d-4eb6-b61e-ebaebf64b36b/BB+%282%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/5ddb0c36-903d-4eb6-b61e-ebaebf64b36b/BB+%282%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 601,
@@ -259,7 +285,8 @@ export const PRODUCTS = [
     "price": "$65.99",
     "soldOut": true,
     "description": "Includes 9 Twilight Masquerade booster packs, a full-art promo card, 65 card sleeves, energy cards, and accessories. Features mysterious mask-themed artwork.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/8986f12b-dec4-4456-aebb-4096283dbc8b/SuzieQ+LOGO+%2817%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/8986f12b-dec4-4456-aebb-4096283dbc8b/SuzieQ+LOGO+%2817%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 602,
@@ -268,7 +295,8 @@ export const PRODUCTS = [
     "price": "$65.99",
     "soldOut": true,
     "description": "Includes 9 Temporal Forces booster packs, a full-art promo card, 65 card sleeves, energy cards, and a collector's box. Chase the rare ACE SPEC cards.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/94b8cbd4-4f6d-45fb-a36f-d88fd144de00/SuzieQ+LOGO+%2814%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/94b8cbd4-4f6d-45fb-a36f-d88fd144de00/SuzieQ+LOGO+%2814%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 603,
@@ -277,7 +305,8 @@ export const PRODUCTS = [
     "price": "$29.99",
     "soldOut": false,
     "description": "Contains a foil promo Archaludon ex card, 4 booster packs, and an oversized card.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/64d7fc24-f6c5-4157-86f2-e48e4329c4b1/SuzieQ+LOGO+%288%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/64d7fc24-f6c5-4157-86f2-e48e4329c4b1/SuzieQ+LOGO+%288%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 604,
@@ -286,7 +315,8 @@ export const PRODUCTS = [
     "price": "$32.99",
     "soldOut": true,
     "description": "Contains a foil promo Reshiram ex card, 4 booster packs from various Scarlet & Violet sets, and a code card for the online game.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2164b2bc-b83d-4ba1-95dc-583fe2d9aeb9/SuzieQ+LOGO+%287%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2164b2bc-b83d-4ba1-95dc-583fe2d9aeb9/SuzieQ+LOGO+%287%29.png?format=500w",
+    "stock": 0
   },
   {
     "id": 605,
@@ -295,7 +325,8 @@ export const PRODUCTS = [
     "price": "$14.99",
     "soldOut": false,
     "description": "A ready-to-play 60-card deck featuring Tapu Koko ex. Includes damage counters, a coin, a deck box, and a quick-start guide — perfect for beginners.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d7b1a8c3-575f-47ce-96cd-872a5a44635d/SuzieQ+LOGO+%285%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d7b1a8c3-575f-47ce-96cd-872a5a44635d/SuzieQ+LOGO+%285%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 606,
@@ -304,7 +335,8 @@ export const PRODUCTS = [
     "price": "$14.99",
     "soldOut": false,
     "description": "A ready-to-play 60-card deck featuring Iron Leaves ex. Includes damage counters, a coin, a deck box, and a quick-start guide — perfect for beginners.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/adbc1830-d516-4719-b325-0a9840f6ebfd/SuzieQ+LOGO.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/adbc1830-d516-4719-b325-0a9840f6ebfd/SuzieQ+LOGO.png?format=500w",
+    "stock": 50
   },
   {
     "id": 607,
@@ -313,7 +345,8 @@ export const PRODUCTS = [
     "price": "$20.99",
     "soldOut": false,
     "description": "Collectible mini tin featuring Unova region Pokémon artwork. Contains 2 booster packs and 1 art card. Collect all designs!",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1971202f-3b55-40c3-b97d-2c666ec4eda5/SuzieQ+LOGO+%2830%29.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1971202f-3b55-40c3-b97d-2c666ec4eda5/SuzieQ+LOGO+%2830%29.png?format=500w",
+    "stock": 50
   },
   {
     "id": 608,
@@ -322,7 +355,8 @@ export const PRODUCTS = [
     "price": "$65.99",
     "soldOut": true,
     "description": "Includes 9 Destined Rivals booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, and a premium collector's box.",
-    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/657531d7-0a47-4484-856b-ef1220919b74/SuzieQ+LOGO.png?format=500w"
+    "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/657531d7-0a47-4484-856b-ef1220919b74/SuzieQ+LOGO.png?format=500w",
+    "stock": 0
   },
   {
     "id": 701,
@@ -331,7 +365,8 @@ export const PRODUCTS = [
     "price": "$59.99",
     "soldOut": false,
     "description": "Japanese booster box containing 30 packs with 5 cards each. Japanese sets are known for exclusive artwork and higher pull rates.",
-    "imgUrl": ""
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 702,
@@ -340,7 +375,8 @@ export const PRODUCTS = [
     "price": "$4.99",
     "soldOut": false,
     "description": "A single Japanese booster pack with 5 cards. Imported directly from Japan with authentic packaging.",
-    "imgUrl": ""
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 801,
@@ -349,7 +385,8 @@ export const PRODUCTS = [
     "price": "$85.99",
     "soldOut": false,
     "description": "Premium gift box from the Simplified Chinese Pokémon TCG line. Contains multiple booster packs, promo cards, and exclusive accessories.",
-    "imgUrl": ""
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 802,
@@ -358,7 +395,8 @@ export const PRODUCTS = [
     "price": "$45.99",
     "soldOut": false,
     "description": "Traditional Chinese booster box with 30 packs. Features region-exclusive artwork and card designs.",
-    "imgUrl": ""
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 901,
@@ -367,7 +405,8 @@ export const PRODUCTS = [
     "price": "$110.00",
     "soldOut": false,
     "description": "Contains 24 booster packs from the One Piece Card Game. Each pack has 6 cards with a chance to pull rare leader and secret rare cards.",
-    "imgUrl": ""
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 902,
@@ -376,7 +415,8 @@ export const PRODUCTS = [
     "price": "$6.99",
     "soldOut": false,
     "description": "A single Disney Lorcana booster pack with 12 cards. Collect enchanted and legendary Disney characters in card form.",
-    "imgUrl": ""
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 1001,
@@ -385,7 +425,8 @@ export const PRODUCTS = [
     "price": "$14.99",
     "soldOut": false,
     "description": "Soft and cuddly 8-inch Pikachu plush toy. Perfect for display or cuddling.",
-    "imgUrl": ""
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 1002,
@@ -394,7 +435,8 @@ export const PRODUCTS = [
     "price": "$29.99",
     "soldOut": false,
     "description": "High-quality die-cast Poké Ball replica with touch and proximity-sensing light features.",
-    "imgUrl": ""
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 1101,
@@ -403,7 +445,8 @@ export const PRODUCTS = [
     "price": "$49.99",
     "soldOut": false,
     "description": "Includes 9 Perfect Order booster packs, a full-art promo card, 65 card sleeves featuring Mega Zygarde, energy cards, and a premium collector's box.",
-    "imgUrl": "/images/po-etb.png"
+    "imgUrl": "/images/po-etb.png",
+    "stock": 50
   },
   {
     "id": 1102,
@@ -412,7 +455,8 @@ export const PRODUCTS = [
     "price": "$14.99",
     "soldOut": false,
     "description": "Contains 3 Perfect Order booster packs, a shiny coin, and a special foil promo card to boost your collection.",
-    "imgUrl": "/images/po-blister.jpg"
+    "imgUrl": "/images/po-blister.jpg",
+    "stock": 50
   },
   {
     "id": 1103,
@@ -421,7 +465,8 @@ export const PRODUCTS = [
     "price": "$26.99",
     "soldOut": false,
     "description": "Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.",
-    "imgUrl": "/images/po-bundle.png"
+    "imgUrl": "/images/po-bundle.png",
+    "stock": 50
   },
   {
     "id": 1104,
@@ -430,7 +475,8 @@ export const PRODUCTS = [
     "price": "$4.49",
     "soldOut": false,
     "description": "Contains 10 cards from the Perfect Order expansion. Uncover powerful new Pokémon ex and stunning illustration rares.",
-    "imgUrl": "/images/po-booster.png"
+    "imgUrl": "/images/po-booster.png",
+    "stock": 50
   },
   {
     "id": 1105,
@@ -439,7 +485,8 @@ export const PRODUCTS = [
     "price": "$9.99",
     "soldOut": false,
     "description": "A collectible mini tin that perfectly stores your favorite cards! Includes 2 booster packs and 1 matching Pokémon art card.",
-    "imgUrl": "/images/po-minitin.jpg"
+    "imgUrl": "/images/po-minitin.jpg",
+    "stock": 50
   },
   {
     "id": 103,
@@ -448,7 +495,8 @@ export const PRODUCTS = [
     "price": "$234.99",
     "soldOut": false,
     "description": "Contains 36 Surging Sparks booster packs.",
-    "imgUrl": "/images/ss-booster-box.png"
+    "imgUrl": "/images/ss-booster-box.png",
+    "stock": 50
   },
   {
     "id": 413,
@@ -457,7 +505,8 @@ export const PRODUCTS = [
     "price": "$36.99",
     "soldOut": false,
     "description": "Set of 5 Mega Evolution booster packs.",
-    "imgUrl": "/images/po-logo.png"
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 609,
@@ -466,7 +515,8 @@ export const PRODUCTS = [
     "price": "$29.99",
     "soldOut": false,
     "description": "Commemorative Pokémon Day collection offering an array of packs and exclusive promos.",
-    "imgUrl": "/images/po-logo.png"
+    "imgUrl": "/images/pokemon-day-2026.png",
+    "stock": 50
   },
   {
     "id": 1003,
@@ -475,7 +525,8 @@ export const PRODUCTS = [
     "price": "$8.99",
     "soldOut": false,
     "description": "Adorable Manta Ray plush bag charm.",
-    "imgUrl": "/images/manta-ray.png"
+    "imgUrl": "/images/manta-ray.png",
+    "stock": 50
   },
   {
     "id": 414,
@@ -484,7 +535,8 @@ export const PRODUCTS = [
     "price": "$24.99",
     "soldOut": false,
     "description": "An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.",
-    "imgUrl": "/images/ascended-heroes.png"
+    "imgUrl": "/images/ascended-heroes.png",
+    "stock": 50
   },
   {
     "id": 304,
@@ -493,7 +545,8 @@ export const PRODUCTS = [
     "price": "$46.99",
     "soldOut": false,
     "description": "A mystery surprise box full of Prismatic Evolutions boosters and collectibles.",
-    "imgUrl": "/images/pe-surprise-box.png"
+    "imgUrl": "/images/pe-surprise-box.png",
+    "stock": 50
   },
   {
     "id": 1201,
@@ -502,7 +555,8 @@ export const PRODUCTS = [
     "price": "$54.99",
     "soldOut": false,
     "description": "Professionally graded PSA 10 Gem Mint Japanese Zamazenta V card.",
-    "imgUrl": "/images/zamazenta-psa.png"
+    "imgUrl": "/images/zamazenta-psa.png",
+    "stock": 50
   },
   {
     "id": 305,
@@ -511,7 +565,8 @@ export const PRODUCTS = [
     "price": "$10.99",
     "soldOut": false,
     "description": "Contains 10 cards from the gorgeous Prismatic Evolutions set.",
-    "imgUrl": "/images/pe-sleeved.png"
+    "imgUrl": "/images/pe-sleeved.jpg",
+    "stock": 50
   },
   {
     "id": 1004,
@@ -520,7 +575,8 @@ export const PRODUCTS = [
     "price": "$15.99",
     "soldOut": false,
     "description": "Official blind box terrarium figure from the Paldea region.",
-    "imgUrl": "/images/rement-paldea.png"
+    "imgUrl": "/images/rement-paldea.png",
+    "stock": 50
   },
   {
     "id": 1005,
@@ -529,7 +585,8 @@ export const PRODUCTS = [
     "price": "$15.99",
     "soldOut": false,
     "description": "Official classic blind box terrarium figure.",
-    "imgUrl": "/images/rement-classic.png"
+    "imgUrl": "/images/rement-classic.png",
+    "stock": 50
   },
   {
     "id": 610,
@@ -538,7 +595,8 @@ export const PRODUCTS = [
     "price": "$18.99",
     "soldOut": false,
     "description": "Suicune Knock Out Collection featuring 2 booster packs and 3 foil promo cards.",
-    "imgUrl": "/images/suicune-ko.png"
+    "imgUrl": "/images/suicune-ko.png",
+    "stock": 50
   },
   {
     "id": 611,
@@ -547,7 +605,8 @@ export const PRODUCTS = [
     "price": "$19.99",
     "soldOut": false,
     "description": "Kyogre Knock Out Collection featuring 2 booster packs and 3 foil promo cards.",
-    "imgUrl": "/images/kyogre-ko.png"
+    "imgUrl": "/images/kyogre-ko.png",
+    "stock": 50
   },
   {
     "id": 612,
@@ -556,7 +615,8 @@ export const PRODUCTS = [
     "price": "$22.99",
     "soldOut": false,
     "description": "Includes 2 booster packs and a special Raikou promotional coin and card.",
-    "imgUrl": "/images/po-logo.png"
+    "imgUrl": "/images/raikou-blister.png",
+    "stock": 50
   },
   {
     "id": 613,
@@ -565,7 +625,8 @@ export const PRODUCTS = [
     "price": "$39.99",
     "soldOut": false,
     "description": "A beautifully crafted tin featuring the mighty Mega Charizard.",
-    "imgUrl": "/images/mega-charizard-tin.png"
+    "imgUrl": "/images/mega-charizard-tin.png",
+    "stock": 50
   },
   {
     "id": 1202,
@@ -574,7 +635,8 @@ export const PRODUCTS = [
     "price": "$35.99",
     "soldOut": false,
     "description": "Immaculate PSA 10 Graded N's Zorua from the Japanese Battle Partners set.",
-    "imgUrl": "/images/zorua-psa.png"
+    "imgUrl": "/images/zorua-psa.png",
+    "stock": 50
   },
   {
     "id": 104,
@@ -583,7 +645,8 @@ export const PRODUCTS = [
     "price": "$48.99",
     "soldOut": false,
     "description": "Contains 6 Surging Sparks booster packs to boost your collection.",
-    "imgUrl": "/images/ss-booster-bundle.png"
+    "imgUrl": "/images/ss-booster-bundle.jpg",
+    "stock": 50
   },
   {
     "id": 1203,
@@ -592,7 +655,8 @@ export const PRODUCTS = [
     "price": "$48.99",
     "soldOut": false,
     "description": "Near Mint PSA 9 Dragonite EX from 2014.",
-    "imgUrl": "/images/dragonite-psa.png"
+    "imgUrl": "/images/dragonite-psa.png",
+    "stock": 50
   },
   {
     "id": 1204,
@@ -601,7 +665,8 @@ export const PRODUCTS = [
     "price": "$49.99",
     "soldOut": false,
     "description": "A beautiful Roaring Moon EX Special Illustration Rare piece graded PSA 9.",
-    "imgUrl": "/images/roaring-moon-psa.png"
+    "imgUrl": "/images/roaring-moon-psa.png",
+    "stock": 50
   },
   {
     "id": 614,
@@ -610,7 +675,8 @@ export const PRODUCTS = [
     "price": "$79.99",
     "soldOut": false,
     "description": "A massive chest of Pokémon TCG treasures from the Paldea region.",
-    "imgUrl": "/images/paldea-chest.png"
+    "imgUrl": "/images/paldea-chest.png",
+    "stock": 50
   },
   {
     "id": 415,
@@ -619,7 +685,8 @@ export const PRODUCTS = [
     "price": "$4.99",
     "soldOut": false,
     "description": "A single sleeved booster pack containing 10 cards from the Mega Evolution expansion. Case-fresh and tamper-evident packaging.",
-    "imgUrl": "/coming-soon.png"
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 416,
@@ -628,7 +695,8 @@ export const PRODUCTS = [
     "price": "$4.99",
     "soldOut": false,
     "description": "A single sleeved booster pack from the Phantasmal Flames set. Expand your collection with these haunted and fiery rare pulls!",
-    "imgUrl": "/coming-soon.png"
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   },
   {
     "id": 1106,
@@ -637,6 +705,7 @@ export const PRODUCTS = [
     "price": "$4.99",
     "soldOut": false,
     "description": "A single sleeved booster pack from the Perfect Order expansion. Securely packed to guarantee authentic pulls.",
-    "imgUrl": "/coming-soon.png"
+    "imgUrl": "/coming-soon.png",
+    "stock": 50
   }
 ];
