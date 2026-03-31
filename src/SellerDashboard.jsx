@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const API = 'https://sgtradingcard.onrender.com';
+const API = 'http://localhost:3001';
 
 const SellerDashboard = ({ user, token, onLogout }) => {
   const [listings, setListings] = useState([]);

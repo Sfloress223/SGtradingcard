@@ -16,6 +16,11 @@ const app = express();
 const PRODUCTS_FILE = path.join(__dirname, 'data', 'products.json');
 const SETS_FILE = path.join(__dirname, 'data', 'sets.json');
 const USERS_FILE = path.join(__dirname, 'data', 'users.json');
+const SHIPPING_PRESETS_FILE = path.join(__dirname, 'data', 'shipping_presets.json');
+const ORDERS_FILE = path.join(__dirname, 'data', 'orders.json');
+
+import Shippo from 'shippo';
+const shippo = Shippo(process.env.SHIPPO_API_KEY || '');
 
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-9relg96s6-sgtradingcards-projects.vercel.app', 'https://sg-tradingcard.vercel.app'] }));
 app.use(express.json());
@@ -140,6 +145,146 @@ app.patch('/api/admin/products/:id/toggle-stock', authMiddleware, (req, res) => 
   products[idx].soldOut = !products[idx].soldOut;
   writeJSON(PRODUCTS_FILE, products);
   res.json(products[idx]);
+});
+
+// ─── Admin Shipping Presets ───
+app.get('/api/admin/shipping-presets', authMiddleware, (req, res) => {
+  if (!fs.existsSync(SHIPPING_PRESETS_FILE)) writeJSON(SHIPPING_PRESETS_FILE, []);
+  res.json(readJSON(SHIPPING_PRESETS_FILE));
+});
+
+app.post('/api/admin/shipping-presets', authMiddleware, (req, res) => {
+  const { name, length, width, height, weight } = req.body;
+  if (!name || !length || !width || !height || !weight) {
+    return res.status(400).json({ error: 'Missing required dimension values' });
+  }
+
+  if (!fs.existsSync(SHIPPING_PRESETS_FILE)) writeJSON(SHIPPING_PRESETS_FILE, []);
+  const presets = readJSON(SHIPPING_PRESETS_FILE);
+  
+  const newPreset = {
+    id: `preset_${Date.now()}`,
+    name,
+    length: parseFloat(length),
+    width: parseFloat(width),
+    height: parseFloat(height),
+    weight: parseFloat(weight)
+  };
+  
+  presets.push(newPreset);
+  writeJSON(SHIPPING_PRESETS_FILE, presets);
+  res.json(newPreset);
+});
+
+app.delete('/api/admin/shipping-presets/:id', authMiddleware, (req, res) => {
+  if (!fs.existsSync(SHIPPING_PRESETS_FILE)) return res.json({ success: true });
+  let presets = readJSON(SHIPPING_PRESETS_FILE);
+  presets = presets.filter(p => p.id !== req.params.id);
+  writeJSON(SHIPPING_PRESETS_FILE, presets);
+  res.json({ success: true });
+});
+
+// ─── Shippo Shipping Integration ───
+app.post('/api/shipments/quote', authMiddleware, async (req, res) => {
+  try {
+    const { toAddress, parcel } = req.body;
+    
+    // We statically define the S&G Trading origin point
+    const addressFrom = {
+      name: 'S&G Trading',
+      company: 'S&G Trading',
+      street1: '123 Pokemon Way',
+      city: 'Austin',
+      state: 'TX',
+      zip: '78701',
+      country: 'US',
+      phone: '+1 555 341 9393',
+      email: 'admin@sgtrading.com',
+    };
+
+    // The destination address supplied by the UI based on the Buyer's details
+    const addressTo = {
+      name: toAddress.name,
+      street1: toAddress.street1,
+      street2: toAddress.street2 || '',
+      city: toAddress.city,
+      state: toAddress.state,
+      zip: toAddress.zip,
+      country: 'US',
+    };
+
+    // Construct the package based on the Admin's custom or preset dimensions
+    const shipmentParcel = {
+      length: parcel.length.toString(),
+      width: parcel.width.toString(),
+      height: parcel.height.toString(),
+      distance_unit: 'in',
+      weight: parcel.weight.toString(),
+      mass_unit: 'oz',
+    };
+
+    // Ask Shippo for rate quotes utilizing our active sandbox token
+    const shipment = await shippo.shipment.create({
+      address_from: addressFrom,
+      address_to: addressTo,
+      parcels: [shipmentParcel],
+      async: false
+    });
+
+    // We respond with the list of rates (USPS Priority, Ground, etc.)
+    res.json({ rates: shipment.rates, shipmentId: shipment.objectId });
+
+  } catch (err) {
+    console.error('Shippo Quoting Error:', err);
+    res.status(500).json({ error: 'Failed to fetch shipping rates.' });
+  }
+});
+
+app.post('/api/shipments/label', authMiddleware, async (req, res) => {
+  try {
+    const { rateId, orderId } = req.body;
+    
+    // Purchase the specific shipping rate that the Admin selected
+    const transaction = await shippo.transaction.create({
+      rate: rateId,
+      label_file_type: 'PDF',
+      async: false
+    });
+
+    if (transaction.status === 'ERROR') {
+      return res.status(400).json({ error: transaction.messages[0]?.text || 'Failed to purchase label.' });
+    }
+
+    // Persist checking details to the Order database
+    if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
+    const orders = readJSON(ORDERS_FILE);
+    const orderIndex = orders.findIndex(o => o.id === orderId);
+    
+    if (orderIndex !== -1) {
+      orders[orderIndex].status = 'fulfilled';
+      orders[orderIndex].trackingNumber = transaction.tracking_number;
+      orders[orderIndex].trackingUrl = transaction.tracking_url_provider;
+      writeJSON(ORDERS_FILE, orders);
+    }
+
+    // Return the successful label payload
+    res.json({
+      trackingNumber: transaction.tracking_number,
+      trackingUrl: transaction.tracking_url_provider,
+      labelUrl: transaction.label_url,
+      transactionId: transaction.objectId
+    });
+
+  } catch (err) {
+    console.error('Shippo Label Error:', err);
+    res.status(500).json({ error: 'Failed to execute label purchase.' });
+  }
+});
+
+// ─── Admin Orders Interface ───
+app.get('/api/admin/orders', authMiddleware, (req, res) => {
+  if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
+  res.json(readJSON(ORDERS_FILE));
 });
 
 // ─── Seller Interface (The Grand Exchange) ───
@@ -278,6 +423,23 @@ app.post('/api/create-payment-intent', async (req, res) => {
     }
 
     const paymentIntent = await stripe.paymentIntents.create(intentPayload);
+
+    // Persist the order data so the Admin can fulfill it later
+    if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
+    const orders = readJSON(ORDERS_FILE);
+    
+    const newOrder = {
+      id: `ord_${Date.now()}`,
+      date: new Date().toISOString(),
+      status: 'unfulfilled',
+      shippingAddress: shipping,
+      items: items.map(i => ({ id: i.id, title: i.title, qty: i.qty, price: i.price })),
+      totalAmount: amount / 100,
+      stripePaymentIntentId: paymentIntent.id
+    };
+    
+    orders.push(newOrder);
+    writeJSON(ORDERS_FILE, orders);
 
     res.json({ clientSecret: paymentIntent.client_secret });
   } catch (err) {

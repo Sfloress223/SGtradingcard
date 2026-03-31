@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const API = 'https://sgtradingcard.onrender.com';
+const API = 'http://localhost:3001';
 
 const Auth = ({ onLoginSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
