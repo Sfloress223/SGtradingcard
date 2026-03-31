@@ -17,7 +17,7 @@ const PRODUCTS_FILE = path.join(__dirname, 'data', 'products.json');
 const SETS_FILE = path.join(__dirname, 'data', 'sets.json');
 const USERS_FILE = path.join(__dirname, 'data', 'users.json');
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174'] }));
+app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-nykjpzsrn-sgtradingcards-projects.vercel.app'] }));
 app.use(express.json());
 
 // ─── Helpers ───
@@ -195,8 +195,8 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
 
     const accountLink = await stripe.accountLinks.create({
       account: user.stripeAccountId,
-      refresh_url: 'http://localhost:5173/#dashboard',
-      return_url: 'http://localhost:5173/#dashboard',
+      refresh_url: 'https://sg-tradingcard-nykjpzsrn-sgtradingcards-projects.vercel.app/#dashboard',
+      return_url: 'https://sg-tradingcard-nykjpzsrn-sgtradingcards-projects.vercel.app/#dashboard',
       type: 'account_onboarding'
     });
 
