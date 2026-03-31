@@ -476,7 +476,7 @@
     "price": "$234.99",
     "soldOut": false,
     "description": "Contains 36 Surging Sparks booster packs.",
-    "imgUrl": "/images/pe-surprise-box.png",
+    "imgUrl": "/images/ss-booster-box.png",
     "stock": 50
   },
   {
@@ -526,7 +526,7 @@
     "price": "$46.99",
     "soldOut": false,
     "description": "A mystery surprise box full of Prismatic Evolutions boosters and collectibles.",
-    "imgUrl": "/images/ss-booster-box.png",
+    "imgUrl": "/images/pe-surprise-box.png",
     "stock": 50
   },
   {
