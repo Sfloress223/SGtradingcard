@@ -49,7 +49,10 @@ function authMiddleware(req, res, next) {
 // ─── Auth Routes ───
 app.post('/api/admin/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === process.env.ADMIN_USERNAME && password === process.env.ADMIN_PASSWORD) {
+  const expectedUser = (process.env.ADMIN_USERNAME || 'sgadmin').trim();
+  const expectedPass = (process.env.ADMIN_PASSWORD || 'Money7989').trim();
+
+  if (username === expectedUser && password === expectedPass) {
     const token = jwt.sign({ username, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '24h' });
     res.json({ token, username });
   } else {
