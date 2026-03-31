@@ -54,7 +54,7 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:3001/api/create-payment-intent', {
+      const response = await fetch('https://sgtradingcard.onrender.com/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ items: cartItems, shipping, platformShipping, sellerShipping }),

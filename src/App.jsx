@@ -13,7 +13,7 @@ import Auth from './Auth';
 import SellerDashboard from './SellerDashboard';
 import { PRODUCTS as FALLBACK_PRODUCTS, SETS as FALLBACK_SETS } from './data';
 
-const API = 'http://localhost:3001';
+const API = 'https://sgtradingcard.onrender.com';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 const stripeOptions = { disableLink: true };
