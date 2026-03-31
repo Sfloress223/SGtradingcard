@@ -15,6 +15,7 @@ const AdminDashboard = ({ token, onLogout }) => {
   const [adding, setAdding] = useState(false);
   const [form, setForm] = useState({ title: '', price: '', setId: '', imgUrl: '', description: '', stock: 0 });
   const [toast, setToast] = useState(null);
+  const [inlineEdit, setInlineEdit] = useState(null); // { id, field, value }
 
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
 
@@ -28,15 +29,17 @@ const AdminDashboard = ({ token, onLogout }) => {
     fetch(`${API}/api/admin/shipping-presets`, { headers: fetchHeaders }).then(r => r.json()).then(setShippingPresets);
   }, [token]);
 
-  const toggleStock = async (id, currentStock) => {
-    // Legacy mapping fallback - toggling sets stock to 50 if currently 0
-    const newStock = currentStock === 0 ? 50 : 0;
-    const res = await fetch(`${API}/api/admin/products/${id}`, { 
-      method: 'PUT', headers, body: JSON.stringify({ stock: newStock, soldOut: newStock === 0 }) 
-    });
+
+  const saveInlineEdit = async () => {
+    if (!inlineEdit) return;
+    const { id, field, value } = inlineEdit;
+    const patch = { [field]: field === 'stock' ? parseInt(value) || 0 : value };
+    if (field === 'stock') patch.soldOut = (parseInt(value) || 0) === 0;
+    const res = await fetch(`${API}/api/admin/products/${id}`, { method: 'PUT', headers, body: JSON.stringify(patch) });
     const updated = await res.json();
     setProducts(prev => prev.map(p => p.id === id ? updated : p));
-    showToast(`Stock updated to ${newStock}`);
+    showToast('Saved!');
+    setInlineEdit(null);
   };
 
   const deleteProduct = async (id) => {
@@ -288,11 +291,39 @@ const AdminDashboard = ({ token, onLogout }) => {
                 </td>
                 <td className="admin-td-title">{product.title}</td>
                 <td><span className="admin-set-badge">{sets.find(s => s.id === product.setId)?.name || product.setId}</span></td>
-                <td>{product.price}</td>
+                <td style={{ cursor: 'pointer' }} onClick={() => !inlineEdit && setInlineEdit({ id: product.id, field: 'price', value: product.price })}>
+                  {inlineEdit?.id === product.id && inlineEdit.field === 'price' ? (
+                    <input
+                      autoFocus
+                      type="text"
+                      value={inlineEdit.value}
+                      onChange={e => setInlineEdit({ ...inlineEdit, value: e.target.value })}
+                      onBlur={saveInlineEdit}
+                      onKeyDown={e => { if (e.key === 'Enter') saveInlineEdit(); if (e.key === 'Escape') setInlineEdit(null); }}
+                      style={{ width: '80px', padding: '4px 6px', border: '2px solid var(--accent-color)', borderRadius: '4px', fontSize: '0.9rem', fontWeight: 600 }}
+                    />
+                  ) : (
+                    <span title="Click to edit" style={{ borderBottom: '1px dashed #aaa', cursor: 'pointer' }}>{product.price}</span>
+                  )}
+                </td>
                 <td>
-                  <button className={`stock-toggle ${product.stock === 0 || product.soldOut ? 'out' : 'in'}`} onClick={() => toggleStock(product.id, product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50))}>
-                    {product.stock === 0 || product.soldOut ? '❌ Stock: 0' : `✅ Stock: ${product.stock !== undefined ? product.stock : 50}`}
-                  </button>
+                  {inlineEdit?.id === product.id && inlineEdit.field === 'stock' ? (
+                    <input
+                      autoFocus
+                      type="number"
+                      min="0"
+                      value={inlineEdit.value}
+                      onChange={e => setInlineEdit({ ...inlineEdit, value: e.target.value })}
+                      onBlur={saveInlineEdit}
+                      onKeyDown={e => { if (e.key === 'Enter') saveInlineEdit(); if (e.key === 'Escape') setInlineEdit(null); }}
+                      style={{ width: '70px', padding: '4px 6px', border: '2px solid var(--accent-color)', borderRadius: '4px', fontSize: '0.9rem', fontWeight: 600 }}
+                    />
+                  ) : (
+                    <button className={`stock-toggle ${product.stock === 0 || product.soldOut ? 'out' : 'in'}`}
+                      onClick={() => setInlineEdit({ id: product.id, field: 'stock', value: String(product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50)) })}>
+                      {product.stock === 0 || product.soldOut ? `❌ Stock: 0` : `✅ Stock: ${product.stock !== undefined ? product.stock : 50}`}
+                    </button>
+                  )}
                 </td>
                 <td>
                   <div className="admin-row-actions">
