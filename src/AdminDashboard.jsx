@@ -470,7 +470,7 @@ const AdminDashboard = ({ token, onLogout }) => {
 
                  <div className="admin-modal-actions" style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
                    <button className="admin-cancel-btn" onClick={cancelShipping}>Cancel</button>
-                   <button className="admin-save-btn" style={{ backgroundColor: 'var(--accent-color)' }} onClick={getShippingQuote} disabled={gettingQuote}>
+                   <button className="admin-save-btn" onClick={getShippingQuote} disabled={gettingQuote}>
                      {gettingQuote ? 'Calculating...' : 'Get Live Quote'}
                    </button>
                  </div>
