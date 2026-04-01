@@ -280,7 +280,7 @@ app.post('/api/shipments/label', authMiddleware, async (req, res) => {
 
   } catch (err) {
     console.error('Shippo Label Error:', err);
-    res.status(500).json({ error: 'Failed to execute label purchase.' });
+    res.status(500).json({ error: `Failed to execute label purchase: ${err.message || err.detail || 'Unknown error'}` });
   }
 });
 
