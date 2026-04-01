@@ -43,15 +43,22 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
            t.includes('premium collection');
   };
 
-  const isSingleCard = (item) => {
+  const isGradedCard = (item) => {
     const t = (item.title || '').toLowerCase();
-    if (t.includes('psa') || t.includes('cgc') || t.includes('bgs') || t.includes('graded')) return false;
-    if (t.includes('pack') || t.includes('box') || t.includes('bundle') || t.includes('sleeve')) return false;
-    return true;
+    return t.includes('psa') || t.includes('cgc') || t.includes('bgs') || t.includes('graded');
+  };
+
+  const isPackOrBox = (item) => {
+    const t = (item.title || '').toLowerCase();
+    return !isHeavy(item) && !isGradedCard(item) && (t.includes('pack') || t.includes('box') || t.includes('bundle') || t.includes('sleeve'));
   };
 
   const hasHeavy = cartItems.some(isHeavy);
-  const isStrictlySingles = cartItems.every(isSingleCard);
+  const hasPacksOrBoxes = cartItems.some(isPackOrBox);
+  const hasGraded = cartItems.some(isGradedCard);
+  
+  const isStrictlySingles = !hasHeavy && !hasPacksOrBoxes && !hasGraded;
+
   const isFreeShipping = !isSellerCart && subtotal >= 150;
 
   const getShippingOptions = () => {
@@ -66,18 +73,33 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
         { id: 'heavy_exp', name: 'Priority Express', price: 15.00 }
       ];
     }
-    if (isStrictlySingles && cartItems.length > 0) {
+    
+    if (hasPacksOrBoxes) {
+      return [
+        { id: 'reg_std', name: 'Standard Shipping', price: isFreeShipping ? 0 : 5.99 },
+        { id: 'reg_exp', name: 'Priority Express', price: 12.99 }
+      ];
+    }
+
+    // If there are no heavy items and no packs/boxes, it's exclusively Singles & Slabs!
+    if (hasGraded) {
+      return [
+        { id: 'slab_trk', name: 'Standard Tracked Bubble Mailer', price: isFreeShipping ? 0 : 4.99 },
+        { id: 'slab_exp', name: 'Priority Express', price: 12.99 }
+      ];
+    }
+    
+    // At this point, it's 100% Raw Singles
+    if (cartItems.length > 0) {
       return [
         { id: 'pwe_std', name: 'Plain White Envelope (Untracked)', price: 1.00 },
-        { id: 'pwe_trk', name: 'Standard Tracked Bubble Mailer', price: 4.99 },
+        { id: 'pwe_trk', name: 'Standard Tracked Bubble Mailer', price: isFreeShipping ? 0 : 4.99 },
         { id: 'pwe_exp', name: 'Priority Express', price: 12.99 }
       ];
     }
-    // Regular stuff (packs, slabs, bundles)
-    return [
-      { id: 'reg_std', name: 'Standard Shipping', price: isFreeShipping ? 0 : 5.99 },
-      { id: 'reg_exp', name: 'Priority Express', price: 12.99 }
-    ];
+
+    // Fallback
+    return [{ id: 'reg_std', name: 'Standard Shipping', price: isFreeShipping ? 0 : 5.99 }];
   };
 
   const shippingOptions = getShippingOptions();
