@@ -666,7 +666,7 @@
     "price": "$4.99",
     "soldOut": false,
     "description": "A single sleeved booster pack containing 10 cards from the Mega Evolution expansion. Case-fresh and tamper-evident packaging.",
-    "imgUrl": "/coming-soon.png",
+    "imgUrl": "/images/me-sleeved.jpg",
     "stock": 50
   },
   {
@@ -676,7 +676,7 @@
     "price": "$4.99",
     "soldOut": false,
     "description": "A single sleeved booster pack from the Phantasmal Flames set. Expand your collection with these haunted and fiery rare pulls!",
-    "imgUrl": "/coming-soon.png",
+    "imgUrl": "/images/pf-sleeved.jpg",
     "stock": 50
   },
   {
@@ -686,7 +686,7 @@
     "price": "$4.99",
     "soldOut": false,
     "description": "A single sleeved booster pack from the Perfect Order expansion. Securely packed to guarantee authentic pulls.",
-    "imgUrl": "/coming-soon.png",
+    "imgUrl": "/images/po-sleeved.png",
     "stock": 50
   }
 ]
