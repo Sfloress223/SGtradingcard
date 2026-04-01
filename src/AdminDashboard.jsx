@@ -484,7 +484,7 @@ const AdminDashboard = ({ token, onLogout }) => {
                  
                  <h4 style={{ marginBottom: '0.5rem', fontSize: '1rem' }}>Available USPS Rates</h4>
                  <div style={{ maxHeight: '200px', overflowY: 'auto', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
-                    {shippingQuote.rates && shippingQuote.rates.length > 0 ? shippingQuote.rates.map(rate => (
+                    {shippingQuote.rates && shippingQuote.rates.filter(r => r.provider === 'USPS').length > 0 ? shippingQuote.rates.filter(r => r.provider === 'USPS').map(rate => (
                        <div key={rate.object_id} style={{ padding: '1rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                          <div>
                             <span style={{ fontWeight: 600 }}>{rate.provider} {rate.servicelevel.name}</span>
