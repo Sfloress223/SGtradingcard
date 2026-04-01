@@ -432,7 +432,7 @@ const AdminDashboard = ({ token, onLogout }) => {
       {shippingModal.open && (
         <div className="admin-modal-overlay">
           <div className="admin-modal" style={{ maxWidth: '500px', width: '100%' }}>
-            <h3 style={{ marginBottom: '0.5rem' }}>USPS Label Generation</h3>
+            <h3 style={{ marginBottom: '0.5rem' }}>USPS Label Generation (v2)</h3>
             <p style={{ color: '#888', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
               Order {shippingModal.order.id} — Shipping to {shippingModal.order.shippingAddress.name}
             </p>
