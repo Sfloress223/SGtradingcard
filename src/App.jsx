@@ -38,6 +38,26 @@ function App() {
     fetch(`${API}/api/sets`).then(r => r.json()).then(setSets).catch(() => {});
   }, []);
 
+  // Dynamic page title for SEO
+  useEffect(() => {
+    const base = 'S&G Trading';
+    const titles = {
+      home:         `${base} | Buy Pokémon TCG Cards, Booster Packs & Sealed Products`,
+      shop:         `Shop Pokémon TCG | Booster Packs, ETBs & Sealed Products — ${base}`,
+      cart:         `Your Cart — ${base}`,
+      checkout:     `Secure Checkout — ${base}`,
+      confirmation: `Order Confirmed — ${base}`,
+      admin:        `Admin Dashboard — ${base}`,
+      dashboard:    `Seller Dashboard — ${base}`,
+      login:        `Login — ${base}`,
+      register:     `Create Account — ${base}`,
+      product:      selectedProduct
+        ? `${selectedProduct.title} | Buy Now — ${base}`
+        : `Product — ${base}`,
+    };
+    document.title = titles[currentPage] || `${base} | Pokémon TCG`;
+  }, [currentPage, selectedProduct]);
+
   const showToast = useCallback((message) => {
     setToast(message);
     setTimeout(() => setToast(null), 2000);

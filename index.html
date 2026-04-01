@@ -2,9 +2,83 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sgtradingcardstore</title>
+
+    <!-- Primary SEO -->
+    <title>S&G Trading | Pokémon TCG Cards, Booster Packs & Sealed Products</title>
+    <meta name="description" content="S&G Trading — your trusted source for Pokémon Trading Card Game products. Shop Surging Sparks, Prismatic Evolutions, Mega Evolution, Perfect Order, and more. Fast shipping, authentic sealed products, and graded cards." />
+    <meta name="keywords" content="Pokemon TCG, Pokemon cards, booster packs, elite trainer box, Surging Sparks, Prismatic Evolutions, Mega Evolution, Perfect Order, Phantasmal Flames, graded Pokemon cards, PSA, sealed Pokemon, Pokemon singles, buy Pokemon cards online" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="S&G Trading" />
+    <link rel="canonical" href="https://sg-tradingcard.vercel.app/" />
+
+    <!-- Open Graph (Facebook, Discord, iMessage previews) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="S&G Trading" />
+    <meta property="og:title" content="S&G Trading | Pokémon TCG Booster Packs & Sealed Products" />
+    <meta property="og:description" content="Buy authentic Pokémon TCG products — booster packs, Elite Trainer Boxes, graded cards, and more. Shop the latest Mega Evolution, Surging Sparks, and Prismatic Evolutions sets." />
+    <meta property="og:url" content="https://sg-tradingcard.vercel.app/" />
+    <meta property="og:image" content="https://sg-tradingcard.vercel.app/images/po-etb.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="S&G Trading | Pokémon TCG Booster Packs & Sealed Products" />
+    <meta name="twitter:description" content="Shop authentic Pokémon TCG products — booster packs, Elite Trainer Boxes, Mega Evolution sets, and PSA graded cards." />
+    <meta name="twitter:image" content="https://sg-tradingcard.vercel.app/images/po-etb.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://sg-tradingcard.vercel.app/#website",
+          "url": "https://sg-tradingcard.vercel.app/",
+          "name": "S&G Trading",
+          "description": "Authentic Pokémon TCG products including booster packs, Elite Trainer Boxes, and graded cards.",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://sg-tradingcard.vercel.app/?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "Store",
+          "@id": "https://sg-tradingcard.vercel.app/#store",
+          "name": "S&G Trading",
+          "description": "Your trusted source for authentic Pokémon TCG products — booster packs, Elite Trainer Boxes, sealed products, and PSA graded cards.",
+          "url": "https://sg-tradingcard.vercel.app/",
+          "image": "https://sg-tradingcard.vercel.app/images/po-etb.png",
+          "priceRange": "$4 - $999",
+          "currenciesAccepted": "USD",
+          "paymentAccepted": "Credit Card, Debit Card",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Pokémon TCG Products",
+            "itemListElement": [
+              { "@type": "OfferCatalog", "name": "Booster Packs" },
+              { "@type": "OfferCatalog", "name": "Elite Trainer Boxes" },
+              { "@type": "OfferCatalog", "name": "Booster Bundles" },
+              { "@type": "OfferCatalog", "name": "Graded Cards" },
+              { "@type": "OfferCatalog", "name": "Pokémon Merchandise" }
+            ]
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
   <body>
     <div id="root"></div>
