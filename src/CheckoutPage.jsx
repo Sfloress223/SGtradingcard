@@ -24,6 +24,8 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState(null);
 
+  const [selectedShippingId, setSelectedShippingId] = useState('');
+
   const isSellerCart = cartItems.length > 0 && !!cartItems[0].sellerId;
 
   const subtotal = cartItems.reduce((sum, item) => {
@@ -31,15 +33,66 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
     return sum + price * item.qty;
   }, 0);
 
-  const isFreeShipping = !isSellerCart && subtotal >= 150;
-  const platformShipping = isFreeShipping ? 0 : 8.99;
-  
-  const sellerShipping = isSellerCart ? cartItems.reduce((sum, item) => {
-    const fee = parseFloat((item.shippingFee || '$0').replace('$', ''));
-    return sum + fee * item.qty; // Assume flat rate per item for simplicity MVP
-  }, 0) : 0;
+  // Cart Classification
+  const isHeavy = (item) => {
+    const t = (item.title || '').toLowerCase();
+    return t.includes('elite trainer box') || 
+           t.includes('booster box') || 
+           t.includes('collection box') || 
+           t.includes('upc') ||
+           t.includes('premium collection');
+  };
 
-  const totalShipping = isSellerCart ? sellerShipping : platformShipping;
+  const isSingleCard = (item) => {
+    const t = (item.title || '').toLowerCase();
+    if (t.includes('psa') || t.includes('cgc') || t.includes('bgs') || t.includes('graded')) return false;
+    if (t.includes('pack') || t.includes('box') || t.includes('bundle') || t.includes('sleeve')) return false;
+    return true;
+  };
+
+  const hasHeavy = cartItems.some(isHeavy);
+  const isStrictlySingles = cartItems.every(isSingleCard);
+  const isFreeShipping = !isSellerCart && subtotal >= 150;
+
+  const getShippingOptions = () => {
+    if (isSellerCart) {
+      const sellerTotal = cartItems.reduce((sum, item) => sum + parseFloat((item.shippingFee || '$0').replace('$', '')) * item.qty, 0);
+      return [{ id: 'seller_rate', name: 'Seller Flat Rate', price: sellerTotal }];
+    }
+    
+    if (hasHeavy) {
+      return [
+        { id: 'heavy_std', name: 'Standard Shipping (Heavy)', price: isFreeShipping ? 0 : 8.00 },
+        { id: 'heavy_exp', name: 'Priority Express', price: 15.00 }
+      ];
+    }
+    if (isStrictlySingles && cartItems.length > 0) {
+      return [
+        { id: 'pwe_std', name: 'Plain White Envelope (Untracked)', price: 1.00 },
+        { id: 'pwe_trk', name: 'Standard Tracked Bubble Mailer', price: 4.99 },
+        { id: 'pwe_exp', name: 'Priority Express', price: 12.99 }
+      ];
+    }
+    // Regular stuff (packs, slabs, bundles)
+    return [
+      { id: 'reg_std', name: 'Standard Shipping', price: isFreeShipping ? 0 : 5.99 },
+      { id: 'reg_exp', name: 'Priority Express', price: 12.99 }
+    ];
+  };
+
+  const shippingOptions = getShippingOptions();
+  
+  // Set default selection
+  React.useEffect(() => {
+    if ((!selectedShippingId || !shippingOptions.find(o => o.id === selectedShippingId)) && shippingOptions.length > 0) {
+      setSelectedShippingId(shippingOptions[0].id);
+    }
+  }, [shippingOptions, selectedShippingId]);
+
+  const selectedShippingOption = shippingOptions.find(o => o.id === selectedShippingId) || shippingOptions[0] || { price: 0 };
+  const totalShipping = selectedShippingOption.price;
+  const platformShipping = isSellerCart ? 0 : totalShipping;
+  const sellerShipping = isSellerCart ? totalShipping : 0;
   const total = subtotal + totalShipping;
 
   const handleInputChange = (e) => {
@@ -145,6 +198,31 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
             </div>
           </div>
 
+          {/* Shipping Method */}
+          <div className="checkout-card">
+            <h3>Shipping Method</h3>
+            <div className="shipping-options-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
+              {shippingOptions.map(option => (
+                <label key={option.id} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '1rem', border: `1px solid ${selectedShippingId === option.id ? '#007bff' : '#eee'}`, borderRadius: '8px', cursor: 'pointer', background: selectedShippingId === option.id ? '#f8fbff' : '#fff' }}>
+                  <input 
+                    type="radio" 
+                    name="shippingMethod" 
+                    value={option.id} 
+                    checked={selectedShippingId === option.id}
+                    onChange={(e) => setSelectedShippingId(e.target.value)}
+                    style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+                  />
+                  <div style={{ flex: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontWeight: 500, color: '#333' }}>{option.name}</span>
+                    <span style={{ fontWeight: 600, color: '#111' }}>{option.price === 0 ? 'FREE' : `$${option.price.toFixed(2)}`}</span>
+                  </div>
+                </label>
+              ))}
+            </div>
+            {hasHeavy && !isSellerCart && <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '1rem' }}>* Cart contains heavy items (Elite Trainer Boxes, Booster Boxes, etc.) which require special shipping rates.</p>}
+            {isStrictlySingles && !isSellerCart && <p style={{ fontSize: '0.85rem', color: '#666', marginTop: '1rem' }}>* Cart contains only single cards, qualifying for cheap Plain White Envelope shipping.</p>}
+          </div>
+
           {/* Payment */}
           <div className="checkout-card">
             <h3>Payment Details</h3>
@@ -202,7 +280,7 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
               <span>Shipping</span>
               <span>{totalShipping === 0 ? 'FREE' : `$${totalShipping.toFixed(2)}`}</span>
             </div>
-            {isFreeShipping && <p className="cart-free-shipping-note">🎉 Free shipping applied!</p>}
+            {totalShipping === 0 && !isSellerCart && <p className="cart-free-shipping-note">🎉 Free shipping applied!</p>}
             {isSellerCart && <p className="cart-free-shipping-note" style={{color:'#666', background:'transparent'}}>This is a Grand Exchange peer-to-peer order. Shipping is set by the seller.</p>}
             <div className="cart-summary-row cart-summary-total">
               <span>Total</span>
