@@ -22,7 +22,7 @@ const ORDERS_FILE = path.join(__dirname, 'data', 'orders.json');
 import shippoPkg from 'shippo';
 const shippo = shippoPkg(process.env.SHIPPO_API_KEY || '');
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-9relg96s6-sgtradingcards-projects.vercel.app', 'https://sg-tradingcard.vercel.app'] }));
+app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-9relg96s6-sgtradingcards-projects.vercel.app', 'https://sg-tradingcard.vercel.app', 'https://sgtradingcard.com', 'https://www.sgtradingcard.com'] }));
 app.use(express.json());
 
 // ─── Helpers ───
