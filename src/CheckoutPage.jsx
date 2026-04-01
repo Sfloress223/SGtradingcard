@@ -96,8 +96,9 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
           items: cartItems,
         });
       }
-    } catch {
-      setError('Something went wrong. Please try again.');
+    } catch (err) {
+      console.error('Checkout Exception:', err);
+      setError(`Something went wrong: ${err.message || 'Network error or invalid server response'}`);
       setProcessing(false);
     }
   };
