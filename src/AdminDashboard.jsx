@@ -485,7 +485,7 @@ const AdminDashboard = ({ token, onLogout }) => {
                  <h4 style={{ marginBottom: '0.5rem', fontSize: '1rem' }}>Available USPS Rates</h4>
                  <div style={{ maxHeight: '200px', overflowY: 'auto', border: '1px solid var(--border-color)', borderRadius: '8px' }}>
                     {shippingQuote.rates && shippingQuote.rates.length > 0 ? shippingQuote.rates.map(rate => (
-                       <div key={rate.objectId} style={{ padding: '1rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                       <div key={rate.object_id} style={{ padding: '1rem', borderBottom: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                          <div>
                             <span style={{ fontWeight: 600 }}>{rate.provider} {rate.servicelevel.name}</span>
                             <div style={{ fontSize: '0.8rem', color: '#888', marginTop: '4px' }}>Est. Delivery: {rate.estimated_days} Days</div>
@@ -493,12 +493,12 @@ const AdminDashboard = ({ token, onLogout }) => {
                          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                             <span style={{ fontWeight: 'bold', color: '#4ade80' }}>${rate.amount}</span>
                             <button 
-                               onClick={() => purchaseLabel(rate.objectId)} 
-                               disabled={purchasingRate === rate.objectId || purchasedLabel}
+                               onClick={() => purchaseLabel(rate.object_id)} 
+                               disabled={purchasingRate === rate.object_id || purchasedLabel}
                                className="admin-save-btn" 
                                style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}
                             >
-                               {purchasingRate === rate.objectId ? 'Buying...' : 'Buy'}
+                               {purchasingRate === rate.object_id ? 'Buying...' : 'Buy'}
                             </button>
                          </div>
                        </div>
