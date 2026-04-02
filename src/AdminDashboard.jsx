@@ -358,13 +358,13 @@ const AdminDashboard = ({ token, onLogout }) => {
               </tr>
             </thead>
             <tbody>
-              {orders.map(order => (
+              {orders.filter(o => o.items && o.shippingAddress).map(order => (
                 <tr key={order.id}>
                   <td>{new Date(order.date).toLocaleDateString()}</td>
                   <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}</td>
                   <td className="admin-td-title">{order.shippingAddress?.name || 'Unknown'}</td>
-                  <td>{order.items.length} items</td>
-                  <td>${order.totalAmount.toFixed(2)}</td>
+                  <td>{(order.items || []).length} items</td>
+                  <td>${(order.totalAmount || 0).toFixed(2)}</td>
                   <td>
                     {order.status === 'unfulfilled' 
                       ? <span style={{color: 'var(--accent-color)', fontWeight: 600}}>Needs Label</span>
