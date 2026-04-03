@@ -139,19 +139,29 @@ const AdminDashboard = ({ token, onLogout }) => {
         headers,
         body: JSON.stringify({ rateId, orderId: shippingModal.order.id })
       });
-      const data = await res.json();
+      
+      const responseText = await res.text();
+      console.log('Label purchase response:', res.status, responseText);
+      
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch {
+        showToast(`Server returned invalid response (${res.status}): ${responseText.substring(0, 200)}`, 8000);
+        setPurchasingRate(null);
+        return;
+      }
       
       if (res.ok) {
         setPurchasedLabel(data);
         showToast('Label successfully generated!');
-        // Update local order table
         setOrders(prev => prev.map(o => o.id === shippingModal.order.id ? { ...o, status: 'fulfilled', trackingNumber: data.trackingNumber, trackingUrl: data.trackingUrl } : o));
       } else {
-        showToast(data.error || 'Label purchase failed', 6000);
+        showToast(data.error || `Label purchase failed (${res.status})`, 8000);
       }
     } catch (err) {
-      console.error('Label purchase error:', err);
-      showToast(`Label purchase failed: ${err.message}`, 6000);
+      console.error('Label purchase network error:', err);
+      showToast(`Network error: ${err.message}`, 8000);
     }
     setPurchasingRate(null);
   };
