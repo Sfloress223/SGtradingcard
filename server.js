@@ -252,20 +252,29 @@ app.post('/api/shipments/label', authMiddleware, async (req, res) => {
       return res.status(400).json({ error: 'Missing rateId in request body' });
     }
     
-    // Purchase the specific shipping rate that the Admin selected
-    const transaction = await shippo.transaction.create({
-      rate: rateId,
-      label_file_type: 'PDF',
-      async: false
+    // Use the Shippo REST API directly instead of the legacy SDK
+    const shippoRes = await fetch('https://api.goshippo.com/transactions/', {
+      method: 'POST',
+      headers: {
+        'Authorization': `ShippoToken ${process.env.SHIPPO_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rate: rateId,
+        label_file_type: 'PDF',
+        async: false
+      })
     });
+    
+    const transaction = await shippoRes.json();
+    console.log('Shippo Transaction Result:', JSON.stringify({ status: transaction.status, tracking: transaction.tracking_number, object_id: transaction.object_id }));
 
-    console.log('Shippo Transaction Result:', JSON.stringify({ status: transaction.status, tracking: transaction.tracking_number, messages: transaction.messages }));
-
-    if (transaction.status === 'ERROR') {
-      return res.status(400).json({ error: transaction.messages?.[0]?.text || 'Shippo returned an error during label creation.' });
+    if (!shippoRes.ok || transaction.status === 'ERROR') {
+      const errorMsg = transaction.messages?.[0]?.text || transaction.detail || 'Shippo returned an error during label creation.';
+      return res.status(400).json({ error: errorMsg });
     }
 
-    // Persist checking details to the Order database
+    // Persist tracking details to the Order database
     if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
     const orders = readJSON(ORDERS_FILE);
     const orderIndex = orders.findIndex(o => o.id === orderId);
@@ -287,9 +296,8 @@ app.post('/api/shipments/label', authMiddleware, async (req, res) => {
 
   } catch (err) {
     console.error('Shippo Label Error:', err);
-    const errorDetail = err.detail ? JSON.parse(err.detail) : {};
     res.status(500).json({ 
-      error: `Label purchase failed: ${errorDetail.detail || err.message || 'Unknown error'}`,
+      error: `Label purchase failed: ${err.message || 'Unknown error'}`,
       type: err.type || 'unknown'
     });
   }
