@@ -208,7 +208,7 @@ app.post('/api/shipments/quote', authMiddleware, async (req, res) => {
     // The destination address supplied by the UI based on the Buyer's details
     const addressTo = {
       name: toAddress.name,
-      street1: toAddress.street1,
+      street1: toAddress.street1 || toAddress.address || '',
       street2: toAddress.street2 || '',
       city: toAddress.city,
       state: toAddress.state,
