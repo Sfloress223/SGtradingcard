@@ -19,7 +19,7 @@ const AdminDashboard = ({ token, onLogout }) => {
 
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
 
-  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(null), 2000); };
+  const showToast = (msg, duration = 4000) => { setToast(msg); setTimeout(() => setToast(null), duration); };
 
   useEffect(() => {
     const fetchHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
@@ -147,11 +147,11 @@ const AdminDashboard = ({ token, onLogout }) => {
         // Update local order table
         setOrders(prev => prev.map(o => o.id === shippingModal.order.id ? { ...o, status: 'fulfilled', trackingNumber: data.trackingNumber, trackingUrl: data.trackingUrl } : o));
       } else {
-        showToast(data.error || 'Label purchase failed');
+        showToast(data.error || 'Label purchase failed', 6000);
       }
     } catch (err) {
-      console.error(err);
-      showToast('Label purchase failed');
+      console.error('Label purchase error:', err);
+      showToast(`Label purchase failed: ${err.message}`, 6000);
     }
     setPurchasingRate(null);
   };
@@ -475,6 +475,34 @@ const AdminDashboard = ({ token, onLogout }) => {
                    </button>
                  </div>
               </div>
+            ) : purchasedLabel ? (
+              <div style={{ textAlign: 'center', padding: '1rem 0' }}>
+                <div style={{ fontSize: '4rem', marginBottom: '0.5rem' }}>✅</div>
+                <h3 style={{ color: '#4ade80', marginBottom: '0.5rem', fontSize: '1.3rem' }}>Label Purchased Successfully!</h3>
+                <p style={{ color: '#888', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Your USPS shipping label has been generated and is ready to print.</p>
+                
+                <div style={{ background: 'rgba(74, 222, 128, 0.08)', border: '1px solid #4ade80', borderRadius: '10px', padding: '1.2rem', marginBottom: '1.5rem', textAlign: 'left' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
+                    <span style={{ color: '#888', fontSize: '0.85rem' }}>Tracking Number</span>
+                    <span style={{ fontWeight: 700, color: '#4ade80', fontSize: '0.95rem', letterSpacing: '0.5px' }}>{purchasedLabel.trackingNumber}</span>
+                  </div>
+                  {purchasedLabel.trackingUrl && (
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
+                      <span style={{ color: '#888', fontSize: '0.85rem' }}>Track Package</span>
+                      <a href={purchasedLabel.trackingUrl} target="_blank" rel="noreferrer" style={{ color: '#60a5fa', fontSize: '0.85rem' }}>View on USPS →</a>
+                    </div>
+                  )}
+                  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                    <span style={{ color: '#888', fontSize: '0.85rem' }}>Order</span>
+                    <span style={{ fontWeight: 600, fontSize: '0.85rem' }}>{shippingModal.order?.id}</span>
+                  </div>
+                </div>
+                
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  <a href={purchasedLabel.labelUrl} target="_blank" rel="noreferrer" style={{ flex: 1, display: 'inline-block', padding: '12px 20px', background: '#2E8B57', color: 'white', borderRadius: '8px', textDecoration: 'none', textAlign: 'center', fontWeight: 700, fontSize: '1rem', cursor: 'pointer' }}>🖨️ Print PDF Label</a>
+                  <button onClick={cancelShipping} style={{ flex: 1, padding: '12px 20px', background: 'none', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-light)', cursor: 'pointer', fontWeight: 600, fontSize: '1rem' }}>Close</button>
+                </div>
+              </div>
             ) : (
               <div className="shipping-review-stage">
                  <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '8px', padding: '1rem', marginBottom: '1.5rem' }}>
@@ -494,7 +522,7 @@ const AdminDashboard = ({ token, onLogout }) => {
                             <span style={{ fontWeight: 'bold', color: '#4ade80' }}>${rate.amount}</span>
                             <button 
                                onClick={() => purchaseLabel(rate.object_id)} 
-                               disabled={purchasingRate === rate.object_id || purchasedLabel}
+                               disabled={purchasingRate || purchasedLabel}
                                className="admin-save-btn" 
                                style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem' }}
                             >
@@ -507,19 +535,9 @@ const AdminDashboard = ({ token, onLogout }) => {
                     )}
                  </div>
 
-                 {purchasedLabel ? (
-                    <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(74, 222, 128, 0.1)', border: '1px solid #4ade80', borderRadius: '8px' }}>
-                       <h4 style={{ color: '#4ade80', marginBottom: '0.5rem' }}>✅ tracking #{purchasedLabel.trackingNumber}</h4>
-                       <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
-                         <a href={purchasedLabel.labelUrl} target="_blank" rel="noreferrer" className="admin-add-btn" style={{ textDecoration: 'none', textAlign: 'center', flex: 1 }}>Print PDF Label</a>
-                         <button className="admin-cancel-btn" style={{ flex: 1 }} onClick={cancelShipping}>Close</button>
-                       </div>
-                    </div>
-                 ) : (
-                    <div className="admin-modal-actions" style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
-                      <button className="admin-cancel-btn" onClick={() => setShippingQuote(null)}>Back to Edit Dims</button>
-                    </div>
-                 )}
+                 <div className="admin-modal-actions" style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
+                   <button className="admin-cancel-btn" onClick={() => setShippingQuote(null)}>Back to Edit Dims</button>
+                 </div>
               </div>
             )}
           </div>
