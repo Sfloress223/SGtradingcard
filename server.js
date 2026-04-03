@@ -246,6 +246,11 @@ app.post('/api/shipments/quote', authMiddleware, async (req, res) => {
 app.post('/api/shipments/label', authMiddleware, async (req, res) => {
   try {
     const { rateId, orderId } = req.body;
+    console.log('Label Purchase Request:', JSON.stringify({ rateId, orderId }));
+    
+    if (!rateId) {
+      return res.status(400).json({ error: 'Missing rateId in request body' });
+    }
     
     // Purchase the specific shipping rate that the Admin selected
     const transaction = await shippo.transaction.create({
@@ -254,8 +259,10 @@ app.post('/api/shipments/label', authMiddleware, async (req, res) => {
       async: false
     });
 
+    console.log('Shippo Transaction Result:', JSON.stringify({ status: transaction.status, tracking: transaction.tracking_number, messages: transaction.messages }));
+
     if (transaction.status === 'ERROR') {
-      return res.status(400).json({ error: transaction.messages[0]?.text || 'Failed to purchase label.' });
+      return res.status(400).json({ error: transaction.messages?.[0]?.text || 'Shippo returned an error during label creation.' });
     }
 
     // Persist checking details to the Order database
@@ -275,12 +282,16 @@ app.post('/api/shipments/label', authMiddleware, async (req, res) => {
       trackingNumber: transaction.tracking_number,
       trackingUrl: transaction.tracking_url_provider,
       labelUrl: transaction.label_url,
-      transactionId: transaction.objectId
+      transactionId: transaction.object_id
     });
 
   } catch (err) {
     console.error('Shippo Label Error:', err);
-    res.status(500).json({ error: `Failed to execute label purchase: ${err.message || err.detail || 'Unknown error'}` });
+    const errorDetail = err.detail ? JSON.parse(err.detail) : {};
+    res.status(500).json({ 
+      error: `Label purchase failed: ${errorDetail.detail || err.message || 'Unknown error'}`,
+      type: err.type || 'unknown'
+    });
   }
 });
 
