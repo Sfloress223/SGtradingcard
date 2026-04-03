@@ -267,10 +267,10 @@ app.post('/api/shipments/label', authMiddleware, async (req, res) => {
     });
     
     const transaction = await shippoRes.json();
-    console.log('Shippo Transaction Result:', JSON.stringify({ status: transaction.status, tracking: transaction.tracking_number, object_id: transaction.object_id }));
+    console.log('Shippo Transaction FULL Response:', JSON.stringify(transaction));
 
     if (!shippoRes.ok || transaction.status === 'ERROR') {
-      const errorMsg = transaction.messages?.[0]?.text || transaction.detail || 'Shippo returned an error during label creation.';
+      const errorMsg = transaction.messages?.[0]?.text || transaction.detail || JSON.stringify(transaction);
       return res.status(400).json({ error: errorMsg });
     }
 
