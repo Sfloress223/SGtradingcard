@@ -23,11 +23,17 @@ const AdminDashboard = ({ token, onLogout }) => {
 
   useEffect(() => {
     const fetchHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
-    fetch(`${API}/api/products`).then(r => r.json()).then(setProducts);
-    fetch(`${API}/api/sets`).then(r => r.json()).then(setSets);
-    fetch(`${API}/api/admin/orders`, { headers: fetchHeaders }).then(r => r.json()).then(setOrders);
-    fetch(`${API}/api/admin/shipping-presets`, { headers: fetchHeaders }).then(r => r.json()).then(setShippingPresets);
-  }, [token]);
+    
+    fetch(`${API}/api/products`).then(r => r.json()).then(data => setProducts(Array.isArray(data) ? data : []));
+    fetch(`${API}/api/sets`).then(r => r.json()).then(data => setSets(Array.isArray(data) ? data : []));
+    
+    fetch(`${API}/api/admin/orders`, { headers: fetchHeaders }).then(r => {
+      if (r.status === 401) onLogout(); // Automatically log out if token is expired
+      return r.json();
+    }).then(data => setOrders(Array.isArray(data) ? data : []));
+    
+    fetch(`${API}/api/admin/shipping-presets`, { headers: fetchHeaders }).then(r => r.json()).then(data => setShippingPresets(Array.isArray(data) ? data : []));
+  }, [token, onLogout]);
 
 
   const saveInlineEdit = async () => {
