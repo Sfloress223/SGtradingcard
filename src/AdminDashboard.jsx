@@ -13,6 +13,10 @@ const AdminDashboard = ({ token, onLogout }) => {
 
   const [editing, setEditing] = useState(null);
   const [adding, setAdding] = useState(false);
+  const [addingSet, setAddingSet] = useState(false);
+  const [setFormState, setSetFormState] = useState({ name: '', color: '#1E90FF', imgUrl: '' });
+  const [setImgPreview, setSetImgPreview] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
   const [form, setForm] = useState({ title: '', price: '', setId: '', imgUrl: '', description: '', stock: 0 });
   const [toast, setToast] = useState(null);
   const [inlineEdit, setInlineEdit] = useState(null); // { id, field, value }
@@ -89,6 +93,63 @@ const AdminDashboard = ({ token, onLogout }) => {
       showToast('Product added');
     }
     cancelEdit();
+  };
+
+  const handlePasteImage = (e) => {
+    if (!e.clipboardData) return;
+    const items = e.clipboardData.items;
+    let file = null;
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+            file = items[i].getAsFile();
+            break;
+        }
+    }
+    if (file) handleImageFile(file);
+  };
+
+  const handleImageFile = (file) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setSetImgPreview(e.target.result);
+    reader.readAsDataURL(file);
+  };
+
+  const saveSet = async (e) => {
+    e.preventDefault();
+    setIsUploading(true);
+    try {
+      let finalImgUrl = setFormState.imgUrl;
+      
+      if (setImgPreview && setImgPreview.startsWith('data:image')) {
+        const uploadRes = await fetch(`${API}/api/admin/upload-image`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ image: setImgPreview })
+        });
+        const uploadData = await uploadRes.json();
+        if (uploadRes.ok) finalImgUrl = uploadData.url;
+      }
+      
+      const payload = { ...setFormState, imgUrl: finalImgUrl };
+      const res = await fetch(`${API}/api/admin/sets`, {
+        method: 'POST', headers, body: JSON.stringify(payload)
+      });
+      const newSet = await res.json();
+      if (res.ok) {
+        setSets(prev => [...prev, newSet]);
+        showToast('Category added!');
+        setAddingSet(false);
+        setSetFormState({ name: '', color: '#1E90FF', imgUrl: '' });
+        setSetImgPreview(null);
+      } else {
+        showToast(newSet.error || 'Failed to add category');
+      }
+    } catch (err) {
+      console.error(err);
+      showToast('Network error while saving category');
+    }
+    setIsUploading(false);
   };
 
   // ─── Shipping Label Logic ───
@@ -236,14 +297,67 @@ const AdminDashboard = ({ token, onLogout }) => {
       {activeTab === 'products' && (
         <>
           {/* Filter Bar */}
-          <div className="admin-filter-bar">
+          <div className="admin-filter-bar" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
             <button className={filterSet === 'all' ? 'active' : ''} onClick={() => setFilterSet('all')}>All ({products.length})</button>
             {sets.map(s => {
               const count = products.filter(p => p.setId === s.id).length;
-              if (count === 0) return null;
+              if (count === 0 && s.id !== filterSet) return null;
               return <button key={s.id} className={filterSet === s.id ? 'active' : ''} onClick={() => setFilterSet(s.id)}>{s.name} ({count})</button>;
             })}
+            <button className="admin-add-btn" style={{ marginLeft: 'auto', padding: '6px 12px', fontSize: '0.9rem' }} onClick={() => setAddingSet(!addingSet)}>
+              {addingSet ? 'Cancel' : '+ New Category'}
+            </button>
           </div>
+
+          {/* Add Category Form */}
+          {addingSet && (
+            <div className="admin-form-card" style={{ marginBottom: '1.5rem', background: '#f5fbff', border: '1px solid #bce0ff', color: 'var(--text-color)' }}>
+              <h3 style={{ marginTop: 0 }}>Create New Category</h3>
+              <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '1rem' }}>
+                 Tip: You can press <strong>Ctrl+V</strong> anywhere in this form to paste an image instantly!
+              </p>
+              <form onSubmit={saveSet} className="admin-form" onPaste={handlePasteImage}>
+                <div className="form-group full-width">
+                  <label>Category Name (e.g. Perfect Order)</label>
+                  <input type="text" value={setFormState.name} onChange={e => setSetFormState({...setFormState, name: e.target.value})} required autoFocus style={{ border: '1px solid var(--border-color)', borderRadius: '6px' }} />
+                </div>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem', width: '100%', marginBottom: '1rem' }}>
+                  <div className="form-group" style={{ flex: 1 }}>
+                    <label>Image (Upload, Paste or URL)</label>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+                      <input type="file" accept="image/*" onChange={(e) => handleImageFile(e.target.files[0])} style={{ flex: 1, minWidth: '200px' }} />
+                      <span style={{ margin: 'auto 0' }}>or URL:</span>
+                      <input type="text" value={setFormState.imgUrl} onChange={e => setSetFormState({...setFormState, imgUrl: e.target.value})} placeholder="https://..." style={{ flex: 1, minWidth: '200px' }} />
+                    </div>
+                  </div>
+                  <div className="form-group" style={{ maxWidth: '200px' }}>
+                    <label>Badge Color</label>
+                    <input type="color" value={setFormState.color} onChange={e => setSetFormState({...setFormState, color: e.target.value})} style={{ width: '100%', height: '40px', padding: '0', cursor: 'pointer', border: 'none', borderRadius: '4px' }} />
+                  </div>
+                </div>
+
+                {/* Preview Area */}
+                {setImgPreview && (
+                  <div style={{ margin: '1rem 0', padding: '1rem', background: '#fff', border: '1px dashed #ccc', borderRadius: '8px', textAlign: 'center' }}>
+                    <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', color: '#666' }}>Image Preview</p>
+                    <img src={setImgPreview} alt="Preview" style={{ maxHeight: '150px', maxWidth: '100%', objectFit: 'contain' }} />
+                  </div>
+                )}
+                {!setImgPreview && setFormState.imgUrl && (
+                  <div style={{ margin: '1rem 0', padding: '1rem', background: '#fff', border: '1px dashed #ccc', borderRadius: '8px', textAlign: 'center' }}>
+                    <p style={{ margin: '0 0 0.5rem 0', fontSize: '0.85rem', color: '#666' }}>Image URL Preview</p>
+                    <img src={setFormState.imgUrl} alt="Preview" style={{ maxHeight: '150px', maxWidth: '100%', objectFit: 'contain' }} onError={(e) => e.target.style.display='none'} />
+                  </div>
+                )}
+
+                <div className="admin-form-actions" style={{ marginTop: '1.5rem' }}>
+                  <button type="submit" className="admin-save-btn" disabled={isUploading}>{isUploading ? 'Saving...' : 'Save Category'}</button>
+                  <button type="button" className="admin-cancel-btn" onClick={() => setAddingSet(false)}>Cancel</button>
+                </div>
+              </form>
+            </div>
+          )}
 
       {/* Add/Edit Form */}
       {(adding || editing) && (

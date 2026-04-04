@@ -23,7 +23,7 @@ import shippoPkg from 'shippo';
 const shippo = shippoPkg(process.env.SHIPPO_API_KEY || '');
 
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-9relg96s6-sgtradingcards-projects.vercel.app', 'https://sg-tradingcard.vercel.app', 'https://sgtradingcard.com', 'https://www.sgtradingcard.com'] }));
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 // ─── Helpers ───
 function readJSON(filePath) {
@@ -113,6 +113,68 @@ app.get('/api/products', (req, res) => {
 app.get('/api/sets', (req, res) => {
   const sets = readJSON(SETS_FILE);
   res.json(sets);
+});
+
+// ─── Admin Category/Set Routes ───
+app.post('/api/admin/upload-image', authMiddleware, (req, res) => {
+  try {
+    const { image } = req.body;
+    if (!image) return res.status(400).json({ error: 'No image provided' });
+
+    const matches = image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
+    if (!matches || matches.length !== 3) {
+      return res.status(400).json({ error: 'Invalid base64 format' });
+    }
+
+    const type = matches[1];
+    const data = Buffer.from(matches[2], 'base64');
+    let ext = type.split('/')[1] || 'png';
+    if (ext === 'jpeg') ext = 'jpg';
+    
+    const fileName = `upload_${Date.now()}.${ext}`;
+    const imagesDir = path.join(__dirname, 'public', 'images');
+    if (!fs.existsSync(imagesDir)) {
+      fs.mkdirSync(imagesDir, { recursive: true });
+    }
+    
+    const targetPath = path.join(imagesDir, fileName);
+    fs.writeFileSync(targetPath, data);
+
+    res.json({ url: `/images/${fileName}` });
+  } catch (err) {
+    console.error('Upload Error:', err);
+    res.status(500).json({ error: 'Failed to upload image' });
+  }
+});
+
+app.post('/api/admin/sets', authMiddleware, (req, res) => {
+  try {
+    const { name, imgUrl, color, parent = 'all-pokemon' } = req.body;
+    if (!name) return res.status(400).json({ error: 'Missing name' });
+
+    let sets = readJSON(SETS_FILE);
+    const generatedId = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    
+    if (sets.find(s => s.id === generatedId)) {
+      return res.status(400).json({ error: 'Category with this name already exists' });
+    }
+
+    const newSet = {
+      id: generatedId,
+      parent,
+      name,
+      imgUrl: imgUrl || '',
+      bannerUrl: imgUrl || '',
+      color: color || '#E3350D'
+    };
+    
+    sets.push(newSet);
+    writeJSON(SETS_FILE, sets);
+    res.json(newSet);
+  } catch (err) {
+    console.error('Sets Error:', err);
+    res.status(500).json({ error: 'Failed to create category' });
+  }
 });
 
 // ─── Admin Product Routes ───
