@@ -284,7 +284,12 @@ const AdminDashboard = ({ token, onLogout }) => {
           )}
         </div>
         <div className="admin-actions">
-          {activeTab === 'products' && <button className="admin-add-btn" onClick={startAdd}>+ Add Product</button>}
+          {activeTab === 'products' && (
+            <>
+              <button className="admin-add-btn" onClick={() => { setAddingSet(!addingSet); cancelEdit(); }}>{addingSet ? 'Cancel Category' : '+ New Category'}</button>
+              <button className="admin-add-btn" onClick={() => { startAdd(); setAddingSet(false); }}>+ Add Product</button>
+            </>
+          )}
           <button className="admin-logout-btn" onClick={onLogout}>Logout</button>
         </div>
       </div>
@@ -297,16 +302,13 @@ const AdminDashboard = ({ token, onLogout }) => {
       {activeTab === 'products' && (
         <>
           {/* Filter Bar */}
-          <div className="admin-filter-bar" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div className="admin-filter-bar">
             <button className={filterSet === 'all' ? 'active' : ''} onClick={() => setFilterSet('all')}>All ({products.length})</button>
             {sets.map(s => {
               const count = products.filter(p => p.setId === s.id).length;
               if (count === 0 && s.id !== filterSet) return null;
               return <button key={s.id} className={filterSet === s.id ? 'active' : ''} onClick={() => setFilterSet(s.id)}>{s.name} ({count})</button>;
             })}
-            <button className="admin-add-btn" style={{ marginLeft: 'auto', padding: '6px 12px', fontSize: '0.9rem' }} onClick={() => setAddingSet(!addingSet)}>
-              {addingSet ? 'Cancel' : '+ New Category'}
-            </button>
           </div>
 
           {/* Add Category Form */}
