@@ -17,7 +17,7 @@ const AdminDashboard = ({ token, onLogout }) => {
   const [setFormState, setSetFormState] = useState({ name: '', color: '#1E90FF', imgUrl: '' });
   const [setImgPreview, setSetImgPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [form, setForm] = useState({ title: '', price: '', setId: '', imgUrl: '', description: '', stock: 0 });
+  const [form, setForm] = useState({ title: '', price: '', setId: '', imgUrl: '', description: '', stock: 0, gallery: [] });
   const [toast, setToast] = useState(null);
   const [inlineEdit, setInlineEdit] = useState(null); // { id, field, value }
 
@@ -61,38 +61,66 @@ const AdminDashboard = ({ token, onLogout }) => {
 
   const startEdit = (product) => {
     setEditing(product.id);
-    setForm({ title: product.title, price: product.price, setId: product.setId, imgUrl: product.imgUrl || '', description: product.description || '', stock: product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50) });
+    const initGal = product.galleryUrls ? product.galleryUrls.map(u => ({ url: u, isNew: false })) : (product.imgUrl ? [{ url: product.imgUrl, isNew: false }] : []);
+    setForm({ title: product.title, price: product.price, setId: product.setId, imgUrl: product.imgUrl || '', description: product.description || '', stock: product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50), gallery: initGal });
     setAdding(false);
   };
 
   const startAdd = () => {
     setAdding(true);
     setEditing(null);
-    setForm({ title: '', price: '', setId: sets[0]?.id || '', imgUrl: '', description: '', stock: 50 });
+    setForm({ title: '', price: '', setId: sets[0]?.id || '', imgUrl: '', description: '', stock: 50, gallery: [] });
   };
 
   const cancelEdit = () => { setEditing(null); setAdding(false); };
 
   const saveProduct = async (e) => {
     e.preventDefault();
-    if (editing) {
-      const payload = { ...form, soldOut: form.stock === 0 };
-      const res = await fetch(`${API}/api/admin/products/${editing}`, {
-        method: 'PUT', headers, body: JSON.stringify(payload)
-      });
-      const updated = await res.json();
-      setProducts(prev => prev.map(p => p.id === editing ? updated : p));
-      showToast('Product updated');
-    } else {
-      const payload = { ...form, soldOut: form.stock === 0 };
-      const res = await fetch(`${API}/api/admin/products`, {
-        method: 'POST', headers, body: JSON.stringify(payload)
-      });
-      const newProduct = await res.json();
-      setProducts(prev => [...prev, newProduct]);
-      showToast('Product added');
+    setIsUploading(true);
+    
+    try {
+      const uploadedGallery = [...(form.gallery || [])];
+      for (let i = 0; i < uploadedGallery.length; i++) {
+        if (uploadedGallery[i].isNew && uploadedGallery[i].base64) {
+          const uploadRes = await fetch(`${API}/api/admin/upload-image`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ image: uploadedGallery[i].base64 })
+          });
+          const uploadData = await uploadRes.json();
+          if (uploadRes.ok) {
+            uploadedGallery[i] = { url: uploadData.url, isNew: false };
+          }
+        }
+      }
+
+      const finalGalleryUrls = uploadedGallery.map(img => img.url);
+      const mainImgUrl = finalGalleryUrls[0] || '';
+      
+      const payload = { ...form, imgUrl: mainImgUrl, galleryUrls: finalGalleryUrls, soldOut: form.stock === 0 };
+      delete payload.gallery;
+
+      if (editing) {
+        const res = await fetch(`${API}/api/admin/products/${editing}`, {
+          method: 'PUT', headers, body: JSON.stringify(payload)
+        });
+        const updated = await res.json();
+        setProducts(prev => prev.map(p => p.id === editing ? updated : p));
+        showToast('Product updated');
+      } else {
+        const res = await fetch(`${API}/api/admin/products`, {
+          method: 'POST', headers, body: JSON.stringify(payload)
+        });
+        const newProduct = await res.json();
+        setProducts(prev => [...prev, newProduct]);
+        showToast('Product added');
+      }
+      cancelEdit();
+    } catch (err) {
+      console.error(err);
+      showToast('Failed to save product');
     }
-    cancelEdit();
+    setIsUploading(false);
   };
 
   const handlePasteImage = (e) => {
@@ -106,6 +134,29 @@ const AdminDashboard = ({ token, onLogout }) => {
         }
     }
     if (file) handleImageFile(file);
+  };
+
+  const handleProductPasteImage = (e) => {
+    if (!e.clipboardData) return;
+    const items = e.clipboardData.items;
+    let file = null;
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+            file = items[i].getAsFile();
+            break;
+        }
+    }
+    if (file) handleProductImageFile(file);
+  };
+
+  const handleProductImageFile = (file) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const newImg = { url: e.target.result, isNew: true, base64: e.target.result };
+      setForm(prev => ({ ...prev, gallery: [...(prev.gallery || []), newImg] }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleImageFile = (file) => {
@@ -365,7 +416,10 @@ const AdminDashboard = ({ token, onLogout }) => {
       {(adding || editing) && (
         <div className="admin-form-card">
           <h3>{editing ? 'Edit Product' : 'Add New Product'}</h3>
-          <form onSubmit={saveProduct} className="admin-form">
+          <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '1rem' }}>
+             Tip: Just <strong>Ctrl+V</strong> anywhere to instantly paste an image!
+          </p>
+          <form onSubmit={saveProduct} className="admin-form" onPaste={handleProductPasteImage}>
             <div className="form-group full-width">
               <label>Title</label>
               <input type="text" value={form.title} onChange={e => setForm({...form, title: e.target.value})} required />
@@ -381,8 +435,24 @@ const AdminDashboard = ({ token, onLogout }) => {
               </select>
             </div>
             <div className="form-group full-width">
-              <label>Image URL</label>
-              <input type="text" value={form.imgUrl} onChange={e => setForm({...form, imgUrl: e.target.value})} placeholder="https://..." />
+              <label>Product Images <span style={{ fontWeight: 400, color: '#aaa' }}>(Upload or paste directly)</span></label>
+              <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', padding: '10px 0', minHeight: '120px' }}>
+                {(form.gallery || []).map((img, idx) => (
+                  <div key={idx} style={{ position: 'relative', minWidth: '100px', height: '100px', border: '1px solid #ddd', borderRadius: '8px', background: '#fff' }}>
+                    <img src={img.url} alt="Gallery" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '8px' }} />
+                    <button type="button" onClick={() => {
+                      const newG = [...form.gallery];
+                      newG.splice(idx, 1);
+                      setForm({...form, gallery: newG});
+                    }} style={{ position: 'absolute', top: '-5px', right: '-5px', background: '#ef4444', color: 'white', border: 'none', borderRadius: '50%', width: '22px', height: '22px', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '14px', fontWeight: 'bold' }}>×</button>
+                    {idx === 0 && <span style={{ position: 'absolute', bottom: '0', left: '0', width: '100%', background: 'rgba(0,0,0,0.7)', color: '#fff', fontSize: '10px', textAlign: 'center', padding: '4px 0', borderBottomLeftRadius: '8px', borderBottomRightRadius: '8px', fontWeight: 'bold', letterSpacing: '0.5px' }}>COVER</span>}
+                  </div>
+                ))}
+                <div style={{ minWidth: '100px', height: '100px', border: '2px dashed var(--accent-color)', borderRadius: '8px', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer', position: 'relative', background: 'rgba(30,144,255,0.05)' }}>
+                  <span style={{ fontSize: '28px', color: 'var(--accent-color)', fontWeight: 'bold' }}>+</span>
+                  <input type="file" accept="image/*" onChange={(e) => handleProductImageFile(e.target.files[0])} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', opacity: 0, cursor: 'pointer' }} />
+                </div>
+              </div>
             </div>
             <div className="form-group full-width">
               <label>Description <span style={{ fontWeight: 400, textTransform: 'none', letterSpacing: 0, color: '#aaa' }}>(what's in the box)</span></label>
@@ -393,7 +463,7 @@ const AdminDashboard = ({ token, onLogout }) => {
               <input type="number" min="0" value={form.stock} onChange={e => setForm({...form, stock: parseInt(e.target.value) || 0})} required />
             </div>
             <div className="admin-form-actions">
-              <button type="submit" className="admin-save-btn">Save</button>
+              <button type="submit" className="admin-save-btn" disabled={isUploading}>{isUploading ? 'Saving...' : 'Save'}</button>
               <button type="button" className="admin-cancel-btn" onClick={cancelEdit}>Cancel</button>
             </div>
           </form>

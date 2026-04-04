@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const ProductPage = ({ product, onAddToCart, onBack }) => {
+  const [prevProduct, setPrevProduct] = useState(product);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  if (product !== prevProduct) {
+    setPrevProduct(product);
+    setSelectedImage(null);
+  }
+
   if (!product) return null;
+
+  const galleryList = product.galleryUrls && product.galleryUrls.length > 0 
+    ? product.galleryUrls 
+    : (product.imgUrl ? [product.imgUrl] : []);
+
+  const mainImage = selectedImage || product.imgUrl || '';
 
   return (
     <section className="product-page">
@@ -10,11 +24,38 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
       </button>
 
       <div className="product-page-layout">
-        <div className="product-page-image">
-          {product.imgUrl ? (
-            <img src={product.imgUrl} alt={product.title} />
-          ) : (
-            <span style={{ fontSize: '5rem' }}>📦</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div className="product-page-image" style={{ width: '100%', aspectRatio: '1/1', background: '#fff', borderRadius: '12px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            {mainImage ? (
+              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            ) : (
+              <span style={{ fontSize: '5rem' }}>📦</span>
+            )}
+          </div>
+          {galleryList.length > 1 && (
+            <div style={{ display: 'flex', gap: '10px', overflowX: 'auto', padding: '5px 2px' }}>
+              {galleryList.map((url, idx) => (
+                <button 
+                  key={idx} 
+                  onClick={() => setSelectedImage(url)}
+                  style={{ 
+                    flexShrink: 0, 
+                    width: '70px', 
+                    height: '70px', 
+                    borderRadius: '8px', 
+                    border: mainImage === url ? '2px solid var(--accent-color)' : '2px solid transparent',
+                    boxShadow: mainImage === url ? '0 0 8px rgba(30,144,255,0.4)' : 'none',
+                    background: '#fff', 
+                    padding: '4px',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <img src={url} alt={`Thumbnail ${idx+1}`} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                </button>
+              ))}
+            </div>
           )}
         </div>
 
