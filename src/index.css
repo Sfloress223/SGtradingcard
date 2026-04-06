@@ -806,6 +806,31 @@ section {
   max-width: 400px;
 }
 
+/* Print UI Styles for Packing Slips */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .printable-invoice, .printable-invoice * {
+    visibility: visible;
+  }
+  .printable-invoice {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white;
+    padding: 2cm !important;
+  }
+  /* Hide the modal overlay background and buttons during print */
+  .admin-modal-overlay {
+    background: white !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
 @keyframes toastSlideIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }

@@ -10,8 +10,36 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-import { google } from 'googleapis';
 
+import { google } from 'googleapis';
+import nodemailer from 'nodemailer';
+
+// ─── Email Transporter ───
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
+const sendStoreEmail = async (to, subject, html) => {
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.warn(`⚠️ Skipping Email: Missing EMAIL_USER or EMAIL_PASS in .env. Would have sent "${subject}" to ${to}.`);
+    return;
+  }
+  try {
+    await transporter.sendMail({
+      from: `"S&G Trading" <${process.env.EMAIL_USER}>`,
+      to,
+      subject,
+      html
+    });
+    console.log(`✉️ Email sent to ${to}: "${subject}"`);
+  } catch (err) {
+    console.error(`Failed to send email to ${to}:`, err);
+  }
+};
 // ─── Google Shopping Content API ───
 let contentApi = null;
 try {
@@ -415,6 +443,27 @@ app.post('/api/shipments/label', authMiddleware, async (req, res) => {
       orders[orderIndex].trackingNumber = transaction.tracking_number;
       orders[orderIndex].trackingUrl = transaction.tracking_url_provider;
       writeJSON(ORDERS_FILE, orders);
+      
+      // Dispatch Shipping Notification Email!
+      const order = orders[orderIndex];
+      const buyerEmail = order.shippingAddress.email;
+      if (buyerEmail) {
+        sendStoreEmail(
+          buyerEmail,
+          `Your S&G Trading Order #${order.id} Has Shipped!`,
+          `<div style="font-family: sans-serif; padding: 20px; color: #333;">
+            <h2 style="color: #000;">Great news, ${order.shippingAddress.name}!</h2>
+            <p>Your S&G Trading order is packed and on its way.</p>
+            <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+              <strong>Tracking Number:</strong> ${transaction.tracking_number} <br/>
+              <strong>Carrier:</strong> USPS <br/>
+              <br/>
+              <a href="${transaction.tracking_url_provider}" style="background: #000; color: #fff; padding: 10px 15px; text-decoration: none; border-radius: 4px; display: inline-block;">Track Package Here</a>
+            </div>
+            <p>Thank you again for supporting S&G Trading. We appreciate your business!</p>
+          </div>`
+        );
+      }
     }
 
     // Return the successful label payload
@@ -624,6 +673,42 @@ app.post('/api/orders/confirm', (req, res) => {
     if (updated) {
       writeJSON(PRODUCTS_FILE, products);
     }
+    
+    // Attempt to find the full order to send a receipt
+    const { orderId } = req.body;
+    let buyerEmail = null;
+    let orderContext = null;
+    if (orderId && fs.existsSync(ORDERS_FILE)) {
+      const orders = readJSON(ORDERS_FILE);
+      orderContext = orders.find(o => o.id === orderId || o.stripePaymentIntentId === orderId);
+      if (orderContext && orderContext.shippingAddress) {
+        buyerEmail = orderContext.shippingAddress.email;
+      }
+    }
+
+    if (buyerEmail && orderContext) {
+      sendStoreEmail(
+        buyerEmail,
+        `Order Confirmed! Receipt for #${orderContext.id}`,
+        `<div style="font-family: sans-serif; padding: 20px; color: #333;">
+          <h2 style="color: #000;">Thank you for your order, ${orderContext.shippingAddress.name}!</h2>
+          <p>We've received your order and are getting it ready to ship context. You'll receive another email with tracking info soon.</p>
+          <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <h3>Order Summary - #${orderContext.id}</h3>
+            <ul style="list-style: none; padding: 0;">
+              ${orderContext.items.map(item => `
+                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">
+                  <strong>${item.title}</strong> x${item.qty} - ${item.price}
+                </li>
+              `).join('')}
+            </ul>
+            <h3 style="text-align: right; margin-top: 15px;">Total Paid: $${(orderContext.totalAmount || 0).toFixed(2)}</h3>
+          </div>
+          <p>Thank you for shopping with S&G Trading!</p>
+        </div>`
+      );
+    }
+
     res.json({ success: true, updated });
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -9,7 +9,8 @@ const AdminDashboard = ({ token, onLogout }) => {
   const [shippingPresets, setShippingPresets] = useState([]);
   
   const [filterSet, setFilterSet] = useState('all');
-  const [activeTab, setActiveTab] = useState('products'); // 'products' | 'orders'
+  const [activeTab, setActiveTab] = useState('products'); // 'products' | 'orders' | 'analytics'
+  const [receiptModal, setReceiptModal] = useState({ open: false, order: null, isPackingSlip: false });
 
   const [editing, setEditing] = useState(null);
   const [adding, setAdding] = useState(false);
@@ -321,6 +322,25 @@ const AdminDashboard = ({ token, onLogout }) => {
   const inStock = products.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut)).length;
   const soldOut = products.filter(p => p.stock === 0 || (p.stock === undefined && p.soldOut)).length;
 
+  const totalRevenue = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+  const totalOrders = orders.length;
+  const aov = totalOrders > 0 ? (totalRevenue / totalOrders) : 0;
+  const productSales = {};
+  let totalItemsSold = 0;
+  orders.forEach(o => {
+    (o.items || []).forEach(item => {
+      productSales[item.id] = (productSales[item.id] || 0) + item.qty;
+      totalItemsSold += item.qty;
+    });
+  });
+  const topProducts = Object.entries(productSales)
+    .sort((a,b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([id, qty]) => {
+       const prod = products.find(p => String(p.id) === String(id));
+       return { id, qty, title: prod?.title || 'Unknown Product', img: prod?.imgUrl || '' };
+    });
+
   return (
     <section className="admin-section">
       {toast && <div className="toast-notification">{toast}</div>}
@@ -328,11 +348,9 @@ const AdminDashboard = ({ token, onLogout }) => {
       <div className="admin-header">
         <div>
           <h2>📦 Admin Dashboard</h2>
-          {activeTab === 'products' ? (
-            <p className="admin-stats">{products.length} products · {inStock} in stock · {soldOut} sold out</p>
-          ) : (
-            <p className="admin-stats">{orders.filter(o => o.status === 'unfulfilled').length} pending orders</p>
-          )}
+          {activeTab === 'products' && <p className="admin-stats">{products.length} products · {inStock} in stock · {soldOut} sold out</p>}
+          {activeTab === 'orders' && <p className="admin-stats">{orders.filter(o => o.status === 'unfulfilled').length} pending orders</p>}
+          {activeTab === 'analytics' && <p className="admin-stats">Real-time business performance</p>}
         </div>
         <div className="admin-actions">
           {activeTab === 'products' && (
@@ -345,9 +363,10 @@ const AdminDashboard = ({ token, onLogout }) => {
         </div>
       </div>
 
-      <div className="admin-tabs">
+      <div className="admin-tabs no-print">
         <button className={activeTab === 'products' ? 'active-tab' : ''} onClick={() => setActiveTab('products')}>Inventory</button>
         <button className={activeTab === 'orders' ? 'active-tab' : ''} onClick={() => setActiveTab('orders')}>Orders & Shipping</button>
+        <button className={activeTab === 'analytics' ? 'active-tab' : ''} onClick={() => setActiveTab('analytics')}>Analytics & Bookkeeping</button>
       </div>
 
       {activeTab === 'products' && (
@@ -572,15 +591,20 @@ const AdminDashboard = ({ token, onLogout }) => {
                       ? <span style={{color: 'var(--accent-color)', fontWeight: 600}}>Needs Label</span>
                       : <span style={{color: '#4ade80'}}>Fulfilled</span>
                     }
-                  </td>
-                  <td>
-                    {order.status === 'unfulfilled' && (
-                       <button className="admin-edit-btn" style={{backgroundColor: 'var(--accent-color)'}} onClick={() => openShippingModal(order)}>
-                         Generate Label
-                       </button>
-                    )}
-                  </td>
-                </tr>
+                   </td>
+                   <td>
+                     {order.status === 'unfulfilled' && (
+                        <div style={{ display: 'flex', gap: '0.5rem', flexDirection: 'column' }}>
+                          <button className="admin-edit-btn" style={{backgroundColor: 'var(--accent-color)', width: '100%'}} onClick={() => openShippingModal(order)}>
+                            Buy Label
+                          </button>
+                          <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: true })}>
+                            🖨️ Packing Slip
+                          </button>
+                        </div>
+                     )}
+                   </td>
+                 </tr>
               ))}
             </tbody>
           </table>
@@ -626,11 +650,174 @@ const AdminDashboard = ({ token, onLogout }) => {
                 </div>
              ))}
              {shippingPresets.length === 0 && <p style={{ color: '#888' }}>No presets saved yet.</p>}
-          </div>
-        </div>
-      )}
+           </div>
+         </div>
+       )}
 
-      {/* Shipping Modal */}
+       {/* Analytics & Bookkeeping UI */}
+       {activeTab === 'analytics' && (
+         <div style={{ marginTop: '2rem' }}>
+           <h3 style={{ marginBottom: '1rem' }}>Business Analytics</h3>
+           
+           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+             <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '1.5rem' }}>
+               <div style={{ color: '#888', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Gross Revenue</div>
+               <div style={{ fontSize: '2.2rem', fontWeight: 700, color: '#4ade80' }}>${totalRevenue.toFixed(2)}</div>
+             </div>
+             <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '1.5rem' }}>
+               <div style={{ color: '#888', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Total Orders</div>
+               <div style={{ fontSize: '2.2rem', fontWeight: 700 }}>{totalOrders}</div>
+             </div>
+             <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '1.5rem' }}>
+               <div style={{ color: '#888', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Avg Order Value</div>
+               <div style={{ fontSize: '2.2rem', fontWeight: 700 }}>${aov.toFixed(2)}</div>
+             </div>
+             <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '1.5rem' }}>
+               <div style={{ color: '#888', fontSize: '0.9rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Total Items Sold</div>
+               <div style={{ fontSize: '2.2rem', fontWeight: 700 }}>{totalItemsSold}</div>
+             </div>
+           </div>
+
+           <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
+             {/* Top Sellers */}
+             <div className="admin-table-wrap" style={{ margin: 0 }}>
+               <h3 style={{ marginBottom: '1rem' }}>Top Selling Products</h3>
+               <table className="admin-table">
+                 <thead><tr><th>Product</th><th>Target</th></tr></thead>
+                 <tbody>
+                   {topProducts.map((p, idx) => (
+                     <tr key={p.id}>
+                       <td><div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                           <span style={{ fontWeight: 'bold', color: '#888' }}>#{idx+1}</span>
+                           <span style={{ fontSize: '0.9rem' }}>{p.title.substring(0,25)}...</span>
+                       </div></td>
+                       <td><span style={{ background: 'var(--badge-bg)', padding: '2px 8px', borderRadius: '12px', fontSize: '0.85rem' }}>{p.qty} sold</span></td>
+                     </tr>
+                   ))}
+                   {topProducts.length === 0 && <tr><td colSpan="2" style={{textAlign: 'center', color: '#888'}}>No sales data yet.</td></tr>}
+                 </tbody>
+               </table>
+             </div>
+
+             {/* Bookkeeping Ledger */}
+             <div className="admin-table-wrap" style={{ margin: 0 }}>
+               <h3 style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between' }}>
+                 <span>Bookkeeping Ledger</span>
+                 <span style={{fontSize: '0.9rem', fontWeight: 'normal', color: '#888'}}>Transaction History</span>
+               </h3>
+               <table className="admin-table">
+                 <thead>
+                   <tr>
+                     <th>Date</th>
+                     <th>Receipt ID</th>
+                     <th>Total</th>
+                     <th>Action</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   {[...orders].sort((a,b) => new Date(b.date) - new Date(a.date)).map(order => (
+                     <tr key={order.id}>
+                       <td>{new Date(order.date).toLocaleDateString()} {new Date(order.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+                       <td style={{fontSize: '0.85rem', color: '#555'}}>{order.id}</td>
+                       <td style={{fontWeight: 'bold'}}>${(order.totalAmount || 0).toFixed(2)}</td>
+                       <td>
+                         <button className="admin-edit-btn" style={{background: 'none', color: '#1E90FF', border: '1px solid #1E90FF', padding: '4px 10px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: false })}>
+                           View Receipt
+                         </button>
+                       </td>
+                     </tr>
+                   ))}
+                   {orders.length === 0 && <tr><td colSpan="4" style={{textAlign: 'center', color: '#888'}}>No transactions recorded.</td></tr>}
+                 </tbody>
+               </table>
+             </div>
+           </div>
+         </div>
+       )}
+
+       {/* Receipt & Packing Slip Modal (Printable) */}
+       {receiptModal.open && receiptModal.order && (
+         <div className="admin-modal-overlay">
+           <div className="admin-modal printable-invoice" style={{ maxWidth: '600px', width: '100%', color: 'black' }}>
+             
+             {/* Branding Header */}
+             <div style={{ borderBottom: '2px solid #eee', paddingBottom: '1.5rem', marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+               <div>
+                 <h2 style={{ margin: '0 0 5px 0', fontSize: '1.8rem' }}>S&G Trading Co.</h2>
+                 <p style={{ margin: 0, color: '#666', fontSize: '0.9rem' }}>11605 Harry Hines Blvd, Dallas, TX 75229</p>
+                 <p style={{ margin: 0, color: '#666', fontSize: '0.9rem' }}>sgtradingcard.com</p>
+               </div>
+               <div style={{ textAlign: 'right' }}>
+                 <h3 style={{ margin: '0 0 5px 0', fontSize: '1.4rem', color: receiptModal.isPackingSlip ? '#1E90FF' : '#555' }}>
+                   {receiptModal.isPackingSlip ? 'PACKING SLIP' : 'RECEIPT'}
+                 </h3>
+                 <p style={{ margin: 0, fontSize: '0.9rem' }}><strong>Order:</strong> {receiptModal.order.id}</p>
+                 <p style={{ margin: 0, fontSize: '0.9rem' }}><strong>Date:</strong> {new Date(receiptModal.order.date).toLocaleDateString()}</p>
+               </div>
+             </div>
+
+             {/* Addresses */}
+             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginBottom: '2rem' }}>
+               <div>
+                 <h4 style={{ margin: '0 0 5px 0', fontSize: '0.9rem', color: '#888', textTransform: 'uppercase' }}>Ship To:</h4>
+                 <p style={{ margin: 0, fontWeight: 'bold' }}>{receiptModal.order.shippingAddress?.name}</p>
+                 <p style={{ margin: 0 }}>{receiptModal.order.shippingAddress?.street1}</p>
+                 {receiptModal.order.shippingAddress?.street2 && <p style={{ margin: 0 }}>{receiptModal.order.shippingAddress.street2}</p>}
+                 <p style={{ margin: 0 }}>{receiptModal.order.shippingAddress?.city}, {receiptModal.order.shippingAddress?.state} {receiptModal.order.shippingAddress?.zip}</p>
+               </div>
+             </div>
+
+             {/* Line Items */}
+             <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '2rem' }}>
+               <thead>
+                 <tr style={{ borderBottom: '2px solid #ccc' }}>
+                   <th style={{ textAlign: 'left', padding: '8px 0' }}>Item Description</th>
+                   <th style={{ textAlign: 'center', padding: '8px 0', width: '80px' }}>Qty</th>
+                   {!receiptModal.isPackingSlip && <th style={{ textAlign: 'right', padding: '8px 0', width: '100px' }}>Amount</th>}
+                 </tr>
+               </thead>
+               <tbody>
+                 {(receiptModal.order.items || []).map((item, idx) => (
+                   <tr key={idx} style={{ borderBottom: '1px solid #eee' }}>
+                     <td style={{ padding: '12px 0' }}>{item.title}</td>
+                     <td style={{ padding: '12px 0', textAlign: 'center', fontWeight: 'bold' }}>{item.qty}</td>
+                     {!receiptModal.isPackingSlip && <td style={{ padding: '12px 0', textAlign: 'right' }}>{item.price}</td>}
+                   </tr>
+                 ))}
+               </tbody>
+             </table>
+
+             {/* Financials (Only show on Receipts) */}
+             {!receiptModal.isPackingSlip && (
+               <div style={{ borderTop: '2px solid #ccc', paddingTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
+                 <div style={{ width: '250px' }}>
+                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                     <span>Total Paid:</span>
+                     <span>${(receiptModal.order.totalAmount || 0).toFixed(2)}</span>
+                   </div>
+                 </div>
+               </div>
+             )}
+
+             {/* Packing Slip Footer Note */}
+             {receiptModal.isPackingSlip && (
+               <div style={{ textAlign: 'center', marginTop: '3rem', padding: '2rem', background: '#f9f9f9', borderRadius: '8px' }}>
+                 <h3 style={{ margin: '0 0 10px 0' }}>Thank you for your business!</h3>
+                 <p style={{ margin: 0, color: '#555' }}>If you love your pulls, tag us on TikTok @sgtradingcard</p>
+               </div>
+             )}
+
+             {/* Action Buttons (Hidden on Print) */}
+             <div className="admin-modal-actions no-print" style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
+               <button className="admin-cancel-btn" onClick={() => setReceiptModal({ open: false, order: null })}>Close</button>
+               <button className="admin-save-btn" onClick={() => window.print()}>🖨️ Print Document</button>
+             </div>
+
+           </div>
+         </div>
+       )}
+
+       {/* Shipping Modal */}
       {shippingModal.open && (
         <div className="admin-modal-overlay">
           <div className="admin-modal" style={{ maxWidth: '500px', width: '100%' }}>
