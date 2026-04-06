@@ -5,6 +5,16 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
     <div className="product-card" onClick={() => onViewProduct && onViewProduct(product)}>
       <div className="product-image-container">
         {soldOut && <span className="sold-out-badge">Sold out</span>}
+        {product.isPreorder && !soldOut && <span className="preorder-badge">Pre-order</span>}
+        {product.condition && (
+          <span className={`condition-badge ${
+            product.condition.includes('10') ? 'condition-gold' : 
+            (product.condition.includes('NM') || product.condition.includes('Mint')) ? 'condition-green' : 
+            'condition-gray'
+          }`}>
+            {product.condition}
+          </span>
+        )}
         <div className="product-image-placeholder">
           {imgUrl ? <img src={imgUrl} alt={title} /> : <span>📦</span>}
         </div>
@@ -17,10 +27,10 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
         <p className="product-price">{price}</p>
         {onAddToCart && !soldOut && (
           <button 
-            className="add-to-cart-btn" 
+            className={`add-to-cart-btn ${product.isPreorder ? 'preorder-btn' : ''}`}
             onClick={(e) => { e.stopPropagation(); onAddToCart(product); }}
           >
-            Add to Cart
+            {product.isPreorder ? 'Pre-Order' : 'Add to Cart'}
           </button>
         )}
         {soldOut && (

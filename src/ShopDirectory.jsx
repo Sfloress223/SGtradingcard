@@ -3,6 +3,7 @@ import ProductCard from './ProductCard';
 
 const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct }) => {
   const [selectedSet, setSelectedSet] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   if (selectedSet) {
     const setInfo = sets.find(s => s.id === selectedSet);
@@ -97,7 +98,10 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
               />
             ))
           ) : (
-            <p>No products currently found for this category.</p>
+            <div style={{ padding: '4rem 1rem', textAlign: 'center', gridColumn: '1 / -1', background: '#f8fafc', borderRadius: '12px', border: '2px dashed #cbd5e0' }}>
+              <h3 style={{ fontSize: '2rem', color: '#4a5568', marginBottom: '0.5rem' }}>Coming Soon</h3>
+              <p style={{ color: '#718096' }}>We are currently sourcing items for this category. Check back later!</p>
+            </div>
           )}
         </div>
       </section>
@@ -107,10 +111,41 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
   return (
     <section className="shop-section">
       <div className="shop-header">
-        <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Shop By Set & Category</h2>
-        <p style={{ color: "var(--text-light)", marginBottom: '3rem' }}>Select a Pokémon Trading Card Game expansion or category to view all available products.</p>
+        <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Shop Collection</h2>
+        <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+          <input 
+            type="text" 
+            placeholder="Search products, sets, or categories..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ flex: '1', minWidth: '250px', padding: '12px 16px', fontSize: '1rem', borderRadius: '8px', border: '1px solid #ddd' }}
+          />
+        </div>
       </div>
       
+      {searchQuery ? (() => {
+        const query = searchQuery.toLowerCase();
+        let filtered = products.filter(p => {
+          return p.title.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
+        });
+        
+        return (
+          <div className="product-grid">
+            {filtered.length > 0 ? filtered.map(product => (
+              <ProductCard 
+                key={product.id}
+                product={product}
+                title={product.title}
+                price={product.price}
+                soldOut={product.stock === 0 || product.soldOut}
+                imgUrl={product.imgUrl}
+                onAddToCart={onAddToCart}
+                onViewProduct={onViewProduct}
+              />
+            )) : <p>No products match your search.</p>}
+          </div>
+        )
+      })() : (
       <div className="set-grid">
         {sets.filter(s => !s.parent).map(set => (
           <div 
@@ -135,6 +170,7 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
           </div>
         ))}
       </div>
+      )}
     </section>
   );
 };

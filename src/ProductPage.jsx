@@ -60,14 +60,15 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
         </div>
 
         <div className="product-page-info">
-          {(product.stock === 0 || product.soldOut) ? <span className="sold-out-badge" style={{ position: 'static', marginBottom: '1rem', display: 'inline-block' }}>Sold out</span> : (product.stock !== undefined && <span style={{ color: '#4ade80', fontWeight: 'bold', display: 'block', marginBottom: '1rem' }}>{product.stock} in stock</span>)}
+          {product.isPreorder && !product.soldOut && <span className="preorder-badge" style={{ position: 'static', marginBottom: '1rem', display: 'inline-block' }}>Pre-order</span>}
+          {(product.stock === 0 || product.soldOut) ? <span className="sold-out-badge" style={{ position: 'static', marginBottom: '1rem', display: 'inline-block' }}>Sold out</span> : (product.stock !== undefined && !product.isPreorder && <span style={{ color: '#4ade80', fontWeight: 'bold', display: 'block', marginBottom: '1rem' }}>{product.stock} in stock</span>)}
           <h1 className="product-page-title">{product.title}</h1>
           <p className="product-page-price">{product.price}</p>
           
           <div className="product-page-meta">
             <div className="product-page-meta-item">
               <span className="meta-label">Condition</span>
-              <span className="meta-value">Factory Sealed</span>
+              <span className="meta-value" style={product.condition ? { fontWeight: 'bold' } : {}}>{product.condition || 'Factory Sealed'}</span>
             </div>
             <div className="product-page-meta-item">
               <span className="meta-label">Authenticity</span>
@@ -81,10 +82,10 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
 
           {!(product.stock === 0 || product.soldOut) ? (
             <button 
-              className="add-to-cart-btn product-page-atc"
+              className={`add-to-cart-btn product-page-atc ${product.isPreorder ? 'preorder-btn' : ''}`}
               onClick={() => onAddToCart(product)}
             >
-              Add to Cart
+              {product.isPreorder ? 'Pre-Order' : 'Add to Cart'}
             </button>
           ) : (
             <button className="add-to-cart-btn sold-out-btn product-page-atc" disabled>
@@ -93,6 +94,12 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
           )}
 
           <div className="product-page-description">
+            {product.isPreorder && (
+              <div style={{ padding: '1rem', background: '#eef2ff', borderLeft: '4px solid #2b6cb0', marginBottom: '2rem' }}>
+                <h4 style={{ color: '#2b6cb0', marginBottom: '0.5rem' }}>Est. Release / Shipping</h4>
+                <p style={{ fontSize: '0.9rem', color: '#4a5568' }}>This item is a pre-order. It will ship on or around its official release date. If you order in-stock items with this, the entire order will be held.</p>
+              </div>
+            )}
             {product.description && (
               <>
                 <h3>What's Included</h3>
@@ -102,7 +109,7 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
             <h3>Product Details</h3>
             <ul>
               <li>All products are 100% authentic and factory sealed</li>
-              <li>Ships within 1-3 business days</li>
+              <li>Handling is 1-3 business days</li>
               <li>Free shipping on orders over $150</li>
               <li>Carefully packaged for safe delivery</li>
             </ul>

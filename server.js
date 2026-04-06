@@ -10,6 +10,75 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+import { google } from 'googleapis';
+
+// ─── Google Shopping Content API ───
+let contentApi = null;
+try {
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS && process.env.MERCHANT_ID) {
+    const auth = new google.auth.GoogleAuth({
+      scopes: ['https://www.googleapis.com/auth/content']
+    });
+    contentApi = google.content({ version: 'v2.1', auth });
+    console.log('✅ Google Content API initialized successfully.');
+  } else {
+    console.warn('⚠️ Google Content API skipping initialization: Missing credentials.');
+  }
+} catch (err) {
+  console.error('Failed to initialize Google Content API:', err.message);
+}
+
+// Helper to instantly push inventory updates
+async function syncGoogleProduct(product) {
+  if (!contentApi || !process.env.MERCHANT_ID) return;
+  try {
+    const cleanDesc = (product.description || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const cleanTitle = (product.title || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const link = `https://sgtradingcard.com/?product=${product.id}`;
+    const imgUrl = product.imgUrl && product.imgUrl.startsWith('http') ? product.imgUrl : `https://sgtradingcard.com${product.imgUrl}`;
+    const condition = product.condition ? (product.condition.toLowerCase().includes('10') || product.condition.toLowerCase().includes('mint') ? 'new' : 'used') : 'new';
+    
+    // Parse shippingWeight (e.g. "1.6 lb")
+    let parsedWeight = null;
+    if (product.shippingWeight) {
+      const parts = product.shippingWeight.trim().split(' ');
+      if (parts.length === 2 && !isNaN(parseFloat(parts[0]))) {
+         parsedWeight = { value: parseFloat(parts[0]), unit: parts[1].toLowerCase() };
+      }
+    }
+    
+    const requestBody = {
+        offerId: product.id.toString(),
+        title: cleanTitle,
+        description: cleanDesc,
+        link: link,
+        imageLink: imgUrl,
+        contentLanguage: 'en',
+        targetCountry: 'US',
+        channel: 'online',
+        availability: product.soldOut ? 'out of stock' : 'in stock',
+        condition: condition,
+        price: {
+          value: product.price ? product.price.replace('$', '') : '0.00',
+          currency: 'USD'
+        },
+        brand: 'S&G Trading',
+        identifierExists: false
+      };
+      
+      if (parsedWeight) {
+        requestBody.shippingWeight = parsedWeight;
+      }
+    
+    await contentApi.products.insert({
+      merchantId: process.env.MERCHANT_ID,
+      requestBody
+    });
+    console.log(`📦 Synced Google Merchant Center for product ${product.id} -> ${product.soldOut ? 'OUT OF STOCK' : 'IN STOCK'}`);
+  } catch (err) {
+    console.error(`Failed to sync Google product ${product.id}:`, err.message);
+  }
+}
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const app = express();
@@ -546,6 +615,9 @@ app.post('/api/orders/confirm', (req, res) => {
         products[idx].stock = Math.max(0, products[idx].stock - item.qty);
         if (products[idx].stock === 0) products[idx].soldOut = true;
         updated = true;
+        
+        // PING GOOGLE CONTENT API instantly in background
+        syncGoogleProduct(products[idx]).catch(console.error);
       }
     });
 
