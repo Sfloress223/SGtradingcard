@@ -115,14 +115,14 @@ export const SETS = [
   {
     id: "other-tcg",
     name: "Other / Future TCGs",
-    imgUrl: "/images/singles.jpg",
-    bannerUrl: "/images/singles.jpg",
+    imgUrl: "/images/one-piece-group.jpg",
+    bannerUrl: "/images/one-piece-group.jpg",
     color: "#4B0082",
     emoji: "🎴"
   },
   {
     id: "pokemon-merch",
-    name: "Pokémon Merchandise & Toys",
+    name: "Merchandise & Toys",
     imgUrl: "/images/merch.svg",
     bannerUrl: "/images/merch.svg",
     color: "#FF8C00",
