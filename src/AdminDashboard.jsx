@@ -10,6 +10,7 @@ const AdminDashboard = ({ token, onLogout }) => {
   
   const [filterSet, setFilterSet] = useState('all');
   const [activeTab, setActiveTab] = useState('products'); // 'products' | 'orders' | 'analytics'
+  const [analyticsTime, setAnalyticsTime] = useState('all'); // 'today' | 'week' | 'month' | 'year' | 'all'
   const [receiptModal, setReceiptModal] = useState({ open: false, order: null, isPackingSlip: false });
 
   const [editing, setEditing] = useState(null);
@@ -322,12 +323,36 @@ const AdminDashboard = ({ token, onLogout }) => {
   const inStock = products.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut)).length;
   const soldOut = products.filter(p => p.stock === 0 || (p.stock === undefined && p.soldOut)).length;
 
-  const totalRevenue = orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
-  const totalOrders = orders.length;
+  const getFilteredOrders = () => {
+    if (analyticsTime === 'all') return orders;
+    const now = new Date();
+    return orders.filter(o => {
+      const d = new Date(o.date);
+      if (analyticsTime === 'today') {
+        return d.getDate() === now.getDate() && d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+      }
+      if (analyticsTime === 'week') {
+        const weekAgo = new Date();
+        weekAgo.setDate(now.getDate() - 7);
+        return d >= weekAgo;
+      }
+      if (analyticsTime === 'month') {
+        return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+      }
+      if (analyticsTime === 'year') {
+        return d.getFullYear() === now.getFullYear();
+      }
+      return true;
+    });
+  };
+
+  const filteredOrders = getFilteredOrders();
+  const totalRevenue = filteredOrders.reduce((sum, o) => sum + (o.totalAmount || 0), 0);
+  const totalOrders = filteredOrders.length;
   const aov = totalOrders > 0 ? (totalRevenue / totalOrders) : 0;
   const productSales = {};
   let totalItemsSold = 0;
-  orders.forEach(o => {
+  filteredOrders.forEach(o => {
     (o.items || []).forEach(item => {
       productSales[item.id] = (productSales[item.id] || 0) + item.qty;
       totalItemsSold += item.qty;
@@ -657,7 +682,21 @@ const AdminDashboard = ({ token, onLogout }) => {
        {/* Analytics & Bookkeeping UI */}
        {activeTab === 'analytics' && (
          <div style={{ marginTop: '2rem' }}>
-           <h3 style={{ marginBottom: '1rem' }}>Business Analytics</h3>
+           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+             <h3 style={{ margin: 0 }}>Business Analytics</h3>
+             <select 
+               className="admin-select"
+               value={analyticsTime} 
+               onChange={e => setAnalyticsTime(e.target.value)}
+               style={{ width: 'auto', padding: '6px 12px', borderRadius: '6px', fontSize: '0.95rem', cursor: 'pointer' }}
+             >
+               <option value="today">Today</option>
+               <option value="week">Trailing 7 Days</option>
+               <option value="month">This Month</option>
+               <option value="year">This Year</option>
+               <option value="all">All Time</option>
+             </select>
+           </div>
            
            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
              <div style={{ background: 'var(--card-bg)', border: '1px solid var(--border-color)', borderRadius: '12px', padding: '1.5rem' }}>
@@ -743,7 +782,7 @@ const AdminDashboard = ({ token, onLogout }) => {
              {/* Branding Header */}
              <div style={{ borderBottom: '2px solid #eee', paddingBottom: '1.5rem', marginBottom: '1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                <div>
-                 <h2 style={{ margin: '0 0 5px 0', fontSize: '1.8rem' }}>S&G Trading Co.</h2>
+                 <h2 style={{ margin: '0 0 5px 0', fontSize: '1.8rem' }}>S&G Trading Card</h2>
                  <p style={{ margin: 0, color: '#666', fontSize: '0.9rem' }}>11605 Harry Hines Blvd, Dallas, TX 75229</p>
                  <p style={{ margin: 0, color: '#666', fontSize: '0.9rem' }}>sgtradingcard.com</p>
                </div>
