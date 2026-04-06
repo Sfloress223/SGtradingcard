@@ -684,18 +684,23 @@ const AdminDashboard = ({ token, onLogout }) => {
          <div style={{ marginTop: '2rem' }}>
            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
              <h3 style={{ margin: 0 }}>Business Analytics</h3>
-             <select 
-               className="admin-select"
-               value={analyticsTime} 
-               onChange={e => setAnalyticsTime(e.target.value)}
-               style={{ width: 'auto', padding: '6px 12px', borderRadius: '6px', fontSize: '0.95rem', cursor: 'pointer' }}
-             >
-               <option value="today">Today</option>
-               <option value="week">Trailing 7 Days</option>
-               <option value="month">This Month</option>
-               <option value="year">This Year</option>
-               <option value="all">All Time</option>
-             </select>
+             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+               <a href={`${API}/api/tiktok/auth`} className="admin-add-btn" style={{ background: '#000', color: '#fff', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                 🎵 Link TikTok Shop
+               </a>
+               <select 
+                 className="admin-select"
+                 value={analyticsTime} 
+                 onChange={e => setAnalyticsTime(e.target.value)}
+                 style={{ width: 'auto', padding: '6px 12px', borderRadius: '6px', fontSize: '0.95rem', cursor: 'pointer' }}
+               >
+                 <option value="today">Today</option>
+                 <option value="week">Trailing 7 Days</option>
+                 <option value="month">This Month</option>
+                 <option value="year">This Year</option>
+                 <option value="all">All Time</option>
+               </select>
+             </div>
            </div>
            
            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
