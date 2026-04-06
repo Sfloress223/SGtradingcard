@@ -12,6 +12,7 @@ import AdminDashboard from './AdminDashboard';
 import Auth from './Auth';
 import SellerDashboard from './SellerDashboard';
 import PoliciesPage from './PoliciesPage';
+import ReviewsPage from './ReviewsPage';
 import { FaqPage, ContactPage } from './InfoPages';
 import { PRODUCTS as FALLBACK_PRODUCTS, SETS as FALLBACK_SETS } from './data';
 
@@ -243,6 +244,14 @@ function App() {
       );
     }
 
+    if (currentPage === 'reviews') {
+      return (
+        <main style={{ minHeight: '70vh', padding: '2rem 0' }}>
+          <ReviewsPage />
+        </main>
+      );
+    }
+
     if (currentPage === 'dashboard') {
       if (!userToken || !currentUser) return setCurrentPage('auth');
       return (
@@ -438,6 +447,7 @@ function App() {
               <h4 style={{ color: '#fff', marginBottom: '1rem' }}>Store</h4>
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('faq'); window.scrollTo(0, 0); }}>FAQ</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('policies'); window.scrollTo(0, 0); }}>Policies, Terms, & Conditions</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('reviews'); window.scrollTo(0, 0); }}>Customer Reviews</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('contact'); window.scrollTo(0, 0); }}>Contact Us</a>
             </div>
             

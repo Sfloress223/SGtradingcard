@@ -11,6 +11,7 @@ const AdminDashboard = ({ token, onLogout }) => {
   const [filterSet, setFilterSet] = useState('all');
   const [activeTab, setActiveTab] = useState('products'); // 'products' | 'orders' | 'analytics'
   const [analyticsTime, setAnalyticsTime] = useState('all'); // 'today' | 'week' | 'month' | 'year' | 'all'
+  const [ledgerFilter, setLedgerFilter] = useState('all'); // 'all' | 'local'
   const [receiptModal, setReceiptModal] = useState({ open: false, order: null, isPackingSlip: false });
 
   const [editing, setEditing] = useState(null);
@@ -745,9 +746,20 @@ const AdminDashboard = ({ token, onLogout }) => {
 
              {/* Bookkeeping Ledger */}
              <div className="admin-table-wrap" style={{ margin: 0 }}>
-               <h3 style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between' }}>
+               <h3 style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                  <span>Bookkeeping Ledger</span>
-                 <span style={{fontSize: '0.9rem', fontWeight: 'normal', color: '#888'}}>Transaction History</span>
+                 <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                   <select 
+                     className="admin-select"
+                     value={ledgerFilter} 
+                     onChange={e => setLedgerFilter(e.target.value)}
+                     style={{ width: 'auto', padding: '4px 8px', borderRadius: '4px', fontSize: '0.85rem' }}
+                   >
+                     <option value="all">Global (All Sales)</option>
+                     <option value="local">Local (Texas Only)</option>
+                   </select>
+                   <span style={{fontSize: '0.9rem', fontWeight: 'normal', color: '#888'}}>Transaction History</span>
+                 </div>
                </h3>
                <table className="admin-table">
                  <thead>
@@ -759,7 +771,14 @@ const AdminDashboard = ({ token, onLogout }) => {
                    </tr>
                  </thead>
                  <tbody>
-                   {[...orders].sort((a,b) => new Date(b.date) - new Date(a.date)).map(order => (
+                   {[...orders]
+                    .filter(order => {
+                      if (ledgerFilter !== 'local') return true;
+                      // Determine if local (Texas)
+                      const s = order.shippingAddress?.state?.toLowerCase() || '';
+                      return s === 'tx' || s === 'texas';
+                    })
+                    .sort((a,b) => new Date(b.date) - new Date(a.date)).map(order => (
                      <tr key={order.id}>
                        <td>{new Date(order.date).toLocaleDateString()} {new Date(order.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
                        <td style={{fontSize: '0.85rem', color: '#555'}}>{order.id}</td>

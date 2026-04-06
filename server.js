@@ -116,6 +116,7 @@ const USERS_FILE = path.join(__dirname, 'data', 'users.json');
 const SHIPPING_PRESETS_FILE = path.join(__dirname, 'data', 'shipping_presets.json');
 const ORDERS_FILE = path.join(__dirname, 'data', 'orders.json');
 const TIKTOK_TOKEN_FILE = path.join(__dirname, 'data', 'tiktok-token.json');
+const REVIEWS_FILE = path.join(__dirname, 'data', 'reviews.json');
 
 // --- TikTok Shop API Code ---
 async function syncTikTokProduct(product) {
@@ -768,6 +769,29 @@ app.post('/api/orders/confirm', (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// --- Reviews API ---
+app.get('/api/reviews', (req, res) => {
+  const reviews = readJSON(REVIEWS_FILE);
+  // Sort reviews newest first
+  const sortedReviews = reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+  res.json(sortedReviews);
+});
+
+app.post('/api/reviews', (req, res) => {
+  const reviews = readJSON(REVIEWS_FILE);
+  const newReview = {
+    id: Date.now().toString(),
+    name: req.body.name,
+    rating: Number(req.body.rating),
+    message: req.body.message,
+    source: "Verified Buyer",
+    date: new Date().toISOString().split('T')[0]
+  };
+  reviews.push(newReview);
+  writeJSON(REVIEWS_FILE, reviews);
+  res.json({ success: true, review: newReview });
 });
 
 const PORT = process.env.PORT || 3001;
