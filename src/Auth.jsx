@@ -184,6 +184,17 @@ const Auth = ({ onLoginSuccess }) => {
             required
             style={{ width: '100%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px', fontSize: '1rem' }}
           />
+          {isLogin && (
+            <div style={{ textAlign: 'right', marginTop: '0.4rem' }}>
+              <a 
+                href="#" 
+                onClick={(e) => { e.preventDefault(); setShowForgot(true); setError(null); }}
+                style={{ color: '#1E90FF', fontSize: '0.85rem', textDecoration: 'underline' }}
+              >
+                Forgot your password?
+              </a>
+            </div>
+          )}
         </div>
 
         {!isLogin && (
@@ -219,18 +230,6 @@ const Auth = ({ onLoginSuccess }) => {
             {isLogin ? 'Sign up here' : 'Log in here'}
           </a>
         </div>
-        
-        {isLogin && (
-          <div>
-            <a 
-              href="#" 
-              onClick={(e) => { e.preventDefault(); setShowForgot(true); setError(null); }}
-              style={{ color: '#666', fontSize: '0.85rem', textDecoration: 'underline' }}
-            >
-              Forgot your password?
-            </a>
-          </div>
-        )}
       </div>
         </>
       )}

@@ -50,6 +50,11 @@ const AdminLogin = ({ onLogin }) => {
           <button type="submit" className="pay-now-btn" disabled={loading} style={{ marginTop: '1rem' }}>
             {loading ? 'Logging in...' : 'Login'}
           </button>
+          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+            <a href="#" onClick={(e) => { e.preventDefault(); alert("Admin password resets must be done manually by checking your .env file or contacting server administration."); }} style={{ color: '#666', fontSize: '0.85rem', textDecoration: 'underline' }}>
+              Forgot password?
+            </a>
+          </div>
         </form>
       </div>
     </section>

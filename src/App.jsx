@@ -343,7 +343,7 @@ function App() {
           <h2 className="section-title">Featured Products</h2>
           
           <div className="product-grid">
-            {products.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut)).sort((a,b) => b.id - a.id).slice(0, 8).map(product => (
+            {products.filter(p => (p.stock > 0 || (p.stock === undefined && !p.soldOut)) && !p.sellerId).sort((a,b) => b.id - a.id).slice(0, 8).map(product => (
               <ProductCard 
                 key={product.id}
                 product={product}
