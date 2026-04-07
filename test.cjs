@@ -1,0 +1,1 @@
+require('dotenv').config(); const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY); stripe.accounts.retrieve('acct_1TEhQKB7ZOOF58cz').then(a => console.log('CHARGES ENABLED:', a.charges_enabled, 'DETAILS SUBMITTED:', a.details_submitted)).catch(console.error);

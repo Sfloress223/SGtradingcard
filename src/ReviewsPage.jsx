@@ -4,9 +4,14 @@ const API = import.meta.env.PROD ? 'https://sgtradingcard.onrender.com' : 'http:
 
 export default function ReviewsPage() {
   const [reviews, setReviews] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [sets, setSets] = useState([]);
   const [name, setName] = useState('');
   const [rating, setRating] = useState(5);
   const [message, setMessage] = useState('');
+  const [image, setImage] = useState(null);
+  const [selectedSet, setSelectedSet] = useState('');
+  const [selectedProduct, setSelectedProduct] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submittedOn, setSubmittedOn] = useState(false);
 
@@ -15,7 +20,25 @@ export default function ReviewsPage() {
       .then(res => res.json())
       .then(data => setReviews(data))
       .catch(console.error);
+      
+    fetch(`${API}/api/sets`)
+      .then(res => res.json())
+      .then(data => setSets(Array.isArray(data) ? data : []))
+      .catch(console.error);
+
+    fetch(`${API}/api/products`)
+      .then(res => res.json())
+      .then(data => setProducts(Array.isArray(data) ? data : []))
+      .catch(console.error);
   }, []);
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onloadend = () => setImage(reader.result);
+    reader.readAsDataURL(file);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +49,13 @@ export default function ReviewsPage() {
       const res = await fetch(`${API}/api/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, rating, message })
+        body: JSON.stringify({ 
+          name, 
+          rating, 
+          message, 
+          product: selectedProduct || null,
+          image: image || null
+        })
       });
       const data = await res.json();
       if (data.success) {
@@ -34,6 +63,9 @@ export default function ReviewsPage() {
         setName('');
         setMessage('');
         setRating(5);
+        setImage(null);
+        setSelectedProduct('');
+        setSelectedSet('');
         setSubmittedOn(true);
         setTimeout(() => setSubmittedOn(false), 3000);
       }
@@ -91,15 +123,37 @@ export default function ReviewsPage() {
                   required 
                   rows="4"
                   placeholder="Tell us about your pulls and packaging!"
-                  style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)', fontFamily: 'inherit' }}
+                  style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '1px solid var(--border-color)', background: 'var(--bg-color)', color: 'var(--text-color)', fontFamily: 'inherit', resize: 'vertical' }}
                 />
+              </div>
+
+              <div className="form-group full-width">
+                 <label>Show off your pulls! (Optional Photo)</label>
+                 <input type="file" accept="image/*" onChange={handleImageUpload} style={{ marginTop: '0.5rem', background: '#fff', padding: '0.5rem', borderRadius: '6px' }} />
+                 {image && <img src={image} alt="Upload preview" style={{ marginTop: '1rem', height: '80px', borderRadius: '8px', border: '1px solid #ccc' }} />}
+              </div>
+
+              <div className="form-group full-width">
+                 <label>Which product did you buy? (Optional)</label>
+                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem', marginTop: '0.5rem' }}>
+                   <select value={selectedSet} onChange={e => { setSelectedSet(e.target.value); setSelectedProduct(''); }} style={{ padding: '0.6rem', borderRadius: '6px', border: '1px solid var(--border-color)', background: '#fff', width: '100%' }}>
+                     <option value="">-- Select Category --</option>
+                     {sets.map(s => <option key={s.id} value={s.id}>{s.name}</option>)}
+                   </select>
+                   <select value={selectedProduct} onChange={e => setSelectedProduct(e.target.value)} disabled={!selectedSet} style={{ padding: '0.6rem', borderRadius: '6px', border: '1px solid var(--border-color)', background: selectedSet ? '#fff' : '#eee', width: '100%' }}>
+                     <option value="">-- Select Product --</option>
+                     {products.filter(p => p.setId === selectedSet).map(p => (
+                       <option key={p.id} value={p.title}>{p.title}</option>
+                     ))}
+                   </select>
+                 </div>
               </div>
 
               <button 
                 type="submit" 
                 className="checkout-btn" 
                 disabled={submitting}
-                style={{ width: '100%', opacity: submitting ? 0.7 : 1 }}
+                style={{ width: '100%', opacity: submitting ? 0.7 : 1, marginTop: '1rem' }}
               >
                 {submitting ? 'Submitting...' : 'Post Review'}
               </button>
@@ -132,9 +186,19 @@ export default function ReviewsPage() {
                   </div>
                   <span style={{ color: '#888', fontSize: '0.9rem' }}>{review.date}</span>
                 </div>
-                <p style={{ margin: 0, lineHeight: '1.6', color: 'var(--text-color)', opacity: 0.9 }}>
+                <p style={{ margin: '0 0 1rem 0', lineHeight: '1.6', color: 'var(--text-color)', opacity: 0.9 }}>
                   "{review.message}"
                 </p>
+                {review.image && (
+                  <div style={{ marginTop: '1rem', paddingBottom: '1rem' }}>
+                     <img src={review.image} alt="Review pull" style={{ maxWidth: '100px', maxHeight: '100px', borderRadius: '8px', objectFit: 'cover', border: '1px solid var(--border-color)' }} />
+                  </div>
+                )}
+                {review.product && (
+                  <div style={{ color: '#888', fontSize: '0.85rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.8rem' }}>
+                    Item: <span style={{ color: '#666' }}>{review.product}</span>
+                  </div>
+                )}
               </div>
             ))
           )}

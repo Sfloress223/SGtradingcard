@@ -15,6 +15,23 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
             {product.condition}
           </span>
         )}
+        {product.sellerName && (
+          <span className="seller-badge" style={{
+            position: 'absolute',
+            bottom: '10px',
+            right: '10px',
+            background: 'rgba(0, 0, 0, 0.75)',
+            color: '#fff',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            fontSize: '0.75rem',
+            fontWeight: 'bold',
+            zIndex: 2,
+            backdropFilter: 'blur(4px)'
+          }}>
+            Sold by: {product.sellerName}
+          </span>
+        )}
         <div className="product-image-placeholder">
           {imgUrl ? <img src={imgUrl} alt={title} /> : <span>📦</span>}
         </div>

@@ -115,7 +115,10 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
   const totalShipping = selectedShippingOption.price;
   const platformShipping = isSellerCart ? 0 : totalShipping;
   const sellerShipping = isSellerCart ? totalShipping : 0;
-  const total = subtotal + totalShipping;
+  
+  const taxRate = (shipping.state && ['TX', 'TEXAS'].includes(shipping.state.toUpperCase())) ? 0.0825 : 0;
+  const taxAmount = (subtotal + totalShipping) * taxRate;
+  const total = subtotal + totalShipping + taxAmount;
 
   const handleInputChange = (e) => {
     setShipping(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -132,7 +135,7 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
       const response = await fetch('https://sgtradingcard.onrender.com/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: cartItems, shipping, platformShipping, sellerShipping }),
+        body: JSON.stringify({ items: cartItems, shipping, platformShipping, sellerShipping, taxAmount }),
       });
 
       const { clientSecret, error: serverError } = await response.json();
@@ -168,6 +171,7 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
           id: paymentIntent.id,
           amount: total,
           shipping,
+          taxAmount,
           items: cartItems,
         });
       }
@@ -301,6 +305,10 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
             <div className="cart-summary-row">
               <span>Shipping</span>
               <span>{totalShipping === 0 ? 'FREE' : `$${totalShipping.toFixed(2)}`}</span>
+            </div>
+            <div className="cart-summary-row">
+              <span>Estimated Tax</span>
+              <span>${taxAmount.toFixed(2)}</span>
             </div>
             {totalShipping === 0 && !isSellerCart && <p className="cart-free-shipping-note">🎉 Free shipping applied!</p>}
             {isSellerCart && <p className="cart-free-shipping-note" style={{color:'#666', background:'transparent'}}>This is a Grand Exchange peer-to-peer order. Shipping is set by the seller.</p>}

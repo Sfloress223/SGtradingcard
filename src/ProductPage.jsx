@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ProductPage = ({ product, onAddToCart, onBack }) => {
+const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
   const [prevProduct, setPrevProduct] = useState(product);
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -70,14 +70,39 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
               <span className="meta-label">Condition</span>
               <span className="meta-value" style={product.condition ? { fontWeight: 'bold' } : {}}>{product.condition || 'Factory Sealed'}</span>
             </div>
-            <div className="product-page-meta-item">
-              <span className="meta-label">Authenticity</span>
-              <span className="meta-value">100% Authentic</span>
-            </div>
-            <div className="product-page-meta-item">
-              <span className="meta-label">Shipping</span>
-              <span className="meta-value">Free over $150</span>
-            </div>
+            {!product.sellerId && (
+              <>
+                <div className="product-page-meta-item">
+                  <span className="meta-label">Authenticity</span>
+                  <span className="meta-value">100% Authentic</span>
+                </div>
+                <div className="product-page-meta-item">
+                  <span className="meta-label">Shipping</span>
+                  <span className="meta-value">Free over $150</span>
+                </div>
+              </>
+            )}
+            {product.sellerId && (
+              <>
+                <div className="product-page-meta-item">
+                  <span className="meta-label">Seller</span>
+                  <a 
+                    href="#"
+                    onClick={(e) => { e.preventDefault(); onViewSellerProfile && onViewSellerProfile(product.sellerId); }}
+                    className="meta-value" 
+                    style={{ fontWeight: 'bold', color: '#1E90FF', textDecoration: 'underline', cursor: 'pointer' }}
+                  >
+                    {product.sellerName}
+                  </a>
+                </div>
+                {product.sellerIsVerified && (
+                  <div className="product-page-meta-item">
+                    <span className="meta-label">Rating</span>
+                    <span className="meta-value" style={{ color: '#FFD700', fontWeight: 'bold', textShadow: '0 0 1px #000' }}>⭐ Verified Seller</span>
+                  </div>
+                )}
+              </>
+            )}
           </div>
 
           {!(product.stock === 0 || product.soldOut) ? (
@@ -102,17 +127,29 @@ const ProductPage = ({ product, onAddToCart, onBack }) => {
             )}
             {product.description && (
               <>
-                <h3>What's Included</h3>
+                <h3>{product.sellerId ? "Seller's Description" : "What's Included"}</h3>
                 <p style={{ color: 'var(--text-light)', lineHeight: '1.7', marginBottom: '2rem' }}>{product.description}</p>
               </>
             )}
-            <h3>Product Details</h3>
-            <ul>
-              <li>All products are 100% authentic and factory sealed</li>
-              <li>Handling is 1-3 business days</li>
-              <li>Free shipping on orders over $150</li>
-              <li>Carefully packaged for safe delivery</li>
-            </ul>
+            {!product.sellerId && (
+              <>
+                <h3>Product Details</h3>
+                <ul>
+                  <li>All products are 100% authentic and factory sealed</li>
+                  <li>Handling is 1-3 business days</li>
+                  <li>Free shipping on orders over $150</li>
+                  <li>Carefully packaged for safe delivery</li>
+                </ul>
+              </>
+            )}
+            {product.sellerId && (
+              <div style={{ padding: '1rem', background: '#f5f5f5', borderRadius: '8px', marginTop: '2rem' }}>
+                <h4 style={{ marginBottom: '0.5rem', color: '#333' }}>Grand Exchange Purchase</h4>
+                <p style={{ fontSize: '0.9rem', color: '#666', lineHeight: '1.5' }}>
+                  This item is sold by an independent collector on The Grand Exchange. Shipping times and handling may vary depending on the seller.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>

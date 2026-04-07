@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const API = 'https://sgtradingcard.onrender.com';
+const API = import.meta.env.PROD ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
 
 const AdminDashboard = ({ token, onLogout }) => {
   const [products, setProducts] = useState([]);

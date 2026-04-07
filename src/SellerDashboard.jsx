@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
-const API = 'https://sgtradingcard.onrender.com';
+const API = import.meta.env.PROD ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
 
 const SellerDashboard = ({ user, token, onLogout }) => {
+  const [activeTab, setActiveTab] = useState('listings'); // 'listings' | 'orders'
+  const [orders, setOrders] = useState([]);
   const [listings, setListings] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const [formData, setFormData] = useState({
@@ -10,10 +12,36 @@ const SellerDashboard = ({ user, token, onLogout }) => {
     price: '',
     imgUrl: '',
     shippingFee: '1.00',
-    condition: 'Near Mint',
+    cardType: 'Single',
+    condition: 'Mint',
+    gradeCompany: 'PSA',
+    gradeValue: '10',
     description: ''
   });
   const [stripeStatus, setStripeStatus] = useState({ checked: false, charges_enabled: false });
+  const [tierInfo, setTierInfo] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [imgPreview, setImgPreview] = useState(null);
+
+  const handlePasteImage = (e) => {
+    if (!e.clipboardData) return;
+    const items = e.clipboardData.items;
+    let file = null;
+    for (let i = 0; i < items.length; i++) {
+        if (items[i].type.indexOf('image') !== -1) {
+            file = items[i].getAsFile();
+            break;
+        }
+    }
+    if (file) handleImageFile(file);
+  };
+
+  const handleImageFile = (file) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => setImgPreview(e.target.result);
+    reader.readAsDataURL(file);
+  };
 
   const fetchListings = async () => {
     try {
@@ -38,13 +66,35 @@ const SellerDashboard = ({ user, token, onLogout }) => {
         const data = await res.json();
         setStripeStatus({ checked: true, charges_enabled: data.charges_enabled });
       }
+
+      // Fetch Tier Info
+      const volRes = await fetch(`${API}/api/seller/volume`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (volRes.ok) {
+        setTierInfo(await volRes.json());
+      }
     } catch (err) {
       console.error('Failed to check Stripe status', err);
     }
   };
 
+  const fetchOrders = async () => {
+    try {
+      const res = await fetch(`${API}/api/seller/orders`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        setOrders(await res.json());
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     fetchListings();
+    fetchOrders();
     checkStripeStatus();
   }, [token]);
 
@@ -70,7 +120,23 @@ const SellerDashboard = ({ user, token, onLogout }) => {
 
   const handleCreateListing = async (e) => {
     e.preventDefault();
+    setIsUploading(true);
     try {
+      let finalImgUrl = formData.imgUrl;
+      
+      if (imgPreview && imgPreview.startsWith('data:image')) {
+        const uploadRes = await fetch(`${API}/api/admin/upload-image`, {
+          method: 'POST',
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+          },
+          body: JSON.stringify({ image: imgPreview })
+        });
+        const uploadData = await uploadRes.json();
+        if (uploadRes.ok) finalImgUrl = uploadData.url;
+      }
+
       const res = await fetch(`${API}/api/seller/products`, {
         method: 'POST',
         headers: { 
@@ -78,21 +144,26 @@ const SellerDashboard = ({ user, token, onLogout }) => {
           'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify({
-          ...formData,
-          setId: 'singles', // Market listings go to the Singles category
+          title: formData.title,
           price: `$${parseFloat(formData.price).toFixed(2)}`,
+          imgUrl: finalImgUrl,
           shippingFee: `$${parseFloat(formData.shippingFee).toFixed(2)}`,
+          condition: formData.cardType === 'Graded' ? `${formData.gradeCompany} ${formData.gradeValue}` : formData.condition,
+          description: formData.description,
+          setId: 'singles',
           soldOut: false
         })
       });
       if (res.ok) {
         setIsAdding(false);
-        setFormData({ title: '', price: '', imgUrl: '', shippingFee: '1.00', condition: 'Near Mint', description: '' });
+        setFormData({ title: '', price: '', imgUrl: '', shippingFee: '1.00', cardType: 'Single', condition: 'Mint', gradeCompany: 'PSA', gradeValue: '10', description: '' });
+        setImgPreview(null);
         fetchListings();
       }
     } catch (err) {
       console.error(err);
     }
+    setIsUploading(false);
   };
 
   const handleDelete = async (id) => {
@@ -110,7 +181,7 @@ const SellerDashboard = ({ user, token, onLogout }) => {
 
   return (
     <div style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 5%' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', borderBottom: '2px solid #eee', paddingBottom: '1rem' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '2px solid #eee', paddingBottom: '1rem' }}>
         <div>
           <h2 style={{ fontSize: '2rem' }}>The Grand Exchange</h2>
           <p style={{ color: 'var(--text-light)' }}>Welcome back, {user.username}!</p>
@@ -118,11 +189,38 @@ const SellerDashboard = ({ user, token, onLogout }) => {
         <button onClick={onLogout} style={{ padding: '8px 16px', background: '#eee', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Sign Out</button>
       </header>
 
+      {tierInfo && stripeStatus.charges_enabled && (
+        <div style={{ background: '#f8fbff', border: '1px solid #d0e1fd', padding: '1.5rem', borderRadius: '8px', marginBottom: '2rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '0.8rem' }}>
+            <div>
+              <div style={{ fontSize: '0.85rem', color: '#1E90FF', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem' }}>Rank: {tierInfo.tierName}</div>
+              <h3 style={{ margin: 0, fontSize: '1.4rem' }}>{tierInfo.feePercentage}% Platform Fee</h3>
+            </div>
+            {tierInfo.nextTierThreshold ? (
+               <div style={{ fontSize: '0.9rem', color: '#666', textAlign: 'right' }}>
+                 ${tierInfo.lifetimeVolumeUsd.toFixed(2)} / ${tierInfo.nextTierThreshold.toFixed(0)} <br/>
+                 <span style={{ fontSize: '0.8rem', color: '#1E90FF' }}>(${ (tierInfo.nextTierThreshold - tierInfo.lifetimeVolumeUsd).toFixed(2) } until {tierInfo.nextTierFee}%)</span>
+               </div>
+            ) : (
+               <div style={{ fontSize: '0.9rem', color: '#666', textAlign: 'right' }}>
+                 Lifetime Volume: ${tierInfo.lifetimeVolumeUsd.toFixed(2)}<br/>
+                 <span style={{ fontSize: '0.8rem', color: '#1E90FF' }}>Max Tier Unlocked!</span>
+               </div>
+            )}
+          </div>
+          {tierInfo.nextTierThreshold && (
+            <div style={{ background: '#e1eefd', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
+              <div style={{ background: '#1E90FF', height: '100%', width: `${Math.min(100, (tierInfo.lifetimeVolumeUsd / tierInfo.nextTierThreshold) * 100)}%`, transition: 'width 0.5s' }} />
+            </div>
+          )}
+        </div>
+      )}
+
       {stripeStatus.checked && !stripeStatus.charges_enabled && (
         <div style={{ background: '#fff3cd', border: '1px solid #ffeeba', padding: '1.5rem', borderRadius: '8px', marginBottom: '2rem', color: '#856404', textAlign: 'center' }}>
           <h3 style={{ marginBottom: '1rem' }}>Action Required: Connect Payout Account</h3>
           <p style={{ marginBottom: '1.5rem', maxWidth: '600px', margin: '0 auto 1.5rem' }}>
-            To legally accept payments and securely receive your 94.5% earnings directly to your bank, you must complete the secure Stripe Express onboarding. S&G Trading does not hold your funds.
+            To legally accept payments and securely receive your tiered earnings (up to 92.5%) directly to your bank, you must complete the secure Stripe Express onboarding. S&G Trading does not hold your funds.
           </p>
           <button 
             onClick={handleStripeConnect}
@@ -134,8 +232,26 @@ const SellerDashboard = ({ user, token, onLogout }) => {
       )}
 
       {stripeStatus.charges_enabled && (
+        <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '2px solid #eee', paddingBottom: '1rem' }}>
+          <button 
+             onClick={() => setActiveTab('listings')}
+             style={{ padding: '10px 20px', fontSize: '1.1rem', background: activeTab === 'listings' ? '#000' : 'transparent', color: activeTab === 'listings' ? '#fff' : '#666', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            My Listings ({listings.length})
+          </button>
+          <button 
+             onClick={() => setActiveTab('orders')}
+             style={{ padding: '10px 20px', fontSize: '1.1rem', background: activeTab === 'orders' ? '#000' : 'transparent', color: activeTab === 'orders' ? '#fff' : '#666', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+          >
+            Pending Shipments ({orders.filter(o => o.status !== 'fulfilled').length})
+          </button>
+        </div>
+      )}
+
+      {stripeStatus.charges_enabled && activeTab === 'listings' && (
+        <>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h3 style={{ fontSize: '1.5rem' }}>Your Active Listings ({listings.length})</h3>
+          <h3 style={{ fontSize: '1.5rem' }}>Your Active Listings</h3>
           <button 
             onClick={() => setIsAdding(!isAdding)}
             style={{ padding: '10px 20px', background: '#000', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
@@ -143,11 +259,13 @@ const SellerDashboard = ({ user, token, onLogout }) => {
             {isAdding ? 'Cancel' : '+ List a Card'}
           </button>
         </div>
-      )}
 
       {isAdding && (
-        <form onSubmit={handleCreateListing} style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '8px', marginBottom: '2rem', border: '1px solid #ddd' }}>
+        <form onSubmit={handleCreateListing} onPaste={handlePasteImage} style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '8px', marginBottom: '2rem', border: '1px solid #ddd' }}>
           <h4 style={{ marginBottom: '1.5rem' }}>Create New Listing</h4>
+          <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '1.5rem', marginTop: '-1rem' }}>
+             Tip: You can use your phone camera to scan a card, or press <strong>Ctrl+V</strong> to paste a screenshot directly into this form!
+          </p>
           
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
             <div style={{ flex: 2 }}>
@@ -155,7 +273,12 @@ const SellerDashboard = ({ user, token, onLogout }) => {
               <input required type="text" value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} style={{ width: '100%', padding: '0.5rem' }} placeholder="e.g. PSA 10 Base Set Charizard" />
             </div>
             <div style={{ flex: 1 }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Price ($) (You keep 94.5%)</label>
+              <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>
+                Price ($) 
+                <span style={{ color: '#2E8B57', marginLeft: '6px', fontWeight: 'bold' }}>
+                  (You keep {100 - (tierInfo ? tierInfo.feePercentage : 10)}% {formData.price && !isNaN(formData.price) ? `— $${(parseFloat(formData.price) * (100 - (tierInfo ? tierInfo.feePercentage : 10)) / 100).toFixed(2)}` : ''})
+                </span>
+              </label>
               <input required type="number" step="0.01" min="0.50" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} style={{ width: '100%', padding: '0.5rem' }} placeholder="100.00" />
             </div>
           </div>
@@ -170,20 +293,62 @@ const SellerDashboard = ({ user, token, onLogout }) => {
               </select>
             </div>
             <div style={{ flex: 1 }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Condition</label>
-              <select value={formData.condition} onChange={e => setFormData({...formData, condition: e.target.value})} style={{ width: '100%', padding: '0.5rem' }}>
-                <option value="PSA 10">PSA 10 (Gem Mint)</option>
-                <option value="PSA 9">PSA 9 (Mint)</option>
-                <option value="Near Mint">Raw (Near Mint)</option>
-                <option value="Lightly Played">Raw (Lightly Played)</option>
-                <option value="Heavily Played">Raw (Heavily Played)</option>
+              <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Format</label>
+              <select value={formData.cardType} onChange={e => setFormData({...formData, cardType: e.target.value})} style={{ width: '100%', padding: '0.5rem' }}>
+                <option value="Single">Single (Raw)</option>
+                <option value="Graded">Graded (Slab)</option>
               </select>
             </div>
+            
+            {formData.cardType === 'Single' ? (
+              <div style={{ flex: 1.5 }}>
+                <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Condition</label>
+                <select value={formData.condition} onChange={e => setFormData({...formData, condition: e.target.value})} style={{ width: '100%', padding: '0.5rem' }}>
+                  <option value="Mint">Mint</option>
+                  <option value="Light Play">Light Play</option>
+                  <option value="Moderate Play">Moderate Play</option>
+                  <option value="Heavy Play">Heavy Play</option>
+                </select>
+              </div>
+            ) : (
+              <>
+                <div style={{ flex: 1 }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Company</label>
+                  <select value={formData.gradeCompany} onChange={e => setFormData({...formData, gradeCompany: e.target.value})} style={{ width: '100%', padding: '0.5rem' }}>
+                    <option value="PSA">PSA</option>
+                    <option value="CGC">CGC</option>
+                    <option value="Beckett">Beckett</option>
+                  </select>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Grade</label>
+                  <select value={formData.gradeValue} onChange={e => setFormData({...formData, gradeValue: e.target.value})} style={{ width: '100%', padding: '0.5rem' }}>
+                    {[10, 9.5, 9, 8.5, 8, 7, 6, 5, 4, 3, 2, 1].map(g => (
+                      <option key={g} value={g}>{g}</option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
           </div>
 
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Image URL (Square 500x500 recommended)</label>
-            <input required type="url" value={formData.imgUrl} onChange={e => setFormData({...formData, imgUrl: e.target.value})} style={{ width: '100%', padding: '0.5rem' }} placeholder="https://..." />
+            <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Product Image</label>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center', marginBottom: '0.5rem' }}>
+              <input type="file" accept="image/*" capture="environment" onChange={(e) => handleImageFile(e.target.files[0])} style={{ flex: 1, minWidth: '200px', cursor: 'pointer' }} />
+              <span style={{ margin: 'auto 0', fontSize: '0.85rem' }}>or URL:</span>
+              <input required={!imgPreview} type="url" value={formData.imgUrl} onChange={e => setFormData({...formData, imgUrl: e.target.value})} style={{ flex: 1, minWidth: '200px', padding: '0.5rem' }} placeholder="https://..." />
+            </div>
+            {imgPreview && (
+              <div style={{ padding: '0.5rem', background: '#fff', border: '1px dashed #ccc', borderRadius: '8px', textAlign: 'center', width: '200px', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img src={imgPreview} alt="Preview" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+              </div>
+            )}
+            {!imgPreview && formData.imgUrl && (
+              <div style={{ padding: '0.5rem', background: '#fff', border: '1px dashed #ccc', borderRadius: '8px', textAlign: 'center', width: '200px', height: '200px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <img src={formData.imgUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} onError={(e) => e.target.style.display='none'} />
+              </div>
+            )}
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
@@ -191,7 +356,7 @@ const SellerDashboard = ({ user, token, onLogout }) => {
             <textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} style={{ width: '100%', padding: '0.5rem', minHeight: '80px' }} placeholder="Describe edge wear, scratches, or cert numbers..." />
           </div>
 
-          <button type="submit" style={{ padding: '10px 20px', background: '#2E8B57', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>Submit to Grand Exchange</button>
+          <button type="submit" disabled={isUploading} style={{ padding: '10px 20px', background: '#2E8B57', color: '#fff', border: 'none', borderRadius: '4px', cursor: isUploading ? 'not-allowed' : 'pointer', fontWeight: 'bold' }}>{isUploading ? 'Uploading...' : 'Submit to Grand Exchange'}</button>
         </form>
       )}
 
@@ -217,6 +382,97 @@ const SellerDashboard = ({ user, token, onLogout }) => {
           ))}
         </div>
       )}
+      </>
+      )}
+
+      {stripeStatus.charges_enabled && activeTab === 'orders' && (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.5rem' }}>Pending Shipments</h3>
+          </div>
+          {orders.length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-light)' }}>
+              <p>You have no pending orders.</p>
+            </div>
+          ) : (
+            <div style={{ display: 'grid', gap: '1rem' }}>
+              {orders.map(order => (
+                <div key={order.id} style={{ padding: '1.5rem', border: '1px solid #eee', borderRadius: '8px', background: '#fff' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                    <div>
+                      <h4 style={{ margin: 0, color: '#333' }}>Order #{order.id}</h4>
+                      <div style={{ fontSize: '0.85rem', color: '#666' }}>{new Date(order.date).toLocaleDateString()}</div>
+                    </div>
+                    <span style={{ padding: '4px 8px', background: order.status === 'fulfilled' ? '#e6fffa' : '#fff3cd', color: order.status === 'fulfilled' ? '#276749' : '#856404', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                      {order.status === 'fulfilled' ? 'SHIPPED' : 'UNFULFILLED'}
+                    </span>
+                  </div>
+
+                  <div style={{ marginBottom: '1rem', padding: '1rem', background: '#f8f9fa', borderRadius: '6px' }}>
+                    <h5 style={{ margin: '0 0 0.5rem 0' }}>Ship To:</h5>
+                    <div style={{ fontSize: '0.9rem', color: '#444' }}>
+                      <strong>{order.secureShippingAddress?.name || 'Loading from Stripe...'}</strong><br/>
+                      {order.secureShippingAddress?.address?.line1}<br/>
+                      {order.secureShippingAddress?.address?.city}, {order.secureShippingAddress?.address?.state} {order.secureShippingAddress?.address?.postal_code}
+                    </div>
+                  </div>
+
+                  <div style={{ marginBottom: '1.5rem' }}>
+                    <h5 style={{ margin: '0 0 0.5rem 0' }}>Items:</h5>
+                    <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.9rem' }}>
+                      {order.items.filter(i => i.sellerId === user.id).map(item => (
+                        <li key={item.id}>{item.title} (x{item.qty})</li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {order.status !== 'fulfilled' && (
+                    <form 
+                      onSubmit={async (e) => {
+                        e.preventDefault();
+                        const val = e.target.tracking.value;
+                        if (!val) return;
+                        
+                        try {
+                          const res = await fetch(`${API}/api/seller/orders/${order.id}/tracking`, {
+                            method: 'PUT',
+                            headers: { 
+                              'Content-Type': 'application/json',
+                              'Authorization': `Bearer ${token}` 
+                            },
+                            body: JSON.stringify({ trackingNumber: val })
+                          });
+                          if(res.ok) {
+                            fetchOrders();
+                          }
+                        } catch (err) { alert('Error updating tracking'); }
+                      }} 
+                      style={{ display: 'flex', gap: '0.5rem' }}
+                    >
+                      <input 
+                        name="tracking"
+                        type="text" 
+                        required 
+                        placeholder="Paste Tracking Number..." 
+                        style={{ flex: 1, padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }} 
+                      />
+                      <button type="submit" style={{ padding: '0.5rem 1rem', background: '#2E8B57', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}>
+                        Mark as Shipped
+                      </button>
+                    </form>
+                  )}
+                  {order.status === 'fulfilled' && (
+                    <div style={{ fontSize: '0.9rem', color: '#666' }}>
+                      <strong>Tracking Number:</strong> {order.trackingNumber}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
     </div>
   );
 };

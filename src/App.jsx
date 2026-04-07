@@ -11,12 +11,14 @@ import AdminLogin from './AdminLogin';
 import AdminDashboard from './AdminDashboard';
 import Auth from './Auth';
 import SellerDashboard from './SellerDashboard';
+import GrandExchangeMarket from './GrandExchangeMarket';
+import SellerProfile from './SellerProfile';
 import PoliciesPage from './PoliciesPage';
 import ReviewsPage from './ReviewsPage';
 import { FaqPage, ContactPage } from './InfoPages';
 import { PRODUCTS as FALLBACK_PRODUCTS, SETS as FALLBACK_SETS } from './data';
 
-const API = 'https://sgtradingcard.onrender.com';
+const API = import.meta.env.PROD ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 const stripeOptions = { disableLink: true };
@@ -27,6 +29,7 @@ function App() {
   );
   const [cartItems, setCartItems] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentSellerId, setCurrentSellerId] = useState(null);
   const [toast, setToast] = useState(null);
   const [completedOrder, setCompletedOrder] = useState(null);
   const [adminToken, setAdminToken] = useState(localStorage.getItem('sg_admin_token'));
@@ -222,7 +225,11 @@ function App() {
           <ProductPage 
             product={selectedProduct}
             onAddToCart={addToCart}
-            onBack={() => setCurrentPage('shop')}
+            onBack={() => setCurrentPage(selectedProduct.sellerId ? 'grand-exchange' : 'shop')}
+            onViewSellerProfile={(id) => {
+               setCurrentSellerId(id);
+               setCurrentPage('seller-profile');
+            }}
           />
         </main>
       );
@@ -232,6 +239,35 @@ function App() {
       return (
         <main style={{ minHeight: '70vh', padding: '2rem 0' }}>
           <ShopDirectory products={products} sets={sets} onAddToCart={addToCart} onViewProduct={viewProduct} />
+        </main>
+      );
+    }
+    
+    if (currentPage === 'grand-exchange') {
+      return (
+        <main style={{ minHeight: '70vh', padding: '2rem 0' }}>
+          <GrandExchangeMarket 
+            products={products}
+            onAddToCart={addToCart}
+            onViewProduct={viewProduct}
+            currentUser={currentUser}
+            setCurrentPage={setCurrentPage}
+          />
+        </main>
+      );
+    }
+    
+    if (currentPage === 'seller-profile') {
+      return (
+        <main style={{ minHeight: '70vh', padding: '2rem 0' }}>
+          <SellerProfile 
+            sellerId={currentSellerId}
+            onBack={() => setCurrentPage('grand-exchange')}
+            onViewProduct={viewProduct}
+            onAddToCart={addToCart}
+            user={currentUser}
+            token={userToken}
+          />
         </main>
       );
     }
@@ -396,7 +432,7 @@ function App() {
             <nav className="main-nav">
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} style={{ fontWeight: currentPage === 'home' ? 'bold' : 'normal', color: currentPage === 'home' ? '#000' : '' }}>Home</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('shop'); }} style={{ fontWeight: currentPage === 'shop' ? 'bold' : 'normal', color: currentPage === 'shop' ? '#000' : '' }}>Shop</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(currentUser ? 'dashboard' : 'auth'); }} style={{ color: (currentPage === 'auth' || currentPage === 'dashboard') ? '#000' : '' }}>The Grand Exchange</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('grand-exchange'); }} style={{ fontWeight: currentPage === 'grand-exchange' ? 'bold' : 'normal', color: currentPage === 'grand-exchange' ? '#000' : '' }}>The Grand Exchange</a>
             </nav>
             <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
               <a href="https://www.tiktok.com/@sgtradingcard" target="_blank" rel="noreferrer" title="Follow us on TikTok" style={{ fontSize: '1.2rem', color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>

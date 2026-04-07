@@ -208,6 +208,84 @@ app.post('/api/admin/login', (req, res) => {
   }
 });
 
+app.post('/api/auth/register', async (req, res) => {
+  const { username, email, password } = req.body;
+  if (!username || !email || !password) return res.status(400).json({ error: 'All fields required' });
+
+  const users = readJSON(USERS_FILE);
+  if (users.find(u => u.username === username || u.email === email)) {
+    return res.status(400).json({ error: 'User already exists' });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = { id: Date.now().toString(), username, email, password: hashedPassword, role: 'seller', stripeAccountId: null, charges_enabled: false };
+  users.push(newUser);
+  writeJSON(USERS_FILE, users);
+
+  res.json({ success: true });
+});
+
+// Memory store for active password reset PINs
+const activeResets = {}; // { email: { pin: "123456", expires: timestamp } }
+
+app.post('/api/auth/forgot-password', async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ error: 'Email required' });
+
+  const users = readJSON(USERS_FILE);
+  const user = users.find(u => u.email === email);
+  if (!user) return res.status(400).json({ error: 'No account found with that email' });
+
+  // Generate 6-digit secure PIN
+  const pin = Math.floor(100000 + Math.random() * 900000).toString();
+  activeResets[email] = { pin, expires: Date.now() + 15 * 60 * 1000 }; // 15 mins
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+    });
+
+    await transporter.sendMail({
+      from: `"The Grand Exchange" <${process.env.EMAIL_USER}>`,
+      to: email,
+      subject: 'Grand Exchange Password Reset PIN',
+      html: `<h2>Password Reset Request</h2>
+             <p>Your 6-digit confirmation PIN is: <strong>${pin}</strong></p>
+             <p>This code will automatically expire in 15 minutes.</p>`
+    });
+    
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Mail error:', err);
+    res.status(500).json({ error: 'Failed to dispatch email' });
+  }
+});
+
+app.post('/api/auth/reset-password', async (req, res) => {
+  const { email, pin, newPassword } = req.body;
+  
+  const resetSession = activeResets[email];
+  if (!resetSession) return res.status(400).json({ error: 'No active reset request' });
+  if (Date.now() > resetSession.expires) return res.status(400).json({ error: 'PIN expired' });
+  if (resetSession.pin !== pin) return res.status(400).json({ error: 'Invalid PIN' });
+
+  const users = readJSON(USERS_FILE);
+  const userIdx = users.findIndex(u => u.email === email);
+  if (userIdx === -1) return res.status(404).json({ error: 'User not found' });
+
+  // Hash new password and save
+  users[userIdx].password = await bcrypt.hash(newPassword, 10);
+  writeJSON(USERS_FILE, users);
+  
+  // Nuke the active session for security
+  delete activeResets[email];
+
+  res.json({ success: true });
+});
+
+// ─── Shippo Webhook ───
+
 app.post('/api/register', async (req, res) => {
   const { username, password, email } = req.body;
   if (!username || !password || !email) return res.status(400).json({ error: 'Missing required fields' });
@@ -541,14 +619,194 @@ app.post('/api/shipments/label', authMiddleware, async (req, res) => {
 // ─── Admin Orders Interface ───
 app.get('/api/admin/orders', authMiddleware, (req, res) => {
   if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
-  res.json(readJSON(ORDERS_FILE));
+  // S&G Retail Admin shouldn't fulfill or see P2P seller orders here.
+  const allOrders = readJSON(ORDERS_FILE);
+  const retailOrders = allOrders.filter(o => !o.items || !o.items.some(i => i.sellerId));
+  res.json(retailOrders);
+});
+
+// ─── Seller Interface (The Grand Exchange) ───
+app.get('/api/seller/orders', authMiddleware, async (req, res) => {
+  if (!fs.existsSync(PRODUCTS_FILE)) writeJSON(PRODUCTS_FILE, []);
+  const products = readJSON(PRODUCTS_FILE);
+  const allOrders = fs.existsSync(ORDERS_FILE) ? readJSON(ORDERS_FILE) : [];
+  
+  // Inject "sellerIsVerified" dynamically!
+  const verifiedMap = {}; // cache
+  
+  const augmentedProducts = products.map(p => {
+    if (p.sellerId) {
+      if (verifiedMap[p.sellerId] === undefined) {
+         let fulfilledSales = 0;
+         allOrders.forEach(o => {
+           if (o.status === 'fulfilled' && o.items && o.items.some(i => i.sellerId === p.sellerId)) {
+             fulfilledSales += 1;
+           }
+         });
+         verifiedMap[p.sellerId] = fulfilledSales >= 50;
+      }
+      p.sellerIsVerified = verifiedMap[p.sellerId];
+    }
+    return p;
+  });
+  
+  res.json(augmentedProducts);
+});
+
+app.get('/api/seller/orders', authMiddleware, async (req, res) => {
+  if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
+  const allOrders = readJSON(ORDERS_FILE);
+  const myOrders = allOrders.filter(o => o.items && o.items.some(i => i.sellerId === req.user.id));
+  
+  // Since we don't save the address in our DB for privacy, fetch live from Stripe
+  for (let order of myOrders) {
+    if (!order.shippingAddress && order.stripePaymentIntentId) {
+      try {
+        const intent = await stripe.paymentIntents.retrieve(order.stripePaymentIntentId);
+        // Map shipping details for the UI. (Stripe PaymentIntents hold the shipping data under 'shipping')
+        if (intent.shipping) {
+            order.secureShippingAddress = intent.shipping; 
+        } else {
+            order.secureShippingAddress = { name: "Pending", address: { line1: "Address stored natively in Stripe." } };
+        }
+      } catch(e) {
+        order.secureShippingAddress = { name: "Error", address: { line1: "Could not fetch from Stripe." } };
+      }
+    } else {
+      order.secureShippingAddress = order.shippingAddress;
+    }
+  }
+  
+  res.json(myOrders);
+});
+
+app.put('/api/seller/orders/:id/tracking', authMiddleware, (req, res) => {
+  const { trackingNumber } = req.body;
+  if (!fs.existsSync(ORDERS_FILE)) return res.status(404).json({ error: 'Order not found' });
+  let orders = readJSON(ORDERS_FILE);
+  const idx = orders.findIndex(o => o.id === req.params.id && o.items.some(i => i.sellerId === req.user.id));
+  
+  if (idx === -1) return res.status(403).json({ error: 'Unauthorized' });
+  
+  orders[idx].trackingNumber = trackingNumber;
+  orders[idx].status = 'fulfilled';
+  
+  writeJSON(ORDERS_FILE, orders);
+  res.json(orders[idx]);
 });
 
 // ─── Seller Interface (The Grand Exchange) ───
 app.get('/api/seller/products', authMiddleware, (req, res) => {
+  const userId = req.user.id;
   const products = readJSON(PRODUCTS_FILE);
-  const sellerProducts = products.filter(p => p.sellerId === req.user.id);
+  const sellerProducts = products.filter(p => p.sellerId === userId);
   res.json(sellerProducts);
+});
+
+app.get('/api/seller/volume', authMiddleware, (req, res) => {
+  const userId = req.user.id;
+  const users = readJSON(USERS_FILE);
+  const userIdx = users.findIndex(u => u.id === userId);
+  const user = users[userIdx];
+  
+  let lifetimeVolumeUsd = user.lifetimeVolumeUsd;
+  
+  // If not cached yet, compute and cache it retroactively
+  if (lifetimeVolumeUsd === undefined) {
+    const allOrders = readJSON(ORDERS_FILE);
+    lifetimeVolumeUsd = 0;
+    allOrders.forEach(o => {
+      const sellerItems = (o.items || []).filter(i => i.sellerId === userId);
+      sellerItems.forEach(si => {
+        lifetimeVolumeUsd += (parseFloat((si.price || '0').replace('$', '')) * (si.qty || 1));
+      });
+    });
+    users[userIdx].lifetimeVolumeUsd = lifetimeVolumeUsd;
+    writeJSON(USERS_FILE, users);
+  }
+
+  let feePercentage = 10;
+  let tierName = "Tier 1";
+  let nextTierThreshold = 5000;
+  let nextTierFee = 8.5;
+
+  if (lifetimeVolumeUsd >= 10000) {
+    feePercentage = 7.5;
+    tierName = "Tier 3";
+    nextTierThreshold = null;
+    nextTierFee = null;
+  } else if (lifetimeVolumeUsd >= 5000) {
+    feePercentage = 8.5;
+    tierName = "Tier 2";
+    nextTierThreshold = 10000;
+    nextTierFee = 7.5;
+  }
+
+  res.json({
+    lifetimeVolumeUsd,
+    feePercentage,
+    tierName,
+    nextTierThreshold,
+    nextTierFee
+  });
+});
+
+// ─── Public Seller Profiles & Reviews ───
+app.get('/api/sellers/profile/:id', (req, res) => {
+  const sellerId = req.params.id;
+  const users = readJSON(USERS_FILE);
+  const seller = users.find(u => u.id === sellerId);
+  
+  if (!seller) return res.status(404).json({ error: 'Seller not found' });
+  
+  // Calculate completed (fulfilled) sales
+  const allOrders = fs.existsSync(ORDERS_FILE) ? readJSON(ORDERS_FILE) : [];
+  let fulfilledSales = 0;
+  
+  allOrders.forEach(o => {
+    if (o.status === 'fulfilled' && o.items && o.items.some(i => i.sellerId === sellerId)) {
+      fulfilledSales += 1;
+    }
+  });
+
+  const isVerified = fulfilledSales >= 50;
+
+  res.json({
+    id: seller.id,
+    username: seller.username,
+    joinedAt: seller.createdAt,
+    fulfilledSales,
+    isVerified
+  });
+});
+
+app.get('/api/sellers/:id/reviews', (req, res) => {
+  if (!fs.existsSync(REVIEWS_FILE)) writeJSON(REVIEWS_FILE, []);
+  const allReviews = readJSON(REVIEWS_FILE);
+  const sellerReviews = allReviews.filter(r => r.sellerId === req.params.id);
+  res.json(sellerReviews);
+});
+
+app.post('/api/sellers/:id/reviews', authMiddleware, (req, res) => {
+  const { rating, comment } = req.body;
+  if (!rating || rating < 1 || rating > 5) return res.status(400).json({ error: 'Valid rating required' });
+  
+  if (!fs.existsSync(REVIEWS_FILE)) writeJSON(REVIEWS_FILE, []);
+  const allReviews = readJSON(REVIEWS_FILE);
+  
+  const newReview = {
+    id: `rev_${Date.now()}`,
+    sellerId: req.params.id,
+    buyerId: req.user.id,
+    buyerName: req.user.username || 'Verified Buyer',
+    rating: parseInt(rating),
+    comment: comment || '',
+    date: new Date().toISOString()
+  };
+  
+  allReviews.push(newReview);
+  writeJSON(REVIEWS_FILE, allReviews);
+  res.json(newReview);
 });
 
 app.post('/api/seller/products', authMiddleware, (req, res) => {
@@ -595,10 +853,11 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
       writeJSON(USERS_FILE, users);
     }
 
+    const host = req.get('origin') || 'http://localhost:5173';
     const accountLink = await stripe.accountLinks.create({
       account: user.stripeAccountId,
-      refresh_url: 'https://sg-tradingcard.vercel.app/#dashboard',
-      return_url: 'https://sg-tradingcard.vercel.app/#dashboard',
+      refresh_url: `${host}/#dashboard`,
+      return_url: `${host}/#dashboard`,
       type: 'account_onboarding'
     });
 
@@ -618,12 +877,14 @@ app.get('/api/seller/onboard-status', authMiddleware, async (req, res) => {
     }
 
     const account = await stripe.accounts.retrieve(user.stripeAccountId);
-    if (account.charges_enabled !== user.charges_enabled) {
-      user.charges_enabled = account.charges_enabled;
+    const isReady = account.charges_enabled || account.details_submitted;
+    
+    if (isReady !== user.charges_enabled) {
+      user.charges_enabled = isReady;
       writeJSON(USERS_FILE, users);
     }
     
-    res.json({ charges_enabled: account.charges_enabled });
+    res.json({ charges_enabled: isReady });
   } catch (err) {
     // If testing without real stripe keys, fail gracefully for now
     res.json({ charges_enabled: false, error: err.message });
@@ -633,7 +894,7 @@ app.get('/api/seller/onboard-status', authMiddleware, async (req, res) => {
 // ─── Stripe Checkout Payment ───
 app.post('/api/create-payment-intent', async (req, res) => {
   try {
-    const { items, shipping, platformShipping = 0, sellerShipping = 0 } = req.body;
+    const { items, shipping, platformShipping = 0, sellerShipping = 0, taxAmount = 0 } = req.body;
     
     // Check if handling a Peer-to-Peer marketplace cart
     const isSellerCart = items.length > 0 && !!items[0].sellerId;
@@ -644,8 +905,8 @@ app.post('/api/create-payment-intent', async (req, res) => {
     }, 0);
 
     const amount = isSellerCart ? 
-      Math.round((subtotal + sellerShipping) * 100) : 
-      Math.round((subtotal + platformShipping) * 100);
+      Math.round((subtotal + sellerShipping + taxAmount) * 100) : 
+      Math.round((subtotal + platformShipping + taxAmount) * 100);
 
     if (amount <= 0) return res.status(400).json({ error: 'Invalid cart amount' });
 
@@ -661,15 +922,38 @@ app.post('/api/create-payment-intent', async (req, res) => {
       receipt_email: shipping.email,
     };
 
-    // Apply the 5.5% Split for Peer-to-Peer Checkouts
+    // Apply the Dynamic Tiered Split for Peer-to-Peer Checkouts
     if (isSellerCart) {
       const sellerId = items[0].sellerId;
       const users = readJSON(USERS_FILE);
       const seller = users.find(u => u.id === sellerId);
       
       if (seller && seller.stripeAccountId) {
-         // The platform skim (5.5% of total value)
-         const platformFee = Math.round(amount * 0.055); 
+         // Read cached volume or compute if missing
+         let lifetimeVolumeUsd = seller.lifetimeVolumeUsd;
+         if (lifetimeVolumeUsd === undefined) {
+             const allOrders = readJSON(ORDERS_FILE);
+             lifetimeVolumeUsd = 0;
+             allOrders.forEach(o => {
+                const sellerItems = (o.items || []).filter(i => i.sellerId === sellerId);
+                sellerItems.forEach(si => {
+                    lifetimeVolumeUsd += (parseFloat((si.price || '0').replace('$', '')) * (si.qty || 1));
+                });
+             });
+             seller.lifetimeVolumeUsd = lifetimeVolumeUsd;
+             writeJSON(USERS_FILE, users);
+         }
+
+         // Assess Tier Bracket (Option A)
+         let feePercentage = 0.10; // Tier 1 (0 - $5k)
+         if (lifetimeVolumeUsd >= 10000) {
+             feePercentage = 0.075; // Tier 3 ($10k+)
+         } else if (lifetimeVolumeUsd >= 5000) {
+             feePercentage = 0.085; // Tier 2 ($5k+)
+         }
+
+         // The platform skim
+         const platformFee = Math.round(amount * feePercentage); 
          intentPayload.application_fee_amount = platformFee;
          intentPayload.transfer_data = {
            destination: seller.stripeAccountId
@@ -689,14 +973,26 @@ app.post('/api/create-payment-intent', async (req, res) => {
       id: `ord_${Date.now()}`,
       date: new Date().toISOString(),
       status: 'unfulfilled',
-      shippingAddress: shipping,
-      items: items.map(i => ({ id: i.id, title: i.title, qty: i.qty, price: i.price })),
+      shippingAddress: isSellerCart ? undefined : shipping, // Keep PII only in Stripe for Grand Exchange
+      items: items.map(i => ({ id: i.id, title: i.title, qty: i.qty, price: i.price, sellerId: i.sellerId })),
       totalAmount: amount / 100,
       stripePaymentIntentId: paymentIntent.id
     };
     
     orders.push(newOrder);
     writeJSON(ORDERS_FILE, orders);
+
+    // Actively append the new revenue into the seller's cache!
+    if (isSellerCart) {
+      const sellerId = items[0].sellerId;
+      const users = readJSON(USERS_FILE);
+      const userIdx = users.findIndex(u => u.id === sellerId);
+      if (userIdx !== -1) {
+         let sub = items.reduce((sum, item) => sum + parseFloat(item.price.replace('$', '')) * item.qty, 0);
+         users[userIdx].lifetimeVolumeUsd = (users[userIdx].lifetimeVolumeUsd || 0) + sub;
+         writeJSON(USERS_FILE, users);
+      }
+    }
 
     res.json({ clientSecret: paymentIntent.client_secret });
   } catch (err) {
@@ -786,6 +1082,8 @@ app.post('/api/reviews', (req, res) => {
     name: req.body.name,
     rating: Number(req.body.rating),
     message: req.body.message,
+    product: req.body.product || null,
+    image: req.body.image || null,
     source: "Verified Buyer",
     date: new Date().toISOString().split('T')[0]
   };

@@ -4,11 +4,14 @@ import ProductCard from './ProductCard';
 const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct }) => {
   const [selectedSet, setSelectedSet] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // Exclude Grand Exchange Peer-to-Peer items from the main retail shop
+  const retailProducts = products.filter(p => !p.sellerId);
 
   if (selectedSet) {
     const setInfo = sets.find(s => s.id === selectedSet);
     const subSets = sets.filter(s => s.parent === selectedSet);
-    const setProducts = products.filter(p => p.setId === selectedSet);
+    const setProducts = retailProducts.filter(p => p.setId === selectedSet);
 
     if (subSets.length > 0) {
       return (
@@ -108,6 +111,15 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
     );
   }
 
+  let searchResults = [];
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    searchResults = retailProducts.filter(p => 
+      p.title.toLowerCase().includes(q) || 
+      (p.description && p.description.toLowerCase().includes(q))
+    );
+  }
+
   return (
     <section className="shop-section">
       <div className="shop-header">
@@ -123,15 +135,9 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
         </div>
       </div>
       
-      {searchQuery ? (() => {
-        const query = searchQuery.toLowerCase();
-        let filtered = products.filter(p => {
-          return p.title.toLowerCase().includes(query) || (p.description && p.description.toLowerCase().includes(query));
-        });
-        
-        return (
+      {searchQuery ? (
           <div className="product-grid">
-            {filtered.length > 0 ? filtered.map(product => (
+            {searchResults.length > 0 ? searchResults.map(product => (
               <ProductCard 
                 key={product.id}
                 product={product}
@@ -145,7 +151,7 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
             )) : <p>No products match your search.</p>}
           </div>
         )
-      })() : (
+      : (
       <div className="set-grid">
         {sets.filter(s => !s.parent).map(set => (
           <div 
