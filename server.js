@@ -625,6 +625,15 @@ app.get('/api/admin/orders', authMiddleware, (req, res) => {
   res.json(retailOrders);
 });
 
+// ─── Admin Analytics Interface ───
+app.get('/api/admin/analytics', authMiddleware, (req, res) => {
+  if (!fs.existsSync(ORDERS_FILE)) return res.json([]);
+  const allOrders = readJSON(ORDERS_FILE);
+  // Filter exclusively for Grand Exchange orders
+  const geOrders = allOrders.filter(o => o.items && o.items.some(i => i.sellerId));
+  res.json(geOrders);
+});
+
 // ─── Seller Interface (The Grand Exchange) ───
 app.get('/api/seller/orders', authMiddleware, async (req, res) => {
   if (!fs.existsSync(PRODUCTS_FILE)) writeJSON(PRODUCTS_FILE, []);
@@ -922,6 +931,9 @@ app.post('/api/create-payment-intent', async (req, res) => {
       receipt_email: shipping.email,
     };
 
+    let finalPlatformFee = 0;
+    let finalFeePercentage = 0;
+
     // Apply the Dynamic Tiered Split for Peer-to-Peer Checkouts
     if (isSellerCart) {
       const sellerId = items[0].sellerId;
@@ -954,6 +966,8 @@ app.post('/api/create-payment-intent', async (req, res) => {
 
          // The platform skim
          const platformFee = Math.round(amount * feePercentage); 
+         finalPlatformFee = platformFee;
+         finalFeePercentage = feePercentage;
          intentPayload.application_fee_amount = platformFee;
          intentPayload.transfer_data = {
            destination: seller.stripeAccountId
@@ -976,6 +990,8 @@ app.post('/api/create-payment-intent', async (req, res) => {
       shippingAddress: isSellerCart ? undefined : shipping, // Keep PII only in Stripe for Grand Exchange
       items: items.map(i => ({ id: i.id, title: i.title, qty: i.qty, price: i.price, sellerId: i.sellerId })),
       totalAmount: amount / 100,
+      platformFeeUsd: isSellerCart ? (finalPlatformFee / 100) : 0,
+      platformFeePercentage: isSellerCart ? finalFeePercentage : 0,
       stripePaymentIntentId: paymentIntent.id
     };
     

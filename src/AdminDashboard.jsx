@@ -6,10 +6,11 @@ const AdminDashboard = ({ token, onLogout }) => {
   const [products, setProducts] = useState([]);
   const [sets, setSets] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [geAnalytics, setGeAnalytics] = useState([]);
   const [shippingPresets, setShippingPresets] = useState([]);
   
   const [filterSet, setFilterSet] = useState('all');
-  const [activeTab, setActiveTab] = useState('products'); // 'products' | 'orders' | 'analytics'
+  const [activeTab, setActiveTab] = useState('products'); // 'products' | 'orders' | 'analytics' | 'geledger'
   const [analyticsTime, setAnalyticsTime] = useState('all'); // 'today' | 'week' | 'month' | 'year' | 'all'
   const [ledgerFilter, setLedgerFilter] = useState('all'); // 'all' | 'local'
   const [receiptModal, setReceiptModal] = useState({ open: false, order: null, isPackingSlip: false });
@@ -39,6 +40,8 @@ const AdminDashboard = ({ token, onLogout }) => {
       return r.json();
     }).then(data => setOrders(Array.isArray(data) ? data : []));
     
+    fetch(`${API}/api/admin/analytics`, { headers: fetchHeaders }).then(r => r.json()).then(data => setGeAnalytics(Array.isArray(data) ? data : []));
+
     fetch(`${API}/api/admin/shipping-presets`, { headers: fetchHeaders }).then(r => r.json()).then(data => setShippingPresets(Array.isArray(data) ? data : []));
   }, [token, onLogout]);
 
@@ -393,6 +396,7 @@ const AdminDashboard = ({ token, onLogout }) => {
         <button className={activeTab === 'products' ? 'active-tab' : ''} onClick={() => setActiveTab('products')}>Inventory</button>
         <button className={activeTab === 'orders' ? 'active-tab' : ''} onClick={() => setActiveTab('orders')}>Orders & Shipping</button>
         <button className={activeTab === 'analytics' ? 'active-tab' : ''} onClick={() => setActiveTab('analytics')}>Analytics & Bookkeeping</button>
+        <button className={activeTab === 'geledger' ? 'active-tab' : ''} onClick={() => setActiveTab('geledger')}>GE Ledger</button>
       </div>
 
       {activeTab === 'products' && (
@@ -993,6 +997,47 @@ const AdminDashboard = ({ token, onLogout }) => {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* GE Revenue Ledger */}
+      {activeTab === 'geledger' && (
+        <div className="admin-table-wrap">
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
+            <div className="analytics-card" style={{ flex: 1 }}>
+              <h3>Lifetime P2P Processed</h3>
+              <div className="stat-value">${geAnalytics.reduce((sum, o) => sum + (o.totalAmount || 0), 0).toFixed(2)}</div>
+            </div>
+            <div className="analytics-card" style={{ flex: 1, borderLeft: '4px solid var(--accent-color)' }}>
+              <h3>Cumulative Platform Skim</h3>
+              <div className="stat-value" style={{ color: 'var(--accent-color)' }}>${geAnalytics.reduce((sum, o) => sum + (o.platformFeeUsd || 0), 0).toFixed(2)}</div>
+            </div>
+          </div>
+          <table className="admin-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Order ID</th>
+                <th>Gross Total</th>
+                <th>Platform Fee %</th>
+                <th>S&G Take-Home (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {[...geAnalytics].sort((a,b) => new Date(b.date) - new Date(a.date)).map(o => (
+                <tr key={o.id}>
+                  <td>{new Date(o.date).toLocaleDateString()}</td>
+                  <td style={{ fontSize: '0.85rem', color: '#888'}}>{o.id}</td>
+                  <td style={{ fontWeight: 600 }}>${(o.totalAmount || 0).toFixed(2)}</td>
+                  <td>{o.platformFeePercentage ? (o.platformFeePercentage * 100).toFixed(1) + '%' : '10.0% (Legacy)'}</td>
+                  <td style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>${(o.platformFeeUsd !== undefined ? o.platformFeeUsd : 0).toFixed(2)}</td>
+                </tr>
+              ))}
+              {geAnalytics.length === 0 && (
+                <tr><td colSpan="5" style={{ textAlign: 'center', padding: '2rem' }}>No automated Grand Exchange fees collected yet.</td></tr>
+              )}
+            </tbody>
+          </table>
         </div>
       )}
 
