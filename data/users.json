@@ -5,8 +5,8 @@
     "email": "samfloress03@gmail.com",
     "password": "$2b$10$JFKQnTN4hP78pJcyzWL5/eOFkUgXit4F14XAD5jGjHTJ/.349BimW",
     "role": "seller",
-    "stripeAccountId": "acct_1TEhQKB7ZOOF58cz",
-    "charges_enabled": true,
+    "stripeAccountId": null,
+    "charges_enabled": false,
     "lifetimeVolumeUsd": 0
   }
 ]

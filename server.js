@@ -333,7 +333,27 @@ app.get('/api/admin/verify', authMiddleware, (req, res) => {
 // ─── Public Product Routes ───
 app.get('/api/products', (req, res) => {
   const products = readJSON(PRODUCTS_FILE);
-  res.json(products);
+  const allOrders = fs.existsSync(ORDERS_FILE) ? readJSON(ORDERS_FILE) : [];
+  
+  const verifiedMap = {}; // cache
+  
+  const augmentedProducts = products.map(p => {
+    if (p.sellerId) {
+      if (verifiedMap[p.sellerId] === undefined) {
+         let fulfilledSales = 0;
+         allOrders.forEach(o => {
+           if (o.status === 'fulfilled' && o.items && o.items.some(i => i.sellerId === p.sellerId)) {
+             fulfilledSales += 1;
+           }
+         });
+         verifiedMap[p.sellerId] = fulfilledSales >= 50;
+      }
+      p.sellerIsVerified = verifiedMap[p.sellerId];
+    }
+    return p;
+  });
+  
+  res.json(augmentedProducts);
 });
 
 app.get('/api/sets', (req, res) => {
@@ -635,32 +655,7 @@ app.get('/api/admin/analytics', authMiddleware, (req, res) => {
 });
 
 // ─── Seller Interface (The Grand Exchange) ───
-app.get('/api/seller/orders', authMiddleware, async (req, res) => {
-  if (!fs.existsSync(PRODUCTS_FILE)) writeJSON(PRODUCTS_FILE, []);
-  const products = readJSON(PRODUCTS_FILE);
-  const allOrders = fs.existsSync(ORDERS_FILE) ? readJSON(ORDERS_FILE) : [];
-  
-  // Inject "sellerIsVerified" dynamically!
-  const verifiedMap = {}; // cache
-  
-  const augmentedProducts = products.map(p => {
-    if (p.sellerId) {
-      if (verifiedMap[p.sellerId] === undefined) {
-         let fulfilledSales = 0;
-         allOrders.forEach(o => {
-           if (o.status === 'fulfilled' && o.items && o.items.some(i => i.sellerId === p.sellerId)) {
-             fulfilledSales += 1;
-           }
-         });
-         verifiedMap[p.sellerId] = fulfilledSales >= 50;
-      }
-      p.sellerIsVerified = verifiedMap[p.sellerId];
-    }
-    return p;
-  });
-  
-  res.json(augmentedProducts);
-});
+// Replaced via routing split
 
 app.get('/api/seller/orders', authMiddleware, async (req, res) => {
   if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
