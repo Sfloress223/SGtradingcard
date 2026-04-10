@@ -413,6 +413,7 @@ const SellerDashboard = ({ user, token, onLogout }) => {
                     <div style={{ fontSize: '0.9rem', color: '#444' }}>
                       <strong>{order.secureShippingAddress?.name || 'Loading from Stripe...'}</strong><br/>
                       {order.secureShippingAddress?.address?.line1}<br/>
+                      {order.secureShippingAddress?.address?.line2 && <>{order.secureShippingAddress.address.line2}<br/></>}
                       {order.secureShippingAddress?.address?.city}, {order.secureShippingAddress?.address?.state} {order.secureShippingAddress?.address?.postal_code}
                     </div>
                   </div>
