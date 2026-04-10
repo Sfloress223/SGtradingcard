@@ -114,7 +114,14 @@ const SellerProfile = ({ sellerId, onBack, onViewProduct, onAddToCart, user, tok
             <p style={{ color: '#666' }}>This seller has no active market listings.</p>
           ) : (
             <div className="product-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))' }}>
-              {products.map(product => (
+              {products
+                .sort((a,b) => {
+                  const aS = a.stock === 0 || a.soldOut;
+                  const bS = b.stock === 0 || b.soldOut;
+                  if (aS !== bS) return aS ? 1 : -1;
+                  return b.id - a.id;
+                })
+                .map(product => (
                 <ProductCard 
                   key={product.id} 
                   product={product} 

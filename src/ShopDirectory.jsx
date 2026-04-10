@@ -32,7 +32,7 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
                 key={set.id} 
                 className="set-card" 
                 onClick={() => setSelectedSet(set.id)}
-                style={{ borderTop: `4px solid ${set.color || 'var(--border-color)'}` }}
+                style={{ borderTop: `4px solid #1E90FF` }}
               >
                 <div className="set-logo-container">
                   {set.bannerUrl ? (
@@ -72,6 +72,10 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
           {setProducts.length > 0 ? (
             setProducts
               .sort((a, b) => {
+                const aSoldOut = a.stock === 0 || a.soldOut;
+                const bSoldOut = b.stock === 0 || b.soldOut;
+                if (aSoldOut !== bSoldOut) return aSoldOut ? 1 : -1;
+
                 const getRank = (title) => {
                   const t = title.toLowerCase();
                   if (t.includes('elite trainer box') || t.includes('etb')) return 1;
@@ -122,22 +126,33 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
 
   return (
     <section className="shop-section">
-      <div className="shop-header">
-        <h2 className="section-title" style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Shop Collection</h2>
-        <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
-          <input 
-            type="text" 
-            placeholder="Search products, sets, or categories..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ flex: '1', minWidth: '250px', padding: '12px 16px', fontSize: '1rem', borderRadius: '8px', border: '1px solid #ddd' }}
-          />
+      <div className="ge-hero-container">
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto' }}>
+          <h2 className="ge-hero-title">Shop Collection</h2>
+          <p className="ge-hero-subtitle">Discover the rarest sealed product, graded slabs, and modern accessories natively from our retail warehouse.</p>
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginTop: '2rem' }}>
+            <input 
+              type="text" 
+              className="ge-input-field"
+              placeholder="Search products, sets, or categories..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{ maxWidth: '500px', padding: '14px 18px', fontSize: '1.1rem' }}
+            />
+          </div>
         </div>
       </div>
       
       {searchQuery ? (
           <div className="product-grid">
-            {searchResults.length > 0 ? searchResults.map(product => (
+            {searchResults.length > 0 ? searchResults
+              .sort((a,b) => {
+                const aSoldOut = a.stock === 0 || a.soldOut;
+                const bSoldOut = b.stock === 0 || b.soldOut;
+                if (aSoldOut !== bSoldOut) return aSoldOut ? 1 : -1;
+                return a.title.localeCompare(b.title);
+              })
+              .map(product => (
               <ProductCard 
                 key={product.id}
                 product={product}
@@ -158,7 +173,7 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
             key={set.id} 
             className="set-card" 
             onClick={() => setSelectedSet(set.id)}
-            style={{ borderTop: `4px solid ${set.color}` }}
+            style={{ borderTop: `4px solid #1E90FF` }}
           >
             <div className={`set-logo-container ${['graded-cards', 'japanese'].includes(set.id) ? 'photo-container' : ''}`}>
                {(set.bannerUrl || set.imgUrl) ? (

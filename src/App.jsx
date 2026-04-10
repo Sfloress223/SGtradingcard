@@ -361,7 +361,7 @@ function App() {
         </section>
 
         {/* Live Stream Schedule Section */}
-        <section className="stream-section" style={{ padding: '6rem 2rem', background: '#f8fafc', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+        <section className="stream-section" style={{ padding: '6rem 2rem', background: 'transparent', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <div className="stream-info" style={{ width: '100%', maxWidth: '600px' }}>
             <div style={{ display: 'inline-block', background: '#fe2c55', color: '#fff', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '1rem', letterSpacing: '1px' }}>LIVE ON TIKTOK</div>
             <h2 style={{ fontSize: '2.8rem', marginBottom: '1.5rem', color: '#1a202c', lineHeight: '1.2' }}>Catch Us Live!</h2>
@@ -424,9 +424,9 @@ function App() {
           <div className="header-inner">
             <div className="logo" onClick={() => setCurrentPage('home')} style={{ cursor: 'pointer' }}>
               <img 
-                src="https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/e0ce8a5e-488b-4350-ac61-8663899b9bc5/SuzieQ+LOGO+%282%29.png?format=500w" 
+                src="/sg_arcade_logo.jpg" 
                 alt="S&G Trading Co." 
-                style={{ height: '90px', objectFit: 'contain' }}
+                style={{ height: '110px', objectFit: 'contain', borderRadius: '8px' }}
               />
             </div>
             <nav className="main-nav">

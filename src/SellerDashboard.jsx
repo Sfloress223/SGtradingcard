@@ -180,37 +180,54 @@ const SellerDashboard = ({ user, token, onLogout }) => {
   };
 
   return (
-    <div style={{ maxWidth: '900px', margin: '2rem auto', padding: '0 5%' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '2px solid #eee', paddingBottom: '1rem' }}>
-        <div>
-          <h2 style={{ fontSize: '2rem' }}>The Grand Exchange</h2>
-          <p style={{ color: 'var(--text-light)' }}>Welcome back, {user.username}!</p>
+    <div className="ge-page-wrapper" style={{ maxWidth: '1400px', margin: '0 auto' }}>
+      
+      {/* Premium Dashboard Header */}
+      <div className="ge-hero-container" style={{ marginBottom: '2.5rem' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '2rem' }}>
+          <div>
+            <h2 className="ge-hero-title">The Grand Exchange</h2>
+            <p className="ge-hero-subtitle">Seller Dashboard — Welcome back, {user.username}!</p>
+          </div>
+          <div>
+            <button 
+              onClick={onLogout}
+              style={{ 
+                background: 'rgba(255, 255, 255, 0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)', 
+                padding: '10px 20px', borderRadius: '8px', fontWeight: 'bold', cursor: 'pointer',
+                backdropFilter: 'blur(10px)', transition: 'all 0.2s'
+              }}
+              onMouseOver={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#000'; }}
+              onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)'; e.currentTarget.style.color = '#fff'; }}
+            >
+              Sign Out
+            </button>
+          </div>
         </div>
-        <button onClick={onLogout} style={{ padding: '8px 16px', background: '#eee', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Sign Out</button>
-      </header>
+      </div>
 
       {tierInfo && stripeStatus.charges_enabled && (
-        <div style={{ background: '#f8fbff', border: '1px solid #d0e1fd', padding: '1.5rem', borderRadius: '8px', marginBottom: '2rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '0.8rem' }}>
+        <div style={{ background: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.8)', padding: '2rem', borderRadius: '16px', marginBottom: '2.5rem', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1.2rem' }}>
             <div>
-              <div style={{ fontSize: '0.85rem', color: '#1E90FF', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.2rem' }}>Rank: {tierInfo.tierName}</div>
-              <h3 style={{ margin: 0, fontSize: '1.4rem' }}>{tierInfo.feePercentage}% Platform Fee</h3>
+              <div style={{ fontSize: '0.8rem', color: '#2b6cb0', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '0.4rem' }}>Seller Level: {tierInfo.tierName}</div>
+              <h3 style={{ margin: 0, fontSize: '1.8rem', color: '#1a202c', fontWeight: '900' }}>{tierInfo.feePercentage}% Platform Fee</h3>
             </div>
             {tierInfo.nextTierThreshold ? (
-               <div style={{ fontSize: '0.9rem', color: '#666', textAlign: 'right' }}>
-                 ${tierInfo.lifetimeVolumeUsd.toFixed(2)} / ${tierInfo.nextTierThreshold.toFixed(0)} <br/>
-                 <span style={{ fontSize: '0.8rem', color: '#1E90FF' }}>(${ (tierInfo.nextTierThreshold - tierInfo.lifetimeVolumeUsd).toFixed(2) } until {tierInfo.nextTierFee}%)</span>
+               <div style={{ fontSize: '0.95rem', color: '#4a5568', textAlign: 'right', fontWeight: '600' }}>
+                 ${tierInfo.lifetimeVolumeUsd.toLocaleString()} / ${tierInfo.nextTierThreshold.toLocaleString()} <br/>
+                 <span style={{ fontSize: '0.8rem', color: '#2b6cb0', display: 'block', marginTop: '4px' }}>${ (tierInfo.nextTierThreshold - tierInfo.lifetimeVolumeUsd).toFixed(2) } until {tierInfo.nextTierFee}% Fee</span>
                </div>
             ) : (
-               <div style={{ fontSize: '0.9rem', color: '#666', textAlign: 'right' }}>
-                 Lifetime Volume: ${tierInfo.lifetimeVolumeUsd.toFixed(2)}<br/>
-                 <span style={{ fontSize: '0.8rem', color: '#1E90FF' }}>Max Tier Unlocked!</span>
+               <div style={{ fontSize: '0.95rem', color: '#276749', textAlign: 'right', fontWeight: 'bold' }}>
+                 Lifetime Volume: ${tierInfo.lifetimeVolumeUsd.toLocaleString()}<br/>
+                 <span style={{ fontSize: '0.85rem' }}>✨ Max Tier Unlocked!</span>
                </div>
             )}
           </div>
           {tierInfo.nextTierThreshold && (
-            <div style={{ background: '#e1eefd', height: '10px', borderRadius: '5px', overflow: 'hidden' }}>
-              <div style={{ background: '#1E90FF', height: '100%', width: `${Math.min(100, (tierInfo.lifetimeVolumeUsd / tierInfo.nextTierThreshold) * 100)}%`, transition: 'width 0.5s' }} />
+            <div style={{ background: '#e2e8f0', height: '12px', borderRadius: '6px', overflow: 'hidden' }}>
+              <div style={{ background: 'linear-gradient(to right, #4299e1, #2b6cb0)', height: '100%', width: `${Math.min(100, (tierInfo.lifetimeVolumeUsd / tierInfo.nextTierThreshold) * 100)}%`, transition: 'width 1s cubic-bezier(0.4, 0, 0.2, 1)' }} />
             </div>
           )}
         </div>
@@ -232,16 +249,26 @@ const SellerDashboard = ({ user, token, onLogout }) => {
       )}
 
       {stripeStatus.charges_enabled && (
-        <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '2px solid #eee', paddingBottom: '1rem' }}>
+        <div style={{ display: 'flex', gap: '2rem', marginBottom: '2.5rem', borderBottom: '2px solid rgba(0,0,0,0.05)', paddingBottom: '0.5rem' }}>
           <button 
              onClick={() => setActiveTab('listings')}
-             style={{ padding: '10px 20px', fontSize: '1.1rem', background: activeTab === 'listings' ? '#000' : 'transparent', color: activeTab === 'listings' ? '#fff' : '#666', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+             style={{ 
+               padding: '12px 0', fontSize: '1.1rem', background: 'transparent', 
+               color: activeTab === 'listings' ? '#1a202c' : '#718096', border: 'none', 
+               borderBottom: activeTab === 'listings' ? '3px solid #ffd700' : '3px solid transparent',
+               cursor: 'pointer', fontWeight: '800', transition: 'all 0.2s', outline: 'none'
+             }}
           >
             My Listings ({listings.length})
           </button>
           <button 
              onClick={() => setActiveTab('orders')}
-             style={{ padding: '10px 20px', fontSize: '1.1rem', background: activeTab === 'orders' ? '#000' : 'transparent', color: activeTab === 'orders' ? '#fff' : '#666', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+             style={{ 
+               padding: '12px 0', fontSize: '1.1rem', background: 'transparent', 
+               color: activeTab === 'orders' ? '#1a202c' : '#718096', border: 'none', 
+               borderBottom: activeTab === 'orders' ? '3px solid #ffd700' : '3px solid transparent',
+               cursor: 'pointer', fontWeight: '800', transition: 'all 0.2s', outline: 'none'
+             }}
           >
             Pending Shipments ({orders.filter(o => o.status !== 'fulfilled').length})
           </button>
@@ -261,8 +288,8 @@ const SellerDashboard = ({ user, token, onLogout }) => {
         </div>
 
       {isAdding && (
-        <form onSubmit={handleCreateListing} onPaste={handlePasteImage} style={{ background: '#f9f9f9', padding: '2rem', borderRadius: '8px', marginBottom: '2rem', border: '1px solid #ddd' }}>
-          <h4 style={{ marginBottom: '1.5rem' }}>Create New Listing</h4>
+        <form onSubmit={handleCreateListing} onPaste={handlePasteImage} style={{ background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(12px)', padding: '2.5rem', borderRadius: '16px', marginBottom: '2.5rem', border: '1px solid rgba(255,255,255,0.8)', boxShadow: '0 8px 32px rgba(0,0,0,0.05)' }}>
+          <h4 style={{ marginBottom: '1.5rem', fontSize: '1.4rem', fontWeight: '800', color: '#1a202c' }}>Create New Listing</h4>
           <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '1.5rem', marginTop: '-1rem' }}>
              Tip: You can use your phone camera to scan a card, or press <strong>Ctrl+V</strong> to paste a screenshot directly into this form!
           </p>
@@ -397,7 +424,7 @@ const SellerDashboard = ({ user, token, onLogout }) => {
           ) : (
             <div style={{ display: 'grid', gap: '1rem' }}>
               {orders.map(order => (
-                <div key={order.id} style={{ padding: '1.5rem', border: '1px solid #eee', borderRadius: '8px', background: '#fff' }}>
+                <div key={order.id} style={{ padding: '2rem', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '16px', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                     <div>
                       <h4 style={{ margin: 0, color: '#333' }}>Order #{order.id}</h4>

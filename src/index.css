@@ -2,8 +2,8 @@
   --primary: #FFCB05; /* Subtle usage for highlights if needed */
   --text-dark: #1a1a1a;
   --text-light: #666666;
-  --bg-white: #ffffff;
-  --bg-offwhite: #f9f9f9;
+  --bg-white: #aec3d1;
+  --bg-offwhite: #aec3d1;
   --border-color: #e5e5e5;
   --badge-bg: #f4f4f4;
 }
@@ -32,22 +32,24 @@ a {
 
 /* Promo Banner */
 .promo-banner {
-  background-color: #111;
+  background-color: #000000;
   color: #fff;
   text-align: center;
-  padding: 8px 15px;
-  font-size: 0.85rem;
-  letter-spacing: 0.5px;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  font-weight: bold;
 }
 
 /* Header */
 .site-header {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 2px solid #ffd700;
   padding: 1.5rem 5%;
   position: sticky;
   top: 0;
-  background: white;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   z-index: 100;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .header-inner {
@@ -68,12 +70,12 @@ a {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--text-light);
+  color: #e2e8f0;
   transition: color 0.2s;
 }
 
 .main-nav a:hover {
-  color: #000;
+  color: #ffd700;
 }
 
 .cart-icon {
@@ -81,12 +83,12 @@ a {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--text-light);
+  color: #e2e8f0;
   transition: color 0.2s;
 }
 
 .cart-icon:hover {
-  color: #000;
+  color: #ffd700;
 }
 
 /* Sections */
@@ -110,7 +112,7 @@ section {
 /* Story Section */
 .story-section {
   text-align: center;
-  background-color: var(--bg-offwhite);
+  background-color: transparent;
   padding: 5rem 5%;
   border-radius: 8px;
   margin-bottom: 4rem;
@@ -142,13 +144,18 @@ section {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 100%;
 }
 
 .product-image-container {
   position: relative;
-  aspect-ratio: 4 / 5; /* Taller aspect ratio to fit booster packs nicely */
-  background-color: var(--bg-offwhite);
+  aspect-ratio: 4 / 5;
+  background-color: #ffffff;
   border-radius: 4px;
   overflow: hidden;
   margin-bottom: 1rem;
@@ -325,7 +332,9 @@ section {
 }
 
 .set-card {
-  background: white;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   overflow: hidden;
@@ -1006,7 +1015,7 @@ section {
 }
 
 .checkout-card {
-  background: white;
+  background: #aec3d1;
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
@@ -1306,7 +1315,7 @@ section {
 .admin-login-card {
   width: 100%;
   max-width: 420px;
-  background: white;
+  background: #aec3d1;
   border: 1px solid rgba(0,0,0,0.05);
   border-radius: 20px;
   padding: 3.5rem 3rem;
@@ -1490,7 +1499,7 @@ section {
 
 /* Form Card */
 .admin-form-card {
-  background: white;
+  background: #aec3d1;
   border: 1px solid rgba(0,0,0,0.05);
   border-radius: 16px;
   padding: 2.5rem;
@@ -1581,7 +1590,7 @@ section {
 
 /* Product Table */
 .admin-table-wrap {
-  background: white;
+  background: #aec3d1;
   border-radius: 16px;
   border: 1px solid rgba(0,0,0,0.05);
   box-shadow: 0 8px 30px rgba(0,0,0,0.04);
@@ -1750,7 +1759,7 @@ section {
 }
 
 .admin-modal {
-  background: white;
+  background: #aec3d1;
   border-radius: 20px;
   padding: 2.5rem;
   max-width: 500px;
@@ -1780,3 +1789,90 @@ section {
     max-width: 200px;
   }
 }
+
+/* ─── Animated Hero Banners ─── */
+
+.ge-page-wrapper {
+  padding: 0 3%;
+  min-height: calc(100vh - 120px);
+  padding-bottom: 4rem;
+}
+
+.ge-hero-container {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  background-size: 200% 200%;
+  animation: gradientShift 10s ease infinite;
+  padding: 4rem 10%;
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.ge-hero-container::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 60%);
+  animation: rotateGlow 20s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotateGlow {
+  100% { transform: rotate(360deg); }
+}
+
+.ge-hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, #ffd700, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(255, 215, 0, 0.15);
+}
+
+.ge-hero-subtitle {
+  font-size: 1.1rem;
+  color: #e2e8f0;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.ge-glass-sidebar {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 12px !important;
+}
+
+.ge-input-field {
+  width: 100%;
+  padding: 10px 14px !important;
+  border: 1px solid #cbd5e0 !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.ge-input-field:focus {
+  outline: none;
+  border-color: #ffd700 !important;
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+

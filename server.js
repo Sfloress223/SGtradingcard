@@ -136,7 +136,7 @@ async function syncTikTokProduct(product) {
 // --- TikTok OAuth 2.0 Endpoints ---
 app.get('/api/tiktok/auth', (req, res) => {
   const state = Math.random().toString(36).substring(7);
-  const url = `https://services.tiktokshop.com/open/authorize?app_key=${process.env.TIKTOK_APP_KEY}&state=${state}`;
+  const url = `https://services.tiktokshops.us/open/authorize?app_key=${process.env.TIKTOK_APP_KEY}&state=${state}`;
   res.redirect(url);
 });
 
@@ -145,7 +145,7 @@ app.get('/api/tiktok/callback', async (req, res) => {
   if (!code) return res.status(400).send('Missing authorization code from TikTok.');
   
   try {
-    const baseUrl = 'https://auth.tiktok-shops.com/api/v2/token/get';
+    const baseUrl = 'https://auth.tiktokshops.us/api/v2/token/get';
     const params = new URLSearchParams({
       app_key: process.env.TIKTOK_APP_KEY,
       app_secret: process.env.TIKTOK_APP_SECRET,

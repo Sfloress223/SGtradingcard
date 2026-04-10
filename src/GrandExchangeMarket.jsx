@@ -33,58 +33,71 @@ const GrandExchangeMarket = ({ products = [], onAddToCart, onViewProduct, curren
   }
 
   // Sorting
-  if (sortOrder === 'price-low') {
-    filtered.sort((a, b) => parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', '')));
-  } else if (sortOrder === 'price-high') {
-    filtered.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
-  } else {
-    // Newest: assume higher ID means newer
-    filtered.sort((a, b) => b.id - a.id);
-  }
+  filtered.sort((a,b) => {
+    // Primary Sort: Availability
+    const aSoldOut = a.stock === 0 || a.soldOut;
+    const bSoldOut = b.stock === 0 || b.soldOut;
+    if (aSoldOut !== bSoldOut) return aSoldOut ? 1 : -1;
+
+    // Secondary Sort: User Choice
+    if (sortOrder === 'price-low') {
+      return parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', ''));
+    } else if (sortOrder === 'price-high') {
+      return parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', ''));
+    } else {
+      // Newest
+      return b.id - a.id;
+    }
+  });
 
   return (
-    <section className="shop-section" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem' }}>
+    <div className="ge-page-wrapper">
       
-      {/* Header & Seller Portal Button */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', borderBottom: '2px solid #ddd', paddingBottom: '1rem' }}>
-        <div>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: '#1E90FF' }}>The Grand Exchange</h2>
-          <p style={{ color: '#666', fontSize: '1rem', margin: 0 }}>Community-driven singles marketplace. Browse carefully curated cards from other collectors.</p>
-        </div>
-        <div style={{ marginTop: '1rem' }}>
-          <button 
-            onClick={() => setCurrentPage(currentUser ? 'dashboard' : 'auth')}
-            style={{ 
-              background: '#000', color: '#fff', border: 'none', padding: '10px 20px', 
-              borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '1rem',
-              display: 'flex', alignItems: 'center', gap: '8px'
-            }}
-          >
-            {currentUser ? '📈 My Account' : '👋 Sign In / Register'}
-          </button>
+      {/* Dynamic Hero Header */}
+      <div className="ge-hero-container">
+        <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '2rem' }}>
+          <div>
+            <h2 className="ge-hero-title">The Grand Exchange</h2>
+            <p className="ge-hero-subtitle">Community-driven singles marketplace. Browse carefully curated cards from other collectors.</p>
+          </div>
+          <div>
+            <button 
+              onClick={() => setCurrentPage(currentUser ? 'dashboard' : 'auth')}
+              style={{ 
+                background: 'linear-gradient(135deg, #FFD700 0%, #FDB931 100%)', color: '#000', border: 'none', padding: '12px 24px', 
+                borderRadius: '8px', fontWeight: '900', cursor: 'pointer', fontSize: '1.05rem',
+                display: 'flex', alignItems: 'center', gap: '10px', boxShadow: '0 4px 15px rgba(255,215,0,0.3)',
+                transition: 'transform 0.2s', textTransform: 'uppercase', letterSpacing: '0.5px'
+              }}
+              onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+              onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+            >
+              {currentUser ? '📈 Seller Portal' : '✨ Join the Exchange'}
+            </button>
+          </div>
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 1rem', display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
         
         {/* Sidebar Filters */}
-        <aside style={{ flex: '1', minWidth: '250px', background: '#f9f9f9', padding: '1.5rem', borderRadius: '8px', height: 'fit-content', border: '1px solid #eee' }}>
-          <h3 style={{ marginBottom: '1rem', fontSize: '1.2rem', borderBottom: '1px solid #ddd', paddingBottom: '0.5rem' }}>Filters</h3>
+        <aside className="ge-glass-sidebar" style={{ flex: '1', minWidth: '250px', padding: '1.5rem', height: 'fit-content' }}>
+          <h3 style={{ marginBottom: '1.2rem', fontSize: '1.25rem', borderBottom: '1px solid rgba(0,0,0,0.1)', paddingBottom: '0.8rem', color: '#1a202c', fontWeight: '800' }}>Filters</h3>
           
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Search</label>
+            <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem', color: '#4a5568' }}>Search</label>
             <input 
               type="text" 
+              className="ge-input-field"
               placeholder="Search cards..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              style={{ width: '100%', padding: '8px 12px', border: '1px solid #ccc', borderRadius: '4px' }}
             />
           </div>
 
           <div style={{ marginBottom: '1.5rem' }}>
-            <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Format</label>
-            <select value={formatFilter} onChange={(e) => { setFormatFilter(e.target.value); setConditionFilter('All'); setGraderFilter('All'); }} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}>
+            <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem', color: '#4a5568' }}>Format</label>
+            <select className="ge-input-field" value={formatFilter} onChange={(e) => { setFormatFilter(e.target.value); setConditionFilter('All'); setGraderFilter('All'); }}>
               <option value="All">All Formats</option>
               <option value="Single (Raw)">Single (Raw)</option>
               <option value="Graded (Slab)">Graded (Slab)</option>
@@ -93,8 +106,8 @@ const GrandExchangeMarket = ({ products = [], onAddToCart, onViewProduct, curren
 
           {formatFilter === 'Single (Raw)' && (
             <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Condition</label>
-              <select value={conditionFilter} onChange={(e) => setConditionFilter(e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}>
+              <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem', color: '#4a5568' }}>Condition</label>
+              <select className="ge-input-field" value={conditionFilter} onChange={(e) => setConditionFilter(e.target.value)}>
                 <option value="All">Any Condition</option>
                 <option value="Mint">Mint</option>
                 <option value="Light Play">Light Play</option>
@@ -106,8 +119,8 @@ const GrandExchangeMarket = ({ products = [], onAddToCart, onViewProduct, curren
 
           {formatFilter === 'Graded (Slab)' && (
             <div style={{ marginBottom: '1.5rem' }}>
-              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Grader</label>
-              <select value={graderFilter} onChange={(e) => setGraderFilter(e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}>
+              <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem', color: '#4a5568' }}>Grader</label>
+              <select className="ge-input-field" value={graderFilter} onChange={(e) => setGraderFilter(e.target.value)}>
                 <option value="All">Any Grader</option>
                 <option value="PSA">PSA</option>
                 <option value="CGC">CGC</option>
@@ -117,8 +130,8 @@ const GrandExchangeMarket = ({ products = [], onAddToCart, onViewProduct, curren
           )}
 
           <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Sort By</label>
-            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} style={{ width: '100%', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}>
+            <label style={{ display: 'block', fontWeight: '600', marginBottom: '0.5rem', fontSize: '0.9rem', color: '#4a5568' }}>Sort By</label>
+            <select className="ge-input-field" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
               <option value="newest">Newest Listed</option>
               <option value="price-low">Price: Low to High</option>
               <option value="price-high">Price: High to Low</option>
@@ -126,8 +139,8 @@ const GrandExchangeMarket = ({ products = [], onAddToCart, onViewProduct, curren
           </div>
           
           <button 
+            className="ge-clear-btn"
             onClick={() => { setSearchQuery(''); setFormatFilter('All'); setConditionFilter('All'); setGraderFilter('All'); setSortOrder('newest'); }}
-            style={{ width: '100%', padding: '8px', background: '#e2e8f0', border: 'none', borderRadius: '4px', cursor: 'pointer', marginTop: '1rem', color: '#4a5568', fontWeight: 'bold' }}
           >
             Clear Filters
           </button>
@@ -148,16 +161,17 @@ const GrandExchangeMarket = ({ products = [], onAddToCart, onViewProduct, curren
                 onViewProduct={onViewProduct}
               />
             )) : (
-              <div style={{ padding: '4rem 1rem', textAlign: 'center', gridColumn: '1 / -1', background: '#f8fafc', borderRadius: '12px', border: '2px dashed #cbd5e0' }}>
-                <h3 style={{ fontSize: '1.5rem', color: '#4a5568', marginBottom: '0.5rem' }}>No Listings Found</h3>
-                <p style={{ color: '#718096' }}>Try adjusting your search or filters.</p>
+              <div className="ge-empty-state" style={{ padding: '4rem 1rem', textAlign: 'center', gridColumn: '1 / -1', borderRadius: '12px' }}>
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
+                <h3 style={{ fontSize: '1.8rem', color: '#2d3748', marginBottom: '0.5rem', fontWeight: '800' }}>No Listings Found</h3>
+                <p style={{ color: '#718096', fontSize: '1.1rem' }}>Try adjusting your search or clearing your filters to discover more rare items.</p>
               </div>
             )}
           </div>
         </section>
 
       </div>
-    </section>
+    </div>
   );
 };
 
