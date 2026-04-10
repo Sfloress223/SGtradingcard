@@ -440,6 +440,11 @@ function App() {
                   <path d="M19.589 6.686A4.757 4.757 0 0 0 15.3 2.057a.428.428 0 0 0-.428.428v14.17c0 2.21-1.791 4.004-4.003 4.004-2.21 0-4.002-1.794-4.002-4.004 0-2.21 1.792-4.004 4.002-4.004.283 0 .56.03.826.085v-4.108c-.266-.021-.54-.035-.826-.035-4.42 0-8.006 3.585-8.006 8.062s3.586 8.063 8.006 8.063c4.321 0 7.848-3.413 7.994-7.669h.01v-6.315c1.4.922 3.09 1.481 4.908 1.542V8.167a8.55 8.55 0 0 1-4.192-1.48z"/>
                 </svg>
               </a>
+              <a href="https://www.youtube.com/@sgtradingcard" target="_blank" rel="noreferrer" title="Follow us on YouTube" style={{ fontSize: '1.2rem', color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
               <div className="cart-icon" onClick={() => setCurrentPage('cart')} style={{ cursor: 'pointer' }}>
                 <span style={{ color: currentPage === 'cart' ? '#000' : '' }}>Cart ({cartCount})</span>
               </div>
@@ -488,12 +493,17 @@ function App() {
             </div>
             
             <div className="footer-links" style={{ flex: '1', minWidth: '150px', alignItems: 'flex-start' }}>
-              <h4 style={{ color: '#fff', marginBottom: '1rem' }}>Social</h4>
-              <a href="https://www.tiktok.com/@sgtradingcard" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <a href="https://www.tiktok.com/@sgtradingcard" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path d="M19.589 6.686A4.757 4.757 0 0 0 15.3 2.057a.428.428 0 0 0-.428.428v14.17c0 2.21-1.791 4.004-4.003 4.004-2.21 0-4.002-1.794-4.002-4.004 0-2.21 1.792-4.004 4.002-4.004.283 0 .56.03.826.085v-4.108c-.266-.021-.54-.035-.826-.035-4.42 0-8.006 3.585-8.006 8.062s3.586 8.063 8.006 8.063c4.321 0 7.848-3.413 7.994-7.669h.01v-6.315c1.4.922 3.09 1.481 4.908 1.542V8.167a8.55 8.55 0 0 1-4.192-1.48z"/>
                 </svg>
                 TikTok
+              </a>
+              <a href="https://www.youtube.com/@sgtradingcard" target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                YouTube
               </a>
             </div>
           </div>
