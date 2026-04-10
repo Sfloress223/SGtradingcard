@@ -684,7 +684,7 @@ app.get('/api/seller/orders', authMiddleware, async (req, res) => {
   res.json(myOrders);
 });
 
-app.put('/api/seller/orders/:id/tracking', authMiddleware, (req, res) => {
+app.put('/api/seller/orders/:id/tracking', authMiddleware, async (req, res) => {
   const { trackingNumber } = req.body;
   if (!fs.existsSync(ORDERS_FILE)) return res.status(404).json({ error: 'Order not found' });
   let orders = readJSON(ORDERS_FILE);
@@ -696,6 +696,41 @@ app.put('/api/seller/orders/:id/tracking', authMiddleware, (req, res) => {
   orders[idx].status = 'fulfilled';
   
   writeJSON(ORDERS_FILE, orders);
+  
+  const orderContext = orders[idx];
+  let buyerEmail = null;
+  let buyerName = 'Valued Customer';
+  
+  if (orderContext.shippingAddress) {
+    buyerEmail = orderContext.shippingAddress.email;
+    buyerName = orderContext.shippingAddress.name || buyerName;
+  } else if (orderContext.stripePaymentIntentId) {
+    try {
+      const intent = await stripe.paymentIntents.retrieve(orderContext.stripePaymentIntentId);
+      if (intent && intent.receipt_email) buyerEmail = intent.receipt_email;
+      if (intent && intent.shipping && intent.shipping.name) buyerName = intent.shipping.name;
+    } catch(err) {
+      console.error('Failed to fetch Stripe intent for tracking email:', err.message);
+    }
+  }
+
+  if (buyerEmail) {
+    sendStoreEmail(
+      buyerEmail,
+      `Your Order #${orderContext.id} has shipped!`,
+      `<div style="font-family: sans-serif; padding: 20px; color: #333;">
+        <h2 style="color: #000;">Good news, ${buyerName}!</h2>
+        <p>Your Grand Exchange order has been marked as shipped by the seller.</p>
+        <div style="background: #e6fffa; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #b2f5ea;">
+          <h3 style="margin-top: 0; color: #234e52;">Tracking Number:</h3>
+          <p style="font-size: 1.2rem; margin-bottom: 0;"><strong>${trackingNumber}</strong></p>
+        </div>
+        <p>You can track your package directly through the carrier using the tracking number above.</p>
+        <p>Thank you for shopping on S&G Trading!</p>
+      </div>`
+    );
+  }
+  
   res.json(orders[idx]);
 });
 
