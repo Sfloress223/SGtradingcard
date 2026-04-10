@@ -1012,7 +1012,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
   }
 });
 
-app.post('/api/orders/confirm', (req, res) => {
+app.post('/api/orders/confirm', async (req, res) => {
   try {
     const { items } = req.body;
     if (!fs.existsSync(PRODUCTS_FILE)) return res.json({ success: false });
@@ -1022,14 +1022,18 @@ app.post('/api/orders/confirm', (req, res) => {
 
     (items || []).forEach(item => {
       const idx = products.findIndex(p => p.id === item.id);
-      if (idx !== -1 && products[idx].stock !== undefined) {
-        products[idx].stock = Math.max(0, products[idx].stock - item.qty);
-        if (products[idx].stock === 0) products[idx].soldOut = true;
+      if (idx !== -1) {
+        if (products[idx].stock !== undefined) {
+          products[idx].stock = Math.max(0, products[idx].stock - item.qty);
+          if (products[idx].stock === 0) products[idx].soldOut = true;
+          // PING EXTERNALS in background
+          syncGoogleProduct(products[idx]).catch(console.error);
+          syncTikTokProduct(products[idx]).catch(console.error);
+        } else if (products[idx].sellerId) {
+          // GE items are unique 1/1s. Remove listing automatically!
+          products.splice(idx, 1);
+        }
         updated = true;
-        
-        // PING EXTERNALS in background
-        syncGoogleProduct(products[idx]).catch(console.error);
-        syncTikTokProduct(products[idx]).catch(console.error);
       }
     });
 
@@ -1040,12 +1044,26 @@ app.post('/api/orders/confirm', (req, res) => {
     // Attempt to find the full order to send a receipt
     const { orderId } = req.body;
     let buyerEmail = null;
+    let buyerName = 'Valued Customer';
     let orderContext = null;
+    
     if (orderId && fs.existsSync(ORDERS_FILE)) {
       const orders = readJSON(ORDERS_FILE);
       orderContext = orders.find(o => o.id === orderId || o.stripePaymentIntentId === orderId);
-      if (orderContext && orderContext.shippingAddress) {
-        buyerEmail = orderContext.shippingAddress.email;
+      if (orderContext) {
+        if (orderContext.shippingAddress) {
+          buyerEmail = orderContext.shippingAddress.email;
+          buyerName = orderContext.shippingAddress.name || buyerName;
+        } else if (orderContext.stripePaymentIntentId) {
+          // Secure GE orders don't persist PII locally. Fetch it from Stripe!
+          try {
+            const intent = await stripe.paymentIntents.retrieve(orderContext.stripePaymentIntentId);
+            if (intent && intent.receipt_email) buyerEmail = intent.receipt_email;
+            if (intent && intent.shipping && intent.shipping.name) buyerName = intent.shipping.name;
+          } catch(err) {
+            console.error('Failed to fetch Stripe intent for receipt:', err.message);
+          }
+        }
       }
     }
 
@@ -1054,7 +1072,7 @@ app.post('/api/orders/confirm', (req, res) => {
         buyerEmail,
         `Order Confirmed! Receipt for #${orderContext.id}`,
         `<div style="font-family: sans-serif; padding: 20px; color: #333;">
-          <h2 style="color: #000;">Thank you for your order, ${orderContext.shippingAddress.name}!</h2>
+          <h2 style="color: #000;">Thank you for your order, ${buyerName}!</h2>
           <p>We've received your order and are getting it ready to ship context. You'll receive another email with tracking info soon.</p>
           <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <h3>Order Summary - #${orderContext.id}</h3>
