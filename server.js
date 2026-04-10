@@ -172,6 +172,7 @@ const shippo = shippoPkg(process.env.SHIPPO_API_KEY || '');
 
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-9relg96s6-sgtradingcards-projects.vercel.app', 'https://sg-tradingcard.vercel.app', 'https://sgtradingcard.com', 'https://www.sgtradingcard.com'] }));
 app.use(express.json({ limit: '50mb' }));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // ─── Helpers ───
 function readJSON(filePath) {
@@ -1154,6 +1155,10 @@ app.post('/api/reviews', (req, res) => {
   reviews.push(newReview);
   writeJSON(REVIEWS_FILE, reviews);
   res.json({ success: true, review: newReview });
+});
+// Serve React App - Catch All
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 const PORT = process.env.PORT || 3001;
