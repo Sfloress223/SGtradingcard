@@ -48,7 +48,7 @@ function App() {
   useEffect(() => {
     const base = 'S&G Trading';
     const titles = {
-      home:         `${base} | Trading Cards, Collectibles & Nerd Culture`,
+      home:         `${base} | Trading Cards & Collectibles`,
       shop:         `Shop | Booster Boxes, Graded Cards & Sealed Products — ${base}`,
       cart:         `Your Cart — ${base}`,
       checkout:     `Secure Checkout — ${base}`,
@@ -459,7 +459,7 @@ function App() {
           <div className="footer-content">
             <div className="footer-brand" style={{ flex: '1', minWidth: '280px' }}>
               <h3 style={{ marginBottom: '1rem', fontWeight: 'bold' }}>S&G Trading Card</h3>
-              <p style={{ marginBottom: '1.5rem' }}>Your trusted source for authentic trading cards, collectibles, and all things nerd culture.</p>
+              <p style={{ marginBottom: '1.5rem' }}>Your trusted source for authentic trading cards and collectibles.</p>
               
               <div className="newsletter-signup" style={{ marginTop: '1rem' }}>
                 <h4 style={{ fontSize: '0.9rem', marginBottom: '0.5rem', color: '#fff' }}>Join our mailing list</h4>

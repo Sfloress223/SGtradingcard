@@ -11,7 +11,7 @@ let xml = `<?xml version="1.0"?>
   <channel>
     <title>S&amp;G Trading</title>
     <link>https://sgtradingcard.com</link>
-    <description>Your trusted source for authentic trading cards, collectibles, and all things nerd culture.</description>
+    <description>Your trusted source for authentic trading cards and collectibles.</description>
 `;
 
 PRODUCTS.forEach(product => {
