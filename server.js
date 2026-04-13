@@ -886,8 +886,12 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
       const emailSuffix = Date.now();
       const uniqueTestEmail = `sam_test_${emailSuffix}@sgtradingcard.com`;
       const account = await stripe.accounts.create({
-        type: 'standard',
-        email: uniqueTestEmail
+        type: 'express',
+        email: uniqueTestEmail,
+        capabilities: {
+          card_payments: { requested: true },
+          transfers: { requested: true }
+        }
       });
       user.stripeAccountId = account.id;
       writeJSON(USERS_FILE, users);
