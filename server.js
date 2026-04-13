@@ -183,6 +183,17 @@ function writeJSON(filePath, data) {
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 }
 
+// ─── Force-Purge Corrupt Sandbox States From Persistent Disk ───
+try {
+  let _db = readJSON(USERS_FILE);
+  let _sam = _db.find(u => u.username === 'sam' || u.email === 'samfloress03@gmail.com');
+  if (_sam && _sam.stripeAccountId) {
+    _sam.stripeAccountId = null;
+    writeJSON(USERS_FILE, _db);
+    console.log("🧹 Dynamically purged corrupt stripe sandbox ID from persistent disk on boot.");
+  }
+} catch(e) {}
+
 // ─── Auth Middleware ───
 function authMiddleware(req, res, next) {
   const token = req.headers.authorization?.split(' ')[1];
