@@ -892,8 +892,12 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
     let user = users[userIndex];
     
     if (!user.stripeAccountId) {
+      const uniqueTestEmail = `test_${Date.now()}@example.com`;
       const account = await stripe.accounts.create({
         type: 'express',
+        email: uniqueTestEmail,
+        country: 'US',
+        business_type: 'individual',
         capabilities: {
           card_payments: { requested: true },
           transfers: { requested: true }
