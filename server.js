@@ -186,11 +186,16 @@ function writeJSON(filePath, data) {
 // ─── Force-Purge Corrupt Sandbox States From Persistent Disk ───
 try {
   let _db = readJSON(USERS_FILE);
-  let _sam = _db.find(u => u.username === 'sam' || u.email === 'samfloress03@gmail.com');
-  if (_sam && _sam.stripeAccountId) {
-    _sam.stripeAccountId = null;
+  let changed = false;
+  _db.forEach(u => {
+    if (u.stripeAccountId) {
+      u.stripeAccountId = null;
+      changed = true;
+    }
+  });
+  if (changed) {
     writeJSON(USERS_FILE, _db);
-    console.log("🧹 Dynamically purged corrupt stripe sandbox ID from persistent disk on boot.");
+    console.log("🧹 Dynamically purged ALL corrupt stripe sandbox IDs from persistent disk on boot.");
   }
 } catch(e) {}
 
