@@ -1157,7 +1157,7 @@ app.post('/api/reviews', (req, res) => {
   res.json({ success: true, review: newReview });
 });
 // Serve React App - Catch All
-app.get('*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
