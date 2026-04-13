@@ -883,7 +883,6 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
     if (!user.stripeAccountId) {
       const account = await stripe.accounts.create({
         type: 'express',
-        email: user.email,
         capabilities: {
           card_payments: { requested: true },
           transfers: { requested: true }
