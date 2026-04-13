@@ -13,6 +13,6 @@
   { "id": "misc", "parent": "all-pokemon", "name": "Miscellaneous / Collections", "imgUrl": "https://images.pokemontcg.io/sve/symbol.png", "bannerUrl": "https://images.pokemontcg.io/sve/logo.png", "color": "#666666", "emoji": "📦" },
   { "id": "japanese", "name": "Japanese Pokémon", "imgUrl": "/images/japanese-box.png", "bannerUrl": "/images/japanese-box.png", "color": "#D0112b", "emoji": "🇯🇵" },
   { "id": "chinese", "name": "Chinese Pokémon", "imgUrl": "/images/chinese-box.png", "bannerUrl": "/images/chinese-box.png", "color": "#DA251D", "emoji": "🇨🇳" },
-  { "id": "other-tcg", "name": "Other / Future TCGs", "imgUrl": "/images/singles.jpg", "bannerUrl": "/images/singles.jpg", "color": "#4B0082", "emoji": "🎴" },
+  { "id": "other-tcg", "name": "Other / Future TCGs", "imgUrl": "/images/one-piece-group.jpg", "bannerUrl": "/images/one-piece-group.jpg", "color": "#4B0082", "emoji": "🎴" },
   { "id": "pokemon-merch", "name": "Pokémon Merchandise & Toys", "imgUrl": "/images/merch.svg", "bannerUrl": "/images/merch.svg", "color": "#FF8C00", "emoji": "🧸" }
 ]
