@@ -1068,11 +1068,14 @@ app.post('/api/orders/confirm', async (req, res) => {
         if (products[idx].stock !== undefined) {
           products[idx].stock = Math.max(0, products[idx].stock - item.qty);
           if (products[idx].stock === 0) products[idx].soldOut = true;
-          // PING EXTERNALS in background
-          syncGoogleProduct(products[idx]).catch(console.error);
-          syncTikTokProduct(products[idx]).catch(console.error);
+          
+          // Only sync Retail Items to Google/TikTok, NOT P2P Grand Exchange items
+          if (!products[idx].sellerId) {
+            syncGoogleProduct(products[idx]).catch(console.error);
+            syncTikTokProduct(products[idx]).catch(console.error);
+          }
         } else if (products[idx].sellerId) {
-          // GE items are unique 1/1s. Remove listing automatically!
+          // GE items without stock are unique 1/1s. Remove listing automatically!
           products.splice(idx, 1);
         }
         updated = true;

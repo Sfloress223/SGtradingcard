@@ -16,7 +16,8 @@ const SellerDashboard = ({ user, token, onLogout }) => {
     condition: 'Mint',
     gradeCompany: 'PSA',
     gradeValue: '10',
-    description: ''
+    description: '',
+    stock: 1
   });
   const [stripeStatus, setStripeStatus] = useState({ checked: false, charges_enabled: false });
   const [tierInfo, setTierInfo] = useState(null);
@@ -151,12 +152,13 @@ const SellerDashboard = ({ user, token, onLogout }) => {
           condition: formData.cardType === 'Graded' ? `${formData.gradeCompany} ${formData.gradeValue}` : formData.condition,
           description: formData.description,
           setId: 'singles',
+          stock: parseInt(formData.stock) || 1,
           soldOut: false
         })
       });
       if (res.ok) {
         setIsAdding(false);
-        setFormData({ title: '', price: '', imgUrl: '', shippingFee: '1.00', cardType: 'Single', condition: 'Mint', gradeCompany: 'PSA', gradeValue: '10', description: '' });
+        setFormData({ title: '', price: '', imgUrl: '', shippingFee: '1.00', cardType: 'Single', condition: 'Mint', gradeCompany: 'PSA', gradeValue: '10', description: '', stock: 1 });
         setImgPreview(null);
         fetchListings();
       }
@@ -249,14 +251,14 @@ const SellerDashboard = ({ user, token, onLogout }) => {
       )}
 
       {stripeStatus.charges_enabled && (
-        <div style={{ display: 'flex', gap: '2rem', marginBottom: '2.5rem', borderBottom: '2px solid rgba(0,0,0,0.05)', paddingBottom: '0.5rem' }}>
+        <div style={{ display: 'flex', gap: '2rem', marginBottom: '2.5rem', borderBottom: '2px solid rgba(0,0,0,0.05)', paddingBottom: '0.5rem', overflowX: 'auto' }}>
           <button 
              onClick={() => setActiveTab('listings')}
              style={{ 
                padding: '12px 0', fontSize: '1.1rem', background: 'transparent', 
                color: activeTab === 'listings' ? '#1a202c' : '#718096', border: 'none', 
                borderBottom: activeTab === 'listings' ? '3px solid #ffd700' : '3px solid transparent',
-               cursor: 'pointer', fontWeight: '800', transition: 'all 0.2s', outline: 'none'
+               cursor: 'pointer', fontWeight: '800', transition: 'all 0.2s', outline: 'none', whiteSpace: 'nowrap'
              }}
           >
             My Listings ({listings.length})
@@ -267,10 +269,21 @@ const SellerDashboard = ({ user, token, onLogout }) => {
                padding: '12px 0', fontSize: '1.1rem', background: 'transparent', 
                color: activeTab === 'orders' ? '#1a202c' : '#718096', border: 'none', 
                borderBottom: activeTab === 'orders' ? '3px solid #ffd700' : '3px solid transparent',
-               cursor: 'pointer', fontWeight: '800', transition: 'all 0.2s', outline: 'none'
+               cursor: 'pointer', fontWeight: '800', transition: 'all 0.2s', outline: 'none', whiteSpace: 'nowrap'
              }}
           >
             Pending Shipments ({orders.filter(o => o.status !== 'fulfilled').length})
+          </button>
+          <button 
+             onClick={() => setActiveTab('completed')}
+             style={{ 
+               padding: '12px 0', fontSize: '1.1rem', background: 'transparent', 
+               color: activeTab === 'completed' ? '#1a202c' : '#718096', border: 'none', 
+               borderBottom: activeTab === 'completed' ? '3px solid #ffd700' : '3px solid transparent',
+               cursor: 'pointer', fontWeight: '800', transition: 'all 0.2s', outline: 'none', whiteSpace: 'nowrap'
+             }}
+          >
+            Completed Orders ({orders.filter(o => o.status === 'fulfilled').length})
           </button>
         </div>
       )}
@@ -310,14 +323,14 @@ const SellerDashboard = ({ user, token, onLogout }) => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', gap: '1rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1 }}>
+              <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Stock Quantity</label>
+              <input required type="number" min="1" step="1" value={formData.stock} onChange={e => setFormData({...formData, stock: e.target.value})} style={{ width: '100%', padding: '0.5rem' }} placeholder="1" />
+            </div>
             <div style={{ flex: 1 }}>
               <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Shipping Fee ($) (Buyer pays)</label>
-              <select value={formData.shippingFee} onChange={e => setFormData({...formData, shippingFee: e.target.value})} style={{ width: '100%', padding: '0.5rem' }}>
-                <option value="1.00">$1.00 (Plain White Envelope)</option>
-                <option value="4.50">$4.50 (Bubble Mailer w/ Tracking)</option>
-                <option value="0.00">Free Shipping</option>
-              </select>
+              <input required type="number" step="0.01" min="0.00" value={formData.shippingFee} onChange={e => setFormData({...formData, shippingFee: e.target.value})} style={{ width: '100%', padding: '0.5rem' }} placeholder="1.00" />
             </div>
             <div style={{ flex: 1 }}>
               <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Format</label>
@@ -417,21 +430,24 @@ const SellerDashboard = ({ user, token, onLogout }) => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
             <h3 style={{ fontSize: '1.5rem' }}>Pending Shipments</h3>
           </div>
-          {orders.length === 0 ? (
+          <div style={{ padding: '1rem', background: '#e3f2fd', borderLeft: '4px solid #2196f3', borderRadius: '4px', marginBottom: '1.5rem' }}>
+            <strong>Shipping Tip:</strong> You are responsible for purchasing your own shipping labels through any carrier. Pack securely and ensure you upload the Tracking Number here to get paid. If shipping via plain white envelope (PWE) with no tracking, check the "Ship without tracking" box.
+          </div>
+          {orders.filter(o => o.status !== 'fulfilled').length === 0 ? (
             <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-light)' }}>
               <p>You have no pending orders.</p>
             </div>
           ) : (
             <div style={{ display: 'grid', gap: '1rem' }}>
-              {orders.map(order => (
+              {orders.filter(o => o.status !== 'fulfilled').map(order => (
                 <div key={order.id} style={{ padding: '2rem', border: '1px solid rgba(255,255,255,0.8)', borderRadius: '16px', background: 'rgba(255, 255, 255, 0.6)', backdropFilter: 'blur(10px)', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
                     <div>
                       <h4 style={{ margin: 0, color: '#333' }}>Order #{order.id}</h4>
                       <div style={{ fontSize: '0.85rem', color: '#666' }}>{new Date(order.date).toLocaleDateString()}</div>
                     </div>
-                    <span style={{ padding: '4px 8px', background: order.status === 'fulfilled' ? '#e6fffa' : '#fff3cd', color: order.status === 'fulfilled' ? '#276749' : '#856404', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 'bold' }}>
-                      {order.status === 'fulfilled' ? 'SHIPPED' : 'UNFULFILLED'}
+                    <span style={{ padding: '4px 8px', background: '#fff3cd', color: '#856404', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 'bold' }}>
+                      UNFULFILLED
                     </span>
                   </div>
 
@@ -454,46 +470,86 @@ const SellerDashboard = ({ user, token, onLogout }) => {
                     </ul>
                   </div>
 
-                  {order.status !== 'fulfilled' && (
-                    <form 
-                      onSubmit={async (e) => {
-                        e.preventDefault();
-                        const val = e.target.tracking.value;
-                        if (!val) return;
-                        
-                        try {
-                          const res = await fetch(`${API}/api/seller/orders/${order.id}/tracking`, {
-                            method: 'PUT',
-                            headers: { 
-                              'Content-Type': 'application/json',
-                              'Authorization': `Bearer ${token}` 
-                            },
-                            body: JSON.stringify({ trackingNumber: val })
-                          });
-                          if(res.ok) {
-                            fetchOrders();
-                          }
-                        } catch (err) { alert('Error updating tracking'); }
-                      }} 
-                      style={{ display: 'flex', gap: '0.5rem' }}
-                    >
+                  <form 
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const noTracking = e.target.noTracking.checked;
+                      const val = noTracking ? 'No Tracking Provided / PWE' : e.target.tracking.value;
+                      if (!val) return;
+                      
+                      try {
+                        const res = await fetch(`${API}/api/seller/orders/${order.id}/tracking`, {
+                          method: 'PUT',
+                          headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}` 
+                          },
+                          body: JSON.stringify({ trackingNumber: val })
+                        });
+                        if(res.ok) fetchOrders();
+                      } catch (err) { alert('Error updating tracking'); }
+                    }} 
+                  >
+                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.5rem' }}>
                       <input 
                         name="tracking"
                         type="text" 
-                        required 
                         placeholder="Paste Tracking Number..." 
                         style={{ flex: 1, padding: '0.5rem', borderRadius: '4px', border: '1px solid #ccc' }} 
                       />
                       <button type="submit" style={{ padding: '0.5rem 1rem', background: '#2E8B57', color: '#fff', border: 'none', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }}>
                         Mark as Shipped
                       </button>
-                    </form>
-                  )}
-                  {order.status === 'fulfilled' && (
-                    <div style={{ fontSize: '0.9rem', color: '#666' }}>
-                      <strong>Tracking Number:</strong> {order.trackingNumber}
                     </div>
-                  )}
+                    <div>
+                      <label style={{ fontSize: '0.85rem', color: '#555', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+                        <input type="checkbox" name="noTracking" onChange={(e) => {
+                          e.target.form.tracking.required = !e.target.checked;
+                          e.target.form.tracking.disabled = e.target.checked;
+                        }} />
+                        Ship without tracking (e.g. envelope)
+                      </label>
+                    </div>
+                  </form>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
+      {stripeStatus.charges_enabled && activeTab === 'completed' && (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <h3 style={{ fontSize: '1.5rem' }}>Completed Orders</h3>
+          </div>
+          {orders.filter(o => o.status === 'fulfilled').length === 0 ? (
+            <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--text-light)' }}>
+              <p>You have no completed orders.</p>
+            </div>
+          ) : (
+            <div style={{ display: 'grid', gap: '1rem' }}>
+              {orders.filter(o => o.status === 'fulfilled').map(order => (
+                <div key={order.id} style={{ padding: '1.5rem', border: '1px solid rgba(0,0,0,0.05)', borderRadius: '12px', background: '#f9f9f9', opacity: '0.9' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                    <div>
+                      <h4 style={{ margin: 0, color: '#555' }}>Order #{order.id}</h4>
+                      <div style={{ fontSize: '0.85rem', color: '#888' }}>{new Date(order.date).toLocaleDateString()}</div>
+                    </div>
+                    <span style={{ padding: '4px 8px', background: '#e6fffa', color: '#276749', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 'bold', height: 'fit-content' }}>
+                      SHIPPED
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '0.9rem', color: '#666', marginTop: '1rem' }}>
+                    <strong>Tracking Info:</strong> {order.trackingNumber}
+                  </div>
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.85rem', color: '#777' }}>
+                      {order.items.filter(i => i.sellerId === user.id).map(item => (
+                        <li key={item.id}>{item.title} (x{item.qty})</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               ))}
             </div>
