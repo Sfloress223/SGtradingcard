@@ -60,9 +60,19 @@ const AdminDashboard = ({ token, onLogout }) => {
 
   const deleteProduct = async (id) => {
     if (!window.confirm('Delete this product?')) return;
-    await fetch(`${API}/api/admin/products/${id}`, { method: 'DELETE', headers });
-    setProducts(prev => prev.filter(p => p.id !== id));
-    showToast('Product deleted');
+    try {
+      const res = await fetch(`${API}/api/admin/products/${id}`, { method: 'DELETE', headers });
+      if (res.ok) {
+        setProducts(prev => prev.filter(p => p.id !== id));
+        showToast('Product deleted');
+      } else {
+        const data = await res.json().catch(() => ({}));
+        showToast(data.error || `Delete failed (${res.status})`);
+      }
+    } catch (err) {
+      console.error('Delete error:', err);
+      showToast('Network error deleting product');
+    }
   };
 
   const deleteSet = async (id) => {
