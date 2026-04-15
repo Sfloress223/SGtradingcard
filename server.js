@@ -484,6 +484,29 @@ app.post('/api/admin/sets', authMiddleware, (req, res) => {
   }
 });
 
+app.delete('/api/admin/sets/:id', authMiddleware, (req, res) => {
+  try {
+    let sets = readJSON(SETS_FILE);
+    const setId = req.params.id;
+    const idx = sets.findIndex(s => s.id === setId);
+    if (idx === -1) return res.status(404).json({ error: 'Category not found' });
+
+    // Check if any products still use this set
+    const products = readJSON(PRODUCTS_FILE);
+    const productsInSet = products.filter(p => p.setId === setId);
+    if (productsInSet.length > 0) {
+      return res.status(400).json({ error: `Cannot delete: ${productsInSet.length} product(s) still belong to this category. Move or delete them first.` });
+    }
+
+    sets.splice(idx, 1);
+    writeJSON(SETS_FILE, sets);
+    res.json({ success: true, id: setId });
+  } catch (err) {
+    console.error('Delete Set Error:', err);
+    res.status(500).json({ error: 'Failed to delete category' });
+  }
+});
+
 // ─── Admin Product Routes ───
 app.put('/api/admin/products/:id', authMiddleware, (req, res) => {
   const products = readJSON(PRODUCTS_FILE);

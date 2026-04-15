@@ -65,6 +65,24 @@ const AdminDashboard = ({ token, onLogout }) => {
     showToast('Product deleted');
   };
 
+  const deleteSet = async (id) => {
+    const setName = sets.find(s => s.id === id)?.name || id;
+    if (!window.confirm(`Delete the "${setName}" category? Any products in it must be moved or deleted first.`)) return;
+    try {
+      const res = await fetch(`${API}/api/admin/sets/${id}`, { method: 'DELETE', headers });
+      const data = await res.json();
+      if (res.ok) {
+        setSets(prev => prev.filter(s => s.id !== id));
+        if (filterSet === id) setFilterSet('all');
+        showToast('Category deleted!');
+      } else {
+        showToast(data.error || 'Failed to delete category');
+      }
+    } catch {
+      showToast('Network error deleting category');
+    }
+  };
+
   const startEdit = (product) => {
     setEditing(product.id);
     const initGal = product.galleryUrls ? product.galleryUrls.map(u => ({ url: u, isNew: false })) : (product.imgUrl ? [{ url: product.imgUrl, isNew: false }] : []);
@@ -88,14 +106,22 @@ const AdminDashboard = ({ token, onLogout }) => {
       const uploadedGallery = [...(form.gallery || [])];
       for (let i = 0; i < uploadedGallery.length; i++) {
         if (uploadedGallery[i].isNew && uploadedGallery[i].base64) {
-          const uploadRes = await fetch(`${API}/api/admin/upload-image`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({ image: uploadedGallery[i].base64 })
-          });
-          const uploadData = await uploadRes.json();
-          if (uploadRes.ok) {
-            uploadedGallery[i] = { url: uploadData.url, isNew: false };
+          try {
+            const uploadRes = await fetch(`${API}/api/admin/upload-image`, {
+              method: 'POST',
+              headers,
+              body: JSON.stringify({ image: uploadedGallery[i].base64 })
+            });
+            const uploadData = await uploadRes.json();
+            if (uploadRes.ok) {
+              uploadedGallery[i] = { url: uploadData.url, isNew: false };
+            } else {
+              console.error('Upload failed for image', i, uploadData);
+              showToast(`Image ${i + 1} failed to upload: ${uploadData.error || 'Unknown error'}`);
+            }
+          } catch (uploadErr) {
+            console.error('Upload network error for image', i, uploadErr);
+            showToast(`Image ${i + 1} upload failed: network error`);
           }
         }
       }
@@ -406,8 +432,16 @@ const AdminDashboard = ({ token, onLogout }) => {
             <button className={filterSet === 'all' ? 'active' : ''} onClick={() => setFilterSet('all')}>All ({products.length})</button>
             {sets.map(s => {
               const count = products.filter(p => p.setId === s.id).length;
-              if (count === 0 && s.id !== filterSet) return null;
-              return <button key={s.id} className={filterSet === s.id ? 'active' : ''} onClick={() => setFilterSet(s.id)}>{s.name} ({count})</button>;
+              return <span key={s.id} style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', position: 'relative' }}>
+                <button className={filterSet === s.id ? 'active' : ''} onClick={() => setFilterSet(s.id)}>{s.name} ({count})</button>
+                {filterSet === s.id && count === 0 && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); deleteSet(s.id); }}
+                    title={`Delete ${s.name}`}
+                    style={{ background: '#ef4444', color: 'white', border: 'none', borderRadius: '50%', width: '18px', height: '18px', fontSize: '11px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', marginLeft: '-4px' }}
+                  >×</button>
+                )}
+              </span>;
             })}
           </div>
 
