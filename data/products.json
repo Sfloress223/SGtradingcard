@@ -431,8 +431,8 @@
   },
   {
     "id": 414,
-    "setId": "mega-evolution",
-    "title": "Pokémon TCG: Mega Evolution - Ascended Heroes Collection",
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Collection",
     "price": "$24.99",
     "soldOut": false,
     "description": "An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.",
@@ -621,5 +621,45 @@
     "soldOut": false,
     "sellerId": "1774402578403",
     "sellerName": "sam"
+  },
+  {
+    "id": 1301,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes 2-Pack Blister",
+    "price": "$12.99",
+    "soldOut": false,
+    "description": "Contains 2 Ascended Heroes booster packs, a collectible coin, and a special foil promo card featuring Tangela. A great entry point for the newest Mega Evolution expansion.",
+    "imgUrl": "/images/ah-2pack-blister.png",
+    "stock": 50
+  },
+  {
+    "id": 1302,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Tech Sticker Collection",
+    "price": "$24.99",
+    "soldOut": false,
+    "description": "Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card. Available in multiple artwork variants.",
+    "imgUrl": "/images/ah-tech-sticker.png",
+    "stock": 50
+  },
+  {
+    "id": 1303,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Mini Tin",
+    "price": "$14.99",
+    "soldOut": false,
+    "description": "Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!",
+    "imgUrl": "/images/ah-mini-tin.png",
+    "stock": 50
+  },
+  {
+    "id": 1304,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Elite Trainer Box",
+    "price": "$49.99",
+    "soldOut": false,
+    "description": "The ultimate Ascended Heroes experience! Includes 9 booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, damage counters, and a premium collector's box featuring legendary artwork.",
+    "imgUrl": "/images/ah-etb.png",
+    "stock": 50
   }
 ]

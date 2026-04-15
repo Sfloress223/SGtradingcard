@@ -6,6 +6,7 @@
     "password": "$2b$10$JFKQnTN4hP78pJcyzWL5/eOFkUgXit4F14XAD5jGjHTJ/.349BimW",
     "role": "seller",
     "charges_enabled": false,
-    "lifetimeVolumeUsd": 0
+    "lifetimeVolumeUsd": 0,
+    "stripeAccountId": "acct_1TLcFzBeHTATD48H"
   }
 ]

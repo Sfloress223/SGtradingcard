@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import crypto from 'crypto';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -119,15 +120,72 @@ const TIKTOK_TOKEN_FILE = path.join(__dirname, 'data', 'tiktok-token.json');
 const REVIEWS_FILE = path.join(__dirname, 'data', 'reviews.json');
 
 // --- TikTok Shop API Code ---
+function generateTikTokSignature(appSecret, path, queryParams, body) {
+  const keys = Object.keys(queryParams).filter(k => k !== 'sign' && k !== 'access_token').sort();
+  let paramString = '';
+  keys.forEach(k => {
+    paramString += `${k}${queryParams[k]}`;
+  });
+
+  const bodyString = body ? JSON.stringify(body) : '';
+  const stringToSign = `${appSecret}${path}${paramString}${bodyString}${appSecret}`;
+  
+  return crypto.createHmac('sha256', appSecret).update(stringToSign).digest('hex');
+}
+
 async function syncTikTokProduct(product) {
-  if (!process.env.TIKTOK_APP_KEY || !fs.existsSync(TIKTOK_TOKEN_FILE)) return;
+  if (!process.env.TIKTOK_APP_KEY || !process.env.TIKTOK_APP_SECRET || !fs.existsSync(TIKTOK_TOKEN_FILE)) return;
   try {
     const tokens = readJSON(TIKTOK_TOKEN_FILE);
     if (!tokens.access_token) return;
 
-    // In a full production sync, we would fetch the TikTok product by our local SKU, 
-    // and then issue a PUT request to the /api/v2/products/inventory endpoint.
-    console.log(`🎶 [TikTok Open API] Successfully broadcasted stock update for ${product.title} (Qty: ${product.stock || 0})`);
+    const tiktokProductId = product.tiktokProductId || product.id.toString(); 
+    const tiktokSkuId = product.tiktokSkuId || product.id.toString();
+    
+    const endpointPath = `/product/202309/products/${tiktokProductId}/inventory/update`;
+    const baseUrl = 'https://open-api.tiktokshops.us';
+    
+    const queryParams = {
+      app_key: process.env.TIKTOK_APP_KEY,
+      timestamp: Math.floor(Date.now() / 1000).toString()
+    };
+    
+    const requestBody = {
+      skus: [
+        {
+          id: tiktokSkuId,
+          inventory: [
+            {
+              quantity: product.soldOut ? 0 : (product.stock || 0)
+            }
+          ]
+        }
+      ]
+    };
+    
+    const signature = generateTikTokSignature(process.env.TIKTOK_APP_SECRET, endpointPath, queryParams, requestBody);
+    queryParams.sign = signature;
+    queryParams.access_token = tokens.access_token;
+    
+    const queryString = new URLSearchParams(queryParams).toString();
+    const finalUrl = `${baseUrl}${endpointPath}?${queryString}`;
+    
+    const response = await fetch(finalUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-tts-access-token': tokens.access_token
+      },
+      body: JSON.stringify(requestBody)
+    });
+    
+    const data = await response.json();
+    
+    if (data.code === 0) {
+      console.log(`🎶 [TikTok Open API] Successfully broadcasted stock update for ${product.title} (Qty: ${product.soldOut ? 0 : (product.stock || 0)})`);
+    } else {
+      console.error('🎶 [TikTok Open API] Warning: Sync rejected (Expected if using placeholder ID). Message:', data.message);
+    }
   } catch (err) {
     console.error('Failed to sync TikTok product:', err.message);
   }
