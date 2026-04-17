@@ -113,30 +113,8 @@ const AdminDashboard = ({ token, onLogout }) => {
     setIsUploading(true);
     
     try {
-      const uploadedGallery = [...(form.gallery || [])];
-      for (let i = 0; i < uploadedGallery.length; i++) {
-        if (uploadedGallery[i].isNew && uploadedGallery[i].base64) {
-          try {
-            const uploadRes = await fetch(`${API}/api/admin/upload-image`, {
-              method: 'POST',
-              headers,
-              body: JSON.stringify({ image: uploadedGallery[i].base64 })
-            });
-            const uploadData = await uploadRes.json();
-            if (uploadRes.ok) {
-              uploadedGallery[i] = { url: uploadData.url, isNew: false };
-            } else {
-              console.error('Upload failed for image', i, uploadData);
-              showToast(`Image ${i + 1} failed to upload: ${uploadData.error || 'Unknown error'}`);
-            }
-          } catch (uploadErr) {
-            console.error('Upload network error for image', i, uploadErr);
-            showToast(`Image ${i + 1} upload failed: network error`);
-          }
-        }
-      }
-
-      const finalGalleryUrls = uploadedGallery.map(img => img.url);
+      // Use gallery URLs directly — base64 data URLs for pasted images, regular URLs for existing ones
+      const finalGalleryUrls = (form.gallery || []).map(img => img.base64 || img.url);
       const mainImgUrl = finalGalleryUrls[0] || '';
       
       const payload = { ...form, imgUrl: mainImgUrl, galleryUrls: finalGalleryUrls, soldOut: form.stock === 0 };
