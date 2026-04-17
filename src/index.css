@@ -1635,6 +1635,7 @@ section {
   border-bottom: 1px solid #f0f0f0;
   vertical-align: middle;
   color: var(--text-dark);
+  background: #fcfcfc;
 }
 
 .admin-table tbody tr {
