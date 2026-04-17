@@ -196,7 +196,8 @@ const AdminDashboard = ({ token, onLogout }) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const newImg = { url: e.target.result, isNew: true, base64: e.target.result };
-      setForm(prev => ({ ...prev, gallery: [...(prev.gallery || []), newImg] }));
+      // Prepend so the new image becomes the cover (gallery[0] = mainImgUrl)
+      setForm(prev => ({ ...prev, gallery: [newImg, ...(prev.gallery || [])] }));
     };
     reader.readAsDataURL(file);
   };
