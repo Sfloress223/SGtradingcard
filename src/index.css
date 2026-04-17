@@ -1639,10 +1639,11 @@ section {
 
 .admin-table tbody tr {
   transition: background 0.2s ease;
+  background: #ffffff;
 }
 
 .admin-table tbody tr:hover {
-  background: #fafafa;
+  background: #f0f4f7;
 }
 
 .admin-table tbody tr:last-child td {

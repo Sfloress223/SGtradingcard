@@ -231,6 +231,7 @@ const shippo = shippoPkg(process.env.SHIPPO_API_KEY || '');
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-9relg96s6-sgtradingcards-projects.vercel.app', 'https://sg-tradingcard.vercel.app', 'https://sgtradingcard.com', 'https://www.sgtradingcard.com'] }));
 app.use(express.json({ limit: '50mb' }));
 app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/uploads', express.static(path.join(__dirname, 'data', 'uploads')));
 
 // ─── Helpers ───
 function readJSON(filePath) {
@@ -439,15 +440,17 @@ app.post('/api/admin/upload-image', authMiddleware, (req, res) => {
     if (ext === 'jpeg') ext = 'jpg';
     
     const fileName = `upload_${Date.now()}.${ext}`;
-    const imagesDir = path.join(__dirname, 'public', 'images');
-    if (!fs.existsSync(imagesDir)) {
-      fs.mkdirSync(imagesDir, { recursive: true });
+    
+    // Save to data/uploads/ (persists on Render) instead of public/images/ (ephemeral)
+    const uploadsDir = path.join(__dirname, 'data', 'uploads');
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
     }
     
-    const targetPath = path.join(imagesDir, fileName);
+    const targetPath = path.join(uploadsDir, fileName);
     fs.writeFileSync(targetPath, data);
 
-    res.json({ url: `/images/${fileName}` });
+    res.json({ url: `/uploads/${fileName}` });
   } catch (err) {
     console.error('Upload Error:', err);
     res.status(500).json({ error: 'Failed to upload image' });
