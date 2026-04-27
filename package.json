@@ -9,6 +9,8 @@
     "build": "node scripts/generate-feed.js && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "sync:live": "node scripts/sync-live-data.js",
+    "predeploy:live": "npm run sync:live",
     "deploy:live": "npx vercel --prod --yes"
   },
   "dependencies": {
