@@ -338,9 +338,10 @@ const AdminDashboard = ({ token, onLogout }) => {
     }
   };
 
-  const filtered = filterSet === 'all' ? products : products.filter(p => p.setId === filterSet);
-  const inStock = products.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut)).length;
-  const soldOut = products.filter(p => p.stock === 0 || (p.stock === undefined && p.soldOut)).length;
+  const retailProducts = products.filter(p => !p.sellerId);
+  const filtered = filterSet === 'all' ? retailProducts : retailProducts.filter(p => p.setId === filterSet);
+  const inStock = retailProducts.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut)).length;
+  const soldOut = retailProducts.filter(p => p.stock === 0 || (p.stock === undefined && p.soldOut)).length;
 
   const getFilteredOrders = () => {
     if (analyticsTime === 'all') return orders;
@@ -392,7 +393,7 @@ const AdminDashboard = ({ token, onLogout }) => {
       <div className="admin-header">
         <div>
           <h2>📦 Admin Dashboard</h2>
-          {activeTab === 'products' && <p className="admin-stats">{products.length} products · {inStock} in stock · {soldOut} sold out</p>}
+          {activeTab === 'products' && <p className="admin-stats">{retailProducts.length} products · {inStock} in stock · {soldOut} sold out</p>}
           {activeTab === 'orders' && <p className="admin-stats">{orders.filter(o => o.status === 'unfulfilled').length} pending orders</p>}
           {activeTab === 'analytics' && <p className="admin-stats">Real-time business performance</p>}
         </div>
@@ -418,9 +419,9 @@ const AdminDashboard = ({ token, onLogout }) => {
         <>
           {/* Filter Bar */}
           <div className="admin-filter-bar">
-            <button className={filterSet === 'all' ? 'active' : ''} onClick={() => setFilterSet('all')}>All ({products.length})</button>
+            <button className={filterSet === 'all' ? 'active' : ''} onClick={() => setFilterSet('all')}>All ({retailProducts.length})</button>
             {sets.map(s => {
-              const count = products.filter(p => p.setId === s.id).length;
+              const count = retailProducts.filter(p => p.setId === s.id).length;
               return <span key={s.id} style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', position: 'relative' }}>
                 <button className={filterSet === s.id ? 'active' : ''} onClick={() => setFilterSet(s.id)}>{s.name} ({count})</button>
                 {filterSet === s.id && count === 0 && (
