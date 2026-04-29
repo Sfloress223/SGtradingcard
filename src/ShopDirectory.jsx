@@ -34,9 +34,9 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
                 onClick={() => setSelectedSet(set.id)}
                 style={{ borderTop: `4px solid #1E90FF` }}
               >
-                <div className={`set-logo-container ${['graded-cards', 'japanese', 'ascended-heroes', 'all-pokemon'].includes(set.id) ? 'photo-container' : ''}`}>
+                <div className={`set-logo-container ${['graded-cards', 'japanese', 'ascended-heroes'].includes(set.id) ? 'photo-container' : ''}`}>
                   {set.bannerUrl ? (
-                    <img src={set.bannerUrl} alt={set.name} className={`set-icon ${['graded-cards', 'japanese', 'chinese', 'ascended-heroes', 'all-pokemon'].includes(set.id) ? 'photo-fit' : ''}`} />
+                    <img src={set.bannerUrl} alt={set.name} className={`set-icon ${['graded-cards', 'japanese', 'chinese', 'ascended-heroes'].includes(set.id) ? 'photo-fit' : ''}`} />
                   ) : (
                     <span className="set-icon-emoji">{set.emoji || '📦'}</span>
                   )}
@@ -175,12 +175,12 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
             onClick={() => setSelectedSet(set.id)}
             style={{ borderTop: `4px solid #1E90FF` }}
           >
-            <div className={`set-logo-container ${['graded-cards', 'japanese', 'ascended-heroes', 'all-pokemon'].includes(set.id) ? 'photo-container' : ''}`}>
+            <div className={`set-logo-container ${['graded-cards', 'japanese', 'ascended-heroes'].includes(set.id) ? 'photo-container' : ''}`}>
                {(set.bannerUrl || set.imgUrl) ? (
                  <img 
                    src={set.bannerUrl || set.imgUrl} 
                    alt={set.name + ' Logo'} 
-                   className={`set-icon ${['graded-cards', 'japanese', 'chinese', 'ascended-heroes', 'all-pokemon'].includes(set.id) ? 'photo-fit' : ''}`} 
+                   className={`set-icon ${['graded-cards', 'japanese', 'chinese', 'ascended-heroes'].includes(set.id) ? 'photo-fit' : ''}`} 
                  />
                ) : (
                  <span style={{ fontSize: '3rem' }}>{set.emoji || '📦'}</span>
