@@ -42,6 +42,8 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
                       className={`set-icon ${['graded-cards', 'japanese', 'chinese'].includes(set.id) ? 'photo-fit' : ''}`}
                       style={{ 
                         transform: set.id === 'perfect-order' ? 'scale(1.2)' : set.id === 'ascended-heroes' ? 'scale(1.1)' : 'none',
+                        mixBlendMode: ['perfect-order', 'ascended-heroes'].includes(set.id) ? 'multiply' : 'normal',
+                        filter: ['perfect-order', 'ascended-heroes'].includes(set.id) ? 'none' : '',
                         transition: 'transform 0.3s ease'
                       }}
                     />
