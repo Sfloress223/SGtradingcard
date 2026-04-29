@@ -287,7 +287,10 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
             {cartItems.map(item => (
               <div key={item.id} className="checkout-item-row">
                 <div className="checkout-item-info">
-                  <span className="checkout-item-name">{item.title}</span>
+                  <span className="checkout-item-name">
+                    {item.title}
+                    {item.trackedShipping && <span style={{ marginLeft: '6px', fontSize: '0.65rem', padding: '2px 4px', background: '#e6fffa', color: '#276749', borderRadius: '4px', fontWeight: 'bold' }}>TRACKED</span>}
+                  </span>
                   <span className="checkout-item-qty">Qty: {item.qty}</span>
                 </div>
                 <span className="checkout-item-amount">

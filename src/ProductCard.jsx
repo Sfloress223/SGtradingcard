@@ -15,6 +15,23 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
             {product.condition}
           </span>
         )}
+        {product.trackedShipping && (
+          <span className="tracking-badge" style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            background: '#e6fffa',
+            color: '#276749',
+            padding: '4px 8px',
+            borderRadius: '4px',
+            fontSize: '0.75rem',
+            fontWeight: 'bold',
+            zIndex: 2,
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          }}>
+            Tracked
+          </span>
+        )}
         {product.sellerName && (
           <span className="seller-badge" style={{
             position: 'absolute',

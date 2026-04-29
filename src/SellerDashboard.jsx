@@ -17,7 +17,8 @@ const SellerDashboard = ({ user, token, onLogout }) => {
     gradeCompany: 'PSA',
     gradeValue: '10',
     description: '',
-    stock: 1
+    stock: 1,
+    trackedShipping: false
   });
   const [stripeStatus, setStripeStatus] = useState({ checked: false, charges_enabled: false });
   const [tierInfo, setTierInfo] = useState(null);
@@ -153,12 +154,13 @@ const SellerDashboard = ({ user, token, onLogout }) => {
           description: formData.description,
           setId: 'singles',
           stock: parseInt(formData.stock) || 1,
-          soldOut: false
+          soldOut: false,
+          trackedShipping: formData.trackedShipping
         })
       });
       if (res.ok) {
         setIsAdding(false);
-        setFormData({ title: '', price: '', imgUrl: '', shippingFee: '1.00', cardType: 'Single', condition: 'Mint', gradeCompany: 'PSA', gradeValue: '10', description: '', stock: 1 });
+        setFormData({ title: '', price: '', imgUrl: '', shippingFee: '1.00', cardType: 'Single', condition: 'Mint', gradeCompany: 'PSA', gradeValue: '10', description: '', stock: 1, trackedShipping: false });
         setImgPreview(null);
         fetchListings();
       }
@@ -330,7 +332,11 @@ const SellerDashboard = ({ user, token, onLogout }) => {
             </div>
             <div style={{ flex: 1 }}>
               <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Shipping Fee ($) (Buyer pays)</label>
-              <input required type="number" step="0.01" min="0.00" value={formData.shippingFee} onChange={e => setFormData({...formData, shippingFee: e.target.value})} style={{ width: '100%', padding: '0.5rem' }} placeholder="1.00" />
+              <input required type="number" step="0.01" min="0.00" value={formData.shippingFee} onChange={e => setFormData({...formData, shippingFee: e.target.value})} style={{ width: '100%', padding: '0.5rem', marginBottom: '0.5rem' }} placeholder="1.00" />
+              <label style={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}>
+                <input type="checkbox" checked={formData.trackedShipping} onChange={e => setFormData({...formData, trackedShipping: e.target.checked})} />
+                Tracking Included
+              </label>
             </div>
             <div style={{ flex: 1 }}>
               <label style={{ display: 'block', fontSize: '0.85rem', marginBottom: '0.3rem' }}>Format</label>

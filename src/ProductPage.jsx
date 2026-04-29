@@ -98,6 +98,13 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
                     <span className="meta-value" style={{ color: '#FFD700', fontWeight: 'bold', textShadow: '0 0 1px #000' }}>⭐ Verified Seller</span>
                   </div>
                 )}
+                <div className="product-page-meta-item">
+                  <span className="meta-label">Shipping</span>
+                  <span className="meta-value">
+                    {product.shippingFee && product.shippingFee !== '$0.00' ? product.shippingFee : 'Free'}
+                    {product.trackedShipping && <span style={{ marginLeft: '8px', padding: '2px 6px', background: '#e6fffa', color: '#276749', borderRadius: '4px', fontSize: '0.75rem', fontWeight: 'bold' }}>TRACKED</span>}
+                  </span>
+                </div>
               </>
             )}
           </div>
