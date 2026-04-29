@@ -1,4 +1,5 @@
 :root {
+  --card-bg: #ffffff;
   --primary: #FFCB05; /* Subtle usage for highlights if needed */
   --text-dark: #1a1a1a;
   --text-light: #666666;
