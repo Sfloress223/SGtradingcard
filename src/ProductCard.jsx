@@ -50,7 +50,15 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
           </span>
         )}
         <div className="product-image-placeholder">
-          {imgUrl ? <img src={imgUrl} alt={title} /> : <span>📦</span>}
+          {imgUrl ? (
+            <img 
+              src={imgUrl} 
+              alt={title} 
+              style={product.setId === 'graded-cards' ? { padding: '0', transform: 'scale(1.15)', objectFit: 'contain' } : {}} 
+            />
+          ) : (
+            <span>📦</span>
+          )}
         </div>
         <div className="product-description-overlay">
           <p>{product.description || title}</p>

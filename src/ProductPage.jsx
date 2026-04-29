@@ -27,7 +27,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div className="product-page-image" style={{ width: '100%', aspectRatio: '1/1', background: '#fff', borderRadius: '12px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {mainImage ? (
-              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', transform: product.setId === 'graded-cards' ? 'scale(1.15)' : 'none' }} />
             ) : (
               <span style={{ fontSize: '5rem' }}>📦</span>
             )}
