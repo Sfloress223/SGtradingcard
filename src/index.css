@@ -44,7 +44,7 @@ a {
 /* Header */
 .site-header {
   border-bottom: 2px solid #ffd700;
-  padding: 1.5rem 5%;
+  padding: 1rem 5%;
   position: sticky;
   top: 0;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);

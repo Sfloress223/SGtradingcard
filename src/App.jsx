@@ -426,7 +426,7 @@ function App() {
               <img 
                 src="/sg_arcade_logo.jpg" 
                 alt="S&G Trading Co." 
-                style={{ height: '110px', objectFit: 'contain', borderRadius: '8px' }}
+                style={{ height: '75px', objectFit: 'contain', borderRadius: '8px' }}
               />
             </div>
             <nav className="main-nav">
