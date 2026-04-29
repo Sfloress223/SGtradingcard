@@ -393,6 +393,16 @@ app.get('/api/admin/verify', authMiddleware, (req, res) => {
 });
 
 // ─── Public Product Routes ───
+app.get('/api/internal/export-data', (req, res) => {
+  if (req.query.key !== 'sg_backup_777') return res.status(403).json({ error: 'Unauthorized' });
+  res.json({
+    products: readJSON(PRODUCTS_FILE),
+    users: readJSON(USERS_FILE),
+    orders: readJSON(ORDERS_FILE),
+    sets: readJSON(SETS_FILE)
+  });
+});
+
 app.get('/api/products', (req, res) => {
   const products = readJSON(PRODUCTS_FILE);
   const allOrders = fs.existsSync(ORDERS_FILE) ? readJSON(ORDERS_FILE) : [];
