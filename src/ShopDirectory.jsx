@@ -70,7 +70,14 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
           </button>
           <div className="set-title-area">
             {setInfo?.bannerUrl ? (
-              <img src={setInfo.bannerUrl} alt={setInfo.name} className="set-banner-img" />
+              <img 
+                src={setInfo.bannerUrl} 
+                alt={setInfo.name} 
+                className="set-banner-img" 
+                style={{
+                  mixBlendMode: ['perfect-order', 'ascended-heroes'].includes(setInfo.id) ? 'multiply' : 'normal'
+                }}
+              />
             ) : (
                <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{setInfo?.name}</h2>
             )}
