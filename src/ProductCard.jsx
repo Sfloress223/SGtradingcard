@@ -19,7 +19,7 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
           <span className="tracking-badge" style={{
             position: 'absolute',
             top: '10px',
-            right: '10px',
+            left: '10px',
             background: '#e6fffa',
             color: '#276749',
             padding: '4px 8px',
