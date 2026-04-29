@@ -61,7 +61,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
 
         <div className="product-page-info">
           {product.isPreorder && !product.soldOut && <span className="preorder-badge" style={{ position: 'static', marginBottom: '1rem', display: 'inline-block' }}>Pre-order</span>}
-          {(product.stock === 0 || product.soldOut) ? <span className="sold-out-badge" style={{ position: 'static', marginBottom: '1rem', display: 'inline-block' }}>Sold out</span> : (product.stock !== undefined && !product.isPreorder && <span style={{ color: '#4ade80', fontWeight: 'bold', display: 'block', marginBottom: '1rem' }}>{product.stock} in stock</span>)}
+          {(product.stock === 0 || product.soldOut) ? <span className="sold-out-badge" style={{ position: 'static', marginBottom: '1rem', display: 'inline-block' }}>Sold out</span> : (product.stock !== undefined && !product.isPreorder && <span style={{ color: '#16a34a', fontWeight: 'bold', display: 'block', marginBottom: '1rem' }}>{product.stock} in stock</span>)}
           <h1 className="product-page-title">{product.title}</h1>
           <p className="product-page-price">{product.price}</p>
           
@@ -72,10 +72,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
             </div>
             {!product.sellerId && (
               <>
-                <div className="product-page-meta-item">
-                  <span className="meta-label">Authenticity</span>
-                  <span className="meta-value">100% Authentic</span>
-                </div>
+
                 <div className="product-page-meta-item">
                   <span className="meta-label">Shipping</span>
                   <span className="meta-value">Free over $150</span>
