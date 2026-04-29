@@ -34,9 +34,17 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
                 onClick={() => setSelectedSet(set.id)}
                 style={{ borderTop: `4px solid #1E90FF` }}
               >
-                <div className={`set-logo-container ${['graded-cards', 'japanese', 'ascended-heroes'].includes(set.id) ? 'photo-container' : ''}`}>
+                <div className={`set-logo-container ${['graded-cards', 'japanese'].includes(set.id) ? 'photo-container' : ''}`}>
                   {set.bannerUrl ? (
-                    <img src={set.bannerUrl} alt={set.name} className={`set-icon ${['graded-cards', 'japanese', 'chinese', 'ascended-heroes'].includes(set.id) ? 'photo-fit' : ''}`} />
+                    <img 
+                      src={set.bannerUrl} 
+                      alt={set.name} 
+                      className={`set-icon ${['graded-cards', 'japanese', 'chinese'].includes(set.id) ? 'photo-fit' : ''}`}
+                      style={{ 
+                        transform: set.id === 'perfect-order' ? 'scale(1.2)' : set.id === 'ascended-heroes' ? 'scale(1.1)' : 'none',
+                        transition: 'transform 0.3s ease'
+                      }}
+                    />
                   ) : (
                     <span className="set-icon-emoji">{set.emoji || '📦'}</span>
                   )}
