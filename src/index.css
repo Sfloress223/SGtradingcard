@@ -35,7 +35,7 @@ a {
   background-color: #000000;
   color: #fff;
   text-align: center;
-  padding: 10px 15px;
+  padding: 7px 15px;
   font-size: 0.9rem;
   letter-spacing: 1px;
   font-weight: bold;
@@ -44,7 +44,7 @@ a {
 /* Header */
 .site-header {
   border-bottom: 2px solid #ffd700;
-  padding: 1rem 5%;
+  padding: 0.9rem 5%;
   position: sticky;
   top: 0;
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
