@@ -43,8 +43,8 @@
     "id": "ascended-heroes",
     "parent": "all-pokemon",
     "name": "Ascended Heroes",
-    "imgUrl": "/images/ascended-heroes.png",
-    "bannerUrl": "/images/ascended-heroes.png",
+    "imgUrl": "/images/ah-logo.png",
+    "bannerUrl": "/images/ah-logo.png",
     "color": "#2E8B2E"
   },
   {
