@@ -1020,7 +1020,7 @@ section {
 }
 
 .checkout-card {
-  background: #aec3d1;
+  background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
@@ -1320,7 +1320,7 @@ section {
 .admin-login-card {
   width: 100%;
   max-width: 420px;
-  background: #aec3d1;
+  background: #ffffff;
   border: 1px solid rgba(0,0,0,0.05);
   border-radius: 20px;
   padding: 3.5rem 3rem;
@@ -1504,7 +1504,7 @@ section {
 
 /* Form Card */
 .admin-form-card {
-  background: #aec3d1;
+  background: #ffffff;
   border: 1px solid rgba(0,0,0,0.05);
   border-radius: 16px;
   padding: 2.5rem;
@@ -1595,7 +1595,7 @@ section {
 
 /* Product Table */
 .admin-table-wrap {
-  background: #aec3d1;
+  background: #ffffff;
   border-radius: 16px;
   border: 1px solid rgba(0,0,0,0.05);
   box-shadow: 0 8px 30px rgba(0,0,0,0.04);
@@ -1766,7 +1766,7 @@ section {
 }
 
 .admin-modal {
-  background: #aec3d1;
+  background: #ffffff;
   border-radius: 20px;
   padding: 2.5rem;
   max-width: 500px;
