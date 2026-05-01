@@ -37,6 +37,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('sg_user_data') || 'null'));
   const [products, setProducts] = useState(FALLBACK_PRODUCTS);
   const [sets, setSets] = useState(FALLBACK_SETS);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   // Fetch live data from API (falls back to data.js if server is down)
   useEffect(() => {
@@ -426,35 +427,69 @@ function App() {
         {/* Navigation */}
         <header className="site-header">
           <div className="header-inner">
-            <div className="logo" onClick={() => setCurrentPage('home')} style={{ cursor: 'pointer' }}>
+            <div className="logo" onClick={() => { setCurrentPage('home'); setMobileNavOpen(false); }} style={{ cursor: 'pointer' }}>
               <img 
                 src="/sg_arcade_logo.jpg" 
                 alt="S&G Trading Co." 
                 style={{ height: '66px', objectFit: 'contain', borderRadius: '8px' }}
+                loading="lazy"
               />
             </div>
+            {/* Desktop nav */}
             <nav className="main-nav">
-              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }} style={{ fontWeight: currentPage === 'home' ? 'bold' : 'normal', color: currentPage === 'home' ? '#000' : '' }}>Home</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('shop'); }} style={{ fontWeight: currentPage === 'shop' ? 'bold' : 'normal', color: currentPage === 'shop' ? '#000' : '' }}>Shop</a>
-              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('grand-exchange'); }} style={{ fontWeight: currentPage === 'grand-exchange' ? 'bold' : 'normal', color: currentPage === 'grand-exchange' ? '#000' : '' }}>The Grand Exchange</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }}>Home</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('shop'); }}>Shop</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('grand-exchange'); }}>The Grand Exchange</a>
             </nav>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-              <a href="https://www.tiktok.com/@sgtradingcard" target="_blank" rel="noreferrer" title="Follow us on TikTok" style={{ fontSize: '1.2rem', color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M19.589 6.686A4.757 4.757 0 0 0 15.3 2.057a.428.428 0 0 0-.428.428v14.17c0 2.21-1.791 4.004-4.003 4.004-2.21 0-4.002-1.794-4.002-4.004 0-2.21 1.792-4.004 4.002-4.004.283 0 .56.03.826.085v-4.108c-.266-.021-.54-.035-.826-.035-4.42 0-8.006 3.585-8.006 8.062s3.586 8.063 8.006 8.063c4.321 0 7.848-3.413 7.994-7.669h.01v-6.315c1.4.922 3.09 1.481 4.908 1.542V8.167a8.55 8.55 0 0 1-4.192-1.48z"/>
-                </svg>
+            <div className="header-social-icons" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+              <a href="https://www.tiktok.com/@sgtradingcard" target="_blank" rel="noreferrer" title="TikTok" style={{ color: '#e2e8f0', display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }} onMouseOver={(e) => e.currentTarget.style.opacity='0.7'} onMouseOut={(e) => e.currentTarget.style.opacity='1'}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.589 6.686A4.757 4.757 0 0 0 15.3 2.057a.428.428 0 0 0-.428.428v14.17c0 2.21-1.791 4.004-4.003 4.004-2.21 0-4.002-1.794-4.002-4.004 0-2.21 1.792-4.004 4.002-4.004.283 0 .56.03.826.085v-4.108c-.266-.021-.54-.035-.826-.035-4.42 0-8.006 3.585-8.006 8.062s3.586 8.063 8.006 8.063c4.321 0 7.848-3.413 7.994-7.669h.01v-6.315c1.4.922 3.09 1.481 4.908 1.542V8.167a8.55 8.55 0 0 1-4.192-1.48z"/></svg>
               </a>
-              <a href="https://www.youtube.com/@sgtradingcard" target="_blank" rel="noreferrer" title="Follow us on YouTube" style={{ fontSize: '1.2rem', color: '#000', textDecoration: 'none', display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }} onMouseOver={(e) => e.currentTarget.style.opacity = '0.7'} onMouseOut={(e) => e.currentTarget.style.opacity = '1'}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
+              <a href="https://www.youtube.com/@sgtradingcard" target="_blank" rel="noreferrer" title="YouTube" style={{ color: '#e2e8f0', display: 'flex', alignItems: 'center', transition: 'opacity 0.2s' }} onMouseOver={(e) => e.currentTarget.style.opacity='0.7'} onMouseOut={(e) => e.currentTarget.style.opacity='1'}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
               </a>
               <div className="cart-icon" onClick={() => setCurrentPage('cart')} style={{ cursor: 'pointer' }}>
-                <span style={{ color: currentPage === 'cart' ? '#000' : '' }}>Cart ({cartCount})</span>
+                <span>Cart ({cartCount})</span>
               </div>
+            </div>
+            {/* Mobile right side: cart count + hamburger */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }} className="mobile-header-right">
+              <div className="cart-icon" onClick={() => { setCurrentPage('cart'); setMobileNavOpen(false); }} style={{ cursor: 'pointer' }}>
+                <span style={{ color: '#e2e8f0' }}>🛒 {cartCount}</span>
+              </div>
+              <button
+                className={`hamburger-btn${mobileNavOpen ? ' open' : ''}`}
+                onClick={() => setMobileNavOpen(o => !o)}
+                aria-label="Toggle navigation"
+              >
+                <span /><span /><span />
+              </button>
             </div>
           </div>
         </header>
+
+        {/* Mobile Nav Drawer */}
+        <div className={`mobile-nav-drawer${mobileNavOpen ? ' open' : ''}`} onClick={() => setMobileNavOpen(false)}>
+          <div className="mobile-nav-panel" onClick={e => e.stopPropagation()}>
+            <button className="mobile-nav-link" onClick={() => { setCurrentPage('home'); setMobileNavOpen(false); }}>Home</button>
+            <button className="mobile-nav-link" onClick={() => { setCurrentPage('shop'); setMobileNavOpen(false); }}>Shop</button>
+            <button className="mobile-nav-link" onClick={() => { setCurrentPage('grand-exchange'); setMobileNavOpen(false); }}>The Grand Exchange</button>
+            <button className="mobile-nav-link" onClick={() => { setCurrentPage('cart'); setMobileNavOpen(false); }}>Cart ({cartCount})</button>
+            {userToken ? (
+              <button className="mobile-nav-link" onClick={() => { setCurrentPage('dashboard'); setMobileNavOpen(false); }}>My Account</button>
+            ) : (
+              <button className="mobile-nav-link" onClick={() => { setCurrentPage('login'); setMobileNavOpen(false); }}>Login / Register</button>
+            )}
+            <div className="mobile-nav-socials">
+              <a href="https://www.tiktok.com/@sgtradingcard" target="_blank" rel="noreferrer">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M19.589 6.686A4.757 4.757 0 0 0 15.3 2.057a.428.428 0 0 0-.428.428v14.17c0 2.21-1.791 4.004-4.003 4.004-2.21 0-4.002-1.794-4.002-4.004 0-2.21 1.792-4.004 4.002-4.004.283 0 .56.03.826.085v-4.108c-.266-.021-.54-.035-.826-.035-4.42 0-8.006 3.585-8.006 8.062s3.586 8.063 8.006 8.063c4.321 0 7.848-3.413 7.994-7.669h.01v-6.315c1.4.922 3.09 1.481 4.908 1.542V8.167a8.55 8.55 0 0 1-4.192-1.48z"/></svg>
+              </a>
+              <a href="https://www.youtube.com/@sgtradingcard" target="_blank" rel="noreferrer">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
 
         {renderPage()}
 

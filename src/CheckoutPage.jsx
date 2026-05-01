@@ -17,6 +17,20 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  // Guard: if cart is empty, show message instead of crashing
+  if (!cartItems || cartItems.length === 0) {
+    return (
+      <div style={{ textAlign: 'center', padding: '5rem 2rem' }}>
+        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🛒</div>
+        <h2 style={{ marginBottom: '1rem' }}>Your cart is empty</h2>
+        <p style={{ color: '#666', marginBottom: '2rem' }}>Add some products before checking out.</p>
+        <button onClick={onBack} style={{ background: '#000', color: '#fff', border: 'none', padding: '12px 28px', borderRadius: '6px', cursor: 'pointer', fontWeight: 600 }}>
+          Continue Shopping
+        </button>
+      </div>
+    );
+  }
+
   const [shipping, setShipping] = useState({
     name: '', email: '', phone: '', address: '', city: '', state: '', zip: ''
   });

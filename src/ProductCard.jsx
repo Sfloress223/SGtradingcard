@@ -54,6 +54,7 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
             <img 
               src={imgUrl} 
               alt={title} 
+              loading="lazy"
               style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
             />
           ) : (
