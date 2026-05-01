@@ -55,7 +55,13 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
               src={imgUrl} 
               alt={title} 
               loading="lazy"
-              style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'contain',
+                transform: product.setId === 'graded-cards' ? 'scale(1.25)' : 'scale(1.1)',
+                transition: 'transform 0.3s ease'
+              }} 
             />
           ) : (
             <span>📦</span>
