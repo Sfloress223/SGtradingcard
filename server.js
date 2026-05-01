@@ -1265,6 +1265,20 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
+// Debug endpoint to find Render's outgoing IP for TikTok Allowlisting
+app.get('/api/debug/my-ip', async (req, res) => {
+  try {
+    const response = await fetch('https://api.ipify.org?format=json');
+    const data = await response.json();
+    res.json({ 
+      outgoingIp: data.ip,
+      instruction: "Copy this IP address and paste it into your TikTok Developer Portal IP Allowlist."
+    });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to determine outgoing IP" });
+  }
+});
+
 app.post('/api/admin/orders/:id/cancel', authMiddleware, async (req, res) => {
   if (req.user.role !== 'admin') return res.status(403).json({ error: 'Access denied' });
   
