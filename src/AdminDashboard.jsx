@@ -21,7 +21,17 @@ const AdminDashboard = ({ token, onLogout }) => {
   const [setFormState, setSetFormState] = useState({ name: '', color: '#1E90FF', imgUrl: '' });
   const [setImgPreview, setSetImgPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [form, setForm] = useState({ title: '', price: '', setId: '', imgUrl: '', description: '', stock: 0, gallery: [] });
+  const [form, setForm] = useState({ 
+    title: '', 
+    price: '', 
+    setId: '', 
+    imgUrl: '', 
+    description: '', 
+    stock: 0, 
+    gallery: [],
+    weightValue: '',
+    weightUnit: 'oz'
+  });
   const [toast, setToast] = useState(null);
   const [inlineEdit, setInlineEdit] = useState(null); // { id, field, value }
 
@@ -96,14 +106,46 @@ const AdminDashboard = ({ token, onLogout }) => {
   const startEdit = (product) => {
     setEditing(product.id);
     const initGal = product.galleryUrls ? product.galleryUrls.map(u => ({ url: u, isNew: false })) : (product.imgUrl ? [{ url: product.imgUrl, isNew: false }] : []);
-    setForm({ title: product.title, price: product.price, setId: product.setId, imgUrl: product.imgUrl || '', description: product.description || '', stock: product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50), gallery: initGal });
+    
+    // Parse weight e.g. \"1.5 lb\"
+    let wVal = '';
+    let wUnit = 'oz';
+    if (product.shippingWeight) {
+      const parts = product.shippingWeight.trim().split(' ');
+      if (parts.length === 2) {
+        wVal = parts[0];
+        wUnit = parts[1].toLowerCase();
+      }
+    }
+
+    setForm({ 
+      title: product.title, 
+      price: product.price, 
+      setId: product.setId, 
+      imgUrl: product.imgUrl || '', 
+      description: product.description || '', 
+      stock: product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50), 
+      gallery: initGal,
+      weightValue: wVal,
+      weightUnit: wUnit
+    });
     setAdding(false);
   };
 
   const startAdd = () => {
     setAdding(true);
     setEditing(null);
-    setForm({ title: '', price: '', setId: sets[0]?.id || '', imgUrl: '', description: '', stock: 50, gallery: [] });
+    setForm({ 
+      title: '', 
+      price: '', 
+      setId: sets[0]?.id || '', 
+      imgUrl: '', 
+      description: '', 
+      stock: 50, 
+      gallery: [],
+      weightValue: '',
+      weightUnit: 'oz'
+    });
   };
 
   const cancelEdit = () => { setEditing(null); setAdding(false); };
@@ -117,8 +159,17 @@ const AdminDashboard = ({ token, onLogout }) => {
       const finalGalleryUrls = (form.gallery || []).map(img => img.base64 || img.url);
       const mainImgUrl = finalGalleryUrls[0] || '';
       
-      const payload = { ...form, imgUrl: mainImgUrl, galleryUrls: finalGalleryUrls, soldOut: form.stock === 0 };
+      const weightStr = form.weightValue ? `${form.weightValue} ${form.weightUnit}` : '';
+      const payload = { 
+        ...form, 
+        imgUrl: mainImgUrl, 
+        galleryUrls: finalGalleryUrls, 
+        soldOut: form.stock === 0,
+        shippingWeight: weightStr
+      };
       delete payload.gallery;
+      delete payload.weightValue;
+      delete payload.weightUnit;
 
       if (editing) {
         const res = await fetch(`${API}/api/admin/products/${editing}`, {
@@ -566,6 +617,27 @@ const AdminDashboard = ({ token, onLogout }) => {
             <div className="form-group">
               <label>Stock Quantity</label>
               <input type="number" min="0" value={form.stock} onChange={e => setForm({...form, stock: parseInt(e.target.value) || 0})} required />
+            </div>
+            <div className="form-group">
+              <label>Shipping Weight</label>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <input 
+                  type="number" 
+                  step="0.1" 
+                  value={form.weightValue} 
+                  onChange={e => setForm({...form, weightValue: e.target.value})} 
+                  placeholder="0.0"
+                  style={{ flex: 1 }}
+                />
+                <select 
+                  value={form.weightUnit} 
+                  onChange={e => setForm({...form, weightUnit: e.target.value})}
+                  style={{ width: '80px' }}
+                >
+                  <option value="oz">Oz</option>
+                  <option value="lb">Lb</option>
+                </select>
+              </div>
             </div>
             <div className="admin-form-actions">
               <button type="submit" className="admin-save-btn" disabled={isUploading}>{isUploading ? 'Saving...' : 'Save'}</button>
