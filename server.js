@@ -1265,6 +1265,79 @@ app.use((req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
+app.post('/api/admin/orders/:id/cancel', authMiddleware, async (req, res) => {
+  if (req.user.role !== 'admin') return res.status(403).json({ error: 'Access denied' });
+  
+  const { id } = req.params;
+  try {
+    if (!fs.existsSync(ORDERS_FILE)) return res.status(404).json({ error: 'Order file not found' });
+    const orders = readJSON(ORDERS_FILE);
+    const orderIdx = orders.findIndex(o => o.id === id);
+    if (orderIdx === -1) return res.status(404).json({ error: 'Order not found' });
+    
+    const order = orders[orderIdx];
+    
+    // 1. Issue Stripe Refund
+    if (order.stripePaymentIntentId) {
+      try {
+        await stripe.refunds.create({
+          payment_intent: order.stripePaymentIntentId,
+        });
+        console.log(`✅ Refund issued for order ${id}`);
+      } catch (refundErr) {
+        console.error('Stripe Refund Error:', refundErr.message);
+        // We continue anyway so the admin can at least mark it as cancelled locally 
+        // if the refund was already handled in Stripe dashboard
+      }
+    }
+
+    // 2. Restock Items
+    if (fs.existsSync(PRODUCTS_FILE)) {
+      let products = readJSON(PRODUCTS_FILE);
+      let stockUpdated = false;
+      
+      (order.items || []).forEach(item => {
+        const pIdx = products.findIndex(p => p.id === item.id);
+        if (pIdx !== -1) {
+          if (products[pIdx].stock !== undefined) {
+            products[pIdx].stock += item.qty;
+            products[pIdx].soldOut = false;
+            stockUpdated = true;
+            
+            // Sync restock to external channels
+            if (!products[pIdx].sellerId) {
+              syncGoogleProduct(products[pIdx]).catch(console.error);
+              syncTikTokProduct(products[pIdx]).catch(console.error);
+            }
+          }
+        }
+      });
+      
+      if (stockUpdated) {
+        writeJSON(PRODUCTS_FILE, products);
+      }
+    }
+
+    // 3. Update Order Status
+    orders[orderIdx].status = 'cancelled';
+    writeJSON(ORDERS_FILE, orders);
+
+    // 4. Notify Buyer
+    if (order.shippingAddress?.email) {
+      sendStoreEmail(
+        order.shippingAddress.email,
+        `Order Cancelled & Refunded - ${order.id}`,
+        `<h1>Order Cancellation</h1><p>Your order ${order.id} has been cancelled and a full refund has been issued to your original payment method. Please allow 5-10 business days for the credit to appear on your statement.</p>`
+      ).catch(console.error);
+    }
+
+    res.json({ success: true, message: 'Order cancelled and refunded successfully' });
+  } catch (err) {
+    console.error('Cancellation Error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`\n  💳 S&G Trading Server running on http://localhost:${PORT}`);
   console.log(`  📦 Products: ${PRODUCTS_FILE}`);

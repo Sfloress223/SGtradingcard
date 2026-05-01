@@ -148,14 +148,46 @@ const AdminDashboard = ({ token, onLogout }) => {
     const items = e.clipboardData.items;
     let file = null;
     for (let i = 0; i < items.length; i++) {
-        if (items[i].type.indexOf('image') !== -1) {
-            file = items[i].getAsFile();
-            break;
-        }
+      if (items[i].type.indexOf('image') !== -1) {
+        file = items[i].getAsFile();
+        break;
+      }
     }
-    if (file) handleImageFile(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setForm(prev => ({
+          ...prev,
+          gallery: [...prev.gallery, { url: event.target.result, base64: event.target.result, isNew: true }]
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
+  const handleCancelOrder = async (orderId) => {
+    if (!window.confirm("⚠️ ARE YOU SURE? This will fully refund the customer's money via Stripe and put the items back into stock. This cannot be undone.")) return;
+    
+    try {
+      const res = await fetch(`${API}/api/admin/orders/${orderId}/cancel`, {
+        method: 'POST',
+        headers
+      });
+      const data = await res.json();
+      
+      if (res.ok) {
+        setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: 'cancelled' } : o));
+        showToast('Order Cancelled & Refunded!');
+        // Refresh products to show updated stock
+        fetch(`${API}/api/products`).then(r => r.json()).then(data => setProducts(Array.isArray(data) ? data : []));
+      } else {
+        showToast(data.error || 'Cancellation failed');
+      }
+    } catch (err) {
+      console.error('Cancel error:', err);
+      showToast('Network error cancelling order');
+    }
+  };
   const handleProductPasteImage = (e) => {
     if (!e.clipboardData) return;
     const items = e.clipboardData.items;
@@ -633,7 +665,7 @@ const AdminDashboard = ({ token, onLogout }) => {
               </tr>
             </thead>
             <tbody>
-              {orders.filter(o => o.items && o.shippingAddress).map(order => (
+              {orders.filter(o => o.items && o.shippingAddress && o.status !== 'cancelled').map(order => (
                 <tr key={order.id}>
                   <td>{new Date(order.date).toLocaleDateString()}</td>
                   <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}</td>
@@ -654,6 +686,13 @@ const AdminDashboard = ({ token, onLogout }) => {
                           </button>
                           <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: true })}>
                             🖨️ Packing Slip
+                          </button>
+                          <button 
+                            className="admin-delete-btn" 
+                            style={{fontSize: '0.75rem', padding: '4px 8px', color: '#e33', borderColor: '#e33'}} 
+                            onClick={() => handleCancelOrder(order.id)}
+                          >
+                            Cancel?
                           </button>
                         </div>
                      )}
