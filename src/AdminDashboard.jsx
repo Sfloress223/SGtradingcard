@@ -1139,13 +1139,13 @@ const AdminDashboard = ({ token, onLogout }) => {
       {activeTab === 'geledger' && (
         <div className="admin-table-wrap">
           <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-            <div className="analytics-card" style={{ flex: 1 }}>
-              <h3>Lifetime P2P Processed</h3>
-              <div className="stat-value">${geAnalytics.reduce((sum, o) => sum + (o.totalAmount || 0), 0).toFixed(2)}</div>
+            <div className="analytics-card" style={{ flex: 1, background: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.05)' }}>
+              <h3 style={{ margin: 0, fontSize: '0.9rem', color: '#888', textTransform: 'uppercase', letterSpacing: '1px' }}>Lifetime P2P Processed</h3>
+              <div style={{ fontSize: '2rem', fontWeight: 'bold', marginTop: '0.5rem' }}>${geAnalytics.reduce((sum, o) => sum + (o.totalAmount || 0), 0).toFixed(2)}</div>
             </div>
-            <div className="analytics-card" style={{ flex: 1, borderLeft: '4px solid var(--accent-color)' }}>
-              <h3>Cumulative Platform Skim</h3>
-              <div className="stat-value" style={{ color: 'var(--accent-color)' }}>${geAnalytics.reduce((sum, o) => sum + (o.platformFeeUsd || 0), 0).toFixed(2)}</div>
+            <div className="analytics-card" style={{ flex: 1, background: '#fff', padding: '1.5rem', borderRadius: '12px', border: '1px solid rgba(0,0,0,0.05)', borderLeft: '4px solid var(--accent-color)' }}>
+              <h3 style={{ margin: 0, fontSize: '0.9rem', color: '#888', textTransform: 'uppercase', letterSpacing: '1px' }}>Cumulative Platform Skim</h3>
+              <div style={{ fontSize: '2rem', fontWeight: 'bold', marginTop: '0.5rem', color: 'var(--accent-color)' }}>${geAnalytics.reduce((sum, o) => sum + (o.platformFeeUsd || 0), 0).toFixed(2)}</div>
             </div>
           </div>
           <table className="admin-table">
