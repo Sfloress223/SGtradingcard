@@ -10,8 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "sync:live": "node scripts/sync-live-data.js",
-    "predeploy:live": "npm run sync:live",
-    "deploy:live": "npx vercel --prod --yes"
+    "deploy:prod": "node scripts/sync-live-data.js && git add data/ && git commit -m \"Safety_Sync_Backup\" && git push origin master"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^5.6.1",

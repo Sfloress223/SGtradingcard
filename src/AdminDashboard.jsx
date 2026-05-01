@@ -55,6 +55,23 @@ const AdminDashboard = ({ token, onLogout }) => {
     fetch(`${API}/api/admin/shipping-presets`, { headers: fetchHeaders }).then(r => r.json()).then(data => setShippingPresets(Array.isArray(data) ? data : []));
   }, [token, onLogout]);
 
+  // Reset scroll on tab change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [activeTab]);
+
+  // Jump to form when adding or editing
+  useEffect(() => {
+    if (adding || editing) {
+      setTimeout(() => {
+        const formEl = document.querySelector('.admin-form-card');
+        if (formEl) {
+          formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, [adding, editing]);
+
 
   const saveInlineEdit = async () => {
     if (!inlineEdit) return;

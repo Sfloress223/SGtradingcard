@@ -64,6 +64,10 @@ function App() {
     document.title = titles[currentPage] || `${base} | Trading Cards & Collectibles`;
   }, [currentPage, selectedProduct]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
+
   const showToast = useCallback((message) => {
     setToast(message);
     setTimeout(() => setToast(null), 2000);
