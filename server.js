@@ -403,6 +403,16 @@ app.get('/api/internal/export-data', (req, res) => {
   });
 });
 
+app.get('/api/stream', (req, res) => {
+  const stream = JSON.parse(fs.readFileSync(path.join(__dirname, 'data/stream.json'), 'utf8'));
+  res.json(stream);
+});
+
+app.put('/api/admin/stream', authenticateAdmin, (req, res) => {
+  fs.writeFileSync(path.join(__dirname, 'data/stream.json'), JSON.stringify(req.body, null, 2));
+  res.json({ success: true });
+});
+
 app.get('/api/products', (req, res) => {
   const products = readJSON(PRODUCTS_FILE);
   const allOrders = fs.existsSync(ORDERS_FILE) ? readJSON(ORDERS_FILE) : [];

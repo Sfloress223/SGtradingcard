@@ -53,7 +53,10 @@ const AdminDashboard = ({ token, onLogout }) => {
     fetch(`${API}/api/admin/analytics`, { headers: fetchHeaders }).then(r => r.json()).then(data => setGeAnalytics(Array.isArray(data) ? data : []));
 
     fetch(`${API}/api/admin/shipping-presets`, { headers: fetchHeaders }).then(r => r.json()).then(data => setShippingPresets(Array.isArray(data) ? data : []));
+    fetch(`${API}/api/stream`).then(r => r.json()).then(setStream);
   }, [token, onLogout]);
+
+  const [stream, setStream] = useState({ isLive: false, queueMessage: '', currentCustomer: '' });
 
   // Reset scroll on tab change
   useEffect(() => {
@@ -209,6 +212,14 @@ const AdminDashboard = ({ token, onLogout }) => {
       showToast('Failed to save product');
     }
     setIsUploading(false);
+  };
+
+  const saveStream = async (e) => {
+    e.preventDefault();
+    const res = await fetch(`${API}/api/admin/stream`, {
+      method: 'PUT', headers, body: JSON.stringify(stream)
+    });
+    if (res.ok) showToast('Live Stream Status Updated!');
   };
 
   const handlePasteImage = (e) => {
@@ -513,7 +524,51 @@ const AdminDashboard = ({ token, onLogout }) => {
         <button className={activeTab === 'orders' ? 'active-tab' : ''} onClick={() => setActiveTab('orders')}>Orders & Shipping</button>
         <button className={activeTab === 'analytics' ? 'active-tab' : ''} onClick={() => setActiveTab('analytics')}>Analytics & Bookkeeping</button>
         <button className={activeTab === 'geledger' ? 'active-tab' : ''} onClick={() => setActiveTab('geledger')}>GE Ledger</button>
+        <button className={activeTab === 'stream' ? 'active-tab' : ''} onClick={() => setActiveTab('stream')}>🔴 Live Stream</button>
       </div>
+
+      {activeTab === 'stream' && (
+        <div className="admin-form-card" style={{ maxWidth: '600px', margin: '2rem auto' }}>
+          <h3>🔴 Rip n Ship Live Controls</h3>
+          <p style={{ color: '#666', marginBottom: '1.5rem' }}>Update your live status and queue message here. It updates instantly on the home page.</p>
+          
+          <form onSubmit={saveStream} className="admin-form">
+            <div className="form-group full-width" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.5rem' }}>
+              <input 
+                type="checkbox" 
+                checked={stream.isLive} 
+                onChange={e => setStream({...stream, isLive: e.target.checked})}
+                style={{ width: '20px', height: '20px', cursor: 'pointer' }}
+              />
+              <label style={{ margin: 0, fontSize: '1.1rem' }}>Show "LIVE NOW" banner on website</label>
+            </div>
+
+            <div className="form-group full-width">
+              <label>Status Message (e.g. Opening packs live!)</label>
+              <input 
+                type="text" 
+                value={stream.queueMessage} 
+                onChange={e => setStream({...stream, queueMessage: e.target.value})} 
+                placeholder="Opening packs live!"
+              />
+            </div>
+
+            <div className="form-group full-width">
+              <label>Next Customer / Who's Up? (e.g. @Collector123)</label>
+              <input 
+                type="text" 
+                value={stream.currentCustomer} 
+                onChange={e => setStream({...stream, currentCustomer: e.target.value})} 
+                placeholder="@username"
+              />
+            </div>
+
+            <div className="admin-form-actions">
+              <button type="submit" className="admin-save-btn">Update Live Status</button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {activeTab === 'products' && (
         <>

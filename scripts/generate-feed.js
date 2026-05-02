@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { PRODUCTS } from '../src/data.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const productsPath = path.join(__dirname, '../data/products.json');
+const PRODUCTS = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
 
 let xml = `<?xml version="1.0"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">

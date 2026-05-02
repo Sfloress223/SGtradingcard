@@ -38,11 +38,13 @@ function App() {
   const [products, setProducts] = useState(FALLBACK_PRODUCTS);
   const [sets, setSets] = useState(FALLBACK_SETS);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [streamStatus, setStreamStatus] = useState({ isLive: false, queueMessage: '', currentCustomer: '' });
 
   // Fetch live data from API (falls back to data.js if server is down)
   useEffect(() => {
     fetch(`${API}/api/products`).then(r => r.json()).then(setProducts).catch(() => {});
     fetch(`${API}/api/sets`).then(r => r.json()).then(setSets).catch(() => {});
+    fetch(`${API}/api/stream`).then(r => r.json()).then(setStreamStatus).catch(() => {});
   }, []);
 
   // Dynamic page title for SEO
@@ -423,6 +425,34 @@ function App() {
         <div className="promo-banner">
           <span>Free shipping on all orders over $150!</span>
         </div>
+
+        {/* Rip n Ship Live Alert */}
+        {streamStatus.isLive && (
+          <div className="stream-live-bar" style={{ 
+            background: 'linear-gradient(90deg, #ff0000, #990000)', 
+            color: 'white', 
+            padding: '10px', 
+            textAlign: 'center', 
+            fontSize: '0.9rem',
+            fontWeight: 'bold',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: '15px'
+          }}>
+            <span style={{ 
+              background: 'white', 
+              color: 'red', 
+              padding: '2px 8px', 
+              borderRadius: '4px', 
+              fontSize: '0.7rem',
+              animation: 'pulse 1.5s infinite'
+            }}>LIVE NOW</span>
+            <span>{streamStatus.queueMessage}</span>
+            <span style={{ opacity: 0.8 }}>|</span>
+            <span>Next Opening: <span style={{ color: '#ffd700' }}>{streamStatus.currentCustomer}</span></span>
+          </div>
+        )}
 
         {/* Navigation */}
         <header className="site-header">
