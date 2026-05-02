@@ -59,7 +59,7 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'contain',
-                transform: product.setId === 'graded-cards' ? 'scale(1.25)' : 'scale(1.1)',
+                transform: product.setId === 'graded-cards' ? 'scale(2)' : 'scale(1.25)',
                 transition: 'transform 0.3s ease'
               }} 
             />
