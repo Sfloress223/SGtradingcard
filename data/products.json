@@ -396,10 +396,10 @@
     "price": "$234.99",
     "soldOut": false,
     "description": "Contains 36 Surging Sparks booster packs.",
-    "imgUrl": "/uploads/img_b6dd18c9e6.png",
+    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png",
     "stock": 50,
     "galleryUrls": [
-      "/uploads/img_b6dd18c9e6.png"
+      "https://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png"
     ],
     "shippingWeight": ""
   },
@@ -430,10 +430,10 @@
     "price": "$49.99",
     "soldOut": false,
     "description": "An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.",
-    "imgUrl": "/uploads/img_0265a4aaac.png",
+    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png",
     "stock": 1,
     "galleryUrls": [
-      "/uploads/img_0265a4aaac.png"
+      "https://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png"
     ]
   },
   {
@@ -573,10 +573,10 @@
     "price": "$22.99",
     "soldOut": true,
     "description": "Contains 2 Ascended Heroes booster packs, a collectible coin, and a special foil promo card featuring Tangela. A great entry point for the newest Mega Evolution expansion.",
-    "imgUrl": "/uploads/img_c1f9f6a356.png",
+    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png",
     "stock": 0,
     "galleryUrls": [
-      "/uploads/img_c1f9f6a356.png"
+      "https://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png"
     ]
   },
   {
@@ -586,10 +586,10 @@
     "price": "$34.99",
     "soldOut": true,
     "description": "Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card. Available in multiple artwork variants.",
-    "imgUrl": "/uploads/img_1076b26b63.png",
+    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_1076b26b63.png",
     "stock": 0,
     "galleryUrls": [
-      "/uploads/img_1076b26b63.png"
+      "https://sgtradingcard.onrender.com/uploads/img_1076b26b63.png"
     ]
   },
   {
@@ -599,10 +599,10 @@
     "price": "$24.99",
     "soldOut": true,
     "description": "Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!",
-    "imgUrl": "/uploads/img_6ab35ec358.png",
+    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png",
     "stock": 0,
     "galleryUrls": [
-      "/uploads/img_6ab35ec358.png"
+      "https://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png"
     ]
   },
   {
@@ -612,10 +612,10 @@
     "price": "$129.99",
     "soldOut": true,
     "description": "The ultimate Ascended Heroes experience! Includes 9 booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, damage counters, and a premium collector's box featuring legendary artwork.",
-    "imgUrl": "/uploads/img_8512df5d9b.png",
+    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png",
     "stock": 0,
     "galleryUrls": [
-      "/uploads/img_8512df5d9b.png"
+      "https://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png"
     ]
   },
   {

@@ -457,7 +457,8 @@ function processBase64Str(base64Str) {
   if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
   
   fs.writeFileSync(path.join(uploadsDir, fileName), data);
-  return `/uploads/${fileName}`;
+  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
+  return `${baseUrl}/uploads/${fileName}`;
 }
 
 // ─── Admin Category/Set Routes ───
@@ -487,7 +488,8 @@ app.post('/api/admin/upload-image', authMiddleware, (req, res) => {
     const targetPath = path.join(uploadsDir, fileName);
     fs.writeFileSync(targetPath, data);
 
-    res.json({ url: `/uploads/${fileName}` });
+    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
+    res.json({ url: `${baseUrl}/uploads/${fileName}` });
   } catch (err) {
     console.error('Upload Error:', err);
     res.status(500).json({ error: 'Failed to upload image' });
