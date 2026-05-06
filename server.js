@@ -408,7 +408,7 @@ app.get('/api/stream', (req, res) => {
   res.json(stream);
 });
 
-app.put('/api/admin/stream', authenticateAdmin, (req, res) => {
+app.put('/api/admin/stream', authMiddleware, (req, res) => {
   fs.writeFileSync(path.join(__dirname, 'data/stream.json'), JSON.stringify(req.body, null, 2));
   res.json({ success: true });
 });
