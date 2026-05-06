@@ -29,9 +29,9 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
 
       <div className="product-page-layout">
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <div className="product-page-image" style={{ width: '100%', aspectRatio: '1/1', background: '#fff', borderRadius: '12px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div className="product-page-image" style={{ width: '100%', aspectRatio: isGradedCard ? '3/4' : '1/1', background: '#fff', borderRadius: '12px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {mainImage ? (
-              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', transform: isGradedCard ? 'scale(2.2)' : 'none' }} />
+              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', transform: isGradedCard ? 'scale(1.4)' : 'none' }} />
             ) : (
               <span style={{ fontSize: '5rem' }}>📦</span>
             )}

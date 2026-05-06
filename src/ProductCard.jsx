@@ -7,7 +7,7 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
 
   return (
     <div className="product-card" onClick={() => onViewProduct && onViewProduct(product)}>
-      <div className="product-image-container">
+      <div className="product-image-container" style={{ aspectRatio: isGradedCard ? '3/4' : '1/1' }}>
         {soldOut && <span className="sold-out-badge">Sold out</span>}
         {product.isPreorder && !soldOut && <span className="preorder-badge">Pre-order</span>}
         {product.condition && (
@@ -63,7 +63,7 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'contain',
-                transform: isGradedCard ? 'scale(2.8)' : 'scale(1.25)',
+                transform: isGradedCard ? 'scale(1.4)' : 'scale(1.25)',
                 transition: 'transform 0.3s ease'
               }} 
             />
