@@ -1,6 +1,8 @@
 import React from 'react';
 
 const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onViewProduct }) => {
+  const isGradedCard = product.setId === 'graded-cards' || (product.condition && ['PSA', 'CGC', 'Beckett'].some(g => product.condition.includes(g)));
+
   return (
     <div className="product-card" onClick={() => onViewProduct && onViewProduct(product)}>
       <div className="product-image-container">
@@ -59,7 +61,7 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'contain',
-                transform: product.setId === 'graded-cards' ? 'scale(2)' : 'scale(1.25)',
+                transform: isGradedCard ? 'scale(2.8)' : 'scale(1.25)',
                 transition: 'transform 0.3s ease'
               }} 
             />
