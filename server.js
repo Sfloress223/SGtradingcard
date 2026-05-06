@@ -443,6 +443,23 @@ app.get('/api/sets', (req, res) => {
   res.json(sets);
 });
 
+// ─── Base64 Processing Helper ───
+function processBase64Str(base64Str) {
+  if (!base64Str || !base64Str.startsWith('data:image')) return base64Str;
+  const matches = base64Str.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
+  if (!matches) return base64Str;
+  
+  let ext = matches[1] === 'jpeg' ? 'jpg' : matches[1];
+  const data = Buffer.from(matches[2], 'base64');
+  const fileName = `img_${Date.now()}_${Math.floor(Math.random()*1000)}.${ext}`;
+  
+  const uploadsDir = path.join(__dirname, 'data', 'uploads');
+  if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
+  
+  fs.writeFileSync(path.join(uploadsDir, fileName), data);
+  return `/uploads/${fileName}`;
+}
+
 // ─── Admin Category/Set Routes ───
 app.post('/api/admin/upload-image', authMiddleware, (req, res) => {
   try {
@@ -489,12 +506,13 @@ app.post('/api/admin/sets', authMiddleware, (req, res) => {
       return res.status(400).json({ error: 'Category with this name already exists' });
     }
 
+    const processedImg = processBase64Str(imgUrl);
     const newSet = {
       id: generatedId,
       parent,
       name,
-      imgUrl: imgUrl || '',
-      bannerUrl: imgUrl || '',
+      imgUrl: processedImg || '',
+      bannerUrl: processedImg || '',
       color: color || '#E3350D'
     };
     
@@ -531,11 +549,29 @@ app.delete('/api/admin/sets/:id', authMiddleware, (req, res) => {
 });
 
 // ─── Admin Product Routes ───
+
+function processProductBase64(product) {
+  if (product.imgUrl) product.imgUrl = processBase64Str(product.imgUrl);
+  if (product.gallery) {
+    product.gallery = product.gallery.map(img => {
+      if (img.url) img.url = processBase64Str(img.url);
+      if (img.base64) img.base64 = processBase64Str(img.base64);
+      return img;
+    });
+  }
+  if (product.galleryUrls) {
+    product.galleryUrls = product.galleryUrls.map(url => processBase64Str(url));
+  }
+  return product;
+}
+
 app.put('/api/admin/products/:id', authMiddleware, (req, res) => {
   const products = readJSON(PRODUCTS_FILE);
   const idx = products.findIndex(p => p.id === parseInt(req.params.id));
   if (idx === -1) return res.status(404).json({ error: 'Product not found' });
-  products[idx] = { ...products[idx], ...req.body, id: products[idx].id };
+  
+  const processedBody = processProductBase64(req.body);
+  products[idx] = { ...products[idx], ...processedBody, id: products[idx].id };
   writeJSON(PRODUCTS_FILE, products);
   
   syncGoogleProduct(products[idx]).catch(console.error);
@@ -547,7 +583,8 @@ app.put('/api/admin/products/:id', authMiddleware, (req, res) => {
 app.post('/api/admin/products', authMiddleware, (req, res) => {
   const products = readJSON(PRODUCTS_FILE);
   const maxId = products.reduce((max, p) => Math.max(max, p.id), 0);
-  const newProduct = { id: maxId + 1, ...req.body };
+  const processedBody = processProductBase64(req.body);
+  const newProduct = { id: maxId + 1, ...processedBody };
   products.push(newProduct);
   writeJSON(PRODUCTS_FILE, products);
   res.json(newProduct);

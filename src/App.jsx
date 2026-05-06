@@ -450,7 +450,11 @@ function App() {
             }}>LIVE NOW</span>
             <span>{streamStatus.queueMessage}</span>
             <span style={{ opacity: 0.8 }}>|</span>
-            <span>Next Opening: <span style={{ color: '#ffd700' }}>{streamStatus.currentCustomer}</span></span>
+            {streamStatus.currentCustomer && streamStatus.currentCustomer.trim() !== '' ? (
+              <span>Next Opening: <span style={{ color: '#ffd700' }}>{streamStatus.currentCustomer}</span></span>
+            ) : (
+              <span>Queue Status: <span style={{ color: '#4ade80', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '1px' }}>Open Queue</span></span>
+            )}
           </div>
         )}
 
