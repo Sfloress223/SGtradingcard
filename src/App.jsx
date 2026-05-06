@@ -495,9 +495,7 @@ function App() {
             </div>
             {/* Mobile right side: cart count + hamburger */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }} className="mobile-header-right">
-              <div className="cart-icon" onClick={() => { setCurrentPage('cart'); setMobileNavOpen(false); }} style={{ cursor: 'pointer' }}>
-                <span style={{ color: '#e2e8f0' }}>🛒 {cartCount}</span>
-              </div>
+
               <button
                 className={`hamburger-btn${mobileNavOpen ? ' open' : ''}`}
                 onClick={() => setMobileNavOpen(o => !o)}

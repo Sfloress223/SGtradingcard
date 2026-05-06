@@ -7,7 +7,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Surging Sparks expansion. Each pack may include rare holographic, illustration rare, or special art rare cards.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/224a05f2-8828-4f97-9299-1d207332261a/SuzieQ+LOGO+%289%29.png?format=500w",
-    "stock": 50
+    "stock": 36
   },
   {
     "id": 102,
@@ -54,10 +54,10 @@
     "setId": "prismatic",
     "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Booster Bundle",
     "price": "$64.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Includes 6 Prismatic Evolutions booster packs wrapped in exclusive bundle packaging.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1786c526-f588-4355-baeb-e42f2756edf4/SuzieQ+LOGO+%2839%29.png?format=500w",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 302,
@@ -117,7 +117,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Mega Evolution expansion. Chance to pull powerful Mega EX cards featuring fan-favorite Pokémon like Charizard, Lucario, and Gardevoir.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2603873e-f184-4adc-8aa7-94a9c4520bb5/ME+%282%29.png?format=500w",
-    "stock": 50
+    "stock": 20
   },
   {
     "id": 402,
@@ -144,26 +144,26 @@
     "setId": "mega-evolution",
     "title": "Pokémon TCG: Mega Evolution Elite Trainer Box (Mega Lucario)",
     "price": "$84.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Features Mega Lucario artwork. Includes 9 booster packs, a full-art promo card.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/8f3ff6a1-bc2c-49aa-a80a-adffef6a3123/SuzieQ+LOGO+%2813%29.png?format=500w",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 406,
     "setId": "mega-evolution",
     "title": "Pokémon TCG: Mega Evolution Elite Trainer Box (Mega Gardevoir)",
     "price": "$84.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Features Mega Gardevoir artwork. Includes 9 booster packs, a full-art promo card.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f8813c9a-f790-43e8-bdb7-e01b3d6932a1/SuzieQ+LOGO+%2814%29.png?format=500w",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 409,
     "setId": "mega-evolution",
     "title": "Pokémon TCG: Mega Heroes Mini Tin",
-    "price": "$14.99",
+    "price": "$19.99",
     "soldOut": true,
     "description": "Collectible mini tin containing 2 Mega Evolution booster packs and 1 art card. Features different Mega Pokémon designs on each tin.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d57fbe9c-708f-4c55-a219-8af24b86706e/SuzieQ+LOGO+%2831%29.png?format=500w",
@@ -194,10 +194,10 @@
     "setId": "phantasmal-flames",
     "title": "Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Pack",
     "price": "$7.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Contains 10 cards from the Phantasmal Flames expansion.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/9c3cfcca-a812-49ec-8701-8b71a4b6616c/PF+%282%29.png?format=500w",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 501,
@@ -223,7 +223,7 @@
     "id": 503,
     "setId": "bw-era",
     "title": "Pokémon TCG: Scarlet & Violet-White Flare Booster Bundle",
-    "price": "$54.99",
+    "price": "$56.99",
     "soldOut": true,
     "description": "Includes 6 White Flare booster packs in collectible bundle packaging. Pull powerful cards from the Black & White-inspired set.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/04ebf0f4-25fd-4afb-adaa-7ea2006526f8/SuzieQ+LOGO+%2843%29.png?format=500w",
@@ -234,10 +234,10 @@
     "setId": "bw-era",
     "title": "Pokémon TCG: Scarlet & Violet-Black Bolt Booster Bundle",
     "price": "$56.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Includes 6 Black Bolt booster packs in collectible bundle packaging.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/127d72d8-2c4d-4574-a842-3f596d782f52/SuzieQ+LOGO+%2848%29.png?format=500w",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 505,
@@ -284,10 +284,10 @@
     "setId": "misc",
     "title": "Pokémon TCG: Archaludon ex Box",
     "price": "$29.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Contains a foil promo Archaludon ex card, 4 booster packs, and an oversized card.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/64d7fc24-f6c5-4157-86f2-e48e4329c4b1/SuzieQ+LOGO+%288%29.png?format=500w",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 604,
@@ -307,7 +307,7 @@
     "soldOut": false,
     "description": "A ready-to-play 60-card deck featuring Tapu Koko ex. Includes damage counters, a coin, a deck box, and a quick-start guide — perfect for beginners.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d7b1a8c3-575f-47ce-96cd-872a5a44635d/SuzieQ+LOGO+%285%29.png?format=500w",
-    "stock": 50
+    "stock": 1
   },
   {
     "id": 606,
@@ -317,17 +317,17 @@
     "soldOut": false,
     "description": "A ready-to-play 60-card deck featuring Iron Leaves ex. Includes damage counters, a coin, a deck box, and a quick-start guide — perfect for beginners.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/adbc1830-d516-4719-b325-0a9840f6ebfd/SuzieQ+LOGO.png?format=500w",
-    "stock": 50
+    "stock": 1
   },
   {
     "id": 607,
     "setId": "misc",
     "title": "Pokémon TCG: Unova Mini Tin",
     "price": "$20.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Collectible mini tin featuring Unova region Pokémon artwork. Contains 2 booster packs and 1 art card. Collect all designs!",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1971202f-3b55-40c3-b97d-2c666ec4eda5/SuzieQ+LOGO+%2830%29.png?format=500w",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 608,
@@ -344,10 +344,10 @@
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order Elite Trainer Box",
     "price": "$79.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Includes 9 Perfect Order booster packs, a full-art promo card, 65 card sleeves featuring Mega Zygarde, energy cards, and a premium collector's box.",
     "imgUrl": "/images/po-etb.png",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 1102,
@@ -357,7 +357,7 @@
     "soldOut": false,
     "description": "Contains 3 Perfect Order booster packs, a shiny coin, and a special foil promo card to boost your collection.",
     "imgUrl": "/images/po-blister.jpg",
-    "stock": 50
+    "stock": 3
   },
   {
     "id": 1103,
@@ -367,7 +367,7 @@
     "soldOut": false,
     "description": "Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.",
     "imgUrl": "/images/po-bundle.png",
-    "stock": 50
+    "stock": 4
   },
   {
     "id": 1104,
@@ -377,29 +377,29 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Perfect Order expansion. Uncover powerful new Pokémon ex and stunning illustration rares.",
     "imgUrl": "/images/po-booster.png",
-    "stock": 50
+    "stock": 30
   },
   {
     "id": 1105,
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order Mini Tin",
     "price": "$18.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "A collectible mini tin that perfectly stores your favorite cards! Includes 2 booster packs and 1 matching Pokémon art card.",
     "imgUrl": "/images/po-minitin.jpg",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 103,
     "setId": "surging-sparks",
     "title": "Pokémon TCG: Scarlet & Violet-Surging Sparks Booster Box",
     "price": "$234.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Contains 36 Surging Sparks booster packs.",
-    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png",
-    "stock": 50,
+    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png",
+    "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png"
+      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png"
     ],
     "shippingWeight": ""
   },
@@ -411,7 +411,7 @@
     "soldOut": false,
     "description": "Commemorative Pokémon Day collection offering an array of packs and exclusive promos.",
     "imgUrl": "/images/pokemon-day-2026.png",
-    "stock": 50
+    "stock": 1
   },
   {
     "id": 1003,
@@ -421,7 +421,7 @@
     "soldOut": false,
     "description": "Adorable Manta Ray plush bag charm.",
     "imgUrl": "/images/manta-ray.png",
-    "stock": 50
+    "stock": 8
   },
   {
     "id": 414,
@@ -430,10 +430,10 @@
     "price": "$49.99",
     "soldOut": false,
     "description": "An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.",
-    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png",
+    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png",
     "stock": 1,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png"
+      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png"
     ]
   },
   {
@@ -441,20 +441,20 @@
     "setId": "prismatic",
     "title": "Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Surprise Box",
     "price": "$46.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "A mystery surprise box full of Prismatic Evolutions boosters and collectibles.",
     "imgUrl": "/images/pe-surprise-box.png",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 305,
     "setId": "prismatic",
     "title": "Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Booster Pack",
     "price": "$10.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Contains 10 cards from the gorgeous Prismatic Evolutions set.",
     "imgUrl": "/images/ss-booster-bundle.jpg",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 1004,
@@ -464,7 +464,7 @@
     "soldOut": false,
     "description": "Official blind box terrarium figure from the Paldea region.",
     "imgUrl": "/images/rement-paldea.png",
-    "stock": 50
+    "stock": 25
   },
   {
     "id": 1005,
@@ -474,17 +474,17 @@
     "soldOut": false,
     "description": "Official classic blind box terrarium figure.",
     "imgUrl": "/images/rement-classic.png",
-    "stock": 50
+    "stock": 25
   },
   {
     "id": 610,
     "setId": "misc",
     "title": "Pokémon TCG: Suicune Knock Out Collection",
     "price": "$18.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Suicune Knock Out Collection featuring 2 booster packs and 3 foil promo cards.",
     "imgUrl": "/images/suicune-ko.png",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 611,
@@ -494,7 +494,7 @@
     "soldOut": false,
     "description": "Kyogre Knock Out Collection featuring 2 booster packs and 3 foil promo cards.",
     "imgUrl": "/images/kyogre-ko.png",
-    "stock": 50
+    "stock": 1
   },
   {
     "id": 612,
@@ -504,27 +504,27 @@
     "soldOut": false,
     "description": "Includes 2 booster packs and a special Raikou promotional coin and card.",
     "imgUrl": "/images/raikou-blister.png",
-    "stock": 50
+    "stock": 8
   },
   {
     "id": 613,
     "setId": "misc",
     "title": "Pokémon TCG: Mega Charizard X/Y ex Tin",
     "price": "$39.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "A beautifully crafted tin featuring the mighty Mega Charizard.",
     "imgUrl": "/images/mega-charizard-tin.png",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 104,
     "setId": "surging-sparks",
     "title": "Pokémon TCG: Scarlet & Violet Surging Sparks Booster Bundle",
     "price": "$48.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Contains 6 Surging Sparks booster packs to boost your collection.",
     "imgUrl": "/images/pe-sleeved.jpg",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 614,
@@ -534,37 +534,37 @@
     "soldOut": false,
     "description": "A massive chest of Pokémon TCG treasures from the Paldea region.",
     "imgUrl": "/images/paldea-chest.png",
-    "stock": 50
+    "stock": 2
   },
   {
     "id": 415,
     "setId": "mega-evolution",
     "title": "Pokémon TCG: Mega Evolution Sleeved Booster Pack",
     "price": "$8.49",
-    "soldOut": false,
+    "soldOut": true,
     "description": "A single sleeved booster pack containing 10 cards from the Mega Evolution expansion. Case-fresh and tamper-evident packaging.",
     "imgUrl": "/images/me-sleeved.jpg",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 416,
     "setId": "phantasmal-flames",
     "title": "Pokémon TCG: Phantasmal Flames Sleeved Booster Pack",
     "price": "$8.49",
-    "soldOut": false,
+    "soldOut": true,
     "description": "A single sleeved booster pack from the Phantasmal Flames set. Expand your collection with these haunted and fiery rare pulls!",
     "imgUrl": "/images/pf-sleeved.jpg",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 1106,
     "setId": "perfect-order",
     "title": "Pokémon TCG: Perfect Order Sleeved Booster Pack",
     "price": "$7.49",
-    "soldOut": false,
+    "soldOut": true,
     "description": "A single sleeved booster pack from the Perfect Order expansion. Securely packed to guarantee authentic pulls.",
     "imgUrl": "/images/po-sleeved.png",
-    "stock": 50
+    "stock": 0
   },
   {
     "id": 1301,
@@ -573,10 +573,10 @@
     "price": "$22.99",
     "soldOut": true,
     "description": "Contains 2 Ascended Heroes booster packs, a collectible coin, and a special foil promo card featuring Tangela. A great entry point for the newest Mega Evolution expansion.",
-    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png",
+    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png"
+      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png"
     ]
   },
   {
@@ -586,10 +586,10 @@
     "price": "$34.99",
     "soldOut": true,
     "description": "Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card. Available in multiple artwork variants.",
-    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_1076b26b63.png",
+    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_1076b26b63.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.com/uploads/img_1076b26b63.png"
+      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_1076b26b63.png"
     ]
   },
   {
@@ -599,10 +599,10 @@
     "price": "$24.99",
     "soldOut": true,
     "description": "Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!",
-    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png",
+    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png"
+      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png"
     ]
   },
   {
@@ -612,10 +612,10 @@
     "price": "$129.99",
     "soldOut": true,
     "description": "The ultimate Ascended Heroes experience! Includes 9 booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, damage counters, and a premium collector's box featuring legendary artwork.",
-    "imgUrl": "https://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png",
+    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png"
+      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png"
     ]
   },
   {
