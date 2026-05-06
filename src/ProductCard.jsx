@@ -1,7 +1,9 @@
 import React from 'react';
 
 const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onViewProduct }) => {
-  const isGradedCard = product.setId === 'graded-cards' || (product.condition && ['PSA', 'CGC', 'Beckett'].some(g => product.condition.includes(g)));
+  const isGradedCard = product.setId === 'graded-cards' || 
+    (product.condition && ['psa', 'cgc', 'beckett'].some(g => product.condition.toLowerCase().includes(g))) ||
+    (title && ['psa', 'cgc', 'beckett', 'graded', 'slab'].some(g => title.toLowerCase().includes(g)));
 
   return (
     <div className="product-card" onClick={() => onViewProduct && onViewProduct(product)}>

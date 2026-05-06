@@ -17,6 +17,10 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
 
   const mainImage = selectedImage || product.imgUrl || '';
 
+  const isGradedCard = product.setId === 'graded-cards' || 
+    (product.condition && ['psa', 'cgc', 'beckett'].some(g => product.condition.toLowerCase().includes(g))) ||
+    (product.title && ['psa', 'cgc', 'beckett', 'graded', 'slab'].some(g => product.title.toLowerCase().includes(g)));
+
   return (
     <section className="product-page">
       <button className="back-btn" onClick={onBack}>
@@ -27,7 +31,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div className="product-page-image" style={{ width: '100%', aspectRatio: '1/1', background: '#fff', borderRadius: '12px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {mainImage ? (
-              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', transform: (product.setId === 'graded-cards' || (product.condition && ['PSA', 'CGC', 'Beckett'].some(g => product.condition.includes(g)))) ? 'scale(2.2)' : 'none' }} />
+              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', transform: isGradedCard ? 'scale(2.2)' : 'none' }} />
             ) : (
               <span style={{ fontSize: '5rem' }}>📦</span>
             )}
