@@ -63,7 +63,7 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'contain',
-                transform: isGradedCard ? 'scale(3.5)' : 'scale(1.25)',
+                transform: isGradedCard ? 'scale(1.6)' : 'scale(1.25)',
                 mixBlendMode: isGradedCard ? 'darken' : 'normal',
                 transition: 'transform 0.3s ease'
               }} 
