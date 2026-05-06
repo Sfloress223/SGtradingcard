@@ -44,7 +44,14 @@ function App() {
   useEffect(() => {
     fetch(`${API}/api/products`).then(r => r.json()).then(setProducts).catch(() => {});
     fetch(`${API}/api/sets`).then(r => r.json()).then(setSets).catch(() => {});
-    fetch(`${API}/api/stream`).then(r => r.json()).then(setStreamStatus).catch(() => {});
+    
+    // Initial fetch for stream status
+    const fetchStream = () => fetch(`${API}/api/stream`).then(r => r.json()).then(setStreamStatus).catch(() => {});
+    fetchStream();
+    
+    // Poll stream status every 10 seconds so the queue updates live for viewers
+    const interval = setInterval(fetchStream, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   // Dynamic page title for SEO
