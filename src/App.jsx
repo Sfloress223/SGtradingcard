@@ -436,7 +436,9 @@ function App() {
         {/* Rip n Ship Live Alert */}
         {streamStatus.isLive && (
           <div className="stream-live-bar" style={{ 
-            background: 'linear-gradient(90deg, #ff0000, #990000)', 
+            background: streamStatus.currentCustomer && streamStatus.currentCustomer.trim() !== '' 
+              ? 'linear-gradient(90deg, #ff0000, #990000)' 
+              : 'linear-gradient(90deg, #16a34a, #15803d)', 
             color: 'white', 
             padding: '10px', 
             textAlign: 'center', 
