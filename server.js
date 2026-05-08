@@ -111,6 +111,11 @@ async function syncGoogleProduct(product) {
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const app = express();
+
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'sg-trading-secret-key-change-me-in-production') {
+  console.warn('⚠️ CRITICAL SECURITY WARNING: JWT_SECRET is not set or is using the default insecure value! User sessions are vulnerable.');
+}
+
 const PRODUCTS_FILE = path.join(__dirname, 'data', 'products.json');
 const SETS_FILE = path.join(__dirname, 'data', 'sets.json');
 const USERS_FILE = path.join(__dirname, 'data', 'users.json');
@@ -259,8 +264,12 @@ function authMiddleware(req, res, next) {
 // ─── Auth Routes ───
 app.post('/api/admin/login', (req, res) => {
   const { username, password } = req.body;
-  const expectedUser = (process.env.ADMIN_USERNAME || 'sgadmin').trim();
-  const expectedPass = (process.env.ADMIN_PASSWORD || 'Money7989').trim();
+  const expectedUser = (process.env.ADMIN_USERNAME || '').trim();
+  const expectedPass = (process.env.ADMIN_PASSWORD || '').trim();
+
+  if (!expectedUser || !expectedPass) {
+    return res.status(500).json({ error: 'Server configuration error: Admin credentials are not set.' });
+  }
 
   if (username === expectedUser && password === expectedPass) {
     const token = jwt.sign({ username, role: 'admin' }, process.env.JWT_SECRET, { expiresIn: '24h' });
@@ -1199,60 +1208,71 @@ app.post('/api/create-payment-intent', async (req, res) => {
 
 app.post('/api/orders/confirm', async (req, res) => {
   try {
-    const { items } = req.body;
-    if (!fs.existsSync(PRODUCTS_FILE)) return res.json({ success: false });
+    const { orderId } = req.body;
     
-    let products = readJSON(PRODUCTS_FILE);
-    let updated = false;
-
-    (items || []).forEach(item => {
-      const idx = products.findIndex(p => p.id === item.id);
-      if (idx !== -1) {
-        if (products[idx].stock !== undefined) {
-          products[idx].stock = Math.max(0, products[idx].stock - item.qty);
-          if (products[idx].stock === 0) products[idx].soldOut = true;
-          
-          // Only sync Retail Items to Google/TikTok, NOT P2P Grand Exchange items
-          if (!products[idx].sellerId) {
-            syncGoogleProduct(products[idx]).catch(console.error);
-            syncTikTokProduct(products[idx]).catch(console.error);
-          }
-        } else if (products[idx].sellerId) {
-          // GE items without stock are unique 1/1s. Remove listing automatically!
-          products.splice(idx, 1);
-        }
-        updated = true;
-      }
-    });
-
-    if (updated) {
-      writeJSON(PRODUCTS_FILE, products);
+    if (!orderId) return res.status(400).json({ error: 'Missing orderId' });
+    if (!fs.existsSync(ORDERS_FILE)) return res.status(400).json({ success: false, error: 'No orders found' });
+    
+    const orders = readJSON(ORDERS_FILE);
+    const orderContextIdx = orders.findIndex(o => o.id === orderId || o.stripePaymentIntentId === orderId);
+    if (orderContextIdx === -1) return res.status(404).json({ error: 'Order not found' });
+    
+    let orderContext = orders[orderContextIdx];
+    
+    // Prevent double-deduction of inventory
+    if (orderContext.status === 'confirmed' || orderContext.status === 'paid' || orderContext.paymentConfirmed) {
+       return res.json({ success: true, message: 'Order already confirmed.' });
     }
     
-    // Attempt to find the full order to send a receipt
-    const { orderId } = req.body;
+    if (!orderContext.stripePaymentIntentId) {
+       return res.status(400).json({ error: 'Order is missing Stripe Payment Intent' });
+    }
+    
+    // VERIFY PAYMENT ACTUALLY CLEARED WITH STRIPE
+    const intent = await stripe.paymentIntents.retrieve(orderContext.stripePaymentIntentId);
+    if (intent.status !== 'succeeded') {
+       return res.status(400).json({ error: `Payment not completed. Status: ${intent.status}` });
+    }
+    
+    // Mark order as paid
+    orders[orderContextIdx].paymentConfirmed = true;
+    orders[orderContextIdx].status = 'paid';
+    writeJSON(ORDERS_FILE, orders);
+
+    let updated = false;
+    if (fs.existsSync(PRODUCTS_FILE)) {
+      let products = readJSON(PRODUCTS_FILE);
+      (orderContext.items || []).forEach(item => {
+        const idx = products.findIndex(p => p.id === item.id);
+        if (idx !== -1) {
+          if (products[idx].stock !== undefined) {
+            products[idx].stock = Math.max(0, products[idx].stock - item.qty);
+            if (products[idx].stock === 0) products[idx].soldOut = true;
+            
+            // Only sync Retail Items to Google/TikTok, NOT P2P Grand Exchange items
+            if (!products[idx].sellerId) {
+              syncGoogleProduct(products[idx]).catch(console.error);
+              syncTikTokProduct(products[idx]).catch(console.error);
+            }
+          } else if (products[idx].sellerId) {
+            // GE items without stock are unique 1/1s. Remove listing automatically!
+            products.splice(idx, 1);
+          }
+          updated = true;
+        }
+      });
+      if (updated) writeJSON(PRODUCTS_FILE, products);
+    }
+    
     let buyerEmail = null;
     let buyerName = 'Valued Customer';
-    let orderContext = null;
     
-    if (orderId && fs.existsSync(ORDERS_FILE)) {
-      const orders = readJSON(ORDERS_FILE);
-      orderContext = orders.find(o => o.id === orderId || o.stripePaymentIntentId === orderId);
-      if (orderContext) {
-        if (orderContext.shippingAddress) {
-          buyerEmail = orderContext.shippingAddress.email;
-          buyerName = orderContext.shippingAddress.name || buyerName;
-        } else if (orderContext.stripePaymentIntentId) {
-          // Secure GE orders don't persist PII locally. Fetch it from Stripe!
-          try {
-            const intent = await stripe.paymentIntents.retrieve(orderContext.stripePaymentIntentId);
-            if (intent && intent.receipt_email) buyerEmail = intent.receipt_email;
-            if (intent && intent.shipping && intent.shipping.name) buyerName = intent.shipping.name;
-          } catch(err) {
-            console.error('Failed to fetch Stripe intent for receipt:', err.message);
-          }
-        }
-      }
+    if (orderContext.shippingAddress) {
+      buyerEmail = orderContext.shippingAddress.email;
+      buyerName = orderContext.shippingAddress.name || buyerName;
+    } else {
+      if (intent && intent.receipt_email) buyerEmail = intent.receipt_email;
+      if (intent && intent.shipping && intent.shipping.name) buyerName = intent.shipping.name;
     }
 
     if (buyerEmail && orderContext) {
