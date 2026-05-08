@@ -453,59 +453,61 @@ app.get('/api/sets', (req, res) => {
 });
 
 // ─── Base64 Processing Helper ───
-function processBase64Str(base64Str) {
+const IMGBB_API_KEY = 'a6eb7d789a9d14e687bd986a3b18961f';
+
+async function processBase64Str(base64Str) {
   if (!base64Str || !base64Str.startsWith('data:image')) return base64Str;
   const matches = base64Str.match(/^data:image\/([a-zA-Z0-9]+);base64,(.+)$/);
   if (!matches) return base64Str;
   
-  let ext = matches[1] === 'jpeg' ? 'jpg' : matches[1];
-  const data = Buffer.from(matches[2], 'base64');
-  const fileName = `img_${Date.now()}_${Math.floor(Math.random()*1000)}.${ext}`;
+  const base64Data = matches[2];
   
-  const uploadsDir = path.join(__dirname, 'data', 'uploads');
-  if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
-  
-  fs.writeFileSync(path.join(uploadsDir, fileName), data);
-  const baseUrl = process.env.NODE_ENV === 'production' ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
-  return `${baseUrl}/uploads/${fileName}`;
+  try {
+    const formData = new URLSearchParams();
+    formData.append('key', IMGBB_API_KEY);
+    formData.append('image', base64Data);
+
+    const response = await fetch('https://api.imgbb.com/1/upload', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      return data.data.url;
+    } else {
+      console.error('ImgBB Upload Failed:', data);
+      return base64Str; 
+    }
+  } catch (err) {
+    console.error('ImgBB Upload Error:', err);
+    return base64Str;
+  }
 }
 
 // ─── Admin Category/Set Routes ───
-app.post('/api/admin/upload-image', authMiddleware, (req, res) => {
+app.post('/api/admin/upload-image', authMiddleware, async (req, res) => {
   try {
     const { image } = req.body;
     if (!image) return res.status(400).json({ error: 'No image provided' });
 
-    const matches = image.match(/^data:([A-Za-z-+/]+);base64,(.+)$/);
-    if (!matches || matches.length !== 3) {
-      return res.status(400).json({ error: 'Invalid base64 format' });
+    const uploadedUrl = await processBase64Str(image);
+    
+    if (uploadedUrl === image) {
+      return res.status(500).json({ error: 'Failed to upload image to ImgBB' });
     }
 
-    const type = matches[1];
-    const data = Buffer.from(matches[2], 'base64');
-    let ext = type.split('/')[1] || 'png';
-    if (ext === 'jpeg') ext = 'jpg';
-    
-    const fileName = `upload_${Date.now()}.${ext}`;
-    
-    // Save to data/uploads/ (persists on Render) instead of public/images/ (ephemeral)
-    const uploadsDir = path.join(__dirname, 'data', 'uploads');
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
-    
-    const targetPath = path.join(uploadsDir, fileName);
-    fs.writeFileSync(targetPath, data);
-
-    const baseUrl = process.env.NODE_ENV === 'production' ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
-    res.json({ url: `${baseUrl}/uploads/${fileName}` });
+    res.json({ url: uploadedUrl });
   } catch (err) {
     console.error('Upload Error:', err);
     res.status(500).json({ error: 'Failed to upload image' });
   }
 });
 
-app.post('/api/admin/sets', authMiddleware, (req, res) => {
+app.post('/api/admin/sets', authMiddleware, async (req, res) => {
   try {
     const { name, imgUrl, color, parent = 'all-pokemon' } = req.body;
     if (!name) return res.status(400).json({ error: 'Missing name' });
@@ -517,7 +519,7 @@ app.post('/api/admin/sets', authMiddleware, (req, res) => {
       return res.status(400).json({ error: 'Category with this name already exists' });
     }
 
-    const processedImg = processBase64Str(imgUrl);
+    const processedImg = await processBase64Str(imgUrl);
     const newSet = {
       id: generatedId,
       parent,
@@ -561,27 +563,31 @@ app.delete('/api/admin/sets/:id', authMiddleware, (req, res) => {
 
 // ─── Admin Product Routes ───
 
-function processProductBase64(product) {
-  if (product.imgUrl) product.imgUrl = processBase64Str(product.imgUrl);
+async function processProductBase64(product) {
+  if (product.imgUrl) product.imgUrl = await processBase64Str(product.imgUrl);
   if (product.gallery) {
-    product.gallery = product.gallery.map(img => {
-      if (img.url) img.url = processBase64Str(img.url);
-      if (img.base64) img.base64 = processBase64Str(img.base64);
-      return img;
-    });
+    for (let i = 0; i < product.gallery.length; i++) {
+      let img = product.gallery[i];
+      if (img.url) img.url = await processBase64Str(img.url);
+      if (img.base64) img.base64 = await processBase64Str(img.base64);
+    }
   }
   if (product.galleryUrls) {
-    product.galleryUrls = product.galleryUrls.map(url => processBase64Str(url));
+    const newUrls = [];
+    for (let url of product.galleryUrls) {
+      newUrls.push(await processBase64Str(url));
+    }
+    product.galleryUrls = newUrls;
   }
   return product;
 }
 
-app.put('/api/admin/products/:id', authMiddleware, (req, res) => {
+app.put('/api/admin/products/:id', authMiddleware, async (req, res) => {
   const products = readJSON(PRODUCTS_FILE);
   const idx = products.findIndex(p => p.id === parseInt(req.params.id));
   if (idx === -1) return res.status(404).json({ error: 'Product not found' });
   
-  const processedBody = processProductBase64(req.body);
+  const processedBody = await processProductBase64(req.body);
   products[idx] = { ...products[idx], ...processedBody, id: products[idx].id };
   writeJSON(PRODUCTS_FILE, products);
   
@@ -591,10 +597,10 @@ app.put('/api/admin/products/:id', authMiddleware, (req, res) => {
   res.json(products[idx]);
 });
 
-app.post('/api/admin/products', authMiddleware, (req, res) => {
+app.post('/api/admin/products', authMiddleware, async (req, res) => {
   const products = readJSON(PRODUCTS_FILE);
   const maxId = products.reduce((max, p) => Math.max(max, p.id), 0);
-  const processedBody = processProductBase64(req.body);
+  const processedBody = await processProductBase64(req.body);
   const newProduct = { id: maxId + 1, ...processedBody };
   products.push(newProduct);
   writeJSON(PRODUCTS_FILE, products);
