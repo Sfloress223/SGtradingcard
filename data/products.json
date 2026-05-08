@@ -63,7 +63,7 @@
     "id": 302,
     "setId": "prismatic",
     "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Elite Trainer Box",
-    "price": "$69.99",
+    "price": "$129.99",
     "soldOut": true,
     "description": "Contains 9 Prismatic Evolutions booster packs, a special holographic promo card, 65 card sleeves, energy cards, and a premium storage box featuring Eevee artwork.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/cf3a8205-f4d4-4488-897a-e78baf4bc263/SuzieQ+LOGO+%287%29.png?format=500w",
@@ -73,7 +73,7 @@
     "id": 303,
     "setId": "prismatic",
     "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Mini Tin",
-    "price": "$14.99",
+    "price": "$22.99",
     "soldOut": true,
     "description": "A pocket-sized collector's tin with 2 Prismatic Evolutions booster packs and 1 art card. Perfect for collecting all Eeveelution designs.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/05afc2f2-41a7-4475-a225-65d0a213e817/SuzieQ+LOGO+%2835%29.png?format=500w",
@@ -87,7 +87,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Journey Together expansion. Features Trainer & Pokémon duo cards and new illustration rares celebrating iconic partnerships.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f5c77db2-def7-4c5b-b7d6-7e54b86dee44/JT+%282%29.png?format=500w",
-    "stock": 50
+    "stock": 1
   },
   {
     "id": 352,
@@ -353,7 +353,7 @@
     "id": 1102,
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order 3-Pack Blister",
-    "price": "$21.99",
+    "price": "$22.99",
     "soldOut": false,
     "description": "Contains 3 Perfect Order booster packs, a shiny coin, and a special foil promo card to boost your collection.",
     "imgUrl": "/images/po-blister.jpg",
@@ -363,7 +363,7 @@
     "id": 1103,
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order Booster Bundle",
-    "price": "$42.99",
+    "price": "$44.99",
     "soldOut": false,
     "description": "Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.",
     "imgUrl": "/images/po-bundle.png",
@@ -396,10 +396,10 @@
     "price": "$234.99",
     "soldOut": true,
     "description": "Contains 36 Surging Sparks booster packs.",
-    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png",
+    "imgUrl": "https://i.ibb.co/JjFR8NVL/02801f936817.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png"
+      "https://i.ibb.co/JjFR8NVL/02801f936817.png"
     ],
     "shippingWeight": ""
   },
@@ -428,13 +428,14 @@
     "setId": "ascended-heroes",
     "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Collection",
     "price": "$49.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.",
-    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png",
-    "stock": 1,
+    "imgUrl": "https://i.ibb.co/0VXYScYd/2c68da566dfc.png",
+    "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png"
-    ]
+      "https://i.ibb.co/0VXYScYd/2c68da566dfc.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 304,
@@ -462,9 +463,15 @@
     "title": "Re-Ment Terrarium Mini Figure Blind Box EX Paldea - Pokémon Licensed Collectible",
     "price": "$15.99",
     "soldOut": false,
-    "description": "Official blind box terrarium figure from the Paldea region.",
-    "imgUrl": "/images/rement-paldea.png",
-    "stock": 25
+    "description": "Series 13 Line-Up\n·Pikachu & Eevee\n·Latias\n·Aron\n·Quilava\n·Oshawott\n·Jolteon\nBlind Box Surprise Format 🎁\n·Buy 1 box, receive 1 random design.\n·Buy a full set (6 boxes), receive all 6 different designs (no duplicates).",
+    "imgUrl": "https://i.ibb.co/27xp4NNv/8ae6c3e377ee.png",
+    "stock": 25,
+    "galleryUrls": [
+      "https://i.ibb.co/27xp4NNv/8ae6c3e377ee.png",
+      "https://i.ibb.co/pvyy9zsC/3a688343bb8e.png",
+      "/images/rement-paldea.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1005,
@@ -472,9 +479,15 @@
     "title": "Re-Ment Terrarium Mini Figure Blind Box - Pokémon Licensed Collectible",
     "price": "$15.99",
     "soldOut": false,
-    "description": "Official classic blind box terrarium figure.",
-    "imgUrl": "/images/rement-classic.png",
-    "stock": 25
+    "description": "Unique Designs Included\n·Pikachu & Pawmi\n·Fuecoco\n·Quaxly\n·Sprigatito\n·Tatsugiri\n·Clodsire\nBlind Box Surprise Format",
+    "imgUrl": "https://i.ibb.co/mCGLnQJv/91ffb803c4ba.png",
+    "stock": 25,
+    "galleryUrls": [
+      "https://i.ibb.co/mCGLnQJv/91ffb803c4ba.png",
+      "https://i.ibb.co/RktnmDfq/a4ffeea891dc.png",
+      "https://i.ibb.co/PJh8bp2/1f91bad6385e.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 610,
@@ -573,11 +586,12 @@
     "price": "$22.99",
     "soldOut": true,
     "description": "Contains 2 Ascended Heroes booster packs, a collectible coin, and a special foil promo card featuring Tangela. A great entry point for the newest Mega Evolution expansion.",
-    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png",
+    "imgUrl": "https://i.ibb.co/cSKk2v9y/c97e6cf95e77.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png"
-    ]
+      "https://i.ibb.co/cSKk2v9y/c97e6cf95e77.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1302,
@@ -585,12 +599,13 @@
     "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Tech Sticker Collection",
     "price": "$34.99",
     "soldOut": true,
-    "description": "Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card. Available in multiple artwork variants.",
-    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_1076b26b63.png",
+    "description": "Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card. ",
+    "imgUrl": "https://i.ibb.co/Rk0FpnQb/a1ccdc351ac1.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_1076b26b63.png"
-    ]
+      "https://i.ibb.co/Rk0FpnQb/a1ccdc351ac1.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1303,
@@ -599,11 +614,12 @@
     "price": "$24.99",
     "soldOut": true,
     "description": "Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!",
-    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png",
+    "imgUrl": "https://i.ibb.co/TM74jRQ3/78f2520a8295.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png"
-    ]
+      "https://i.ibb.co/TM74jRQ3/78f2520a8295.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1304,
@@ -612,11 +628,12 @@
     "price": "$129.99",
     "soldOut": true,
     "description": "The ultimate Ascended Heroes experience! Includes 9 booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, damage counters, and a premium collector's box featuring legendary artwork.",
-    "imgUrl": "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png",
+    "imgUrl": "https://i.ibb.co/QFqjsyCQ/fe17944ec0ef.png",
     "stock": 0,
     "galleryUrls": [
-      "https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png"
-    ]
+      "https://i.ibb.co/QFqjsyCQ/fe17944ec0ef.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1305,
