@@ -390,11 +390,11 @@ function App() {
               <ul style={{ listStyle: 'none', padding: 0 }}>
                 <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 0', fontWeight: 'bold' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1.1rem' }}><span style={{ color: '#e53e3e', fontSize: '1.4rem' }}>●</span> Friday Live Open & Chill</span>
-                  <span style={{ background: '#ebf4ff', color: '#2b6cb0', padding: '6px 12px', borderRadius: '8px' }}>6:00 PM EST</span>
+                  <span style={{ background: '#ebf4ff', color: '#2b6cb0', padding: '6px 12px', borderRadius: '8px' }}>6:00 PM CST</span>
                 </li>
                 <li style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 0', borderTop: '1px solid #edf2f7' }}>
                   <span style={{ color: '#718096', display: 'flex', alignItems: 'center', gap: '8px' }}>Tuesday Live Open & Chill <span style={{ fontSize: '0.75rem', background: '#edf2f7', color: '#4a5568', padding: '3px 8px', borderRadius: '20px', fontWeight: 'bold', textTransform: 'uppercase' }}>Coming Soon</span></span>
-                  <span style={{ color: '#a0aec0', padding: '6px 12px' }}>6:00 PM EST</span>
+                  <span style={{ color: '#a0aec0', padding: '6px 12px' }}>6:00 PM CST</span>
                 </li>
               </ul>
               <a href="https://www.tiktok.com/@sgtradingcard" target="_blank" rel="noreferrer" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '10px', marginTop: '2rem', background: '#000', color: '#fff', padding: '14px', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', fontSize: '1.1rem', transition: 'background 0.2s', border: '2px solid #000' }} onMouseOver={(e) => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#000'; }} onMouseOut={(e) => { e.currentTarget.style.background = '#000'; e.currentTarget.style.color = '#fff'; }}>
