@@ -63,6 +63,27 @@ const AdminDashboard = ({ token, onLogout }) => {
     window.scrollTo(0, 0);
   }, [activeTab]);
 
+  // Auto-refresh orders every 15 seconds when on the Orders tab
+  useEffect(() => {
+    if (activeTab !== 'orders') return;
+    
+    const fetchOrders = () => {
+      const fetchHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
+      fetch(`${API}/api/admin/orders`, { headers: fetchHeaders })
+        .then(r => {
+          if (r.status === 401) onLogout();
+          return r.json();
+        })
+        .then(data => {
+          if (Array.isArray(data)) setOrders(data);
+        })
+        .catch(err => console.error('Failed to poll orders:', err));
+    };
+
+    const interval = setInterval(fetchOrders, 15000);
+    return () => clearInterval(interval);
+  }, [activeTab, token, onLogout]);
+
   // Jump to form when adding or editing
   useEffect(() => {
     if (adding || editing) {
