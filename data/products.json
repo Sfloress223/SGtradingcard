@@ -645,7 +645,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-1.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1306,
@@ -657,7 +662,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-2.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1307,
@@ -669,7 +679,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-3.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1308,
@@ -681,7 +696,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-4.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1309,
@@ -693,7 +713,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-5.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1310,
@@ -705,7 +730,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-6.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1311,
@@ -717,7 +747,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-7.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1312,
@@ -729,7 +764,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-8.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1313,
@@ -741,7 +781,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-9.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1314,
@@ -753,7 +798,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-10.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1315,
@@ -765,7 +815,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-11.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1316,
@@ -777,7 +832,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-12.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1317,
@@ -789,7 +849,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-13.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1318,
@@ -801,7 +866,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-14.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1319,
@@ -813,7 +883,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-15.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1320,
@@ -825,7 +900,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-16.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1321,
@@ -837,7 +917,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-17.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1322,
@@ -849,7 +934,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-18.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1323,
@@ -861,7 +951,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-19.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1324,
@@ -873,7 +968,12 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-20.png"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 1325,
@@ -885,6 +985,11 @@
     "stock": 1,
     "isPreorder": false,
     "soldOut": false,
-    "description": "A premium graded slab added to the collection. Title and exact price pending."
+    "description": "A premium graded slab added to the collection. Title and exact price pending.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-21.png"
+    ],
+    "shippingWeight": ""
   }
 ]
