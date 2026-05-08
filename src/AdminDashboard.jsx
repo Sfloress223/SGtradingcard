@@ -30,7 +30,8 @@ const AdminDashboard = ({ token, onLogout }) => {
     stock: 0, 
     gallery: [],
     weightValue: '',
-    weightUnit: 'oz'
+    weightUnit: 'oz',
+    hidden: false
   });
   const [toast, setToast] = useState(null);
   const [inlineEdit, setInlineEdit] = useState(null); // { id, field, value }
@@ -42,7 +43,7 @@ const AdminDashboard = ({ token, onLogout }) => {
   useEffect(() => {
     const fetchHeaders = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
     
-    fetch(`${API}/api/products`).then(r => r.json()).then(data => setProducts(Array.isArray(data) ? data : []));
+    fetch(`${API}/api/products?admin=true`).then(r => r.json()).then(data => setProducts(Array.isArray(data) ? data : []));
     fetch(`${API}/api/sets`).then(r => r.json()).then(data => setSets(Array.isArray(data) ? data : []));
     
     fetch(`${API}/api/admin/orders`, { headers: fetchHeaders }).then(r => {
@@ -168,7 +169,8 @@ const AdminDashboard = ({ token, onLogout }) => {
       stock: product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50), 
       gallery: initGal,
       weightValue: wVal,
-      weightUnit: wUnit
+      weightUnit: wUnit,
+      hidden: product.hidden || false
     });
     setAdding(false);
   };
@@ -185,7 +187,8 @@ const AdminDashboard = ({ token, onLogout }) => {
       stock: 50, 
       gallery: [],
       weightValue: '',
-      weightUnit: 'oz'
+      weightUnit: 'oz',
+      hidden: false
     });
   };
 
@@ -653,7 +656,9 @@ const AdminDashboard = ({ token, onLogout }) => {
                   </div>
                 )}
 
-                <div className="admin-form-actions" style={{ marginTop: '1.5rem' }}>
+
+
+              <div className="form-actions" style={{ marginTop: '2rem' }}>
                   <button type="submit" className="admin-save-btn" disabled={isUploading}>{isUploading ? 'Saving...' : 'Save Category'}</button>
                   <button type="button" className="admin-cancel-btn" onClick={() => setAddingSet(false)}>Cancel</button>
                 </div>
@@ -732,6 +737,16 @@ const AdminDashboard = ({ token, onLogout }) => {
                 </select>
               </div>
             </div>
+            <div className="form-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', width: '100%' }}>
+              <input 
+                type="checkbox" 
+                id="hiddenProduct" 
+                checked={form.hidden} 
+                onChange={e => setForm({...form, hidden: e.target.checked})} 
+                style={{ width: 'auto', margin: 0, cursor: 'pointer' }}
+              />
+              <label htmlFor="hiddenProduct" style={{ margin: 0, cursor: 'pointer', fontWeight: 'bold' }}>Hide this product from the public store</label>
+            </div>
             <div className="admin-form-actions">
               <button type="submit" className="admin-save-btn" disabled={isUploading}>{isUploading ? 'Saving...' : 'Save'}</button>
               <button type="button" className="admin-cancel-btn" onClick={cancelEdit}>Cancel</button>
@@ -795,6 +810,11 @@ const AdminDashboard = ({ token, onLogout }) => {
                       onClick={() => setInlineEdit({ id: product.id, field: 'stock', value: String(product.stock !== undefined ? product.stock : (product.soldOut ? 0 : 50)) })}>
                       {product.stock === 0 || product.soldOut ? `❌ Stock: 0` : `✅ Stock: ${product.stock !== undefined ? product.stock : 50}`}
                     </button>
+                  )}
+                  {product.hidden && (
+                    <span className="stock-badge" style={{ background: '#6b7280', marginLeft: '8px' }}>
+                      Hidden
+                    </span>
                   )}
                 </td>
                 <td>

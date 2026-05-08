@@ -428,7 +428,7 @@ app.get('/api/products', (req, res) => {
   
   const verifiedMap = {}; // cache
   
-  const augmentedProducts = products.map(p => {
+  let augmentedProducts = products.map(p => {
     if (p.sellerId) {
       if (verifiedMap[p.sellerId] === undefined) {
          let fulfilledSales = 0;
@@ -443,6 +443,10 @@ app.get('/api/products', (req, res) => {
     }
     return p;
   });
+  
+  if (req.query.admin !== 'true') {
+    augmentedProducts = augmentedProducts.filter(p => !p.hidden);
+  }
   
   res.json(augmentedProducts);
 });
