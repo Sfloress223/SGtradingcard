@@ -116,7 +116,7 @@
       <link>https://sgtradingcard.com/?product=351</link>
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f5c77db2-def7-4c5b-b7d6-7e54b86dee44/JT+%282%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
+      <g:availability>out of stock</g:availability>
       <g:price>6.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -246,8 +246,8 @@
       <link>https://sgtradingcard.com/?product=411</link>
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/931f7b6e-91aa-44c2-aa2d-b8345eb01418/SuzieQ+LOGO+%2850%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out of stock</g:availability>
-      <g:price>52.99 USD</g:price>
+      <g:availability>in stock</g:availability>
+      <g:price>63.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
@@ -468,7 +468,7 @@
       <g:image_link>https://sgtradingcard.com/images/po-blister.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
-      <g:price>22.99 USD</g:price>
+      <g:price>24.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
@@ -481,7 +481,7 @@
       <g:image_link>https://sgtradingcard.com/images/po-bundle.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
-      <g:price>44.99 USD</g:price>
+      <g:price>46.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
@@ -782,7 +782,7 @@ Blind Box Surprise Format</description>
       <link>https://sgtradingcard.com/?product=1303</link>
       <g:image_link>https://i.ibb.co/TM74jRQ3/78f2520a8295.png</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out of stock</g:availability>
+      <g:availability>in stock</g:availability>
       <g:price>24.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -1070,6 +1070,19 @@ Blind Box Surprise Format</description>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      
+    </item>
+    <item>
+      <g:id>1326</g:id>
+      <title>Destined rival Single booster pack</title>
+      <description></description>
+      <link>https://sgtradingcard.com/?product=1326</link>
+      <g:image_link>https://i.ibb.co/XZVV03wk/81dfd5932fa2.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:price>8.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       

@@ -529,7 +529,7 @@ const AdminDashboard = ({ token, onLogout }) => {
         <div>
           <h2>📦 Admin Dashboard</h2>
           {activeTab === 'products' && <p className="admin-stats">{retailProducts.length} products · {inStock} in stock · {soldOut} sold out</p>}
-          {activeTab === 'orders' && <p className="admin-stats">{orders.filter(o => o.status === 'unfulfilled').length} pending orders</p>}
+          {activeTab === 'orders' && <p className="admin-stats">{orders.filter(o => o.status === 'unfulfilled' || o.status === 'paid').length} pending orders</p>}
           {activeTab === 'analytics' && <p className="admin-stats">Real-time business performance</p>}
         </div>
         <div className="admin-actions">
@@ -858,13 +858,13 @@ const AdminDashboard = ({ token, onLogout }) => {
                   <td>{(order.items || []).length} items</td>
                   <td>${(order.totalAmount || 0).toFixed(2)}</td>
                   <td>
-                    {order.status === 'unfulfilled' 
+                    {(order.status === 'unfulfilled' || order.status === 'paid') 
                       ? <span style={{color: 'var(--accent-color)', fontWeight: 600}}>Needs Label</span>
                       : <span style={{color: '#4ade80'}}>Fulfilled</span>
                     }
                    </td>
                    <td>
-                     {order.status === 'unfulfilled' && (
+                    {(order.status === 'unfulfilled' || order.status === 'paid') && (
                         <div style={{ display: 'flex', gap: '0.5rem', flexDirection: 'column' }}>
                           <button className="admin-edit-btn" style={{backgroundColor: 'var(--accent-color)', width: '100%'}} onClick={() => openShippingModal(order)}>
                             Buy Label
