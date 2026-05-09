@@ -671,12 +671,12 @@ app.post('/api/shipments/quote', authMiddleware, async (req, res) => {
     
     // We statically define the S&G Trading origin point
     const addressFrom = {
-      name: 'S&G Trading',
-      company: 'S&G Trading',
-      street1: '123 Pokemon Way',
-      city: 'Austin',
+      name: 'S&G Trading Card',
+      company: 'S&G Trading Card',
+      street1: '11605 Harry Hines Blvd',
+      city: 'Dallas',
       state: 'TX',
-      zip: '78701',
+      zip: '75229',
       country: 'US',
       phone: '+1 555 341 9393',
       email: 'admin@sgtrading.com',
