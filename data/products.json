@@ -84,10 +84,10 @@
     "setId": "journey-together",
     "title": "Pokémon TCG: Scarlet & Violet-Journey Together Booster Pack",
     "price": "$6.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Contains 10 cards from the Journey Together expansion. Features Trainer & Pokémon duo cards and new illustration rares celebrating iconic partnerships.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f5c77db2-def7-4c5b-b7d6-7e54b86dee44/JT+%282%29.png?format=500w",
-    "stock": 1
+    "stock": 0
   },
   {
     "id": 352,
@@ -117,7 +117,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Mega Evolution expansion. Chance to pull powerful Mega EX cards featuring fan-favorite Pokémon like Charizard, Lucario, and Gardevoir.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2603873e-f184-4adc-8aa7-94a9c4520bb5/ME+%282%29.png?format=500w",
-    "stock": 20
+    "stock": 19
   },
   {
     "id": 402,
@@ -183,11 +183,11 @@
     "id": 411,
     "setId": "phantasmal-flames",
     "title": "Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Bundle",
-    "price": "$52.99",
-    "soldOut": true,
+    "price": "$63.99",
+    "soldOut": false,
     "description": "Includes 6 Phantasmal Flames booster packs. Chase the rare illustration cards exclusive to this expansion.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/931f7b6e-91aa-44c2-aa2d-b8345eb01418/SuzieQ+LOGO+%2850%29.png?format=500w",
-    "stock": 0
+    "stock": 1
   },
   {
     "id": 412,
@@ -353,7 +353,7 @@
     "id": 1102,
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order 3-Pack Blister",
-    "price": "$22.99",
+    "price": "$24.99",
     "soldOut": false,
     "description": "Contains 3 Perfect Order booster packs, a shiny coin, and a special foil promo card to boost your collection.",
     "imgUrl": "/images/po-blister.jpg",
@@ -363,7 +363,7 @@
     "id": 1103,
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order Booster Bundle",
-    "price": "$44.99",
+    "price": "$46.99",
     "soldOut": false,
     "description": "Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.",
     "imgUrl": "/images/po-bundle.png",
@@ -612,10 +612,10 @@
     "setId": "ascended-heroes",
     "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Mini Tin",
     "price": "$24.99",
-    "soldOut": true,
+    "soldOut": false,
     "description": "Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!",
     "imgUrl": "https://i.ibb.co/TM74jRQ3/78f2520a8295.png",
-    "stock": 0,
+    "stock": 1,
     "galleryUrls": [
       "https://i.ibb.co/TM74jRQ3/78f2520a8295.png"
     ],
@@ -990,6 +990,21 @@
     "galleryUrls": [
       "/images/graded-cards/slab-21.png"
     ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1326,
+    "title": "Destined rival Single booster pack",
+    "price": "8.99",
+    "setId": "misc",
+    "imgUrl": "https://i.ibb.co/XZVV03wk/81dfd5932fa2.png",
+    "description": "",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/XZVV03wk/81dfd5932fa2.png"
+    ],
+    "soldOut": false,
     "shippingWeight": ""
   }
 ]

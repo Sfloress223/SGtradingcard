@@ -17,5 +17,38 @@
     ],
     "totalAmount": 10,
     "stripePaymentIntentId": "pi_3THDbnB7GChNvblI0ihxSZ8Z"
+  },
+  {
+    "id": "ord_1778294826145",
+    "date": "2026-05-09T02:47:06.145Z",
+    "status": "paid",
+    "shippingAddress": {
+      "name": "easy martimez",
+      "email": "b.easy013@gmail.com",
+      "phone": "3253007758",
+      "address": "po box  25",
+      "city": "carlsbad ",
+      "state": "tx",
+      "zip": "76934"
+    },
+    "items": [
+      {
+        "id": 1303,
+        "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Mini Tin",
+        "qty": 1,
+        "price": "$24.99"
+      },
+      {
+        "id": 401,
+        "title": "Pokémon TCG: Mega Evolution Booster Pack",
+        "qty": 1,
+        "price": "$7.99"
+      }
+    ],
+    "totalAmount": 42.19,
+    "platformFeeUsd": 0,
+    "platformFeePercentage": 0,
+    "stripePaymentIntentId": "pi_3TV0v0PYn0dlcAYE3n1Jf1kV",
+    "paymentConfirmed": true
   }
 ]
