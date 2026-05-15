@@ -1189,6 +1189,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
       shippingAddress: isSellerCart ? undefined : shipping, // Keep PII only in Stripe for Grand Exchange
       items: items.map(i => ({ id: i.id, title: i.title, qty: i.qty, price: i.price, sellerId: i.sellerId })),
       totalAmount: amount / 100,
+      taxAmount: taxAmount,
       platformFeeUsd: isSellerCart ? (finalPlatformFee / 100) : 0,
       platformFeePercentage: isSellerCart ? finalFeePercentage : 0,
       stripePaymentIntentId: paymentIntent.id
