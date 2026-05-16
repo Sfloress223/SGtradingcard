@@ -440,9 +440,9 @@ function App() {
               ? 'linear-gradient(90deg, #ff0000, #990000)' 
               : 'linear-gradient(90deg, #16a34a, #15803d)', 
             color: 'white', 
-            padding: '10px', 
+            padding: '18px', 
             textAlign: 'center', 
-            fontSize: '0.9rem',
+            fontSize: '1.4rem',
             fontWeight: 'bold',
             display: 'flex',
             justifyContent: 'center',
@@ -452,9 +452,10 @@ function App() {
             <span style={{ 
               background: 'white', 
               color: 'red', 
-              padding: '2px 8px', 
-              borderRadius: '4px', 
-              fontSize: '0.7rem',
+              padding: '6px 14px', 
+              borderRadius: '6px', 
+              fontSize: '1.2rem',
+              fontWeight: '900',
               animation: 'pulse 1.5s infinite'
             }}>LIVE NOW</span>
             <span>{streamStatus.queueMessage}</span>
