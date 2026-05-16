@@ -8,15 +8,12 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import crypto from 'crypto';
-import Shippo from 'shippo';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import { google } from 'googleapis';
 import nodemailer from 'nodemailer';
-
-const shippo = new Shippo(process.env.SHIPPO_API_KEY);
 
 // ─── Email Transporter ───
 const transporter = nodemailer.createTransport({
