@@ -10,6 +10,7 @@ const AdminDashboard = ({ token, onLogout }) => {
   const [shippingPresets, setShippingPresets] = useState([]);
   
   const [filterSet, setFilterSet] = useState('all');
+  const [stockFilter, setStockFilter] = useState('all'); // 'all' | 'instock'
   const [activeTab, setActiveTab] = useState('products'); // 'products' | 'orders' | 'analytics' | 'geledger'
   const [orderTab, setOrderTab] = useState('pending'); // 'pending' | 'history'
   const [analyticsTime, setAnalyticsTime] = useState('all'); // 'today' | 'week' | 'month' | 'year' | 'all'
@@ -513,7 +514,10 @@ const AdminDashboard = ({ token, onLogout }) => {
   };
 
   const retailProducts = products.filter(p => !p.sellerId);
-  const filtered = filterSet === 'all' ? retailProducts : retailProducts.filter(p => p.setId === filterSet);
+  let filtered = filterSet === 'all' ? retailProducts : retailProducts.filter(p => p.setId === filterSet);
+  if (stockFilter === 'instock') {
+    filtered = filtered.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut));
+  }
   const inStock = retailProducts.filter(p => p.stock > 0 || (p.stock === undefined && !p.soldOut)).length;
   const soldOut = retailProducts.filter(p => p.stock === 0 || (p.stock === undefined && p.soldOut)).length;
 
@@ -637,7 +641,12 @@ const AdminDashboard = ({ token, onLogout }) => {
         <>
           {/* Filter Bar */}
           <div className="admin-filter-bar">
-            <button className={filterSet === 'all' ? 'active' : ''} onClick={() => setFilterSet('all')}>All ({retailProducts.length})</button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
+              <button className={stockFilter === 'all' ? 'active' : ''} onClick={() => setStockFilter('all')}>View All Inventory</button>
+              <button className={stockFilter === 'instock' ? 'active' : ''} onClick={() => setStockFilter('instock')} style={{ background: stockFilter === 'instock' ? '#16a34a' : '', color: stockFilter === 'instock' ? 'white' : '', borderColor: stockFilter === 'instock' ? '#16a34a' : '' }}>✅ In Stock Only</button>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              <button className={filterSet === 'all' ? 'active' : ''} onClick={() => setFilterSet('all')}>All Categories ({retailProducts.length})</button>
             {sets.map(s => {
               const count = retailProducts.filter(p => p.setId === s.id).length;
               return <span key={s.id} style={{ display: 'inline-flex', alignItems: 'center', gap: '2px', position: 'relative' }}>
@@ -651,6 +660,7 @@ const AdminDashboard = ({ token, onLogout }) => {
                 )}
               </span>;
             })}
+            </div>
           </div>
 
           {/* Add Category Form */}
