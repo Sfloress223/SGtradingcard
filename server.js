@@ -1359,6 +1359,50 @@ app.get('/api/debug/my-ip', async (req, res) => {
   }
 });
 
+app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
+  const { targetOrderId, sourceOrderIds } = req.body;
+  if (!fs.existsSync(ORDERS_FILE)) return res.json({ success: false });
+  let orders = readJSON(ORDERS_FILE);
+  
+  const targetIdx = orders.findIndex(o => o.id === targetOrderId);
+  if (targetIdx === -1) return res.status(404).json({ error: 'Target order not found' });
+  
+  const targetOrder = orders[targetIdx];
+  
+  for (const sourceId of sourceOrderIds) {
+    const sourceIdx = orders.findIndex(o => o.id === sourceId);
+    if (sourceIdx !== -1) {
+      const sourceOrder = orders[sourceIdx];
+      // Move items
+      targetOrder.items.push(...sourceOrder.items);
+      targetOrder.totalAmount += sourceOrder.totalAmount;
+      if (sourceOrder.taxAmount) {
+        targetOrder.taxAmount = (targetOrder.taxAmount || 0) + sourceOrder.taxAmount;
+      }
+      // Mark source as merged
+      orders[sourceIdx].status = 'merged';
+    }
+  }
+  
+  writeJSON(ORDERS_FILE, orders);
+  res.json({ success: true, targetOrder });
+});
+
+app.post('/api/admin/orders/:id/fulfill', authMiddleware, (req, res) => {
+  const { trackingNumber } = req.body || {};
+  if (!fs.existsSync(ORDERS_FILE)) return res.json({ success: false });
+  let orders = readJSON(ORDERS_FILE);
+  const idx = orders.findIndex(o => o.id === req.params.id);
+  if (idx !== -1) {
+    orders[idx].status = 'fulfilled';
+    if (trackingNumber) orders[idx].trackingNumber = trackingNumber;
+    writeJSON(ORDERS_FILE, orders);
+    res.json({ success: true, order: orders[idx] });
+  } else {
+    res.status(404).json({ error: 'Not found' });
+  }
+});
+
 app.post('/api/admin/orders/:id/cancel', authMiddleware, async (req, res) => {
   if (req.user.role !== 'admin') return res.status(403).json({ error: 'Access denied' });
   

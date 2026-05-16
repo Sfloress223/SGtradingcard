@@ -292,6 +292,44 @@ const AdminDashboard = ({ token, onLogout }) => {
       showToast('Network error cancelling order');
     }
   };
+  const handleManualFulfill = async (orderId) => {
+    if (!window.confirm("Mark this order as fulfilled without generating a label?")) return;
+    try {
+      const res = await fetch(`${API}/api/admin/orders/${orderId}/fulfill`, { method: 'POST', headers });
+      if (res.ok) {
+        setOrders(prev => prev.map(o => o.id === orderId ? { ...o, status: 'fulfilled' } : o));
+        showToast('Order marked as fulfilled!');
+      }
+    } catch {
+      showToast('Error fulfilling order');
+    }
+  };
+
+  const [combineModal, setCombineModal] = useState({ open: false, order: null, targetId: '' });
+  
+  const handleCombineOrder = async () => {
+    if (!combineModal.targetId) return;
+    try {
+      const res = await fetch(`${API}/api/admin/orders/combine`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          targetOrderId: combineModal.order.id,
+          sourceOrderIds: [combineModal.targetId]
+        })
+      });
+      if (res.ok) {
+        showToast('Orders successfully combined!');
+        setCombineModal({ open: false, order: null, targetId: '' });
+        fetch(`${API}/api/admin/orders`, { headers }).then(r=>r.json()).then(data=>setOrders(Array.isArray(data)?data:[]));
+      } else {
+        showToast('Failed to combine orders');
+      }
+    } catch {
+      showToast('Error combining orders');
+    }
+  };
+  
   const handleProductPasteImage = (e) => {
     if (!e.clipboardData) return;
     const items = e.clipboardData.items;
@@ -884,6 +922,12 @@ const AdminDashboard = ({ token, onLogout }) => {
                             <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: true })}>
                               🖨️ Packing Slip
                             </button>
+                            <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => handleManualFulfill(order.id)}>
+                              ✅ Manual Fulfill
+                            </button>
+                            <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setCombineModal({ open: true, order, targetId: '' })}>
+                              🔗 Combine
+                            </button>
                             <button className="admin-delete-btn" style={{fontSize: '0.75rem', padding: '4px 8px', color: '#e33', borderColor: '#e33'}} onClick={() => handleCancelOrder(order.id)}>
                               Cancel?
                             </button>
@@ -1197,7 +1241,34 @@ const AdminDashboard = ({ token, onLogout }) => {
          </div>
        )}
 
-       {/* Shipping Modal */}
+       {/* Combine Orders Modal */}
+      {combineModal.open && (
+        <div className="admin-modal-overlay no-print" onClick={() => setCombineModal({ open: false, order: null, targetId: '' })}>
+          <div className="admin-modal" style={{ maxWidth: '400px' }} onClick={e => e.stopPropagation()}>
+            <h3 style={{ marginTop: 0, marginBottom: '0.5rem' }}>Combine Orders</h3>
+            <p style={{ color: '#666', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+              Select an order to merge INTO this one ({combineModal.order.id}). The selected order will be merged and then hidden.
+            </p>
+            
+            <div className="form-group">
+              <label>Select Order to Merge</label>
+              <select value={combineModal.targetId} onChange={e => setCombineModal({...combineModal, targetId: e.target.value})}>
+                <option value="">-- Choose an Order --</option>
+                {orders.filter(o => (o.status === 'unfulfilled' || o.status === 'paid') && o.id !== combineModal.order.id).map(o => (
+                  <option key={o.id} value={o.id}>{o.id} - {o.shippingAddress?.name} (${(o.totalAmount || 0).toFixed(2)})</option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="admin-form-actions" style={{ marginTop: '1.5rem' }}>
+              <button className="admin-save-btn" onClick={handleCombineOrder} disabled={!combineModal.targetId}>Combine Orders</button>
+              <button className="admin-cancel-btn" onClick={() => setCombineModal({ open: false, order: null, targetId: '' })}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Shipping Modal */}
       {shippingModal.open && (
         <div className="admin-modal-overlay">
           <div className="admin-modal" style={{ maxWidth: '500px', width: '100%' }}>
