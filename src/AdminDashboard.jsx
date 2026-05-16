@@ -11,6 +11,7 @@ const AdminDashboard = ({ token, onLogout }) => {
   
   const [filterSet, setFilterSet] = useState('all');
   const [activeTab, setActiveTab] = useState('products'); // 'products' | 'orders' | 'analytics' | 'geledger'
+  const [orderTab, setOrderTab] = useState('pending'); // 'pending' | 'history'
   const [analyticsTime, setAnalyticsTime] = useState('all'); // 'today' | 'week' | 'month' | 'year' | 'all'
   const [ledgerFilter, setLedgerFilter] = useState('all'); // 'all' | 'local'
   const [receiptModal, setReceiptModal] = useState({ open: false, order: null, isPackingSlip: false });
@@ -834,96 +835,115 @@ const AdminDashboard = ({ token, onLogout }) => {
       {activeTab === 'orders' && (
         <>
           <div className="admin-table-wrap" style={{ marginTop: '2rem' }}>
-            <h3>Pending Shipments</h3>
-            <p style={{color: 'var(--text-color)', opacity: 0.8, fontSize: '0.9rem', marginBottom: '1rem'}}>
-              Select an order below to generate a USPS shipping label using your saved Box Presets.
-            </p>
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Order ID</th>
-                  <th>Customer Name</th>
-                  <th>Item Summary</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.filter(o => o.items && o.shippingAddress && (o.status === 'unfulfilled' || o.status === 'paid')).map(order => (
-                  <tr key={order.id}>
-                    <td>{new Date(order.date).toLocaleDateString()}</td>
-                    <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}</td>
-                    <td className="admin-td-title">{order.shippingAddress?.name || 'Unknown'}</td>
-                    <td>{(order.items || []).length} items</td>
-                    <td>${(order.totalAmount || 0).toFixed(2)}</td>
-                    <td><span style={{color: 'var(--accent-color)', fontWeight: 600}}>Needs Label</span></td>
-                    <td>
-                      <div style={{ display: 'flex', gap: '0.5rem', flexDirection: 'column' }}>
-                        <button className="admin-edit-btn" style={{backgroundColor: 'var(--accent-color)', width: '100%'}} onClick={() => openShippingModal(order)}>
-                          Buy Label
-                        </button>
-                        <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: true })}>
-                          🖨️ Packing Slip
-                        </button>
-                        <button className="admin-delete-btn" style={{fontSize: '0.75rem', padding: '4px 8px', color: '#e33', borderColor: '#e33'}} onClick={() => handleCancelOrder(order.id)}>
-                          Cancel?
-                        </button>
-                      </div>
-                    </td>
-                   </tr>
-                ))}
-                {orders.filter(o => o.items && o.shippingAddress && (o.status === 'unfulfilled' || o.status === 'paid')).length === 0 && (
-                  <tr><td colSpan="7" style={{textAlign: 'center', color: '#888'}}>No pending shipments.</td></tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+            <div style={{ display: 'flex', gap: '2rem', borderBottom: '1px solid #eee', marginBottom: '1.5rem', paddingBottom: '0.5rem' }}>
+              <h3 
+                onClick={() => setOrderTab('pending')} 
+                style={{ cursor: 'pointer', margin: 0, paddingBottom: '4px', color: orderTab === 'pending' ? 'var(--text-color)' : '#888', borderBottom: orderTab === 'pending' ? '3px solid var(--accent-color)' : '3px solid transparent', transition: 'all 0.2s' }}
+              >
+                Pending Shipments
+              </h3>
+              <h3 
+                onClick={() => setOrderTab('history')} 
+                style={{ cursor: 'pointer', margin: 0, paddingBottom: '4px', color: orderTab === 'history' ? 'var(--text-color)' : '#888', borderBottom: orderTab === 'history' ? '3px solid var(--accent-color)' : '3px solid transparent', transition: 'all 0.2s' }}
+              >
+                Completed Orders
+              </h3>
+            </div>
+            
+            {orderTab === 'pending' && (
+              <>
+                <p style={{color: 'var(--text-color)', opacity: 0.8, fontSize: '0.9rem', marginBottom: '1rem'}}>
+                  Select an order below to generate a USPS shipping label using your saved Box Presets.
+                </p>
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Order ID</th>
+                      <th>Customer Name</th>
+                      <th>Item Summary</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.filter(o => o.items && o.shippingAddress && (o.status === 'unfulfilled' || o.status === 'paid')).map(order => (
+                      <tr key={order.id}>
+                        <td>{new Date(order.date).toLocaleDateString()}</td>
+                        <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}</td>
+                        <td className="admin-td-title">{order.shippingAddress?.name || 'Unknown'}</td>
+                        <td>{(order.items || []).length} items</td>
+                        <td>${(order.totalAmount || 0).toFixed(2)}</td>
+                        <td><span style={{color: 'var(--accent-color)', fontWeight: 600}}>Needs Label</span></td>
+                        <td>
+                          <div style={{ display: 'flex', gap: '0.5rem', flexDirection: 'column' }}>
+                            <button className="admin-edit-btn" style={{backgroundColor: 'var(--accent-color)', width: '100%'}} onClick={() => openShippingModal(order)}>
+                              Buy Label
+                            </button>
+                            <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: true })}>
+                              🖨️ Packing Slip
+                            </button>
+                            <button className="admin-delete-btn" style={{fontSize: '0.75rem', padding: '4px 8px', color: '#e33', borderColor: '#e33'}} onClick={() => handleCancelOrder(order.id)}>
+                              Cancel?
+                            </button>
+                          </div>
+                        </td>
+                       </tr>
+                    ))}
+                    {orders.filter(o => o.items && o.shippingAddress && (o.status === 'unfulfilled' || o.status === 'paid')).length === 0 && (
+                      <tr><td colSpan="7" style={{textAlign: 'center', color: '#888', padding: '2rem 0'}}>No pending shipments.</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </>
+            )}
 
-          <div className="admin-table-wrap" style={{ marginTop: '2rem' }}>
-            <h3>Order History</h3>
-            <p style={{color: 'var(--text-color)', opacity: 0.8, fontSize: '0.9rem', marginBottom: '1rem'}}>
-              View past completed and cancelled orders.
-            </p>
-            <table className="admin-table">
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Order ID</th>
-                  <th>Customer Name</th>
-                  <th>Item Summary</th>
-                  <th>Amount</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.filter(o => o.items && o.shippingAddress && (o.status === 'fulfilled' || o.status === 'cancelled')).map(order => (
-                  <tr key={order.id} style={{ opacity: order.status === 'cancelled' ? 0.6 : 1 }}>
-                    <td>{new Date(order.date).toLocaleDateString()}</td>
-                    <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}</td>
-                    <td className="admin-td-title">{order.shippingAddress?.name || 'Unknown'}</td>
-                    <td>{(order.items || []).length} items</td>
-                    <td>${(order.totalAmount || 0).toFixed(2)}</td>
-                    <td>
-                      {order.status === 'cancelled' 
-                        ? <span style={{color: '#e33'}}>Cancelled</span>
-                        : <span style={{color: '#4ade80'}}>Fulfilled</span>
-                      }
-                     </td>
-                     <td>
-                        <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: false })}>
-                          View Receipt
-                        </button>
-                     </td>
-                   </tr>
-                ))}
-                {orders.filter(o => o.items && o.shippingAddress && (o.status === 'fulfilled' || o.status === 'cancelled')).length === 0 && (
-                  <tr><td colSpan="7" style={{textAlign: 'center', color: '#888'}}>No past orders found.</td></tr>
-                )}
-              </tbody>
-            </table>
+            {orderTab === 'history' && (
+              <>
+                <p style={{color: 'var(--text-color)', opacity: 0.8, fontSize: '0.9rem', marginBottom: '1rem'}}>
+                  View past completed and cancelled orders.
+                </p>
+                <table className="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Order ID</th>
+                      <th>Customer Name</th>
+                      <th>Item Summary</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.filter(o => o.items && o.shippingAddress && (o.status === 'fulfilled' || o.status === 'cancelled')).map(order => (
+                      <tr key={order.id} style={{ opacity: order.status === 'cancelled' ? 0.6 : 1 }}>
+                        <td>{new Date(order.date).toLocaleDateString()}</td>
+                        <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}</td>
+                        <td className="admin-td-title">{order.shippingAddress?.name || 'Unknown'}</td>
+                        <td>{(order.items || []).length} items</td>
+                        <td>${(order.totalAmount || 0).toFixed(2)}</td>
+                        <td>
+                          {order.status === 'cancelled' 
+                            ? <span style={{color: '#e33'}}>Cancelled</span>
+                            : <span style={{color: '#4ade80'}}>Fulfilled</span>
+                          }
+                         </td>
+                         <td>
+                            <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: false })}>
+                              View Receipt
+                            </button>
+                         </td>
+                       </tr>
+                    ))}
+                    {orders.filter(o => o.items && o.shippingAddress && (o.status === 'fulfilled' || o.status === 'cancelled')).length === 0 && (
+                      <tr><td colSpan="7" style={{textAlign: 'center', color: '#888', padding: '2rem 0'}}>No past orders found.</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </>
+            )}
           </div>
         </>
       )}
