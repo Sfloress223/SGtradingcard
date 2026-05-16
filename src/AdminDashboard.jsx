@@ -1165,6 +1165,12 @@ const AdminDashboard = ({ token, onLogout }) => {
              {!receiptModal.isPackingSlip && (
                <div style={{ borderTop: '2px solid #ccc', paddingTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
                  <div style={{ width: '250px' }}>
+                   {receiptModal.order.taxAmount > 0 && (
+                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1rem', color: '#555' }}>
+                       <span>Texas Sales Tax (8.25%):</span>
+                       <span>${receiptModal.order.taxAmount.toFixed(2)}</span>
+                     </div>
+                   )}
                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
                      <span>Total Paid:</span>
                      <span>${(receiptModal.order.totalAmount || 0).toFixed(2)}</span>

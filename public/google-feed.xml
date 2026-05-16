@@ -91,7 +91,7 @@
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/cf3a8205-f4d4-4488-897a-e78baf4bc263/SuzieQ+LOGO+%287%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
-      <g:price>69.99 USD</g:price>
+      <g:price>129.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
@@ -104,7 +104,7 @@
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/05afc2f2-41a7-4475-a225-65d0a213e817/SuzieQ+LOGO+%2835%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
-      <g:price>14.99 USD</g:price>
+      <g:price>22.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
@@ -116,7 +116,7 @@
       <link>https://sgtradingcard.com/?product=351</link>
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f5c77db2-def7-4c5b-b7d6-7e54b86dee44/JT+%282%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
+      <g:availability>out of stock</g:availability>
       <g:price>6.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -246,8 +246,8 @@
       <link>https://sgtradingcard.com/?product=411</link>
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/931f7b6e-91aa-44c2-aa2d-b8345eb01418/SuzieQ+LOGO+%2850%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out of stock</g:availability>
-      <g:price>52.99 USD</g:price>
+      <g:availability>in stock</g:availability>
+      <g:price>63.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
@@ -468,7 +468,7 @@
       <g:image_link>https://sgtradingcard.com/images/po-blister.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
-      <g:price>21.99 USD</g:price>
+      <g:price>24.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
@@ -481,7 +481,7 @@
       <g:image_link>https://sgtradingcard.com/images/po-bundle.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
-      <g:price>42.99 USD</g:price>
+      <g:price>46.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
@@ -517,7 +517,7 @@
       <title>Pokémon TCG: Scarlet &amp; Violet-Surging Sparks Booster Box</title>
       <description>Contains 36 Surging Sparks booster packs.</description>
       <link>https://sgtradingcard.com/?product=103</link>
-      <g:image_link>https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_b6dd18c9e6.png</g:image_link>
+      <g:image_link>https://i.ibb.co/JjFR8NVL/02801f936817.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
       <g:price>234.99 USD</g:price>
@@ -556,9 +556,9 @@
       <title>Pokémon TCG: Mega Evolution—Ascended Heroes Collection</title>
       <description>An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.</description>
       <link>https://sgtradingcard.com/?product=414</link>
-      <g:image_link>https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_0265a4aaac.png</g:image_link>
+      <g:image_link>https://i.ibb.co/0VXYScYd/2c68da566dfc.png</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
+      <g:availability>out of stock</g:availability>
       <g:price>49.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -593,9 +593,18 @@
     <item>
       <g:id>1004</g:id>
       <title>Re-Ment Terrarium Mini Figure Blind Box EX Paldea - Pokémon Licensed Collectible</title>
-      <description>Official blind box terrarium figure from the Paldea region.</description>
+      <description>Series 13 Line-Up
+·Pikachu &amp; Eevee
+·Latias
+·Aron
+·Quilava
+·Oshawott
+·Jolteon
+Blind Box Surprise Format 🎁
+·Buy 1 box, receive 1 random design.
+·Buy a full set (6 boxes), receive all 6 different designs (no duplicates).</description>
       <link>https://sgtradingcard.com/?product=1004</link>
-      <g:image_link>https://sgtradingcard.com/images/rement-paldea.png</g:image_link>
+      <g:image_link>https://i.ibb.co/27xp4NNv/8ae6c3e377ee.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:price>15.99 USD</g:price>
@@ -606,9 +615,16 @@
     <item>
       <g:id>1005</g:id>
       <title>Re-Ment Terrarium Mini Figure Blind Box - Pokémon Licensed Collectible</title>
-      <description>Official classic blind box terrarium figure.</description>
+      <description>Unique Designs Included
+·Pikachu &amp; Pawmi
+·Fuecoco
+·Quaxly
+·Sprigatito
+·Tatsugiri
+·Clodsire
+Blind Box Surprise Format</description>
       <link>https://sgtradingcard.com/?product=1005</link>
-      <g:image_link>https://sgtradingcard.com/images/rement-classic.png</g:image_link>
+      <g:image_link>https://i.ibb.co/mCGLnQJv/91ffb803c4ba.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:price>15.99 USD</g:price>
@@ -738,7 +754,7 @@
       <title>Pokémon TCG: Mega Evolution—Ascended Heroes 2-Pack Blister</title>
       <description>Contains 2 Ascended Heroes booster packs, a collectible coin, and a special foil promo card featuring Tangela. A great entry point for the newest Mega Evolution expansion.</description>
       <link>https://sgtradingcard.com/?product=1301</link>
-      <g:image_link>https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_c1f9f6a356.png</g:image_link>
+      <g:image_link>https://i.ibb.co/cSKk2v9y/c97e6cf95e77.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
       <g:price>22.99 USD</g:price>
@@ -749,9 +765,9 @@
     <item>
       <g:id>1302</g:id>
       <title>Pokémon TCG: Mega Evolution—Ascended Heroes Tech Sticker Collection</title>
-      <description>Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card. Available in multiple artwork variants.</description>
+      <description>Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card. </description>
       <link>https://sgtradingcard.com/?product=1302</link>
-      <g:image_link>https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_1076b26b63.png</g:image_link>
+      <g:image_link>https://i.ibb.co/Rk0FpnQb/a1ccdc351ac1.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
       <g:price>34.99 USD</g:price>
@@ -764,9 +780,9 @@
       <title>Pokémon TCG: Mega Evolution—Ascended Heroes Mini Tin</title>
       <description>Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!</description>
       <link>https://sgtradingcard.com/?product=1303</link>
-      <g:image_link>https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_6ab35ec358.png</g:image_link>
+      <g:image_link>https://i.ibb.co/TM74jRQ3/78f2520a8295.png</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out of stock</g:availability>
+      <g:availability>in stock</g:availability>
       <g:price>24.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
@@ -777,7 +793,7 @@
       <title>Pokémon TCG: Mega Evolution—Ascended Heroes Elite Trainer Box</title>
       <description>The ultimate Ascended Heroes experience! Includes 9 booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, damage counters, and a premium collector's box featuring legendary artwork.</description>
       <link>https://sgtradingcard.com/?product=1304</link>
-      <g:image_link>https://sgtradingcard.onrender.comhttps://sgtradingcard.onrender.com/uploads/img_8512df5d9b.png</g:image_link>
+      <g:image_link>https://i.ibb.co/QFqjsyCQ/fe17944ec0ef.png</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
       <g:price>129.99 USD</g:price>
@@ -1054,6 +1070,19 @@
       <g:condition>new</g:condition>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:identifier_exists>no</g:identifier_exists>
+      
+    </item>
+    <item>
+      <g:id>1326</g:id>
+      <title>Destined rival Single booster pack</title>
+      <description></description>
+      <link>https://sgtradingcard.com/?product=1326</link>
+      <g:image_link>https://i.ibb.co/XZVV03wk/81dfd5932fa2.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:price>8.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:identifier_exists>no</g:identifier_exists>
       
