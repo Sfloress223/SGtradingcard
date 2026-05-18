@@ -8,5 +8,13 @@
     "charges_enabled": false,
     "lifetimeVolumeUsd": 0,
     "stripeAccountId": "acct_1TLcFzBeHTATD48H"
+  },
+  {
+    "id": "1779067021626",
+    "username": "Easy1",
+    "email": "b.easy013@gmail.com",
+    "password": "$2b$10$NVoSAIf4eeVJgtbOq7X1RufId6igRs3p3iRyOD1QF2fLXvdH4r4Km",
+    "role": "seller",
+    "lifetimeVolumeUsd": 0
   }
 ]

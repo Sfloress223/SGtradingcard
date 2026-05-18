@@ -58,5 +58,33 @@
     "platformFeePercentage": 0,
     "stripePaymentIntentId": "pi_3TVYQSPYn0dlcAYE3QmntyWT",
     "paymentConfirmed": true
+  },
+  {
+    "id": "ord_1779071071994",
+    "date": "2026-05-18T02:24:31.994Z",
+    "status": "paid",
+    "shippingAddress": {
+      "name": "Shandar Gillespie ",
+      "email": "shandarelli@gmail.com",
+      "phone": "8165298563",
+      "address": "19412 E. 13th St. N",
+      "city": "Independence ",
+      "state": "Mo",
+      "zip": "64056"
+    },
+    "items": [
+      {
+        "id": 1327,
+        "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Poster collection ",
+        "qty": 2,
+        "price": "39.99"
+      }
+    ],
+    "totalAmount": 80.98,
+    "taxAmount": 0,
+    "platformFeeUsd": 0,
+    "platformFeePercentage": 0,
+    "stripePaymentIntentId": "pi_3TYGr5PYn0dlcAYE3FvzctJA",
+    "paymentConfirmed": true
   }
 ]

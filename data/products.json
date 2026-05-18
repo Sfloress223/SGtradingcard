@@ -7,7 +7,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Surging Sparks expansion. Each pack may include rare holographic, illustration rare, or special art rare cards.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/224a05f2-8828-4f97-9299-1d207332261a/SuzieQ+LOGO+%289%29.png?format=500w",
-    "stock": 36
+    "stock": 28
   },
   {
     "id": 102,
@@ -117,7 +117,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Mega Evolution expansion. Chance to pull powerful Mega EX cards featuring fan-favorite Pokémon like Charizard, Lucario, and Gardevoir.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2603873e-f184-4adc-8aa7-94a9c4520bb5/ME+%282%29.png?format=500w",
-    "stock": 19
+    "stock": 25
   },
   {
     "id": 402,
@@ -184,10 +184,10 @@
     "setId": "phantasmal-flames",
     "title": "Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Bundle",
     "price": "$63.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Includes 6 Phantasmal Flames booster packs. Chase the rare illustration cards exclusive to this expansion.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/931f7b6e-91aa-44c2-aa2d-b8345eb01418/SuzieQ+LOGO+%2850%29.png?format=500w",
-    "stock": 1
+    "stock": 0
   },
   {
     "id": 412,
@@ -344,10 +344,10 @@
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order Elite Trainer Box",
     "price": "$79.99",
-    "soldOut": true,
+    "soldOut": false,
     "description": "Includes 9 Perfect Order booster packs, a full-art promo card, 65 card sleeves featuring Mega Zygarde, energy cards, and a premium collector's box.",
     "imgUrl": "/images/po-etb.png",
-    "stock": 0
+    "stock": 1
   },
   {
     "id": 1102,
@@ -367,7 +367,7 @@
     "soldOut": false,
     "description": "Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.",
     "imgUrl": "/images/po-bundle.png",
-    "stock": 4
+    "stock": 3
   },
   {
     "id": 1104,
@@ -377,7 +377,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Perfect Order expansion. Uncover powerful new Pokémon ex and stunning illustration rares.",
     "imgUrl": "/images/po-booster.png",
-    "stock": 30
+    "stock": 36
   },
   {
     "id": 1105,
@@ -408,10 +408,10 @@
     "setId": "misc",
     "title": "Pokémon TCG: Pokemon Day 2026 Collection",
     "price": "$29.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Commemorative Pokémon Day collection offering an array of packs and exclusive promos.",
     "imgUrl": "/images/pokemon-day-2026.png",
-    "stock": 1
+    "stock": 0
   },
   {
     "id": 1003,
@@ -421,7 +421,7 @@
     "soldOut": false,
     "description": "Adorable Manta Ray plush bag charm.",
     "imgUrl": "/images/manta-ray.png",
-    "stock": 8
+    "stock": 7
   },
   {
     "id": 414,
@@ -444,8 +444,11 @@
     "price": "$46.99",
     "soldOut": true,
     "description": "A mystery surprise box full of Prismatic Evolutions boosters and collectibles.",
-    "imgUrl": "/images/pe-surprise-box.png",
-    "stock": 0
+    "imgUrl": "",
+    "stock": 0,
+    "hidden": true,
+    "galleryUrls": [],
+    "shippingWeight": ""
   },
   {
     "id": 305,
@@ -544,10 +547,10 @@
     "setId": "misc",
     "title": "Pokémon TCG: Paldea Adventure Chest",
     "price": "$79.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "A massive chest of Pokémon TCG treasures from the Paldea region.",
     "imgUrl": "/images/paldea-chest.png",
-    "stock": 2
+    "stock": 0
   },
   {
     "id": 415,
@@ -612,10 +615,10 @@
     "setId": "ascended-heroes",
     "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Mini Tin",
     "price": "$24.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!",
     "imgUrl": "https://i.ibb.co/TM74jRQ3/78f2520a8295.png",
-    "stock": 1,
+    "stock": 0,
     "galleryUrls": [
       "https://i.ibb.co/TM74jRQ3/78f2520a8295.png"
     ],
@@ -625,11 +628,11 @@
     "id": 1304,
     "setId": "ascended-heroes",
     "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Elite Trainer Box",
-    "price": "$129.99",
-    "soldOut": true,
+    "price": "$159.99",
+    "soldOut": false,
     "description": "The ultimate Ascended Heroes experience! Includes 9 booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, damage counters, and a premium collector's box featuring legendary artwork.",
     "imgUrl": "https://i.ibb.co/QFqjsyCQ/fe17944ec0ef.png",
-    "stock": 0,
+    "stock": 1,
     "galleryUrls": [
       "https://i.ibb.co/QFqjsyCQ/fe17944ec0ef.png"
     ],
@@ -1003,6 +1006,36 @@
     "hidden": false,
     "galleryUrls": [
       "https://i.ibb.co/XZVV03wk/81dfd5932fa2.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1327,
+    "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Poster collection ",
+    "price": "39.99",
+    "setId": "prismatic",
+    "imgUrl": "https://i.ibb.co/93wd9GtQ/dfcc21797ea7.png",
+    "description": "The Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Poster Collection includes:\n• 3 foil promo cards featuring Flareon, Vaporeon, and Jolteon\n• 1 poster featuring 27 card illustrations of Eevee and its Evolutions\n• 3 Pokémon TCG: Scarlet & Violet—Prismatic Evolutions booster packs\n• A code card for Pokémon TCG Live",
+    "stock": 0,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/93wd9GtQ/dfcc21797ea7.png"
+    ],
+    "soldOut": true,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1328,
+    "title": "Mega Latias ex Box - Miscellaneous Cards",
+    "price": "39.99",
+    "setId": "graded-cards",
+    "imgUrl": "https://i.ibb.co/7JSjB913/7b7af9ae4ddc.png",
+    "description": "The Pokémon TCG: Mega Latias ex Box includes:\n• 1 foil promo card featuring Mega Latias ex\n• 1 oversize lenticular promo card featuring Mega Latias ex\n• 4 Pokémon TCG booster packs",
+    "stock": 1,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/7JSjB913/7b7af9ae4ddc.png"
     ],
     "soldOut": false,
     "shippingWeight": ""
