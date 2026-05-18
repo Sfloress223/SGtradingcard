@@ -54,7 +54,8 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
            t.includes('booster box') || 
            t.includes('collection box') || 
            t.includes('upc') ||
-           t.includes('premium collection');
+           t.includes('premium collection') ||
+           t.includes('poster collection');
   };
 
   const isGradedCard = (item) => {
@@ -64,7 +65,17 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
 
   const isPackOrBox = (item) => {
     const t = (item.title || '').toLowerCase();
-    return !isHeavy(item) && !isGradedCard(item) && (t.includes('pack') || t.includes('box') || t.includes('bundle') || t.includes('sleeve'));
+    return !isHeavy(item) && !isGradedCard(item) && (
+      t.includes('pack') || 
+      t.includes('box') || 
+      t.includes('bundle') || 
+      t.includes('sleeve') ||
+      t.includes('collection') ||
+      t.includes('tin') ||
+      t.includes('blister') ||
+      t.includes('deck') ||
+      t.includes('etb')
+    );
   };
 
   const hasHeavy = cartItems.some(isHeavy);
