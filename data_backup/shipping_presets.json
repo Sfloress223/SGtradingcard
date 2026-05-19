@@ -1,0 +1,18 @@
+[
+  {
+    "id": "default_pwe",
+    "name": "Plain White Envelope (PWE)",
+    "length": 6,
+    "width": 4,
+    "height": 0.25,
+    "weight": 1
+  },
+  {
+    "id": "default_bmwt",
+    "name": "Bubble Mailer With Tracking",
+    "length": 8,
+    "width": 4,
+    "height": 1,
+    "weight": 4
+  }
+]

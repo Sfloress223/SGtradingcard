@@ -116,13 +116,40 @@ if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'sg-trading-secret-key
   console.warn('⚠️ CRITICAL SECURITY WARNING: JWT_SECRET is not set or is using the default insecure value! User sessions are vulnerable.');
 }
 
-const PRODUCTS_FILE = path.join(__dirname, 'data', 'products.json');
-const SETS_FILE = path.join(__dirname, 'data', 'sets.json');
-const USERS_FILE = path.join(__dirname, 'data', 'users.json');
-const SHIPPING_PRESETS_FILE = path.join(__dirname, 'data', 'shipping_presets.json');
-const ORDERS_FILE = path.join(__dirname, 'data', 'orders.json');
-const TIKTOK_TOKEN_FILE = path.join(__dirname, 'data', 'tiktok-token.json');
-const REVIEWS_FILE = path.join(__dirname, 'data', 'reviews.json');
+const DATA_DIR = path.join(__dirname, 'data');
+const BACKUP_DIR = path.join(__dirname, 'data_backup');
+
+if (!fs.existsSync(DATA_DIR)) {
+  fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+// Auto-restore from backup if persistent disk is freshly mounted and empty
+if (fs.existsSync(BACKUP_DIR)) {
+  const files = fs.readdirSync(BACKUP_DIR);
+  for (const file of files) {
+    const targetPath = path.join(DATA_DIR, file);
+    let shouldCopy = !fs.existsSync(targetPath);
+    if (!shouldCopy) {
+      const content = fs.readFileSync(targetPath, 'utf8').trim();
+      if (content === '' || content === '[]' || content === '{}') {
+        shouldCopy = true;
+      }
+    }
+    
+    if (shouldCopy) {
+      console.log(`Restoring ${file} from backup to persistent disk...`);
+      fs.copyFileSync(path.join(BACKUP_DIR, file), targetPath);
+    }
+  }
+}
+
+const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
+const SETS_FILE = path.join(DATA_DIR, 'sets.json');
+const USERS_FILE = path.join(DATA_DIR, 'users.json');
+const SHIPPING_PRESETS_FILE = path.join(DATA_DIR, 'shipping_presets.json');
+const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
+const TIKTOK_TOKEN_FILE = path.join(DATA_DIR, 'tiktok-token.json');
+const REVIEWS_FILE = path.join(DATA_DIR, 'reviews.json');
 
 // --- TikTok Shop API Code ---
 function generateTikTokSignature(appSecret, path, queryParams, body) {
