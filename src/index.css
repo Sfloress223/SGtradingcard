@@ -944,9 +944,10 @@ section {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
+    width: 100% !important;
+    max-width: none !important;
     background: white;
-    padding: 2cm !important;
+    padding: 1cm !important;
   }
   /* Hide the modal overlay background and buttons during print */
   .admin-modal-overlay {
