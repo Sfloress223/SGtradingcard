@@ -1245,10 +1245,48 @@ const AdminDashboard = ({ token, onLogout }) => {
              <div className="admin-modal-actions no-print" style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
                <button className="admin-cancel-btn" onClick={() => setReceiptModal({ open: false, order: null })}>Close</button>
                <button className="admin-save-btn" onClick={() => {
-                 const oldTitle = document.title;
-                 document.title = receiptModal.isPackingSlip ? `Packing Slip - Order ${receiptModal.order.id}` : `Receipt - Order ${receiptModal.order.id}`;
-                 window.print();
-                 document.title = oldTitle;
+                 const printableElement = document.querySelector('.printable-invoice').cloneNode(true);
+                 const buttons = printableElement.querySelector('.admin-modal-actions');
+                 if (buttons) buttons.remove();
+
+                 const iframe = document.createElement('iframe');
+                 iframe.style.position = 'fixed';
+                 iframe.style.right = '0';
+                 iframe.style.bottom = '0';
+                 iframe.style.width = '0';
+                 iframe.style.height = '0';
+                 iframe.style.border = '0';
+                 document.body.appendChild(iframe);
+
+                 const doc = iframe.contentWindow.document;
+                 const title = receiptModal.isPackingSlip ? `Packing Slip - Order ${receiptModal.order.id}` : `Receipt - Order ${receiptModal.order.id}`;
+                 
+                 doc.open();
+                 doc.write(`
+                   <html>
+                     <head>
+                       <title>${title}</title>
+                       <style>
+                         body { font-family: sans-serif; padding: 0.5in; color: #000; margin: 0; }
+                         table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+                         th { text-align: left; padding: 8px 0; border-bottom: 2px solid #ccc; }
+                         td { padding: 12px 0; border-bottom: 1px solid #eee; }
+                         @page { margin: 0; }
+                       </style>
+                     </head>
+                     <body>
+                       ${printableElement.innerHTML}
+                     </body>
+                   </html>
+                 `);
+                 doc.close();
+
+                 iframe.contentWindow.focus();
+                 iframe.contentWindow.print();
+                 
+                 setTimeout(() => {
+                   document.body.removeChild(iframe);
+                 }, 1000);
                }}>🖨️ Print Document</button>
              </div>
 

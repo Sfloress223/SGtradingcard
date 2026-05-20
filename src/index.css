@@ -938,43 +938,6 @@ section {
     margin: 0;
   }
   
-  /* 1. Bulletproof: Hide everything on the page */
-  body * {
-    visibility: hidden !important;
-  }
-  
-  /* 2. Make ONLY the invoice visible */
-  .printable-invoice, .printable-invoice * {
-    visibility: visible !important;
-  }
-  
-  /* 3. Rip the invoice out of the DOM and pin it to the top left of the paper */
-  .printable-invoice {
-    position: absolute !important;
-    left: 0 !important;
-    top: 0 !important;
-    width: 100% !important; /* Fits exact paper width */
-    height: auto !important;
-    max-height: 10.5in !important; /* Force crop under 11 inches */
-    margin: 0 !important;
-    padding: 0.5in !important;
-    box-sizing: border-box !important; /* Prevents padding from causing horizontal bleed */
-    border: none !important;
-    box-shadow: none !important;
-    background: white !important;
-    overflow: hidden !important;
-  }
-
-  /* 4. Completely destroy all structural wrappers so they don't trigger blank pages */
-  html, body, #root, .app-container, .main-content, .admin-dashboard, .admin-modal-overlay {
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: static !important;
-  }
-
   .no-print, .admin-modal-actions {
     display: none !important;
   }
