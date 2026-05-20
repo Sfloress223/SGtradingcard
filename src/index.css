@@ -960,9 +960,26 @@ section {
     margin: 0 !important;
     padding: 0 !important;
   }
-  /* Hide the modal overlay background and buttons during print */
+  /* Remove fixed positioning so the browser stops cloning it on every page */
   .admin-modal-overlay {
     background: white !important;
+    position: absolute !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+  .admin-modal {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
   .no-print {
     display: none !important;
