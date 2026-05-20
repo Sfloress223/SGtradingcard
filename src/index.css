@@ -940,6 +940,10 @@ section {
   .printable-invoice, .printable-invoice * {
     visibility: visible;
   }
+  @page {
+    margin: 0;
+  }
+  
   .printable-invoice {
     position: absolute;
     left: 0;
@@ -947,7 +951,8 @@ section {
     width: 100% !important;
     max-width: none !important;
     background: white;
-    padding: 1cm !important;
+    padding: 1.5cm !important; /* Provide physical margin instead of browser margin */
+    margin: 0 !important;
   }
   /* Collapse layout heights to prevent multiple blank pages */
   .admin-main-wrap, header, footer, nav, .site-header, .site-footer, .promo-banner, .stream-live-bar, .toast-notification {
