@@ -950,8 +950,12 @@ section {
     top: 0;
     width: 100% !important;
     max-width: none !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
     background: white;
-    padding: 1.5cm !important; /* Provide physical margin instead of browser margin */
+    padding: 1cm !important;
     margin: 0 !important;
   }
   /* Collapse layout heights to prevent multiple blank pages */
@@ -961,7 +965,9 @@ section {
   /* Strip min-heights and padding from main wrappers */
   body, html, .app-container, .main-content, #root {
     min-height: 0 !important;
-    height: auto !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    overflow: hidden !important;
     margin: 0 !important;
     padding: 0 !important;
   }

@@ -1244,7 +1244,12 @@ const AdminDashboard = ({ token, onLogout }) => {
              {/* Action Buttons (Hidden on Print) */}
              <div className="admin-modal-actions no-print" style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'flex-end', borderTop: '1px solid #eee', paddingTop: '1.5rem' }}>
                <button className="admin-cancel-btn" onClick={() => setReceiptModal({ open: false, order: null })}>Close</button>
-               <button className="admin-save-btn" onClick={() => window.print()}>🖨️ Print Document</button>
+               <button className="admin-save-btn" onClick={() => {
+                 const oldTitle = document.title;
+                 document.title = receiptModal.isPackingSlip ? `Packing Slip - Order ${receiptModal.order.id}` : `Receipt - Order ${receiptModal.order.id}`;
+                 window.print();
+                 document.title = oldTitle;
+               }}>🖨️ Print Document</button>
              </div>
 
            </div>
