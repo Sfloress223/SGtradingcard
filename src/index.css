@@ -934,66 +934,50 @@ section {
 
 /* Print UI Styles for Packing Slips */
 @media print {
-  body * {
-    visibility: hidden;
-  }
-  .printable-invoice, .printable-invoice * {
-    visibility: visible;
-  }
   @page {
     margin: 0;
   }
   
-  .printable-invoice {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100% !important;
-    max-width: none !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    background: white;
-    padding: 1cm !important;
-    margin: 0 !important;
-  }
-  /* Collapse layout heights to prevent multiple blank pages */
-  .admin-main-wrap, header, footer, nav, .site-header, .site-footer, .promo-banner, .stream-live-bar, .toast-notification {
+  /* Strictly remove all siblings from the document flow */
+  .promo-banner, .stream-live-bar, header, footer, .toast-notification, .site-header, .site-footer, .admin-main-wrap, .no-print {
     display: none !important;
   }
-  /* Strip min-heights and padding from main wrappers */
-  body, html, .app-container, .main-content, #root {
-    min-height: 0 !important;
-    height: 100vh !important;
-    max-height: 100vh !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  /* Remove fixed positioning so the browser stops cloning it on every page */
-  .admin-modal-overlay {
-    background: white !important;
-    position: absolute !important;
+
+  /* Reset all structural wrappers so they don't force page heights */
+  html, body, #root, .app-container, .main-content, .admin-dashboard {
     height: auto !important;
     min-height: 0 !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: white !important;
+  }
+
+  /* Set modal wrapper to static so it prints like a normal document */
+  .admin-modal-overlay {
+    position: static !important;
+    height: auto !important;
+    width: auto !important;
+    background: transparent !important;
     padding: 0 !important;
     margin: 0 !important;
     display: block !important;
   }
-  .admin-modal {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: none !important;
+
+  /* Allow the invoice to flow naturally on the page */
+  .printable-invoice {
+    position: static !important;
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
     max-height: none !important;
-    overflow: visible !important;
-  }
-  .no-print {
-    display: none !important;
+    margin: 0 !important;
+    padding: 0.5in !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+    box-sizing: border-box !important;
   }
 }
 
