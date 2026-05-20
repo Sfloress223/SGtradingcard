@@ -949,6 +949,10 @@ section {
     background: white;
     padding: 1cm !important;
   }
+  /* Collapse layout heights to prevent multiple blank pages */
+  .admin-main-wrap, header, footer, nav, .site-header, .site-footer {
+    display: none !important;
+  }
   /* Hide the modal overlay background and buttons during print */
   .admin-modal-overlay {
     background: white !important;
