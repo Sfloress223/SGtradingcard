@@ -939,18 +939,23 @@ section {
   }
   
   /* Strictly remove all siblings from the document flow */
-  .promo-banner, .stream-live-bar, header, footer, .toast-notification, .site-header, .site-footer, .admin-main-wrap, .no-print {
+  .promo-banner, .stream-live-bar, header, footer, .toast-notification, .site-header, .site-footer, .no-print {
+    display: none !important;
+  }
+
+  /* Hide everything inside the dashboard EXCEPT the modal overlay! */
+  .admin-dashboard > *:not(.admin-modal-overlay) {
     display: none !important;
   }
 
   /* Reset all structural wrappers so they don't force page heights */
   html, body, #root, .app-container, .main-content, .admin-dashboard {
-    height: auto !important;
+    height: 10in !important;
+    max-height: 10in !important;
     min-height: 0 !important;
-    max-height: none !important;
     margin: 0 !important;
     padding: 0 !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     background: white !important;
   }
 
