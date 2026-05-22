@@ -1414,8 +1414,8 @@ app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
   // Remove source orders, keep target
   orders = orders.filter(o => !sourceOrderIds.includes(o.id) || o.id === targetOrderId);
 
-  writeJSON(ORDERS_FILE, orders);
   targetOrder.isCombined = true;
+  writeJSON(ORDERS_FILE, orders);
   res.json({ success: true, targetOrder });
 });
 
