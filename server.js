@@ -1366,10 +1366,6 @@ app.post('/api/reviews', (req, res) => {
   writeJSON(REVIEWS_FILE, reviews);
   res.json({ success: true, review: newReview });
 });
-// Serve React App - Catch All
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
 
 const PORT = process.env.PORT || 3001;
 // Debug endpoint to find Render's outgoing IP for TikTok Allowlisting
@@ -1505,6 +1501,11 @@ app.post('/api/admin/orders/:id/cancel', authMiddleware, async (req, res) => {
     console.error('Cancellation Error:', err);
     res.status(500).json({ error: err.message });
   }
+});
+
+// Serve React App - Catch All
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.listen(PORT, () => {
