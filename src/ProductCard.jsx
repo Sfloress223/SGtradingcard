@@ -5,6 +5,8 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
     (product.condition && ['psa', 'cgc', 'beckett'].some(g => product.condition.toLowerCase().includes(g))) ||
     (title && ['psa', 'cgc', 'beckett', 'graded', 'slab'].some(g => title.toLowerCase().includes(g)));
 
+  const isSingleCard = product.setId === 'singles' || product.cardType === 'Single';
+
   return (
     <div className="product-card" onClick={() => onViewProduct && onViewProduct(product)}>
       <div className="product-image-container" style={{ aspectRatio: isGradedCard ? '3/4' : '1/1' }}>
@@ -63,7 +65,7 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'contain',
-                transform: isGradedCard ? 'scale(1.6)' : 'scale(1.25)',
+                transform: isGradedCard ? 'scale(1.6)' : (isSingleCard ? 'scale(1.25)' : 'none'),
                 mixBlendMode: isGradedCard ? 'darken' : 'normal',
                 transition: 'transform 0.3s ease'
               }} 
