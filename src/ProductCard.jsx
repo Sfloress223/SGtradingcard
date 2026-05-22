@@ -7,6 +7,9 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
 
   const isSingleCard = product.setId === 'singles' || product.cardType === 'Single';
 
+  const isPackLike = !isGradedCard && !isSingleCard && title && 
+    (title.toLowerCase().includes('pack') || title.toLowerCase().includes('blister'));
+
   return (
     <div className="product-card" onClick={() => onViewProduct && onViewProduct(product)}>
       <div className="product-image-container" style={{ aspectRatio: isGradedCard ? '3/4' : '1/1' }}>
@@ -65,8 +68,8 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'contain',
-                padding: (isGradedCard || isSingleCard) ? '0' : '10px',
-                transform: isGradedCard ? 'scale(1.6)' : (isSingleCard ? 'scale(1.25)' : 'scale(1.12)'),
+                padding: (isGradedCard || isSingleCard) ? '0' : (isPackLike ? '6px' : '12px'),
+                transform: isGradedCard ? 'scale(1.6)' : (isSingleCard ? 'scale(1.25)' : (isPackLike ? 'scale(1.22)' : 'scale(1.0)')),
                 mixBlendMode: isGradedCard ? 'darken' : 'normal',
                 transition: 'transform 0.3s ease'
               }} 
