@@ -1322,18 +1322,26 @@ app.post('/api/orders/confirm', async (req, res) => {
         }, 0);
         
         let tax = order.taxAmount;
-        if (tax === undefined) {
+        let shipping = order.shippingCost;
+
+        const needsDynamicCalculation = (tax === undefined && shipping === undefined) || 
+                                         ((tax === 0 || tax === undefined) && 
+                                          (shipping === 0 || shipping === undefined) && 
+                                          (order.totalAmount || 0) > subtotal);
+
+        if (needsDynamicCalculation) {
           const state = (order.shippingAddress?.state || '').toLowerCase().trim();
           if (state === 'tx' || state === 'texas') {
             tax = Math.round(subtotal * 0.0825 * 100) / 100;
           } else {
             tax = 0;
           }
-        }
-        
-        let shipping = order.shippingCost;
-        if (shipping === undefined) {
           shipping = Math.max(0, Math.round(((order.totalAmount || 0) - subtotal - tax) * 100) / 100);
+        } else {
+          if (tax === undefined) tax = 0;
+          if (shipping === undefined) {
+            shipping = Math.max(0, Math.round(((order.totalAmount || 0) - subtotal - tax) * 100) / 100);
+          }
         }
         
         return { tax, shipping, subtotal };
@@ -1444,18 +1452,26 @@ app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
     }, 0);
     
     let tax = order.taxAmount;
-    if (tax === undefined) {
+    let shipping = order.shippingCost;
+
+    const needsDynamicCalculation = (tax === undefined && shipping === undefined) || 
+                                     ((tax === 0 || tax === undefined) && 
+                                      (shipping === 0 || shipping === undefined) && 
+                                      (order.totalAmount || 0) > subtotal);
+
+    if (needsDynamicCalculation) {
       const state = (order.shippingAddress?.state || '').toLowerCase().trim();
       if (state === 'tx' || state === 'texas') {
         tax = Math.round(subtotal * 0.0825 * 100) / 100;
       } else {
         tax = 0;
       }
-    }
-    
-    let shipping = order.shippingCost;
-    if (shipping === undefined) {
       shipping = Math.max(0, Math.round(((order.totalAmount || 0) - subtotal - tax) * 100) / 100);
+    } else {
+      if (tax === undefined) tax = 0;
+      if (shipping === undefined) {
+        shipping = Math.max(0, Math.round(((order.totalAmount || 0) - subtotal - tax) * 100) / 100);
+      }
     }
     
     return { tax, shipping };
