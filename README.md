@@ -14,3 +14,14 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Deployment Architecture
+
+- **Hosting Platform**: Hosted exclusively on **Render** (custom domain: `https://sgtradingcard.com` / fallback: `https://sgtradingcard.onrender.com`).
+- **Framework & Strategy**: Monolithic Express.js backend that serves Vite production assets statically from the `dist/` directory.
+- **Workflow**:
+  1. Modify React files in `src/`.
+  2. Run `npm run build` to update files in `dist/`.
+  3. Commit and push both source and `dist/` files to the `master` branch.
+  4. Render automatically pulls, builds, and deploys.
+
