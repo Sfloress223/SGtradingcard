@@ -39,6 +39,30 @@ const AdminDashboard = ({ token, onLogout }) => {
   const [inlineEdit, setInlineEdit] = useState(null); // { id, field, value }
 
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` };
+  const calculateOrderFinancials = (order) => {
+    if (!order) return { subtotal: 0, tax: 0, shipping: 0 };
+    const subtotal = (order.items || []).reduce((sum, item) => {
+      const price = parseFloat(String(item.price).replace('$', '')) || 0;
+      return sum + price * (item.qty || 1);
+    }, 0);
+
+    let tax = order.taxAmount;
+    if (tax === undefined) {
+      const state = (order.shippingAddress?.state || '').toLowerCase().trim();
+      if (state === 'tx' || state === 'texas') {
+        tax = Math.round(subtotal * 0.0825 * 100) / 100;
+      } else {
+        tax = 0;
+      }
+    }
+
+    let shipping = order.shippingCost;
+    if (shipping === undefined) {
+      shipping = Math.max(0, Math.round(((order.totalAmount || 0) - subtotal - tax) * 100) / 100);
+    }
+
+    return { subtotal, tax, shipping };
+  };
 
   const showToast = (msg, duration = 4000) => { setToast(msg); setTimeout(() => setToast(null), duration); };
 
@@ -1234,36 +1258,30 @@ const AdminDashboard = ({ token, onLogout }) => {
              </table>
 
              {/* Financials (Only show on Receipts) */}
-             {!receiptModal.isPackingSlip && (
-               <div style={{ borderTop: '2px solid #ccc', paddingTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
-                 <div style={{ width: '250px' }}>
+              {!receiptModal.isPackingSlip && (
+                <div style={{ borderTop: '2px solid #ccc', paddingTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
+                  <div style={{ width: '250px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1rem', color: '#555' }}>
+                      <span>Subtotal:</span>
+                      <span>${calculateOrderFinancials(receiptModal.order).subtotal.toFixed(2)}</span>
+                    </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1rem', color: '#555' }}>
                       <span>Texas Sales Tax (8.25%):</span>
-                      <span>${receiptModal.order.taxAmount ? receiptModal.order.taxAmount.toFixed(2) : '0.00'}</span>
+                      <span>${calculateOrderFinancials(receiptModal.order).tax.toFixed(2)}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1rem', color: '#555' }}>
                       <span>Shipping Cost:</span>
-                      <span>${(() => {
-                        if (receiptModal.order.shippingCost !== undefined && receiptModal.order.shippingCost > 0) {
-                          return receiptModal.order.shippingCost.toFixed(2);
-                        }
-                        const sub = (receiptModal.order.items || []).reduce((sum, item) => {
-                          const price = parseFloat(String(item.price).replace('$', '')) || 0;
-                          return sum + price * (item.qty || 1);
-                        }, 0);
-                        const sh = Math.max(0, (receiptModal.order.totalAmount || 0) - sub - (receiptModal.order.taxAmount || 0));
-                        return sh.toFixed(2);
-                      })()}</span>
+                      <span>${calculateOrderFinancials(receiptModal.order).shipping.toFixed(2)}</span>
                     </div>
-                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                     <span>Total Paid:</span>
-                     <span>${(receiptModal.order.totalAmount || 0).toFixed(2)}</span>
-                   </div>
-                 </div>
-               </div>
-             )}
-
-             {/* Packing Slip Footer Note */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                      <span>Total Paid:</span>
+                      <span>${(receiptModal.order.totalAmount || 0).toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {/* Packing Slip Footer Note */}
              {receiptModal.isPackingSlip && (
                <div style={{ textAlign: 'center', marginTop: '3rem', padding: '2rem', background: '#f9f9f9', borderRadius: '8px' }}>
                  <h3 style={{ margin: '0 0 10px 0' }}>Thank you for your business!</h3>

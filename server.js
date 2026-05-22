@@ -1315,12 +1315,31 @@ app.post('/api/orders/confirm', async (req, res) => {
     }
 
     if (buyerEmail && orderContext) {
-      const subtotal = (orderContext.items || []).reduce((sum, item) => {
-        const price = parseFloat(String(item.price).replace('$', '')) || 0;
-        return sum + price * (item.qty || 1);
-      }, 0);
-      const tax = orderContext.taxAmount || 0;
-      const shipping = orderContext.shippingCost !== undefined ? orderContext.shippingCost : Math.max(0, orderContext.totalAmount - subtotal - tax);
+      const getOrderTaxAndShipping = (order) => {
+        const subtotal = (order.items || []).reduce((sum, item) => {
+          const price = parseFloat(String(item.price).replace('$', '')) || 0;
+          return sum + price * (item.qty || 1);
+        }, 0);
+        
+        let tax = order.taxAmount;
+        if (tax === undefined) {
+          const state = (order.shippingAddress?.state || '').toLowerCase().trim();
+          if (state === 'tx' || state === 'texas') {
+            tax = Math.round(subtotal * 0.0825 * 100) / 100;
+          } else {
+            tax = 0;
+          }
+        }
+        
+        let shipping = order.shippingCost;
+        if (shipping === undefined) {
+          shipping = Math.max(0, Math.round(((order.totalAmount || 0) - subtotal - tax) * 100) / 100);
+        }
+        
+        return { tax, shipping, subtotal };
+      };
+
+      const { tax, shipping, subtotal } = getOrderTaxAndShipping(orderContext);
 
       sendStoreEmail(
         buyerEmail,
@@ -1417,21 +1436,35 @@ app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
 
   const targetOrder = orders[targetIdx];
 
-  // Helper to compute shipping cost dynamically if undefined/zero
-  const getOrderShippingCost = (order) => {
-    if (order.shippingCost !== undefined && order.shippingCost > 0) {
-      return order.shippingCost;
-    }
+  // Helper to compute tax & shipping cost dynamically (supports Texas out-of-state fallbacks)
+  const getOrderTaxAndShipping = (order) => {
     const subtotal = (order.items || []).reduce((sum, item) => {
       const price = parseFloat(String(item.price).replace('$', '')) || 0;
       return sum + price * (item.qty || 1);
     }, 0);
-    return Math.max(0, (order.totalAmount || 0) - subtotal - (order.taxAmount || 0));
+    
+    let tax = order.taxAmount;
+    if (tax === undefined) {
+      const state = (order.shippingAddress?.state || '').toLowerCase().trim();
+      if (state === 'tx' || state === 'texas') {
+        tax = Math.round(subtotal * 0.0825 * 100) / 100;
+      } else {
+        tax = 0;
+      }
+    }
+    
+    let shipping = order.shippingCost;
+    if (shipping === undefined) {
+      shipping = Math.max(0, Math.round(((order.totalAmount || 0) - subtotal - tax) * 100) / 100);
+    }
+    
+    return { tax, shipping };
   };
 
-  // Initialize tax and shipping cost
-  targetOrder.taxAmount = targetOrder.taxAmount || 0;
-  targetOrder.shippingCost = getOrderShippingCost(targetOrder);
+  // Initialize tax and shipping cost based on smart Texas fallback
+  const targetFin = getOrderTaxAndShipping(targetOrder);
+  targetOrder.taxAmount = targetFin.tax;
+  targetOrder.shippingCost = targetFin.shipping;
 
   let combinedSourceDetails = [];
 
@@ -1440,10 +1473,12 @@ app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
     const sourceIdx = orders.findIndex(o => o.id === sourceId);
     if (sourceIdx !== -1) {
       const sourceOrder = orders[sourceIdx];
+      const sourceFin = getOrderTaxAndShipping(sourceOrder);
+      
       targetOrder.items.push(...sourceOrder.items);
       targetOrder.totalAmount += sourceOrder.totalAmount || 0;
-      targetOrder.taxAmount += sourceOrder.taxAmount || 0;
-      targetOrder.shippingCost += getOrderShippingCost(sourceOrder);
+      targetOrder.taxAmount += sourceFin.tax;
+      targetOrder.shippingCost += sourceFin.shipping;
       combinedSourceDetails.push(sourceId);
     }
   });
