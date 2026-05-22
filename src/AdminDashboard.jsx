@@ -932,6 +932,9 @@ const AdminDashboard = ({ token, onLogout }) => {
                             <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: true })}>
                               🖨️ Packing Slip
                             </button>
+                            <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: false })}>
+                              🧾 View Receipt
+                            </button>
                             <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => handleManualFulfill(order.id)}>
                               ✅ Manual Fulfill
                             </button>
@@ -1146,7 +1149,7 @@ const AdminDashboard = ({ token, onLogout }) => {
                     .sort((a,b) => new Date(b.date) - new Date(a.date)).map(order => (
                      <tr key={order.id}>
                        <td>{new Date(order.date).toLocaleDateString()} {new Date(order.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
-                       <td style={{fontSize: '0.85rem', color: '#555'}}>{order.id}</td>
+                        <td style={{fontSize: '0.85rem', color: '#555'}}>{order.id}{order.isCombined && <span style={{background:'#e0f7fa',color:'#006064',padding:'2px 6px',borderRadius:'4px',fontSize:'0.75rem',marginLeft:'4px',fontWeight:'bold'}}>Combined</span>}</td>
                        <td style={{fontWeight: 'bold'}}>${(order.totalAmount || 0).toFixed(2)}</td>
                        <td>
                          <button className="admin-edit-btn" style={{background: 'none', color: '#1E90FF', border: '1px solid #1E90FF', padding: '4px 10px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: false })}>
@@ -1179,7 +1182,22 @@ const AdminDashboard = ({ token, onLogout }) => {
                  <h3 style={{ margin: '0 0 5px 0', fontSize: '1.4rem', color: receiptModal.isPackingSlip ? '#1E90FF' : '#555' }}>
                    {receiptModal.isPackingSlip ? 'PACKING SLIP' : 'RECEIPT'}
                  </h3>
-                 <p style={{ margin: 0, fontSize: '0.9rem' }}><strong>Order:</strong> {receiptModal.order.id}</p>
+                  <p style={{ margin: 0, fontSize: '0.9rem' }}>
+                    <strong>Order:</strong> {receiptModal.order.id}
+                    {receiptModal.order.isCombined && (
+                      <span style={{
+                        background: '#e0f7fa',
+                        color: '#006064',
+                        padding: '2px 6px',
+                        borderRadius: '4px',
+                        fontSize: '0.75rem',
+                        marginLeft: '6px',
+                        fontWeight: 'bold',
+                        display: 'inline-block',
+                        verticalAlign: 'middle'
+                      }}>Combined</span>
+                    )}
+                  </p>
                  <p style={{ margin: 0, fontSize: '0.9rem' }}><strong>Date:</strong> {new Date(receiptModal.order.date).toLocaleDateString()}</p>
                </div>
              </div>
