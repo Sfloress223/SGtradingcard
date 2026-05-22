@@ -1217,6 +1217,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
       items: items.map(i => ({ id: i.id, title: i.title, qty: i.qty, price: i.price, sellerId: i.sellerId })),
       totalAmount: amount / 100,
       taxAmount: taxAmount,
+      shippingCost: isSellerCart ? (sellerShipping || 0) : (platformShipping || 0),
       platformFeeUsd: isSellerCart ? (finalPlatformFee / 100) : 0,
       platformFeePercentage: isSellerCart ? finalFeePercentage : 0,
       stripePaymentIntentId: paymentIntent.id
@@ -1314,22 +1315,46 @@ app.post('/api/orders/confirm', async (req, res) => {
     }
 
     if (buyerEmail && orderContext) {
+      const subtotal = (orderContext.items || []).reduce((sum, item) => {
+        const price = parseFloat(String(item.price).replace('$', '')) || 0;
+        return sum + price * (item.qty || 1);
+      }, 0);
+      const tax = orderContext.taxAmount || 0;
+      const shipping = orderContext.shippingCost !== undefined ? orderContext.shippingCost : Math.max(0, orderContext.totalAmount - subtotal - tax);
+
       sendStoreEmail(
         buyerEmail,
         `Order Confirmed! Receipt for #${orderContext.id}`,
         `<div style="font-family: sans-serif; padding: 20px; color: #333;">
           <h2 style="color: #000;">Thank you for your order, ${buyerName}!</h2>
-          <p>We've received your order and are getting it ready to ship context. You'll receive another email with tracking info soon.</p>
+          <p>We've received your order and are getting it ready to ship. You'll receive another email with tracking info soon.</p>
           <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <h3>Order Summary - #${orderContext.id}</h3>
-            <ul style="list-style: none; padding: 0;">
-              ${orderContext.items.map(item => `
-                <li style="padding: 8px 0; border-bottom: 1px solid #eee;">
-                  <strong>${item.title}</strong> x${item.qty} - ${item.price}
-                </li>
-              `).join('')}
-            </ul>
-            <h3 style="text-align: right; margin-top: 15px;">Total Paid: $${(orderContext.totalAmount || 0).toFixed(2)}</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+              <thead>
+                <tr style="border-bottom: 2px solid #eee;">
+                  <th style="text-align: left; padding: 8px 0;">Item Description</th>
+                  <th style="text-align: center; padding: 8px 0; width: 60px;">Qty</th>
+                  <th style="text-align: right; padding: 8px 0; width: 80px;">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${orderContext.items.map(item => `
+                  <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 8px 0;">${item.title}</td>
+                    <td style="padding: 8px 0; text-align: center;">${item.qty}</td>
+                    <td style="padding: 8px 0; text-align: right;">${item.price}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+            
+            <div style="border-top: 2px solid #ccc; margin-top: 15px; padding-top: 10px; text-align: right;">
+              <div style="margin-bottom: 5px; color: #555;">Subtotal: $${subtotal.toFixed(2)}</div>
+              <div style="margin-bottom: 5px; color: #555;">Texas Sales Tax (8.25%): $${tax.toFixed(2)}</div>
+              <div style="margin-bottom: 5px; color: #555;">Shipping: $${shipping.toFixed(2)}</div>
+              <div style="font-size: 1.2rem; font-weight: bold; margin-top: 8px; color: #000;">Total Paid: $${(orderContext.totalAmount || 0).toFixed(2)}</div>
+            </div>
           </div>
           <p>Thank you for shopping with S&G Trading!</p>
         </div>`
@@ -1392,9 +1417,24 @@ app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
 
   const targetOrder = orders[targetIdx];
 
-  // Ensure tax and shipping fields exist on target
+  // Helper to compute shipping cost dynamically if undefined/zero
+  const getOrderShippingCost = (order) => {
+    if (order.shippingCost !== undefined && order.shippingCost > 0) {
+      return order.shippingCost;
+    }
+    const subtotal = (order.items || []).reduce((sum, item) => {
+      const price = parseFloat(String(item.price).replace('$', '')) || 0;
+      return sum + price * (item.qty || 1);
+    }, 0);
+    return Math.max(0, (order.totalAmount || 0) - subtotal - (order.taxAmount || 0));
+  };
+
+  // Initialize tax and shipping cost
   targetOrder.taxAmount = targetOrder.taxAmount || 0;
-  targetOrder.shippingCost = targetOrder.shippingCost || 0;
+  targetOrder.shippingCost = getOrderShippingCost(targetOrder);
+
+  let combinedSourceDetails = [];
+
   // Merge all source orders into target order
   sourceOrderIds.forEach(sourceId => {
     const sourceIdx = orders.findIndex(o => o.id === sourceId);
@@ -1403,7 +1443,8 @@ app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
       targetOrder.items.push(...sourceOrder.items);
       targetOrder.totalAmount += sourceOrder.totalAmount || 0;
       targetOrder.taxAmount += sourceOrder.taxAmount || 0;
-      targetOrder.shippingCost += sourceOrder.shippingCost || 0;
+      targetOrder.shippingCost += getOrderShippingCost(sourceOrder);
+      combinedSourceDetails.push(sourceId);
     }
   });
 
@@ -1412,6 +1453,52 @@ app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
 
   targetOrder.isCombined = true;
   writeJSON(ORDERS_FILE, orders);
+
+  // Send an automated combined receipt email to the buyer
+  const buyerEmail = targetOrder.shippingAddress?.email;
+  const buyerName = targetOrder.shippingAddress?.name || 'Valued Customer';
+  if (buyerEmail) {
+    sendStoreEmail(
+      buyerEmail,
+      `Your S&G Trading Orders Have Been Combined!`,
+      `<div style="font-family: sans-serif; padding: 20px; color: #333;">
+        <h2 style="color: #000;">Great news, ${buyerName}!</h2>
+        <p>To ensure your items arrive together and to minimize packaging waste, we have combined your recent orders (including ${combinedSourceDetails.join(', ')}) into a single shipment under <strong>Order #${targetOrder.id}</strong>.</p>
+        
+        <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
+          <h3>New Combined Order Summary - #${targetOrder.id}</h3>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="border-bottom: 2px solid #eee; text-align: left;">
+                <th style="padding: 8px 0;">Item Description</th>
+                <th style="padding: 8px 0; text-align: center; width: 60px;">Qty</th>
+                <th style="padding: 8px 0; text-align: right; width: 100px;">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${targetOrder.items.map(item => `
+                <tr style="border-bottom: 1px solid #eee;">
+                  <td style="padding: 8px 0;">${item.title}</td>
+                  <td style="padding: 8px 0; text-align: center; font-weight: bold;">${item.qty}</td>
+                  <td style="padding: 8px 0; text-align: right;">${item.price}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+          
+          <div style="border-top: 2px solid #ccc; margin-top: 15px; padding-top: 10px; text-align: right;">
+            <div style="margin-bottom: 5px; color: #555;">Texas Sales Tax (8.25%): $${(targetOrder.taxAmount || 0).toFixed(2)}</div>
+            <div style="margin-bottom: 5px; color: #555;">Combined Shipping Cost: $${(targetOrder.shippingCost || 0).toFixed(2)}</div>
+            <div style="font-size: 1.2rem; font-weight: bold; margin-top: 8px; color: #000;">Total Paid: $${(targetOrder.totalAmount || 0).toFixed(2)}</div>
+          </div>
+        </div>
+        
+        <p>We are packing your combined shipment now. You will receive another notification email with tracking info as soon as it ships!</p>
+        <p style="margin-top: 20px;">Thank you for shopping with S&G Trading!</p>
+      </div>`
+    ).catch(err => console.error('Error sending combined order email:', err));
+  }
+
   res.json({ success: true, targetOrder });
 });
 

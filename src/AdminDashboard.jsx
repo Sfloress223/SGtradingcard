@@ -1243,7 +1243,17 @@ const AdminDashboard = ({ token, onLogout }) => {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1rem', color: '#555' }}>
                       <span>Shipping Cost:</span>
-                      <span>${receiptModal.order.shippingCost ? receiptModal.order.shippingCost.toFixed(2) : '0.00'}</span>
+                      <span>${(() => {
+                        if (receiptModal.order.shippingCost !== undefined && receiptModal.order.shippingCost > 0) {
+                          return receiptModal.order.shippingCost.toFixed(2);
+                        }
+                        const sub = (receiptModal.order.items || []).reduce((sum, item) => {
+                          const price = parseFloat(String(item.price).replace('$', '')) || 0;
+                          return sum + price * (item.qty || 1);
+                        }, 0);
+                        const sh = Math.max(0, (receiptModal.order.totalAmount || 0) - sub - (receiptModal.order.taxAmount || 0));
+                        return sh.toFixed(2);
+                      })()}</span>
                     </div>
                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
                      <span>Total Paid:</span>
