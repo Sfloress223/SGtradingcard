@@ -919,7 +919,7 @@ const AdminDashboard = ({ token, onLogout }) => {
                     {orders.filter(o => o.items && o.shippingAddress && (o.status === 'unfulfilled' || o.status === 'paid')).map(order => (
                       <tr key={order.id}>
                         <td>{new Date(order.date).toLocaleDateString()}</td>
-                        <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}</td>
+                        <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}{order.isCombined && <span style={{background:'#e0f7fa',color:'#006064',padding:'2px 6px',borderRadius:'4px',fontSize:'0.75rem',marginLeft:'4px'}}>Combined</span>}</td>
                         <td className="admin-td-title">{order.shippingAddress?.name || 'Unknown'}</td>
                         <td>{(order.items || []).length} items</td>
                         <td>${(order.totalAmount || 0).toFixed(2)}</td>
@@ -974,7 +974,7 @@ const AdminDashboard = ({ token, onLogout }) => {
                     {orders.filter(o => o.items && o.shippingAddress && (o.status === 'fulfilled' || o.status === 'cancelled')).map(order => (
                       <tr key={order.id} style={{ opacity: order.status === 'cancelled' ? 0.6 : 1 }}>
                         <td>{new Date(order.date).toLocaleDateString()}</td>
-                        <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}</td>
+                        <td style={{fontSize: '0.85rem', color: '#888'}}>{order.id}{order.isCombined && <span style={{background:'#e0f7fa',color:'#006064',padding:'2px 6px',borderRadius:'4px',fontSize:'0.75rem',marginLeft:'4px'}}>Combined</span>}</td>
                         <td className="admin-td-title">{order.shippingAddress?.name || 'Unknown'}</td>
                         <td>{(order.items || []).length} items</td>
                         <td>${(order.totalAmount || 0).toFixed(2)}</td>
@@ -1219,12 +1219,14 @@ const AdminDashboard = ({ token, onLogout }) => {
              {!receiptModal.isPackingSlip && (
                <div style={{ borderTop: '2px solid #ccc', paddingTop: '1rem', display: 'flex', justifyContent: 'flex-end' }}>
                  <div style={{ width: '250px' }}>
-                   {receiptModal.order.taxAmount > 0 && (
-                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1rem', color: '#555' }}>
-                       <span>Texas Sales Tax (8.25%):</span>
-                       <span>${receiptModal.order.taxAmount.toFixed(2)}</span>
-                     </div>
-                   )}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1rem', color: '#555' }}>
+                      <span>Texas Sales Tax (8.25%):</span>
+                      <span>${receiptModal.order.taxAmount ? receiptModal.order.taxAmount.toFixed(2) : '0.00'}</span>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1rem', color: '#555' }}>
+                      <span>Shipping Cost:</span>
+                      <span>${receiptModal.order.shippingCost ? receiptModal.order.shippingCost.toFixed(2) : '0.00'}</span>
+                    </div>
                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '1.2rem', fontWeight: 'bold' }}>
                      <span>Total Paid:</span>
                      <span>${(receiptModal.order.totalAmount || 0).toFixed(2)}</span>

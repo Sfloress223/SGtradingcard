@@ -1390,28 +1390,32 @@ app.post('/api/admin/orders/combine', authMiddleware, (req, res) => {
   const { targetOrderId, sourceOrderIds } = req.body;
   if (!fs.existsSync(ORDERS_FILE)) return res.json({ success: false });
   let orders = readJSON(ORDERS_FILE);
-  
+
   const targetIdx = orders.findIndex(o => o.id === targetOrderId);
   if (targetIdx === -1) return res.status(404).json({ error: 'Target order not found' });
-  
+
   const targetOrder = orders[targetIdx];
-  
-  for (const sourceId of sourceOrderIds) {
+
+  // Ensure tax and shipping fields exist on target
+  targetOrder.taxAmount = targetOrder.taxAmount || 0;
+  targetOrder.shippingCost = targetOrder.shippingCost || 0;
+  // Merge all source orders into target order
+  sourceOrderIds.forEach(sourceId => {
     const sourceIdx = orders.findIndex(o => o.id === sourceId);
     if (sourceIdx !== -1) {
       const sourceOrder = orders[sourceIdx];
-      // Move items
       targetOrder.items.push(...sourceOrder.items);
-      targetOrder.totalAmount += sourceOrder.totalAmount;
-      if (sourceOrder.taxAmount) {
-        targetOrder.taxAmount = (targetOrder.taxAmount || 0) + sourceOrder.taxAmount;
-      }
-      // Mark source as merged
-      orders[sourceIdx].status = 'merged';
+      targetOrder.totalAmount += sourceOrder.totalAmount || 0;
+      targetOrder.taxAmount += sourceOrder.taxAmount || 0;
+      targetOrder.shippingCost += sourceOrder.shippingCost || 0;
     }
-  }
-  
+  });
+
+  // Remove source orders, keep target
+  orders = orders.filter(o => !sourceOrderIds.includes(o.id) || o.id === targetOrderId);
+
   writeJSON(ORDERS_FILE, orders);
+  targetOrder.isCombined = true;
   res.json({ success: true, targetOrder });
 });
 
