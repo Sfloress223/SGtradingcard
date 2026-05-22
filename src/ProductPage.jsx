@@ -26,6 +26,13 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
   const isPackLike = !isGradedCard && !isSingleCard && product.title && 
     (product.title.toLowerCase().includes('pack') || product.title.toLowerCase().includes('blister'));
 
+  const isJapanesePack = isPackLike && (
+    product.title.toLowerCase().includes('japanese') || 
+    product.title.toLowerCase().includes('jp') || 
+    product.title.toLowerCase().includes('symphonia') || 
+    product.title.toLowerCase().includes('brave')
+  );
+
   return (
     <section className="product-page">
       <button className="back-btn" onClick={onBack}>
@@ -36,7 +43,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div className="product-page-image" style={{ width: '100%', aspectRatio: isGradedCard ? '3/4' : '1/1', background: '#fff', borderRadius: '12px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {mainImage ? (
-              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: (isGradedCard || isSingleCard) ? '0' : (isPackLike ? '12px' : '24px'), transform: isGradedCard ? 'scale(1.6)' : (isSingleCard ? 'none' : (isPackLike ? 'scale(1.2)' : 'scale(1.0)')), mixBlendMode: isGradedCard ? 'darken' : 'normal' }} />
+              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: (isGradedCard || isSingleCard) ? '0' : (isJapanesePack ? '5px' : (isPackLike ? '12px' : '24px')), transform: isGradedCard ? 'scale(1.6)' : (isSingleCard ? 'none' : (isJapanesePack ? 'scale(2.0)' : (isPackLike ? 'scale(1.2)' : 'scale(1.0)'))), mixBlendMode: isGradedCard ? 'darken' : 'normal' }} />
             ) : (
               <span style={{ fontSize: '5rem' }}>📦</span>
             )}

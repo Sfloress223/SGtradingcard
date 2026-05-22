@@ -10,6 +10,13 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
   const isPackLike = !isGradedCard && !isSingleCard && title && 
     (title.toLowerCase().includes('pack') || title.toLowerCase().includes('blister'));
 
+  const isJapanesePack = isPackLike && (
+    title.toLowerCase().includes('japanese') || 
+    title.toLowerCase().includes('jp') || 
+    title.toLowerCase().includes('symphonia') || 
+    title.toLowerCase().includes('brave')
+  );
+
   return (
     <div className="product-card" onClick={() => onViewProduct && onViewProduct(product)}>
       <div className="product-image-container" style={{ aspectRatio: isGradedCard ? '3/4' : '1/1' }}>
@@ -68,8 +75,8 @@ const ProductCard = ({ product, title, imgUrl, price, soldOut, onAddToCart, onVi
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'contain',
-                padding: (isGradedCard || isSingleCard) ? '0' : (isPackLike ? '6px' : '12px'),
-                transform: isGradedCard ? 'scale(1.6)' : (isSingleCard ? 'scale(1.25)' : (isPackLike ? 'scale(1.22)' : 'scale(1.0)')),
+                padding: (isGradedCard || isSingleCard) ? '0' : (isJapanesePack ? '0px' : (isPackLike ? '6px' : '12px')),
+                transform: isGradedCard ? 'scale(1.6)' : (isSingleCard ? 'scale(1.25)' : (isJapanesePack ? 'scale(2.0)' : (isPackLike ? 'scale(1.22)' : 'scale(1.0)'))),
                 mixBlendMode: isGradedCard ? 'darken' : 'normal',
                 transition: 'transform 0.3s ease'
               }} 
