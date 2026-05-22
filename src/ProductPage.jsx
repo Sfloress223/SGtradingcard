@@ -21,6 +21,8 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
     (product.condition && ['psa', 'cgc', 'beckett'].some(g => product.condition.toLowerCase().includes(g))) ||
     (product.title && ['psa', 'cgc', 'beckett', 'graded', 'slab'].some(g => product.title.toLowerCase().includes(g)));
 
+  const isSingleCard = product.setId === 'singles' || product.cardType === 'Single';
+
   return (
     <section className="product-page">
       <button className="back-btn" onClick={onBack}>
@@ -31,7 +33,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div className="product-page-image" style={{ width: '100%', aspectRatio: isGradedCard ? '3/4' : '1/1', background: '#fff', borderRadius: '12px', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             {mainImage ? (
-              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', transform: isGradedCard ? 'scale(1.6)' : 'none', mixBlendMode: isGradedCard ? 'darken' : 'normal' }} />
+              <img src={mainImage} alt={product.title} style={{ width: '100%', height: '100%', objectFit: 'contain', padding: (isGradedCard || isSingleCard) ? '0' : '20px', transform: isGradedCard ? 'scale(1.6)' : (isSingleCard ? 'none' : 'scale(1.05)'), mixBlendMode: isGradedCard ? 'darken' : 'normal' }} />
             ) : (
               <span style={{ fontSize: '5rem' }}>📦</span>
             )}
