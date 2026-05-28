@@ -7,7 +7,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Surging Sparks expansion. Each pack may include rare holographic, illustration rare, or special art rare cards.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/224a05f2-8828-4f97-9299-1d207332261a/SuzieQ+LOGO+%289%29.png?format=500w",
-    "stock": 28
+    "stock": 12
   },
   {
     "id": 102,
@@ -321,13 +321,18 @@
   },
   {
     "id": 607,
-    "setId": "misc",
+    "setId": "bw-era",
     "title": "Pokémon TCG: Unova Mini Tin",
     "price": "$20.99",
     "soldOut": true,
     "description": "Collectible mini tin featuring Unova region Pokémon artwork. Contains 2 booster packs and 1 art card. Collect all designs!",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1971202f-3b55-40c3-b97d-2c666ec4eda5/SuzieQ+LOGO+%2830%29.png?format=500w",
-    "stock": 0
+    "stock": 0,
+    "hidden": false,
+    "galleryUrls": [
+      "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1971202f-3b55-40c3-b97d-2c666ec4eda5/SuzieQ+LOGO+%2830%29.png?format=500w"
+    ],
+    "shippingWeight": ""
   },
   {
     "id": 608,
@@ -353,7 +358,7 @@
     "id": 1102,
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order 3-Pack Blister",
-    "price": "$24.99",
+    "price": "$23.99",
     "soldOut": false,
     "description": "Contains 3 Perfect Order booster packs, a shiny coin, and a special foil promo card to boost your collection.",
     "imgUrl": "/images/po-blister.jpg",
@@ -364,10 +369,10 @@
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order Booster Bundle",
     "price": "$46.99",
-    "soldOut": false,
+    "soldOut": true,
     "description": "Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.",
     "imgUrl": "/images/po-bundle.png",
-    "stock": 3
+    "stock": 0
   },
   {
     "id": 1104,
@@ -377,7 +382,7 @@
     "soldOut": false,
     "description": "Contains 10 cards from the Perfect Order expansion. Uncover powerful new Pokémon ex and stunning illustration rares.",
     "imgUrl": "/images/po-booster.png",
-    "stock": 36
+    "stock": 26
   },
   {
     "id": 1105,
@@ -998,7 +1003,7 @@
   {
     "id": 1326,
     "title": "Destined rival Single booster pack",
-    "price": "8.99",
+    "price": "$8.99",
     "setId": "misc",
     "imgUrl": "https://i.ibb.co/XZVV03wk/81dfd5932fa2.png",
     "description": "",
@@ -1032,10 +1037,134 @@
     "setId": "graded-cards",
     "imgUrl": "https://i.ibb.co/7JSjB913/7b7af9ae4ddc.png",
     "description": "The Pokémon TCG: Mega Latias ex Box includes:\n• 1 foil promo card featuring Mega Latias ex\n• 1 oversize lenticular promo card featuring Mega Latias ex\n• 4 Pokémon TCG booster packs",
-    "stock": 1,
+    "stock": 0,
     "hidden": false,
     "galleryUrls": [
       "https://i.ibb.co/7JSjB913/7b7af9ae4ddc.png"
+    ],
+    "soldOut": true,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1329,
+    "title": "Pokémon TCG: Mega Brave booster pack",
+    "price": "$3.99",
+    "setId": "japanese",
+    "imgUrl": "https://i.ibb.co/Wv6bSCps/7316684476b8.png",
+    "description": "Each pack contains 5 random cards",
+    "stock": 30,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/Wv6bSCps/7316684476b8.png",
+      "https://i.ibb.co/qFW6dpzD/4f7fc2d9434e.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1330,
+    "title": "Pokemon TCG: Mega Symphonia booster pack",
+    "price": "$3.99",
+    "setId": "japanese",
+    "imgUrl": "https://i.ibb.co/LD084YjL/89c457c485a5.png",
+    "description": "Each pack contains 5 random cards",
+    "stock": 30,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/LD084YjL/89c457c485a5.png",
+      "https://i.ibb.co/VpMKtnSQ/e9aa6d958119.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1331,
+    "title": "Pokemon TCG: Inferno X Booster Pack ",
+    "price": "$4.99",
+    "setId": "japanese",
+    "imgUrl": "https://i.ibb.co/W4DysfT6/6d60b5a58964.png",
+    "description": "Each pack contains 5 random cards",
+    "stock": 74,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/W4DysfT6/6d60b5a58964.png",
+      "https://i.ibb.co/b9V5rWf/6acd4fbb5fb8.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1332,
+    "title": "Pokémon TCG: Nihil Zero Booster pack ",
+    "price": "$3.49",
+    "setId": "japanese",
+    "imgUrl": "https://i.ibb.co/G3WRpC4K/6e313016d479.png",
+    "description": "Each pack contains 5 random cards",
+    "stock": 20,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/G3WRpC4K/6e313016d479.png",
+      "https://i.ibb.co/qL9BJCH7/5dcc6ebb589c.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1333,
+    "title": "Pokemon TCG: Chaos Rising Elite Trainer Box",
+    "price": "$87.99",
+    "setId": "chaos-rising",
+    "imgUrl": "https://i.ibb.co/6Rp3Dzrw/765b6301de0b.png",
+    "description": "The Pokémon TCG: Mega Evolution—Chaos Rising Elite Trainer Box includes:\n• 9 Pokémon TCG: Mega Evolution—Chaos Rising booster packs (contents vary by product)\n• 1 full-art foil promo card featuring Fennekin\n• 65 card sleeves\n• 40 Pokémon TCG Energy cards\n• A player’s guide to the Mega Evolution—Chaos Rising expansion\n• 6 damage-counter dice\n• 1 competition-legal coin-flip die\n• 1 plastic coin\n• A collector’s box to hold everything, with 6 dividers to keep it organized\n• A code card for Pokémon Trading Card Game Live",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/6Rp3Dzrw/765b6301de0b.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1334,
+    "title": "Pokémon TCG: Chaos Rising Booster Bundle ",
+    "price": "$48.99",
+    "setId": "chaos-rising",
+    "imgUrl": "https://i.ibb.co/JwmB8wRn/e33eb142fcba.png",
+    "description": "Expand your collection with this Booster Bundle containing six booster packs from Pokémon TCG: Mega Evolution—Chaos Rising.",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/JwmB8wRn/e33eb142fcba.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1335,
+    "title": "Pokemon TCG: Chaos Rising 3 Pack Blister ",
+    "price": "$24.99",
+    "setId": "chaos-rising",
+    "imgUrl": "https://i.ibb.co/fVqVLkKT/6848cdd54019.png",
+    "description": "Each blister comes with 3 booster packs and promotional card. (Pokémon TCG booster packs and contents vary by product)",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/fVqVLkKT/6848cdd54019.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1336,
+    "title": "Pokémon TCG: Chaos Rising Sleeved Booster Pack ",
+    "price": "$7.99",
+    "setId": "chaos-rising",
+    "imgUrl": "https://i.ibb.co/XZsb3syz/47681da710cd.png",
+    "description": "Each sealed Chaos Rising Booster Pack in a cardboard guard contains 10 random cards (contents vary by product)",
+    "stock": 3,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/XZsb3syz/47681da710cd.png"
     ],
     "soldOut": false,
     "shippingWeight": ""

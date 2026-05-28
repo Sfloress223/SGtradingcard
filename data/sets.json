@@ -135,5 +135,13 @@
     "bannerUrl": "/images/merch.svg",
     "color": "#FF8C00",
     "emoji": "🧸"
+  },
+  {
+    "id": "chaos-rising",
+    "parent": "all-pokemon",
+    "name": "Chaos Rising ",
+    "imgUrl": "https://i.ibb.co/8grzWgwY/88bcd429d651.webp",
+    "bannerUrl": "https://i.ibb.co/8grzWgwY/88bcd429d651.webp",
+    "color": "#1E90FF"
   }
 ]

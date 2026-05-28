@@ -327,6 +327,29 @@ const AdminDashboard = ({ token, onLogout }) => {
       showToast('Network error cancelling order');
     }
   };
+
+  const handleDeleteOrder = async (orderId) => {
+    if (!window.confirm("⚠️ WARNING: This will permanently delete this order from the database. It will NOT refund the customer via Stripe or alter inventory stock. This cannot be undone. Are you sure?")) return;
+    
+    try {
+      const res = await fetch(`${API}/api/admin/orders/${orderId}/delete`, {
+        method: 'POST',
+        headers
+      });
+      const data = res.ok ? await res.json() : null;
+      
+      if (res.ok) {
+        setOrders(prev => prev.filter(o => o.id !== orderId));
+        showToast('Order Deleted Permanently!');
+      } else {
+        showToast((data && data.error) || 'Delete failed');
+      }
+    } catch (err) {
+      console.error('Delete error:', err);
+      showToast('Network error deleting order');
+    }
+  };
+
   const handleManualFulfill = async (orderId) => {
     if (!window.confirm("Mark this order as fulfilled without generating a label?")) return;
     try {
@@ -975,9 +998,12 @@ const AdminDashboard = ({ token, onLogout }) => {
                             <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setCombineModal({ open: true, order, targetId: '' })}>
                               🔗 Combine
                             </button>
-                            <button className="admin-delete-btn" style={{fontSize: '0.75rem', padding: '4px 8px', color: '#e33', borderColor: '#e33'}} onClick={() => handleCancelOrder(order.id)}>
-                              Cancel?
-                            </button>
+                            <button className="admin-delete-btn" style={{fontSize: '0.75rem', padding: '4px 8px', color: '#ff8c00', borderColor: '#ff8c00'}} onClick={() => handleCancelOrder(order.id)}>
+                               💸 Refund & Cancel
+                             </button>
+                             <button className="admin-delete-btn" style={{fontSize: '0.75rem', padding: '4px 8px', color: '#e33', borderColor: '#e33', marginTop: '4px'}} onClick={() => handleDeleteOrder(order.id)}>
+                               🗑️ Delete (No Refund)
+                             </button>
                           </div>
                         </td>
                        </tr>
@@ -1022,9 +1048,14 @@ const AdminDashboard = ({ token, onLogout }) => {
                           }
                          </td>
                          <td>
-                            <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: false })}>
+                            <div style={{ display: 'flex', gap: '0.25rem', flexDirection: 'column' }}>
+                              <button className="admin-cancel-btn" style={{fontSize: '0.75rem', padding: '4px 8px'}} onClick={() => setReceiptModal({ open: true, order, isPackingSlip: false })}>
                               View Receipt
-                            </button>
+                              </button>
+                              <button className="admin-delete-btn" style={{fontSize: '0.75rem', padding: '4px 8px', color: '#e33', borderColor: '#e33'}} onClick={() => handleDeleteOrder(order.id)}>
+                                🗑️ Delete
+                              </button>
+                            </div>
                          </td>
                        </tr>
                     ))}

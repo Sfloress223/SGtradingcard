@@ -2,7 +2,7 @@
   {
     "id": "ord_1778294826145",
     "date": "2026-05-09T02:47:06.145Z",
-    "status": "paid",
+    "status": "fulfilled",
     "shippingAddress": {
       "name": "easy martimez",
       "email": "b.easy013@gmail.com",
@@ -24,45 +24,26 @@
         "title": "Pokémon TCG: Mega Evolution Booster Pack",
         "qty": 1,
         "price": "$7.99"
-      }
-    ],
-    "totalAmount": 42.19,
-    "platformFeeUsd": 0,
-    "platformFeePercentage": 0,
-    "stripePaymentIntentId": "pi_3TV0v0PYn0dlcAYE3n1Jf1kV",
-    "paymentConfirmed": true
-  },
-  {
-    "id": "ord_1778423628000",
-    "date": "2026-05-10T14:33:48.000Z",
-    "status": "paid",
-    "shippingAddress": {
-      "name": "Eric Martinez",
-      "email": "b_easy_13@yahoo.com",
-      "phone": "",
-      "street1": "",
-      "street2": "",
-      "city": "",
-      "state": "",
-      "zip": ""
-    },
-    "items": [
+      },
       {
         "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Mini Tin x1",
         "qty": 1,
         "price": "$32.45"
       }
     ],
-    "totalAmount": 32.45,
+    "totalAmount": 74.64,
     "platformFeeUsd": 0,
     "platformFeePercentage": 0,
-    "stripePaymentIntentId": "pi_3TVYQSPYn0dlcAYE3QmntyWT",
-    "paymentConfirmed": true
+    "stripePaymentIntentId": "pi_3TV0v0PYn0dlcAYE3n1Jf1kV",
+    "paymentConfirmed": true,
+    "taxAmount": 0,
+    "shippingCost": 0,
+    "isCombined": true
   },
   {
     "id": "ord_1779071071994",
     "date": "2026-05-18T02:24:31.994Z",
-    "status": "paid",
+    "status": "fulfilled",
     "shippingAddress": {
       "name": "Shandar Gillespie ",
       "email": "shandarelli@gmail.com",
@@ -86,5 +67,131 @@
     "platformFeePercentage": 0,
     "stripePaymentIntentId": "pi_3TYGr5PYn0dlcAYE3FvzctJA",
     "paymentConfirmed": true
+  },
+  {
+    "id": "ord_1779500301111",
+    "date": "2026-05-23T01:38:21.111Z",
+    "status": "fulfilled",
+    "shippingAddress": {
+      "name": "Shandar Gillespie",
+      "email": "Shandarelli@gmail.com",
+      "phone": "8165298563",
+      "address": "19412 E. 13th St. N",
+      "city": "Independence ",
+      "state": "Mo",
+      "zip": "64056"
+    },
+    "items": [
+      {
+        "id": 1331,
+        "title": "Pokemon TCG: Inferno X Booster Pack ",
+        "qty": 10,
+        "price": "$4.99"
+      },
+      {
+        "id": 1103,
+        "title": "Pokémon TCG: Mega Evolution—Perfect Order Booster Bundle",
+        "qty": 1,
+        "price": "$46.99"
+      },
+      {
+        "id": 1332,
+        "title": "Pokémon TCG: Nihil Zero Booster pack ",
+        "qty": 6,
+        "price": "$3.49"
+      },
+      {
+        "id": 101,
+        "title": "Pokémon TCG: Scarlet & Violet-Surging Sparks Booster Pack",
+        "qty": 5,
+        "price": "$6.99"
+      },
+      {
+        "id": 1332,
+        "title": "Pokémon TCG: Nihil Zero Booster pack ",
+        "qty": 4,
+        "price": "$3.49"
+      },
+      {
+        "id": 1331,
+        "title": "Pokemon TCG: Inferno X Booster Pack ",
+        "qty": 4,
+        "price": "$4.99"
+      }
+    ],
+    "totalAmount": 192.69,
+    "taxAmount": 0,
+    "shippingCost": 5.99,
+    "platformFeeUsd": 0,
+    "platformFeePercentage": 0,
+    "stripePaymentIntentId": "pi_3Ta4W9PYn0dlcAYE1bqlHSBN",
+    "paymentConfirmed": true,
+    "isCombined": true
+  },
+  {
+    "id": "ord_1779502475340",
+    "date": "2026-05-23T02:14:35.340Z",
+    "status": "fulfilled",
+    "shippingAddress": {
+      "name": "Patience A",
+      "email": "patienceagbe8@gmail.com",
+      "phone": "9726747560",
+      "address": "2201 Red Bluff Dr",
+      "city": "Carrollton",
+      "state": "TX",
+      "zip": "75007"
+    },
+    "items": [
+      {
+        "id": 1336,
+        "title": "Pokémon TCG: Chaos Rising Sleeved Booster Pack ",
+        "qty": 2,
+        "price": "$7.99"
+      },
+      {
+        "id": 1336,
+        "title": "Pokémon TCG: Chaos Rising Sleeved Booster Pack ",
+        "qty": 1,
+        "price": "$7.99"
+      }
+    ],
+    "totalAmount": 38.910000000000004,
+    "taxAmount": 2.965875,
+    "shippingCost": 11.98,
+    "platformFeeUsd": 0,
+    "platformFeePercentage": 0,
+    "stripePaymentIntentId": "pi_3Ta55DPYn0dlcAYE1DyIuwXg",
+    "paymentConfirmed": true,
+    "isCombined": true
+  },
+  {
+    "id": "ord_1779505542436",
+    "date": "2026-05-23T03:05:42.436Z",
+    "status": "fulfilled",
+    "shippingAddress": {
+      "name": "E Martinez",
+      "email": "b.easy013@gmail.com",
+      "phone": "",
+      "address": "PO box 25",
+      "city": "Carlsbad",
+      "state": "Texas",
+      "zip": "76934"
+    },
+    "items": [
+      {
+        "id": 1336,
+        "title": "Pokémon TCG: Chaos Rising Sleeved Booster Pack ",
+        "qty": 1,
+        "price": "$7.99"
+      }
+    ],
+    "totalAmount": 15.13,
+    "taxAmount": 1.15335,
+    "shippingCost": 5.99,
+    "platformFeeUsd": 0,
+    "platformFeePercentage": 0,
+    "stripePaymentIntentId": "pi_3Ta5sgPYn0dlcAYE3MGq034c",
+    "trackingNumber": "9300120845500014560250",
+    "trackingUrl": "https://tools.usps.com/go/TrackConfirmAction_input?origTrackNum=9300120845500014560250"
   }
 ]

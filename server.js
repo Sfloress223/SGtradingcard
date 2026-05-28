@@ -1641,6 +1641,27 @@ app.post('/api/admin/orders/:id/cancel', authMiddleware, async (req, res) => {
   }
 });
 
+app.post('/api/admin/orders/:id/delete', authMiddleware, (req, res) => {
+  if (req.user.role !== 'admin') return res.status(403).json({ error: 'Access denied' });
+  
+  const { id } = req.params;
+  try {
+    if (!fs.existsSync(ORDERS_FILE)) return res.status(404).json({ error: 'Order file not found' });
+    let orders = readJSON(ORDERS_FILE);
+    const orderIdx = orders.findIndex(o => o.id === id);
+    if (orderIdx === -1) return res.status(404).json({ error: 'Order not found' });
+    
+    orders.splice(orderIdx, 1);
+    writeJSON(ORDERS_FILE, orders);
+    
+    console.log(`🗑️ Permanently deleted order ${id} from database`);
+    res.json({ success: true, message: 'Order permanently deleted' });
+  } catch (err) {
+    console.error('Delete Order Error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Serve React App - Catch All
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
