@@ -833,7 +833,7 @@ app.get('/api/admin/orders', authMiddleware, (req, res) => {
   if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
   // S&G Retail Admin shouldn't fulfill or see P2P seller orders here.
   const allOrders = readJSON(ORDERS_FILE);
-  const retailOrders = allOrders.filter(o => !o.items || !o.items.some(i => i.sellerId));
+  const retailOrders = allOrders.filter(o => o.paymentConfirmed && (!o.items || !o.items.some(i => i.sellerId)));
   res.json(retailOrders);
 });
 
@@ -842,7 +842,7 @@ app.get('/api/admin/analytics', authMiddleware, (req, res) => {
   if (!fs.existsSync(ORDERS_FILE)) return res.json([]);
   const allOrders = readJSON(ORDERS_FILE);
   // Filter exclusively for Grand Exchange orders
-  const geOrders = allOrders.filter(o => o.items && o.items.some(i => i.sellerId));
+  const geOrders = allOrders.filter(o => o.paymentConfirmed && o.items && o.items.some(i => i.sellerId));
   res.json(geOrders);
 });
 
@@ -852,7 +852,7 @@ app.get('/api/admin/analytics', authMiddleware, (req, res) => {
 app.get('/api/seller/orders', authMiddleware, async (req, res) => {
   if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
   const allOrders = readJSON(ORDERS_FILE);
-  const myOrders = allOrders.filter(o => o.items && o.items.some(i => i.sellerId === req.user.id));
+  const myOrders = allOrders.filter(o => o.paymentConfirmed && o.items && o.items.some(i => i.sellerId === req.user.id));
   
   // Since we don't save the address in our DB for privacy, fetch live from Stripe
   for (let order of myOrders) {
