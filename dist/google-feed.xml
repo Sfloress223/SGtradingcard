@@ -15,8 +15,9 @@
       <g:availability>in stock</g:availability>
       <g:price>6.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>102</g:id>
@@ -28,8 +29,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>72.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>201</g:id>
@@ -41,8 +43,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>12.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>202</g:id>
@@ -54,8 +57,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>165.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>203</g:id>
@@ -67,8 +71,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>21.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>4 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>301</g:id>
@@ -80,8 +85,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>64.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>302</g:id>
@@ -93,8 +99,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>129.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>303</g:id>
@@ -106,8 +113,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>22.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>4 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>351</g:id>
@@ -119,8 +127,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>6.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>352</g:id>
@@ -132,8 +141,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>38.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>353</g:id>
@@ -145,8 +155,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>65.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>401</g:id>
@@ -158,8 +169,9 @@
       <g:availability>in stock</g:availability>
       <g:price>7.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>402</g:id>
@@ -171,8 +183,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>38.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>403</g:id>
@@ -184,8 +197,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>164.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>3.5 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>405</g:id>
@@ -197,8 +211,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>84.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>406</g:id>
@@ -210,8 +225,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>84.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>409</g:id>
@@ -223,8 +239,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>19.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>4 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>410</g:id>
@@ -236,8 +253,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>82.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>411</g:id>
@@ -249,8 +267,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>63.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>412</g:id>
@@ -262,8 +281,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>7.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>501</g:id>
@@ -275,8 +295,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>82.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>502</g:id>
@@ -288,8 +309,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>82.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>503</g:id>
@@ -301,8 +323,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>56.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>504</g:id>
@@ -314,8 +337,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>56.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>505</g:id>
@@ -327,8 +351,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>8.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>506</g:id>
@@ -340,8 +365,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>8.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>601</g:id>
@@ -353,8 +379,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>72.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>602</g:id>
@@ -366,8 +393,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>65.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>603</g:id>
@@ -379,8 +407,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>29.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>604</g:id>
@@ -392,8 +421,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>32.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>605</g:id>
@@ -405,8 +435,9 @@
       <g:availability>in stock</g:availability>
       <g:price>14.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>606</g:id>
@@ -418,8 +449,9 @@
       <g:availability>in stock</g:availability>
       <g:price>14.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>607</g:id>
@@ -431,8 +463,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>20.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>4 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>608</g:id>
@@ -444,8 +477,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>165.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>1101</g:id>
@@ -457,8 +491,9 @@
       <g:availability>in stock</g:availability>
       <g:price>79.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>1102</g:id>
@@ -470,8 +505,9 @@
       <g:availability>in stock</g:availability>
       <g:price>23.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1103</g:id>
@@ -483,8 +519,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>46.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1104</g:id>
@@ -496,8 +533,9 @@
       <g:availability>in stock</g:availability>
       <g:price>6.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1105</g:id>
@@ -509,8 +547,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>18.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>4 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>103</g:id>
@@ -522,8 +561,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>234.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.8 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>609</g:id>
@@ -535,8 +575,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>29.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>1003</g:id>
@@ -548,8 +589,9 @@
       <g:availability>in stock</g:availability>
       <g:price>8.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>2 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>414</g:id>
@@ -561,8 +603,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>49.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>304</g:id>
@@ -574,8 +617,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>46.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>305</g:id>
@@ -587,8 +631,9 @@
       <g:availability>out of stock</g:availability>
       <g:price>10.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1004</g:id>
@@ -609,8 +654,9 @@ Blind Box Surprise Format 🎁
       <g:availability>in stock</g:availability>
       <g:price>15.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1005</g:id>
@@ -629,8 +675,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>15.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>610</g:id>
@@ -642,8 +689,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>18.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>5 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>611</g:id>
@@ -655,8 +703,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>19.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>5 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>612</g:id>
@@ -668,8 +717,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>19.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>613</g:id>
@@ -681,8 +731,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>39.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>0.8 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>104</g:id>
@@ -694,8 +745,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>48.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>614</g:id>
@@ -707,8 +759,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>79.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>2.5 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>415</g:id>
@@ -720,8 +773,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>8.49 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>416</g:id>
@@ -733,8 +787,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>8.49 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1106</g:id>
@@ -746,8 +801,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>7.49 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1301</g:id>
@@ -759,8 +815,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>22.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1302</g:id>
@@ -772,8 +829,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>34.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>1303</g:id>
@@ -785,8 +843,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>24.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>4 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1304</g:id>
@@ -798,8 +857,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>159.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>1305</g:id>
@@ -811,8 +871,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1306</g:id>
@@ -824,8 +885,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1307</g:id>
@@ -837,8 +899,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1308</g:id>
@@ -850,8 +913,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1309</g:id>
@@ -863,8 +927,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1310</g:id>
@@ -876,8 +941,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1311</g:id>
@@ -889,8 +955,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1312</g:id>
@@ -902,8 +969,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1313</g:id>
@@ -915,8 +983,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1314</g:id>
@@ -928,8 +997,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1315</g:id>
@@ -941,8 +1011,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1316</g:id>
@@ -954,8 +1025,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1317</g:id>
@@ -967,8 +1039,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1318</g:id>
@@ -980,8 +1053,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1319</g:id>
@@ -993,8 +1067,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1320</g:id>
@@ -1006,8 +1081,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1321</g:id>
@@ -1019,8 +1095,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1322</g:id>
@@ -1032,8 +1109,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1323</g:id>
@@ -1045,8 +1123,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1324</g:id>
@@ -1058,8 +1137,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1325</g:id>
@@ -1071,8 +1151,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>.00 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1326</g:id>
@@ -1084,8 +1165,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>8.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>0.8 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>1327</g:id>
@@ -1101,8 +1183,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>39.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>1328</g:id>
@@ -1117,8 +1200,9 @@ Blind Box Surprise Format</description>
       <g:availability>out of stock</g:availability>
       <g:price>39.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1329</g:id>
@@ -1130,8 +1214,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>3.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1330</g:id>
@@ -1143,8 +1228,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>3.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1331</g:id>
@@ -1156,8 +1242,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>4.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1332</g:id>
@@ -1169,8 +1256,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>3.49 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1333</g:id>
@@ -1192,8 +1280,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>87.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
     </item>
     <item>
       <g:id>1334</g:id>
@@ -1205,8 +1294,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>48.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>6 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1335</g:id>
@@ -1218,8 +1308,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>24.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
     <item>
       <g:id>1336</g:id>
@@ -1231,8 +1322,9 @@ Blind Box Surprise Format</description>
       <g:availability>in stock</g:availability>
       <g:price>7.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
       <g:identifier_exists>no</g:identifier_exists>
-      
+      <g:shipping_weight>1 oz</g:shipping_weight>
     </item>
   </channel>
 </rss>
