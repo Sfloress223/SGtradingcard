@@ -308,6 +308,39 @@ app.get('/google-feed.xml', (req, res) => {
       let condition = product.condition ? (product.condition.toLowerCase().includes('10') || product.condition.toLowerCase().includes('mint') ? 'new' : 'used') : 'new';
       let weight = product.shippingWeight || getWeight(product.title);
       
+      let rawPrice = parseFloat((product.price || "").replace('$', '').replace(/,/g, '')) || 0;
+      let shippingXml = '';
+      if (rawPrice >= 150) {
+        shippingXml = `
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>`;
+      } else {
+        shippingXml = `
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>`;
+      }
+
+      let productType = 'Trading Cards &gt; Collectibles';
+      let titleLower = (product.title || "").toLowerCase();
+      const isGraded = product.setId === 'graded-cards' || (product.condition && ['psa', 'cgc', 'beckett'].some(g => product.condition.toLowerCase().includes(g))) || (titleLower.includes('psa') || titleLower.includes('cgc') || titleLower.includes('beckett') || titleLower.includes('graded') || titleLower.includes('slab'));
+      const isSingle = product.setId === 'singles' || product.cardType === 'Single';
+      
+      if (isGraded) {
+        productType = 'Trading Cards &gt; Graded Slabs &gt; Pokémon';
+      } else if (isSingle) {
+        productType = 'Trading Cards &gt; Singles &gt; Pokémon';
+      } else if (titleLower.includes('pack') || titleLower.includes('blister')) {
+        productType = 'Trading Cards &gt; Sealed Product &gt; Booster Packs';
+      } else if (titleLower.includes('box') || titleLower.includes('etb') || titleLower.includes('bundle') || titleLower.includes('tin') || titleLower.includes('chest') || titleLower.includes('collection')) {
+        productType = 'Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs';
+      }
+
       xml += `
     <item>
       <g:id>${product.id}</g:id>
@@ -320,8 +353,9 @@ app.get('/google-feed.xml', (req, res) => {
       <g:price>${priceStr}</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>${productType}</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>${weight}</g:shipping_weight>
+      <g:shipping_weight>${weight}</g:shipping_weight>${shippingXml}
     </item>`;
     });
 
