@@ -10,7 +10,7 @@ const ShopDirectory = ({ products = [], sets = [], onAddToCart, onViewProduct })
 
   if (selectedSet) {
     const setInfo = sets.find(s => s.id === selectedSet);
-    const subSets = sets.filter(s => s.parent === selectedSet);
+    const subSets = sets.filter(s => s.parent === selectedSet).reverse();
     const setProducts = retailProducts.filter(p => p.setId === selectedSet);
 
     if (subSets.length > 0) {
