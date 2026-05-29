@@ -84,5 +84,14 @@
   </head>
   <body>
     <div id="root"></div>
+    <script id='merchantWidgetScript' src="https://www.gstatic.com/shopping/merchant/merchantwidget.js" defer></script>
+    <script>
+      merchantWidgetScript.addEventListener('load', function () {
+        merchantwidget.start({
+          "merchant_id": 5685714111,
+          "position": "BOTTOM_RIGHT"
+        });
+      });
+    </script>
   </body>
 </html>
