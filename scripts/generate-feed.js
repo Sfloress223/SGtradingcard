@@ -39,6 +39,12 @@ function getWeight(title) {
 }
 
 PRODUCTS.forEach(product => {
+  if (product.hidden) return;
+  
+  let rawPrice = parseFloat((product.price || "").replace('$', '').replace(/,/g, '')) || 0;
+  if (rawPrice <= 0) return;
+  if (!product.imgUrl) return;
+
   let cleanDesc = (product.description || "").replace(/&/g, "&amp;").replace(/&nbsp;/g, " ").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   let cleanTitle = (product.title || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   let priceStr = product.price ? product.price.replace('$', '') + " USD" : "";
@@ -47,8 +53,6 @@ PRODUCTS.forEach(product => {
   let imgUrl = product.imgUrl && product.imgUrl.startsWith('http') ? product.imgUrl : `https://sgtradingcard.com${product.imgUrl}`;
   let condition = product.condition ? (product.condition.toLowerCase().includes('10') || product.condition.toLowerCase().includes('mint') ? 'new' : 'used') : 'new';
   let weight = product.shippingWeight || getWeight(product.title);
-  
-  let rawPrice = parseFloat((product.price || "").replace('$', '').replace(/,/g, '')) || 0;
   let shippingXml = '';
   if (rawPrice >= 150) {
     shippingXml = `
