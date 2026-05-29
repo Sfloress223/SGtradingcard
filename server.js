@@ -1259,6 +1259,7 @@ app.post('/api/create-payment-intent', async (req, res) => {
     const intentPayload = {
       amount,
       currency: 'usd',
+      automatic_payment_methods: { enabled: true },
       metadata: {
         customerName: shipping.name,
         customerEmail: shipping.email,

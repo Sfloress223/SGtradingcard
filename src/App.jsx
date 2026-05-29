@@ -54,6 +54,35 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  // Handle Stripe Payment Redirect Recovery (e.g. Klarna/Afterpay)
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirectStatus = urlParams.get('redirect_status');
+    const paymentIntentId = urlParams.get('payment_intent');
+    
+    if (redirectStatus === 'succeeded' && paymentIntentId) {
+      const savedOrderStr = localStorage.getItem('sg_pending_order');
+      if (savedOrderStr) {
+        try {
+          const savedOrder = JSON.parse(savedOrderStr);
+          // Sync stock and proceed to confirmation
+          handleOrderComplete({
+            id: paymentIntentId,
+            amount: savedOrder.amount,
+            shipping: savedOrder.shipping,
+            taxAmount: savedOrder.taxAmount,
+            items: savedOrder.items
+          });
+          localStorage.removeItem('sg_pending_order');
+          // Clean URL params to prevent loop
+          window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+        } catch (e) {
+          console.error('Failed to restore redirected order:', e);
+        }
+      }
+    }
+  }, []);
+
   // Dynamic page title for SEO
   useEffect(() => {
     const base = 'S&G Trading';
@@ -419,8 +448,7 @@ function App() {
   };
 
   return (
-    <Elements stripe={stripePromise} options={stripeOptions}>
-      <div className="app-container">
+    <div className="app-container">
         {/* Toast Notification */}
         {toast && (
           <div className="toast-notification">
@@ -596,7 +624,6 @@ function App() {
           </div>
         </footer>
       </div>
-    </Elements>
   );
 }
 
