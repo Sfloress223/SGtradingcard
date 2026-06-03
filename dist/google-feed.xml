@@ -142,7 +142,7 @@
       <g:shipping>
         <g:country>US</g:country>
         <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
+        <g:price>0.00 USD</g:price>
       </g:shipping>
     </item>
     <item>

@@ -94,7 +94,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
 
                 <div className="product-page-meta-item">
                   <span className="meta-label">Shipping</span>
-                  <span className="meta-value">Free over $150</span>
+                  <span className="meta-value">Free over $100</span>
                 </div>
               </>
             )}
@@ -160,7 +160,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
                 <ul>
                   <li>All products are 100% authentic and factory sealed</li>
                   <li>Handling is 1-3 business days</li>
-                  <li>Free shipping on orders over $150</li>
+                  <li>Free shipping on orders over $100</li>
                   <li>Carefully packaged for safe delivery</li>
                 </ul>
               </>

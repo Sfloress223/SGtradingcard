@@ -458,7 +458,7 @@ function App() {
 
         {/* Promotional Banner */}
         <div className="promo-banner">
-          <span>Free shipping on all orders over $150!</span>
+          <span>Free shipping on all orders over $100!</span>
         </div>
 
         {/* Rip n Ship Live Alert */}

@@ -226,7 +226,7 @@ const CheckoutPage = ({ cartItems, onBack, onOrderComplete }) => {
   const hasGraded = cartItems.some(isGradedCard);
   
   const isStrictlySingles = !hasHeavy && !hasPacksOrBoxes && !hasGraded;
-  const isFreeShipping = !isSellerCart && subtotal >= 150;
+  const isFreeShipping = !isSellerCart && subtotal >= 100;
 
   const getShippingOptions = () => {
     if (isSellerCart) {

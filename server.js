@@ -312,7 +312,7 @@ app.get('/google-feed.xml', (req, res) => {
       let condition = product.condition ? (product.condition.toLowerCase().includes('10') || product.condition.toLowerCase().includes('mint') ? 'new' : 'used') : 'new';
       let weight = product.shippingWeight || getWeight(product.title);
       let shippingXml = '';
-      if (rawPrice >= 150) {
+      if (rawPrice >= 100) {
         shippingXml = `
       <g:shipping>
         <g:country>US</g:country>

@@ -58,9 +58,9 @@ const CartPage = ({ cartItems, onUpdateQty, onRemove, onContinueShopping, onChec
           </div>
           <div className="cart-summary-row">
             <span>Shipping</span>
-            <span>{subtotal >= 150 ? 'FREE' : 'Calculated at checkout'}</span>
+            <span>{subtotal >= 100 ? 'FREE' : 'Calculated at checkout'}</span>
           </div>
-          {subtotal >= 150 && (
+          {subtotal >= 100 && (
             <p className="cart-free-shipping-note">🎉 You qualify for free shipping!</p>
           )}
           <div className="cart-summary-row cart-summary-total">
