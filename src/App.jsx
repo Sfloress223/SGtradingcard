@@ -24,9 +24,34 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 const stripeOptions = { disableLink: true };
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(() => 
-    window.location.hash === '#admin' ? 'admin' : 'home'
-  );
+  const [currentPage, setCurrentPage] = useState(() => {
+    const path = window.location.pathname;
+    const params = new URLSearchParams(window.location.search);
+    
+    if (path === '/product' || params.has('product')) {
+      return 'product';
+    }
+
+    const pathPages = {
+      '/': 'home',
+      '/shop': 'shop',
+      '/thegrandexchange': 'grand-exchange',
+      '/cart': 'cart',
+      '/checkout': 'checkout',
+      '/admin': 'admin',
+      '/dashboard': 'dashboard',
+      '/auth': 'auth',
+      '/reviews': 'reviews',
+      '/policies': 'policies',
+      '/faq': 'faq',
+      '/contact': 'contact'
+    };
+
+    if (window.location.hash === '#admin') return 'admin';
+    if (window.location.hash === '#dashboard') return 'dashboard';
+
+    return pathPages[path] || 'home';
+  });
   const [cartItems, setCartItems] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [currentSellerId, setCurrentSellerId] = useState(null);
@@ -40,9 +65,93 @@ function App() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [streamStatus, setStreamStatus] = useState({ isLive: false, queueMessage: '', currentCustomer: '' });
 
+  // Sync state changes to browser URL pathname (keeps address bar clean)
+  useEffect(() => {
+    const pagePaths = {
+      home: '/',
+      shop: '/shop',
+      'grand-exchange': '/thegrandexchange',
+      cart: '/cart',
+      checkout: '/checkout',
+      admin: '/admin',
+      dashboard: '/dashboard',
+      auth: '/auth',
+      reviews: '/reviews',
+      policies: '/policies',
+      faq: '/faq',
+      contact: '/contact'
+    };
+
+    let targetPath = pagePaths[currentPage] || '/';
+    if (currentPage === 'product' && selectedProduct) {
+      targetPath = `/product?id=${selectedProduct.id}`;
+    }
+
+    if (window.location.pathname + window.location.search !== targetPath) {
+      window.history.pushState({ page: currentPage }, '', targetPath);
+    }
+  }, [currentPage, selectedProduct]);
+
+  // Handle browser back/forward buttons (popstate routing)
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      const params = new URLSearchParams(window.location.search);
+      
+      const pathPages = {
+        '/': 'home',
+        '/shop': 'shop',
+        '/thegrandexchange': 'grand-exchange',
+        '/cart': 'cart',
+        '/checkout': 'checkout',
+        '/admin': 'admin',
+        '/dashboard': 'dashboard',
+        '/auth': 'auth',
+        '/reviews': 'reviews',
+        '/policies': 'policies',
+        '/faq': 'faq',
+        '/contact': 'contact'
+      };
+
+      const matchedPage = pathPages[path] || 'home';
+      if (path === '/product') {
+        const prodId = params.get('id') || params.get('product');
+        if (prodId && products.length > 0) {
+          const match = products.find(p => p.id.toString() === prodId.toString());
+          if (match) {
+            setSelectedProduct(match);
+            setCurrentPage('product');
+            return;
+          }
+        }
+      }
+      
+      setCurrentPage(matchedPage);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [products]);
+
   // Fetch live data from API (falls back to data.js if server is down)
   useEffect(() => {
-    fetch(`${API}/api/products`).then(r => r.json()).then(setProducts).catch(() => {});
+    fetch(`${API}/api/products`)
+      .then(r => r.json())
+      .then(data => {
+        setProducts(data);
+        
+        // Match deep-linked products on load
+        const params = new URLSearchParams(window.location.search);
+        const prodId = params.get('product') || params.get('id');
+        if (prodId) {
+          const match = data.find(p => p.id.toString() === prodId.toString());
+          if (match) {
+            setSelectedProduct(match);
+            setCurrentPage('product');
+          }
+        }
+      })
+      .catch(() => {});
     fetch(`${API}/api/sets`).then(r => r.json()).then(setSets).catch(() => {});
     
     // Initial fetch for stream status
@@ -75,7 +184,7 @@ function App() {
           });
           localStorage.removeItem('sg_pending_order');
           // Clean URL params to prevent loop
-          window.history.replaceState({}, document.title, window.location.pathname + window.location.hash);
+          window.history.replaceState({}, document.title, window.location.pathname);
         } catch (e) {
           console.error('Failed to restore redirected order:', e);
         }
@@ -221,6 +330,34 @@ function App() {
     localStorage.removeItem('sg_user_data');
     showToast('Logged out successfully');
     setCurrentPage('home');
+  };
+
+  // Breadcrumb config: which pages get a breadcrumb and what label to show
+  const BREADCRUMBS = {
+    shop:            { label: 'shop' },
+    'grand-exchange': { label: 'thegrandexchange' },
+    cart:            { label: 'cart' },
+    checkout:        { label: 'checkout' },
+    auth:            { label: 'login' },
+    dashboard:       { label: 'dashboard' },
+    reviews:         { label: 'reviews' },
+    policies:        { label: 'policies' },
+    faq:             { label: 'faq' },
+    contact:         { label: 'contact' },
+    product:         { label: selectedProduct ? `product` : null },
+    'seller-profile': { label: 'thegrandexchange / seller' },
+  };
+
+  const renderBreadcrumb = () => {
+    const crumb = BREADCRUMBS[currentPage];
+    if (!crumb || !crumb.label) return null;
+    return (
+      <div className="breadcrumb-bar">
+        <span className="breadcrumb-domain">sgtradingcard.com</span>
+        <span className="breadcrumb-sep">/</span>
+        <span className="breadcrumb-sub">{crumb.label}</span>
+      </div>
+    );
   };
 
   const renderPage = () => {
@@ -561,6 +698,7 @@ function App() {
           </div>
         </div>
 
+        {renderBreadcrumb()}
         {renderPage()}
 
         {/* Footer */}

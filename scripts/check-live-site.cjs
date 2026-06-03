@@ -1,0 +1,23 @@
+const https = require('https');
+https.get('https://sgtradingcard.com/', res => {
+  let data = '';
+  res.on('data', chunk => data += chunk);
+  res.on('end', () => {
+    const jsMatches = data.match(/src="\/assets\/index-[^"]+\.js"/g);
+    if (jsMatches) {
+      console.log('Found JS bundles:', jsMatches);
+      jsMatches.forEach(match => {
+        const url = 'https://sgtradingcard.com' + match.split('"')[1];
+        https.get(url, jsRes => {
+          let jsData = '';
+          jsRes.on('data', chunk => jsData += chunk);
+          jsRes.on('end', () => {
+            console.log(url, 'contains 🛒:', jsData.includes('🛒'));
+          });
+        });
+      });
+    } else {
+      console.log('No JS bundles found');
+    }
+  });
+}).on('error', err => console.error(err));

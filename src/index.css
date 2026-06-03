@@ -42,6 +42,38 @@ a {
   font-weight: bold;
 }
 
+/* Breadcrumb URL Bar */
+.breadcrumb-bar {
+  background: #f0f2f5;
+  border-bottom: 1px solid #dde1e7;
+  padding: 7px 5%;
+  font-size: 0.82rem;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.breadcrumb-domain {
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.breadcrumb-sep {
+  color: #a0aec0;
+  font-weight: 400;
+  margin: 0 1px;
+}
+
+.breadcrumb-sub {
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+
 .mobile-header-right {
   display: none;
 }
