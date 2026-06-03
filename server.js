@@ -563,8 +563,14 @@ app.put('/api/admin/stream', authMiddleware, (req, res) => {
 app.get('/api/products', (req, res) => {
   const products = readJSON(PRODUCTS_FILE);
   const allOrders = fs.existsSync(ORDERS_FILE) ? readJSON(ORDERS_FILE) : [];
+  const users = fs.existsSync(USERS_FILE) ? readJSON(USERS_FILE) : [];
   
   const verifiedMap = {}; // cache
+  const chargesEnabledMap = {}; // cache for Stripe status
+  
+  users.forEach(u => {
+    chargesEnabledMap[u.id] = !!u.charges_enabled;
+  });
   
   let augmentedProducts = products.map(p => {
     if (p.sellerId) {
@@ -583,7 +589,11 @@ app.get('/api/products', (req, res) => {
   });
   
   if (req.query.admin !== 'true') {
-    augmentedProducts = augmentedProducts.filter(p => !p.hidden);
+    augmentedProducts = augmentedProducts.filter(p => {
+      if (p.hidden) return false;
+      if (p.sellerId && !chargesEnabledMap[p.sellerId]) return false;
+      return true;
+    });
   }
   
   res.json(augmentedProducts);
@@ -1182,7 +1192,20 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
     const userIndex = users.findIndex(u => u.id === req.user.id);
     let user = users[userIndex];
     
-    if (!user.stripeAccountId) {
+    let accountId = user.stripeAccountId;
+    if (accountId) {
+      try {
+        await stripe.accounts.retrieve(accountId);
+      } catch (err) {
+        console.warn(`Stripe account ${accountId} was invalid or belongs to a different environment. Resetting account ID...`);
+        accountId = null;
+        user.stripeAccountId = null;
+        user.charges_enabled = false;
+        writeJSON(USERS_FILE, users);
+      }
+    }
+
+    if (!accountId) {
       const emailSuffix = Date.now();
       const uniqueTestEmail = `sam_test_${emailSuffix}@sgtradingcard.com`;
       const account = await stripe.accounts.create({
@@ -1195,13 +1218,14 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
           transfers: { requested: true }
         }
       });
-      user.stripeAccountId = account.id;
+      accountId = account.id;
+      user.stripeAccountId = accountId;
       writeJSON(USERS_FILE, users);
     }
 
     const host = req.get('origin') || 'http://localhost:5173';
     const accountLink = await stripe.accountLinks.create({
-      account: user.stripeAccountId,
+      account: accountId,
       refresh_url: `${host}/#dashboard`,
       return_url: `${host}/#dashboard`,
       type: 'account_onboarding'
@@ -1209,6 +1233,7 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
 
     res.json({ url: accountLink.url });
   } catch (err) {
+    console.error('Stripe Onboard Error:', err.message);
     res.status(500).json({ error: err.message });
   }
 });
@@ -1216,14 +1241,25 @@ app.post('/api/seller/onboard', authMiddleware, async (req, res) => {
 app.get('/api/seller/onboard-status', authMiddleware, async (req, res) => {
   try {
     const users = readJSON(USERS_FILE);
-    const user = users.find(u => u.id === req.user.id);
+    const userIndex = users.findIndex(u => u.id === req.user.id);
+    const user = users[userIndex];
     
     if (!user || !user.stripeAccountId) {
       return res.json({ charges_enabled: false });
     }
 
-    const account = await stripe.accounts.retrieve(user.stripeAccountId);
-    const isReady = account.charges_enabled || account.details_submitted;
+    let isReady = false;
+    try {
+      const account = await stripe.accounts.retrieve(user.stripeAccountId);
+      isReady = account.charges_enabled || account.details_submitted;
+    } catch (err) {
+      console.warn(`Failed to retrieve status for Stripe account ${user.stripeAccountId}:`, err.message);
+      // Self-heal: nuke invalid ID so they are prompted to connect again
+      user.stripeAccountId = null;
+      user.charges_enabled = false;
+      writeJSON(USERS_FILE, users);
+      return res.json({ charges_enabled: false });
+    }
     
     if (isReady !== user.charges_enabled) {
       user.charges_enabled = isReady;
