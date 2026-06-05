@@ -24,3 +24,11 @@ node_modules
 
 .vercel
 google-service-account.json
+
+# Runtime data — contains user PII, orders, hashed passwords
+# These live only on the Render persistent disk
+data/*.json
+data/uploads/
+
+# Local debug/scratch scripts
+scratch/

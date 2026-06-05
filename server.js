@@ -540,11 +540,11 @@ app.get('/api/admin/verify', authMiddleware, (req, res) => {
 });
 
 // ─── Public Product Routes ───
-app.get('/api/internal/export-data', (req, res) => {
-  if (req.query.key !== 'sg_backup_777') return res.status(403).json({ error: 'Unauthorized' });
+app.get('/api/internal/export-data', authMiddleware, (req, res) => {
+  if (req.user?.role !== 'admin') return res.status(403).json({ error: 'Unauthorized' });
   res.json({
     products: readJSON(PRODUCTS_FILE),
-    users: readJSON(USERS_FILE),
+    users: readJSON(USERS_FILE).map(u => ({ id: u.id, username: u.username, email: u.email, role: u.role, stripeAccountId: u.stripeAccountId, charges_enabled: u.charges_enabled })),
     orders: readJSON(ORDERS_FILE),
     sets: readJSON(SETS_FILE)
   });
@@ -588,7 +588,17 @@ app.get('/api/products', (req, res) => {
     return p;
   });
   
-  if (req.query.admin !== 'true') {
+  // Only authenticated admins may see hidden/unverified seller products
+  const isAdminRequest = req.query.admin === 'true' && (() => {
+    try {
+      const token = req.headers.authorization?.split(' ')[1];
+      if (!token) return false;
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      return decoded.role === 'admin';
+    } catch { return false; }
+  })();
+
+  if (!isAdminRequest) {
     augmentedProducts = augmentedProducts.filter(p => {
       if (p.hidden) return false;
       if (p.sellerId && !chargesEnabledMap[p.sellerId]) return false;
@@ -605,7 +615,7 @@ app.get('/api/sets', (req, res) => {
 });
 
 // ─── Base64 Processing Helper ───
-const IMGBB_API_KEY = 'a6eb7d789a9d14e687bd986a3b18961f';
+const IMGBB_API_KEY = process.env.IMGBB_API_KEY || '';
 
 async function processBase64Str(base64Str) {
   if (!base64Str || !base64Str.startsWith('data:image')) return base64Str;
