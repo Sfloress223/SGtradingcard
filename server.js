@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import Stripe from 'stripe';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
@@ -261,6 +263,32 @@ import shippoPkg from 'shippo';
 const shippo = shippoPkg(process.env.SHIPPO_API_KEY || '');
 
 app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:5174', 'https://sg-tradingcard-9relg96s6-sgtradingcards-projects.vercel.app', 'https://sg-tradingcard.vercel.app', 'https://sgtradingcard.com', 'https://www.sgtradingcard.com'] }));
+
+// ─── Security Headers (Helmet) ───
+// Adds ~12 HTTP headers that block common web attacks
+app.use(helmet({
+  // Allow inline scripts/styles needed by Stripe and our SPA
+  contentSecurityPolicy: false,
+  // Keep cross-origin isolation relaxed so Stripe iframes work
+  crossOriginEmbedderPolicy: false
+}));
+
+// ─── Rate Limiting ───
+// Blocks brute-force login attacks: max 10 attempts per IP per 15 minutes
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many login attempts. Please try again in 15 minutes.' }
+});
+
+app.use('/api/admin/login', authLimiter);
+app.use('/api/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
+app.use('/api/auth/forgot-password', authLimiter);
+app.use('/api/auth/reset-password', authLimiter);
+
 app.use(express.json({ limit: '50mb' }));
 app.get('/google-feed.xml', (req, res) => {
   try {
