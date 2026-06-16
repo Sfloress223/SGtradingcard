@@ -1179,18 +1179,42 @@ app.get('/api/sellers/:id/reviews', (req, res) => {
 
 app.post('/api/sellers/:id/reviews', authMiddleware, (req, res) => {
   const { rating, comment } = req.body;
-  if (!rating || rating < 1 || rating > 5) return res.status(400).json({ error: 'Valid rating required' });
-  
+  const targetSellerId = req.params.id;
+  const buyerId = req.user.id;
+
+  if (!rating || rating < 1 || rating > 5) return res.status(400).json({ error: 'Valid rating (1-5) required' });
+
+  // Prevent self-reviews
+  if (buyerId === targetSellerId) return res.status(400).json({ error: 'You cannot review yourself.' });
+
+  // Verify the reviewer actually purchased from this seller
+  const allOrders = fs.existsSync(ORDERS_FILE) ? readJSON(ORDERS_FILE) : [];
+  const hasPurchased = allOrders.some(o =>
+    o.paymentConfirmed &&
+    o.items &&
+    o.items.some(i => i.sellerId === targetSellerId) &&
+    (o.buyerId === buyerId || (o.buyerEmail && req.user.email && o.buyerEmail.toLowerCase() === req.user.email.toLowerCase()))
+  );
+  if (!hasPurchased) {
+    return res.status(403).json({ error: 'You can only review sellers you have purchased from.' });
+  }
+
   if (!fs.existsSync(REVIEWS_FILE)) writeJSON(REVIEWS_FILE, []);
   const allReviews = readJSON(REVIEWS_FILE);
+
+  // One review per buyer per seller
+  const alreadyReviewed = allReviews.some(r => r.sellerId === targetSellerId && r.buyerId === buyerId);
+  if (alreadyReviewed) {
+    return res.status(400).json({ error: 'You have already reviewed this seller.' });
+  }
   
   const newReview = {
     id: `rev_${Date.now()}`,
-    sellerId: req.params.id,
-    buyerId: req.user.id,
+    sellerId: targetSellerId,
+    buyerId,
     buyerName: req.user.username || 'Verified Buyer',
     rating: parseInt(rating),
-    comment: comment || '',
+    comment: (comment || '').toString().substring(0, 1000), // cap at 1000 chars
     date: new Date().toISOString()
   };
   
@@ -1200,11 +1224,28 @@ app.post('/api/sellers/:id/reviews', authMiddleware, (req, res) => {
 });
 
 app.post('/api/seller/products', authMiddleware, (req, res) => {
+  const { title, price, stock } = req.body;
+
+  // Server-side validation — never trust the client
+  if (!title || typeof title !== 'string' || title.trim().length < 3) {
+    return res.status(400).json({ error: 'Title must be at least 3 characters.' });
+  }
+  const parsedPrice = parseFloat((price || '').toString().replace('$', ''));
+  if (isNaN(parsedPrice) || parsedPrice <= 0) {
+    return res.status(400).json({ error: 'Price must be a positive number.' });
+  }
+  const parsedStock = parseInt(stock);
+  if (isNaN(parsedStock) || parsedStock < 0) {
+    return res.status(400).json({ error: 'Stock must be a non-negative whole number.' });
+  }
+
   const products = readJSON(PRODUCTS_FILE);
   const maxId = products.reduce((max, p) => Math.max(max, p.id), 0);
   const newProduct = { 
     id: maxId + 1, 
-    ...req.body, 
+    ...req.body,
+    title: title.trim(),
+    stock: parsedStock,
     sellerId: req.user.id, 
     sellerName: req.user.username 
   };
@@ -1391,6 +1432,21 @@ app.post('/api/create-payment-intent', async (req, res) => {
 
     const paymentIntent = await stripe.paymentIntents.create(intentPayload);
 
+    // Capture buyer identity if logged in
+    let buyerId = null;
+    let buyerEmail = shipping.email;
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      try {
+        const token = authHeader.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        buyerId = decoded.id;
+        buyerEmail = decoded.email || buyerEmail;
+      } catch (e) {
+        // ignore invalid token
+      }
+    }
+
     // Persist the order data so the Admin can fulfill it later
     if (!fs.existsSync(ORDERS_FILE)) writeJSON(ORDERS_FILE, []);
     const orders = readJSON(ORDERS_FILE);
@@ -1399,6 +1455,8 @@ app.post('/api/create-payment-intent', async (req, res) => {
       id: `ord_${Date.now()}`,
       date: new Date().toISOString(),
       status: 'unfulfilled',
+      buyerId,
+      buyerEmail,
       shippingAddress: isSellerCart ? undefined : shipping, // Keep PII only in Stripe for Grand Exchange
       items: items.map(i => ({ id: i.id, title: i.title, qty: i.qty, price: i.price, sellerId: i.sellerId })),
       totalAmount: amount / 100,

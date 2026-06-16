@@ -6,7 +6,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const productsPath = path.join(__dirname, '../data/products.json');
-const PRODUCTS = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
+let PRODUCTS = [];
+try {
+  if (fs.existsSync(productsPath)) {
+    PRODUCTS = JSON.parse(fs.readFileSync(productsPath, 'utf8'));
+  } else {
+    console.warn("⚠️ data/products.json not found. Generating feed with 0 items.");
+  }
+} catch (err) {
+  console.error("⚠️ Failed to parse products.json:", err.message);
+}
 
 let xml = `<?xml version="1.0"?>
 <rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">

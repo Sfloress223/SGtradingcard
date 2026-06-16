@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const PoliciesPage = ({ onBack }) => {
+const PoliciesPage = ({ onBack, initialTab = 'privacy' }) => {
+  const [activeTab, setActiveTab] = useState(initialTab);
+
+  useEffect(() => {
+    setActiveTab(initialTab);
+  }, [initialTab]);
+
+  const storePhone = import.meta.env.VITE_STORE_PHONE || "(214) 258-5838";
+  const storeEmail = import.meta.env.VITE_STORE_EMAIL || "sgtradingcard+help@gmail.com";
+  const storeAddress = import.meta.env.VITE_STORE_ADDRESS || "11605 Harry Hines Blvd, Dallas, TX 75229";
+
+  const tabs = [
+    { id: 'refund', label: 'Return & Refund Policy' },
+    { id: 'shipping', label: 'Shipping Policy' },
+    { id: 'privacy', label: 'Privacy Policy' },
+    { id: 'terms', label: 'Terms of Service' }
+  ];
+
   return (
     <div className="policies-page" style={{ padding: '0 5%', maxWidth: '1000px', margin: '0 auto', textAlign: 'left' }}>
       <button 
@@ -10,43 +27,167 @@ const PoliciesPage = ({ onBack }) => {
         ← Back to Home
       </button>
 
-      <h1 style={{ marginBottom: '2rem', fontSize: '2.5rem' }}>Policies, Terms & Conditions</h1>
+      <h1 style={{ marginBottom: '1.5rem', fontSize: '2.5rem' }}>Policies, Terms & Conditions</h1>
 
-      <section style={{ marginBottom: '3rem' }}>
-        <h2 style={{ borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1rem' }}>Privacy Policy</h2>
-        <p style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
-          At S&G Trading Card, we respect your privacy and are committed to protecting your personal data. We collect information you provide directly to us, such as when you create an account, place an order, or contact us. This information is used solely to fulfill your orders, process payments, and improve your shopping experience.
-        </p>
-        <p style={{ lineHeight: '1.6' }}>
-          We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties except trusted third parties who assist us in operating our website, conducting our business, or servicing you, so long as those parties agree to keep this information confidential.
-        </p>
-      </section>
+      {/* Tabs navigation */}
+      <div style={{ display: 'flex', borderBottom: '2px solid #e2e8f0', marginBottom: '2rem', gap: '1rem', flexWrap: 'wrap' }}>
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={{
+              padding: '10px 15px',
+              border: 'none',
+              background: 'none',
+              fontSize: '1rem',
+              fontWeight: activeTab === tab.id ? '600' : '400',
+              borderBottom: activeTab === tab.id ? '3px solid #2b6cb0' : '3px solid transparent',
+              color: activeTab === tab.id ? '#2b6cb0' : '#4a5568',
+              cursor: 'pointer',
+              marginBottom: '-2px',
+              transition: 'all 0.2s'
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
-      <section style={{ marginBottom: '3rem' }}>
-        <h2 style={{ borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1rem' }}>Return & Refund Policy</h2>
-        <p style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
-          Due to the nature of collectible trading cards and the potential for tampering, <strong>there are absolutely no returns or refunds</strong> on any products. All sales are final.
-        </p>
-        <p style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
-          The only exception is if your item arrives damaged on delivery. If this occurs, please contact us immediately with pictures of the damage so we can resolve the issue.
-        </p>
-        <p style={{ lineHeight: '1.6' }}>
-          If you have any questions or concerns regarding our policy, please don't hesitate to reach out and contact us!
-        </p>
-      </section>
+      <div style={{ background: '#fff', padding: '2rem', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0', minHeight: '300px', lineHeight: '1.7' }}>
+        {activeTab === 'privacy' && (
+          <section>
+            <h2 style={{ color: '#2d3748', marginBottom: '1.2rem', fontSize: '1.8rem' }}>Privacy Policy</h2>
+            <p style={{ marginBottom: '1rem' }}>
+              At S&G Trading, we respect your privacy and are committed to protecting your personal data. This Privacy Policy outlines how we collect, use, and protect your information when you access or make a purchase from our website.
+            </p>
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Information We Collect</h3>
+            <p style={{ marginBottom: '1rem' }}>
+              We collect information you provide directly to us when you create an account, place an order, or contact us. This includes your name, shipping address, email address, phone number, and payment information. Payment details are processed securely through Stripe and are never stored on our servers.
+            </p>
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>How We Use Your Information</h3>
+            <p style={{ marginBottom: '1rem' }}>
+              We use your information solely to:
+            </p>
+            <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
+              <li>Process, ship, and fulfill your orders.</li>
+              <li>Provide customer support and respond to inquiries.</li>
+              <li>Send transaction confirmation emails, receipts, and tracking updates.</li>
+              <li>Improve our website's performance and catalog selection.</li>
+            </ul>
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Information Sharing</h3>
+            <p style={{ marginBottom: '1rem' }}>
+              We do not sell, trade, or share your personally identifiable information with outside parties. This excludes trusted third-party partners who assist us in operating our site, processing payments (Stripe), and shipping packages (Shippo/USPS/UPS), under strict confidentiality agreements.
+            </p>
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Security</h3>
+            <p>
+              We implement industry-standard SSL encryption and follow strict payment security protocols to ensure your data is safe. If you have questions about our privacy policy, please contact us at <strong>{storeEmail}</strong>.
+            </p>
+          </section>
+        )}
 
-      <section style={{ marginBottom: '3rem' }}>
-        <h2 style={{ borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1rem' }}>Terms of Service</h2>
-        <p style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
-          By accessing and using sgtradingcard.com, you agree to be bound by these Terms and Conditions. We reserve the right to update or modify these terms at any time without prior notice.
-        </p>
-        <p style={{ lineHeight: '1.6', marginBottom: '1rem' }}>
-          <strong>Pre-orders:</strong> Pre-orders will ship on or around the official release date of the product. If your order contains both in-stock and pre-order items, the entire order will be held until the pre-order items are ready to ship. If you want in-stock items quickly, please place separate orders.
-        </p>
-        <p style={{ lineHeight: '1.6' }}>
-          <strong>Order Cancellations:</strong> We reserve the right to cancel any order for any reason, including but not limited to suspect fraud, pricing errors, or inventory discrepancies.
-        </p>
-      </section>
+        {activeTab === 'refund' && (
+          <section>
+            <h2 style={{ color: '#2d3748', marginBottom: '1.2rem', fontSize: '1.8rem' }}>Return & Refund Policy</h2>
+            <p style={{ marginBottom: '1.2rem' }}>
+              Due to the collectible nature of trading cards (including booster packs, elite trainer boxes, singles, and graded slabs) and the potential for tampering or resealing, <strong>there are absolutely no returns, refunds, or exchanges</strong> on any products once they have shipped. All sales are final.
+            </p>
+            
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Exceptions & Damaged Items</h3>
+            <p style={{ marginBottom: '1.2rem' }}>
+              The only exception to this policy is if an item arrives physically damaged upon delivery. In the event of shipping damage, you must contact us within <strong>48 hours of delivery</strong> to report the issue:
+            </p>
+            <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
+              <li>Email us at <strong>{storeEmail}</strong> or call us at <strong>{storePhone}</strong>.</li>
+              <li>Provide your order number and clear, high-resolution photographs of the damaged product and outer packaging.</li>
+              <li>If a return is approved, we will provide a prepaid return shipping label. The item must be shipped back in the condition it was received.</li>
+            </ul>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Return Address</h3>
+            <p style={{ marginBottom: '1.2rem' }}>
+              All approved returns must be shipped back to our physical storefront address:
+              <br />
+              <strong>S&G Trading (Returns Dept)</strong>
+              <br />
+              {storeAddress}
+            </p>
+            
+            <p>
+              If you have any questions or concerns regarding this policy, please don't hesitate to reach out and contact us before placing your order.
+            </p>
+          </section>
+        )}
+
+        {activeTab === 'shipping' && (
+          <section>
+            <h2 style={{ color: '#2d3748', marginBottom: '1.2rem', fontSize: '1.8rem' }}>Shipping Policy</h2>
+            <p style={{ marginBottom: '1.2rem' }}>
+              We strive to package and ship all orders with the utmost care to ensure your trading cards arrive safely.
+            </p>
+            
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Handling Time</h3>
+            <p style={{ marginBottom: '1.2rem' }}>
+              All orders are processed and handed over to carriers within <strong>24 business hours</strong>. Orders placed Monday through Friday ship the next business day. Orders placed on Friday after 4:00 PM CST, Saturday, or Sunday will be processed and shipped on Monday morning.
+            </p>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Shipping Rates & Delivery Times</h3>
+            <p style={{ marginBottom: '1rem' }}>
+              We offer flat-rate standard shipping and calculated shipping speeds at checkout:
+            </p>
+            <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
+              <li><strong>Standard Shipping (Orders under $100):</strong> $5.99 flat rate.</li>
+              <li><strong>Free Standard Shipping (Orders $100 or more):</strong> $0.00 standard shipping (automatically applied at checkout).</li>
+              <li><strong>Estimated Delivery:</strong> 3 to 5 business days transit time depending on your location.</li>
+            </ul>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Carrier Services & Tracking</h3>
+            <p style={{ marginBottom: '1.2rem' }}>
+              We ship packages using <strong>USPS</strong>, <strong>UPS</strong>, or <strong>FedEx</strong>. As soon as your order is fulfilled and handed to the carrier, a shipping confirmation email containing a clickable tracking number will be sent to your registered email address.
+            </p>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Lost or Stolen Packages</h3>
+            <p>
+              S&G Trading is not responsible for packages once marked as "Delivered" by the carrier. If your tracking says delivered but you have not received it, please contact the carrier directly. If your package is delayed or lost in transit, contact us at <strong>{storeEmail}</strong> and we will help open a carrier investigation.
+            </p>
+          </section>
+        )}
+
+        {activeTab === 'terms' && (
+          <section>
+            <h2 style={{ color: '#2d3748', marginBottom: '1.2rem', fontSize: '1.8rem' }}>Terms of Service</h2>
+            <p style={{ marginBottom: '1.2rem' }}>
+              By accessing and placing an order on <strong>sgtradingcard.com</strong>, you agree to be bound by these Terms & Conditions. Please read them carefully.
+            </p>
+            
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Product Listings & Inventory</h3>
+            <p style={{ marginBottom: '1.2rem' }}>
+              We make every effort to display accurate product details, pricing, and stock levels. In the event of a pricing or description error, we reserve the right to cancel any affected orders and issue a full refund prior to shipment.
+            </p>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Pre-Orders</h3>
+            <p style={{ marginBottom: '1.2rem' }}>
+              Pre-order products will ship on or immediately around the manufacturer's official release date. If an order contains both in-stock items and pre-order items, the entire order will be held until the pre-order items are released. If you wish to receive in-stock items sooner, please place separate orders.
+            </p>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Order Cancellations</h3>
+            <p style={{ marginBottom: '1.2rem' }}>
+              We reserve the right to refuse or cancel any order for any reason, including suspected fraud, bulk buying limit violations, pricing discrepancies, or shipping carrier restrictions.
+            </p>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Contact & Business Information</h3>
+            <p>
+              For legal inquiries, feedback, or storefront questions, please reach out to us at:
+              <br />
+              <strong>S&G Trading</strong>
+              <br />
+              Address: {storeAddress}
+              <br />
+              Phone: {storePhone}
+              <br />
+              Email: {storeEmail}
+            </p>
+          </section>
+        )}
+      </div>
     </div>
   );
 };

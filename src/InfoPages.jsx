@@ -58,6 +58,9 @@ export const ContactPage = ({ onBack }) => {
     // In the future this can hit a real mailing endpoint
     setTimeout(() => setSent(false), 5000);
   };
+  const storePhone = import.meta.env.VITE_STORE_PHONE || "(214) 258-5838";
+  const storeEmail = import.meta.env.VITE_STORE_EMAIL || "sgtradingcard+help@gmail.com";
+  const storeAddress = import.meta.env.VITE_STORE_ADDRESS || "11605 Harry Hines Blvd, Dallas, TX 75229";
 
   return (
     <div className="policies-page" style={{ padding: '0 5%', maxWidth: '800px', margin: '0 auto', textAlign: 'left' }}>
@@ -72,16 +75,29 @@ export const ContactPage = ({ onBack }) => {
       
       <p style={{ lineHeight: '1.6', marginBottom: '1.5rem', color: '#555' }}>
         Have questions about an order, a specific product, or an upcoming release? We'd love to hear from you. 
-        Fill out the form below, email us directly at <strong>Sgtradingcard@gmail.com</strong>, or come visit us in-store!
+        Fill out the form below, email us directly at <strong>{storeEmail}</strong>, or come visit us in-store!
       </p>
 
-      <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '8px', border: '1px solid #e2e8f0', marginBottom: '2.5rem' }}>
-        <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>Our Storefront</h3>
-        <p style={{ margin: 0, color: '#4a5568', lineHeight: '1.4' }}>
-          <strong>S&G Trading</strong><br />
-          11605 Harry Hines Blvd<br />
-          Dallas, TX 75229
-        </p>
+      <div style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '8px', border: '1px solid #e2e8f0', marginBottom: '2.5rem', display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+        <div>
+          <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.1rem', color: '#1a202c' }}>📍 Our Storefront</h3>
+          <p style={{ margin: 0, color: '#4a5568', lineHeight: '1.4' }}>
+            <strong>S&G Trading</strong><br />
+            {storeAddress}
+          </p>
+        </div>
+        <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '0.8rem' }}>
+          <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.1rem', color: '#1a202c' }}>📞 Phone Number</h3>
+          <p style={{ margin: 0, color: '#4a5568', lineHeight: '1.4' }}>
+            <strong>{storePhone}</strong> (Available Monday - Friday, 9:00 AM - 5:00 PM CST)
+          </p>
+        </div>
+        <div style={{ borderTop: '1px solid #e2e8f0', paddingTop: '0.8rem' }}>
+          <h3 style={{ margin: '0 0 0.4rem 0', fontSize: '1.1rem', color: '#1a202c' }}>✉️ Email Support</h3>
+          <p style={{ margin: 0, color: '#4a5568', lineHeight: '1.4' }}>
+            <strong>{storeEmail}</strong>
+          </p>
+        </div>
       </div>
 
       {sent ? (
