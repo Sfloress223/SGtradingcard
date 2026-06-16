@@ -145,40 +145,6 @@ if (fs.existsSync(BACKUP_DIR)) {
   }
 }
 
-// Sanitize live database files from counterfeit/mockup sets on server start
-const bannedSetIds = ['perfect-order', 'phantasmal-flames', 'ascended-heroes', 'mega-evolution', 'journey-together'];
-const tempSetsFile = path.join(DATA_DIR, 'sets.json');
-if (fs.existsSync(tempSetsFile)) {
-  try {
-    const sets = JSON.parse(fs.readFileSync(tempSetsFile, 'utf8'));
-    if (Array.isArray(sets)) {
-      const filteredSets = sets.filter(s => !bannedSetIds.includes(s.id));
-      if (sets.length !== filteredSets.length) {
-        console.log(`🧹 Sanitizing sets database: removing ${sets.length - filteredSets.length} concept sets.`);
-        fs.writeFileSync(tempSetsFile, JSON.stringify(filteredSets, null, 2));
-      }
-    }
-  } catch (e) {
-    console.error('Failed to sanitize live sets:', e.message);
-  }
-}
-
-const tempProductsFile = path.join(DATA_DIR, 'products.json');
-if (fs.existsSync(tempProductsFile)) {
-  try {
-    const products = JSON.parse(fs.readFileSync(tempProductsFile, 'utf8'));
-    if (Array.isArray(products)) {
-      const filteredProducts = products.filter(p => !bannedSetIds.includes(p.setId));
-      if (products.length !== filteredProducts.length) {
-        console.log(`🧹 Sanitizing products database: removing ${products.length - filteredProducts.length} concept products.`);
-        fs.writeFileSync(tempProductsFile, JSON.stringify(filteredProducts, null, 2));
-      }
-    }
-  } catch (e) {
-    console.error('Failed to sanitize live products:', e.message);
-  }
-}
-
 
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const SETS_FILE = path.join(DATA_DIR, 'sets.json');
