@@ -145,6 +145,17 @@ if (fs.existsSync(BACKUP_DIR)) {
   }
 }
 
+// Force overwrite live products/sets with backup on startup
+if (fs.existsSync(BACKUP_DIR)) {
+  try {
+    console.log('🔄 Force-restoring products.json and sets.json from backup...');
+    fs.copyFileSync(path.join(BACKUP_DIR, 'products.json'), path.join(DATA_DIR, 'products.json'));
+    fs.copyFileSync(path.join(BACKUP_DIR, 'sets.json'), path.join(DATA_DIR, 'sets.json'));
+    console.log('✅ Force-restore complete.');
+  } catch (e) {
+    console.error('Failed to force-restore databases:', e.message);
+  }
+}
 
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const SETS_FILE = path.join(DATA_DIR, 'sets.json');
