@@ -1,133 +1,151 @@
 export const SETS = [
+
   {
-    id: "graded-cards",
-    name: "Graded Cards",
-    imgUrl: "/images/charizard.png",
-    bannerUrl: "/images/charizard.png",
-    color: "#FFD700",
-    emoji: "🏆"
+    "id": "graded-cards",
+    "name": "Graded Cards",
+    "imgUrl": "/images/charizard.png",
+    "bannerUrl": "/images/charizard.png",
+    "color": "#FFD700",
+    "emoji": "🏆"
   },
   {
-    id: "singles",
-    name: "Singles",
-    imgUrl: "/images/singles.jpg",
-    bannerUrl: "/images/singles.jpg",
-    color: "#4169E1",
-    emoji: "🃏"
+    "id": "singles",
+    "name": "Singles",
+    "imgUrl": "/images/singles.jpg",
+    "bannerUrl": "/images/singles.jpg",
+    "color": "#4169E1",
+    "emoji": "🃏"
   },
   {
-    id: "all-pokemon",
-    name: "English Pokémon",
-    imgUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pokémon_logo.svg/1200px-International_Pokémon_logo.svg.png",
-    bannerUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pokémon_logo.svg/1200px-International_Pokémon_logo.svg.png",
-    color: "#E3350D",
-    emoji: "📦"
+    "id": "all-pokemon",
+    "name": "English Pokémon",
+    "imgUrl": "https://images.pokemontcg.io/base1/logo.png",
+    "bannerUrl": "https://images.pokemontcg.io/base1/logo.png",
+    "color": "#E3350D",
+    "emoji": "📦"
   },
   {
-    id: "perfect-order",
-    parent: "all-pokemon",
-    name: "Perfect Order",
-    imgUrl: "/images/po-logo.png",
-    bannerUrl: "/images/po-logo.png",
-    color: "#1E90FF"
+    "id": "perfect-order",
+    "parent": "all-pokemon",
+    "name": "Perfect Order",
+    "imgUrl": "/images/po-logo.png",
+    "bannerUrl": "/images/po-logo.png",
+    "color": "#1E90FF"
   },
   {
-    id: "phantasmal-flames",
-    parent: "all-pokemon",
-    name: "Phantasmal Flames",
-    imgUrl: "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me02/logo/en-us/me02-logo.png",
-    bannerUrl: "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me02/logo/en-us/me02-logo.png",
-    color: "#7B2D8B"
+    "id": "phantasmal-flames",
+    "parent": "all-pokemon",
+    "name": "Phantasmal Flames",
+    "imgUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me02/logo/en-us/me02-logo.png",
+    "bannerUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me02/logo/en-us/me02-logo.png",
+    "color": "#7B2D8B"
   },
   {
-    id: "mega-evolution",
-    parent: "all-pokemon",
-    name: "Mega Evolution",
-    imgUrl: "https://images.pokemontcg.io/me1/symbol.png",
-    bannerUrl: "https://images.pokemontcg.io/me1/logo.png",
-    color: "#E3350D"
+    "id": "ascended-heroes",
+    "parent": "all-pokemon",
+    "name": "Ascended Heroes",
+    "imgUrl": "/images/ascended-heroes-logo.png",
+    "bannerUrl": "/images/ascended-heroes-logo.png",
+    "color": "#2E8B2E"
   },
   {
-    id: "journey-together",
-    parent: "all-pokemon",
-    name: "Journey Together",
-    imgUrl: "https://images.pokemontcg.io/sv9/symbol.png",
-    bannerUrl: "https://images.pokemontcg.io/sv9/logo.png",
-    color: "#2E8B57"
+    "id": "mega-evolution",
+    "parent": "all-pokemon",
+    "name": "Mega Evolution",
+    "imgUrl": "https://images.pokemontcg.io/me1/symbol.png",
+    "bannerUrl": "https://images.pokemontcg.io/me1/logo.png",
+    "color": "#E3350D"
   },
   {
-    id: "bw-era",
-    parent: "all-pokemon",
-    name: "Black & White Era",
-    imgUrl: "https://d1i787aglh9bmb.cloudfront.net/assets/img/sv-expansions/sv10dot5/logo/en-us/sv10pt5-logo.png",
-    bannerUrl: "https://d1i787aglh9bmb.cloudfront.net/assets/img/sv-expansions/sv10dot5/logo/en-us/sv10pt5-logo.png",
-    color: "#000000"
+    "id": "journey-together",
+    "parent": "all-pokemon",
+    "name": "Journey Together",
+    "imgUrl": "https://images.pokemontcg.io/sv9/symbol.png",
+    "bannerUrl": "https://images.pokemontcg.io/sv9/logo.png",
+    "color": "#2E8B57"
   },
   {
-    id: "prismatic",
-    parent: "all-pokemon",
-    name: "Prismatic Evolutions",
-    imgUrl: "https://images.pokemontcg.io/sv8pt5/symbol.png",
-    bannerUrl: "https://images.pokemontcg.io/sv8pt5/logo.png",
-    color: "#ff66c4"
+    "id": "bw-era",
+    "parent": "all-pokemon",
+    "name": "Black & White Era",
+    "imgUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/sv-expansions/sv10dot5/logo/en-us/sv10pt5-logo.png",
+    "bannerUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/sv-expansions/sv10dot5/logo/en-us/sv10pt5-logo.png",
+    "color": "#000000"
   },
   {
-    id: "surging-sparks",
-    parent: "all-pokemon",
-    name: "Surging Sparks",
-    imgUrl: "https://images.pokemontcg.io/sv8/symbol.png",
-    bannerUrl: "https://images.pokemontcg.io/sv8/logo.png",
-    color: "#E0AA3E"
+    "id": "prismatic",
+    "parent": "all-pokemon",
+    "name": "Prismatic Evolutions",
+    "imgUrl": "https://images.pokemontcg.io/sv8pt5/symbol.png",
+    "bannerUrl": "https://images.pokemontcg.io/sv8pt5/logo.png",
+    "color": "#ff66c4"
   },
   {
-    id: "151",
-    parent: "all-pokemon",
-    name: "Scarlet & Violet 151",
-    imgUrl: "https://images.pokemontcg.io/sv3pt5/symbol.png",
-    bannerUrl: "https://images.pokemontcg.io/sv3pt5/logo.png",
-    color: "#8A2BE2"
+    "id": "surging-sparks",
+    "parent": "all-pokemon",
+    "name": "Surging Sparks",
+    "imgUrl": "https://images.pokemontcg.io/sv8/symbol.png",
+    "bannerUrl": "https://images.pokemontcg.io/sv8/logo.png",
+    "color": "#E0AA3E"
   },
   {
-    id: "misc",
-    parent: "all-pokemon",
-    name: "Miscellaneous / Collections",
-    imgUrl: "https://images.pokemontcg.io/sve/symbol.png",
-    bannerUrl: "https://images.pokemontcg.io/sve/logo.png",
-    color: "#666666",
-    emoji: "📦"
+    "id": "151",
+    "parent": "all-pokemon",
+    "name": "Scarlet & Violet 151",
+    "imgUrl": "https://images.pokemontcg.io/sv3pt5/symbol.png",
+    "bannerUrl": "https://images.pokemontcg.io/sv3pt5/logo.png",
+    "color": "#8A2BE2"
   },
   {
-    id: "japanese",
-    name: "Japanese Pokémon",
-    imgUrl: "/images/japanese-box.png",
-    bannerUrl: "/images/japanese-box.png",
-    color: "#D0112b",
-    emoji: "🇯🇵"
+    "id": "misc",
+    "parent": "all-pokemon",
+    "name": "Miscellaneous / Collections",
+    "imgUrl": "https://images.pokemontcg.io/sve/symbol.png",
+    "bannerUrl": "https://images.pokemontcg.io/sve/logo.png",
+    "color": "#666666",
+    "emoji": "📦"
   },
   {
-    id: "chinese",
-    name: "Chinese Pokémon",
-    imgUrl: "/images/chinese-box.png",
-    bannerUrl: "/images/chinese-box.png",
-    color: "#DA251D",
-    emoji: "🇨🇳"
+    "id": "japanese",
+    "name": "Japanese Pokémon",
+    "imgUrl": "/images/japanese-box.png",
+    "bannerUrl": "/images/japanese-box.png",
+    "color": "#D0112b",
+    "emoji": "🇯🇵"
   },
   {
-    id: "other-tcg",
-    name: "Other / Future TCGs",
-    imgUrl: "/images/one-piece-group.jpg",
-    bannerUrl: "/images/one-piece-group.jpg",
-    color: "#4B0082",
-    emoji: "🎴"
+    "id": "chinese",
+    "name": "Chinese Pokémon",
+    "imgUrl": "/images/chinese-box.png",
+    "bannerUrl": "/images/chinese-box.png",
+    "color": "#DA251D",
+    "emoji": "🇨🇳"
   },
   {
-    id: "pokemon-merch",
-    name: "Merchandise & Toys",
-    imgUrl: "/images/merch.svg",
-    bannerUrl: "/images/merch.svg",
-    color: "#FF8C00",
-    emoji: "🧸"
+    "id": "other-tcg",
+    "name": "Other / Future TCGs",
+    "imgUrl": "/images/one-piece-group.jpg",
+    "bannerUrl": "/images/one-piece-group.jpg",
+    "color": "#4B0082",
+    "emoji": "🎴"
+  },
+  {
+    "id": "pokemon-merch",
+    "name": "Pokémon Merchandise & Toys",
+    "imgUrl": "/images/merch.svg",
+    "bannerUrl": "/images/merch.svg",
+    "color": "#FF8C00",
+    "emoji": "🧸"
+  },
+  {
+    "id": "chaos-rising",
+    "parent": "all-pokemon",
+    "name": "Chaos Rising ",
+    "imgUrl": "https://i.ibb.co/8grzWgwY/88bcd429d651.webp",
+    "bannerUrl": "https://i.ibb.co/8grzWgwY/88bcd429d651.webp",
+    "color": "#1E90FF"
   }
+
 ];
 
 export const PRODUCTS = [
@@ -150,6 +168,30 @@ export const PRODUCTS = [
     "soldOut": true,
     "description": "Includes 9 Surging Sparks booster packs, 1 full-art promo card, 65 card sleeves, 45 energy cards, and a player's guide. Great for building competitive decks.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/3f7eaa48-463e-4eb7-848b-6beab5e61491/SuzieQ+LOGO+%2816%29.png?format=500w",
+    "stock": 0
+  },
+  {
+    "id": 103,
+    "setId": "surging-sparks",
+    "title": "Pokémon TCG: Scarlet & Violet-Surging Sparks Booster Box",
+    "price": "$234.99",
+    "soldOut": true,
+    "description": "Launch your deck building or booster opening experience to the next level with a full factory-sealed booster box. Contains 36 booster packs, each loaded with 10 cards and a basic Energy or VSTAR marker. Hunt for the most coveted Secret Rares, Special Illustration Rares, and Gold cards from the expansion in this complete box.",
+    "imgUrl": "https://i.ibb.co/JjFR8NVL/02801f936817.png",
+    "stock": 0,
+    "galleryUrls": [
+      "https://i.ibb.co/JjFR8NVL/02801f936817.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 104,
+    "setId": "surging-sparks",
+    "title": "Pokémon TCG: Scarlet & Violet Surging Sparks Booster Bundle",
+    "price": "$48.99",
+    "soldOut": true,
+    "description": "Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.",
+    "imgUrl": "/images/pe-sleeved.jpg",
     "stock": 0
   },
   {
@@ -210,6 +252,29 @@ export const PRODUCTS = [
     "soldOut": true,
     "description": "A pocket-sized collector's tin with 2 Prismatic Evolutions booster packs and 1 art card. Perfect for collecting all Eeveelution designs.",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/05afc2f2-41a7-4475-a225-65d0a213e817/SuzieQ+LOGO+%2835%29.png?format=500w",
+    "stock": 0
+  },
+  {
+    "id": 304,
+    "setId": "prismatic",
+    "title": "Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Surprise Box",
+    "price": "$46.99",
+    "soldOut": true,
+    "description": "Open up a world of fun with this special Surprise Box! Contains 4 booster packs, 1 premium foil promo card, and additional deck accessories. A perfect gift for any Pokémon fan looking for a fun opening experience.",
+    "imgUrl": "",
+    "stock": 0,
+    "hidden": true,
+    "galleryUrls": [],
+    "shippingWeight": ""
+  },
+  {
+    "id": 305,
+    "setId": "prismatic",
+    "title": "Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Booster Pack",
+    "price": "$10.99",
+    "soldOut": true,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/ss-booster-bundle.jpg",
     "stock": 0
   },
   {
@@ -330,6 +395,40 @@ export const PRODUCTS = [
     "soldOut": true,
     "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
     "imgUrl": "https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/9c3cfcca-a812-49ec-8701-8b71a4b6616c/PF+%282%29.png?format=500w",
+    "stock": 0
+  },
+  {
+    "id": 414,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Collection",
+    "price": "$49.99",
+    "soldOut": true,
+    "description": "An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.",
+    "imgUrl": "https://i.ibb.co/0VXYScYd/2c68da566dfc.png",
+    "stock": 0,
+    "galleryUrls": [
+      "https://i.ibb.co/0VXYScYd/2c68da566dfc.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 415,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Evolution Sleeved Booster Pack",
+    "price": "$8.49",
+    "soldOut": true,
+    "description": "A single sleeved booster pack containing 10 cards from the Mega Evolution expansion. Case-fresh and tamper-evident packaging.",
+    "imgUrl": "/images/me-sleeved.jpg",
+    "stock": 0
+  },
+  {
+    "id": 416,
+    "setId": "phantasmal-flames",
+    "title": "Pokémon TCG: Phantasmal Flames Sleeved Booster Pack",
+    "price": "$8.49",
+    "soldOut": true,
+    "description": "A single sleeved booster pack from the Phantasmal Flames set. Expand your collection with these haunted and fiery rare pulls!",
+    "imgUrl": "/images/pf-sleeved.jpg",
     "stock": 0
   },
   {
@@ -473,6 +572,108 @@ export const PRODUCTS = [
     "stock": 0
   },
   {
+    "id": 609,
+    "setId": "misc",
+    "title": "Pokémon TCG: Pokemon Day 2026 Collection",
+    "price": "$29.99",
+    "soldOut": true,
+    "description": "Commemorative Pokémon Day collection offering an array of packs and exclusive promos.",
+    "imgUrl": "/images/pokemon-day-2026.png",
+    "stock": 0
+  },
+  {
+    "id": 610,
+    "setId": "misc",
+    "title": "Pokémon TCG: Suicune Knock Out Collection",
+    "price": "$18.99",
+    "soldOut": true,
+    "description": "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!",
+    "imgUrl": "/images/suicune-ko.png",
+    "stock": 0
+  },
+  {
+    "id": 611,
+    "setId": "misc",
+    "title": "Pokémon TCG: Kyogre Knock Out Collection",
+    "price": "$19.99",
+    "soldOut": false,
+    "description": "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!",
+    "imgUrl": "/images/kyogre-ko.png",
+    "stock": 1
+  },
+  {
+    "id": 612,
+    "setId": "misc",
+    "title": "Pokémon TCG: 2-Pack Blister [Raikou]",
+    "price": "$19.99",
+    "soldOut": false,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/raikou-blister.png",
+    "stock": 8
+  },
+  {
+    "id": 613,
+    "setId": "misc",
+    "title": "Pokémon TCG: Mega Charizard X/Y ex Tin",
+    "price": "$39.99",
+    "soldOut": true,
+    "description": "A sturdy, collectible metal tin featuring stunning Pokémon artwork. Contains 4 or 5 booster packs and a special foil promo card of the featured Pokémon. Perfect for storing cards and adding a premium collectible to your display shelf.",
+    "imgUrl": "/images/mega-charizard-tin.png",
+    "stock": 0
+  },
+  {
+    "id": 614,
+    "setId": "misc",
+    "title": "Pokémon TCG: Paldea Adventure Chest",
+    "price": "$79.99",
+    "soldOut": true,
+    "description": "Uncover a treasure trove of Pokémon goodies with the Adventure Chest. Contains 6 booster packs, 7 foil promo cards, 1 sticker sheet, 1 mini portfolio to store your cards, 1 squishy toy, and a beautiful collector's chest to store your entire collection.",
+    "imgUrl": "/images/paldea-chest.png",
+    "stock": 0
+  },
+  {
+    "id": 1003,
+    "setId": "pokemon-merch",
+    "title": "Cute Manta Ray Plush Bag Charm - Perfect Gift for Marine Lovers",
+    "price": "$8.99",
+    "soldOut": false,
+    "description": "Adorable Manta Ray plush bag charm.",
+    "imgUrl": "/images/manta-ray.png",
+    "stock": 7
+  },
+  {
+    "id": 1004,
+    "setId": "pokemon-merch",
+    "title": "Re-Ment Terrarium Mini Figure Blind Box EX Paldea - Pokémon Licensed Collectible",
+    "price": "$15.99",
+    "soldOut": false,
+    "description": "Series 13 Line-Up\n·Pikachu & Eevee\n·Latias\n·Aron\n·Quilava\n·Oshawott\n·Jolteon\nBlind Box Surprise Format 🎁\n·Buy 1 box, receive 1 random design.\n·Buy a full set (6 boxes), receive all 6 different designs (no duplicates).",
+    "imgUrl": "https://i.ibb.co/27xp4NNv/8ae6c3e377ee.png",
+    "stock": 25,
+    "galleryUrls": [
+      "https://i.ibb.co/27xp4NNv/8ae6c3e377ee.png",
+      "https://i.ibb.co/pvyy9zsC/3a688343bb8e.png",
+      "/images/rement-paldea.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1005,
+    "setId": "pokemon-merch",
+    "title": "Re-Ment Terrarium Mini Figure Blind Box - Pokémon Licensed Collectible",
+    "price": "$15.99",
+    "soldOut": false,
+    "description": "Unique Designs Included\n·Pikachu & Pawmi\n·Fuecoco\n·Quaxly\n·Sprigatito\n·Tatsugiri\n·Clodsire\nBlind Box Surprise Format",
+    "imgUrl": "https://i.ibb.co/mCGLnQJv/91ffb803c4ba.png",
+    "stock": 25,
+    "galleryUrls": [
+      "https://i.ibb.co/mCGLnQJv/91ffb803c4ba.png",
+      "https://i.ibb.co/RktnmDfq/a4ffeea891dc.png",
+      "https://i.ibb.co/PJh8bp2/1f91bad6385e.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
     "id": 1101,
     "setId": "perfect-order",
     "title": "Pokémon TCG: Mega Evolution—Perfect Order Elite Trainer Box",
@@ -520,189 +721,6 @@ export const PRODUCTS = [
     "soldOut": true,
     "description": "A collectible mini tin that perfectly stores your favorite cards! Includes 2 booster packs and 1 matching Pokémon art card.",
     "imgUrl": "/images/po-minitin.jpg",
-    "stock": 0
-  },
-  {
-    "id": 103,
-    "setId": "surging-sparks",
-    "title": "Pokémon TCG: Scarlet & Violet-Surging Sparks Booster Box",
-    "price": "$234.99",
-    "soldOut": true,
-    "description": "Launch your deck building or booster opening experience to the next level with a full factory-sealed booster box. Contains 36 booster packs, each loaded with 10 cards and a basic Energy or VSTAR marker. Hunt for the most coveted Secret Rares, Special Illustration Rares, and Gold cards from the expansion in this complete box.",
-    "imgUrl": "https://i.ibb.co/JjFR8NVL/02801f936817.png",
-    "stock": 0,
-    "galleryUrls": [
-      "https://i.ibb.co/JjFR8NVL/02801f936817.png"
-    ],
-    "shippingWeight": ""
-  },
-  {
-    "id": 609,
-    "setId": "misc",
-    "title": "Pokémon TCG: Pokemon Day 2026 Collection",
-    "price": "$29.99",
-    "soldOut": true,
-    "description": "Commemorative Pokémon Day collection offering an array of packs and exclusive promos.",
-    "imgUrl": "/images/pokemon-day-2026.png",
-    "stock": 0
-  },
-  {
-    "id": 1003,
-    "setId": "pokemon-merch",
-    "title": "Cute Manta Ray Plush Bag Charm - Perfect Gift for Marine Lovers",
-    "price": "$8.99",
-    "soldOut": false,
-    "description": "Adorable Manta Ray plush bag charm.",
-    "imgUrl": "/images/manta-ray.png",
-    "stock": 7
-  },
-  {
-    "id": 414,
-    "setId": "ascended-heroes",
-    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Collection",
-    "price": "$49.99",
-    "soldOut": true,
-    "description": "An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.",
-    "imgUrl": "https://i.ibb.co/0VXYScYd/2c68da566dfc.png",
-    "stock": 0,
-    "galleryUrls": [
-      "https://i.ibb.co/0VXYScYd/2c68da566dfc.png"
-    ],
-    "shippingWeight": ""
-  },
-  {
-    "id": 304,
-    "setId": "prismatic",
-    "title": "Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Surprise Box",
-    "price": "$46.99",
-    "soldOut": true,
-    "description": "Open up a world of fun with this special Surprise Box! Contains 4 booster packs, 1 premium foil promo card, and additional deck accessories. A perfect gift for any Pokémon fan looking for a fun opening experience.",
-    "imgUrl": "",
-    "stock": 0,
-    "hidden": true,
-    "galleryUrls": [],
-    "shippingWeight": ""
-  },
-  {
-    "id": 305,
-    "setId": "prismatic",
-    "title": "Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Booster Pack",
-    "price": "$10.99",
-    "soldOut": true,
-    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
-    "imgUrl": "/images/ss-booster-bundle.jpg",
-    "stock": 0
-  },
-  {
-    "id": 1004,
-    "setId": "pokemon-merch",
-    "title": "Re-Ment Terrarium Mini Figure Blind Box EX Paldea - Pokémon Licensed Collectible",
-    "price": "$15.99",
-    "soldOut": false,
-    "description": "Series 13 Line-Up\n·Pikachu & Eevee\n·Latias\n·Aron\n·Quilava\n·Oshawott\n·Jolteon\nBlind Box Surprise Format 🎁\n·Buy 1 box, receive 1 random design.\n·Buy a full set (6 boxes), receive all 6 different designs (no duplicates).",
-    "imgUrl": "https://i.ibb.co/27xp4NNv/8ae6c3e377ee.png",
-    "stock": 25,
-    "galleryUrls": [
-      "https://i.ibb.co/27xp4NNv/8ae6c3e377ee.png",
-      "https://i.ibb.co/pvyy9zsC/3a688343bb8e.png",
-      "/images/rement-paldea.png"
-    ],
-    "shippingWeight": ""
-  },
-  {
-    "id": 1005,
-    "setId": "pokemon-merch",
-    "title": "Re-Ment Terrarium Mini Figure Blind Box - Pokémon Licensed Collectible",
-    "price": "$15.99",
-    "soldOut": false,
-    "description": "Unique Designs Included\n·Pikachu & Pawmi\n·Fuecoco\n·Quaxly\n·Sprigatito\n·Tatsugiri\n·Clodsire\nBlind Box Surprise Format",
-    "imgUrl": "https://i.ibb.co/mCGLnQJv/91ffb803c4ba.png",
-    "stock": 25,
-    "galleryUrls": [
-      "https://i.ibb.co/mCGLnQJv/91ffb803c4ba.png",
-      "https://i.ibb.co/RktnmDfq/a4ffeea891dc.png",
-      "https://i.ibb.co/PJh8bp2/1f91bad6385e.png"
-    ],
-    "shippingWeight": ""
-  },
-  {
-    "id": 610,
-    "setId": "misc",
-    "title": "Pokémon TCG: Suicune Knock Out Collection",
-    "price": "$18.99",
-    "soldOut": true,
-    "description": "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!",
-    "imgUrl": "/images/suicune-ko.png",
-    "stock": 0
-  },
-  {
-    "id": 611,
-    "setId": "misc",
-    "title": "Pokémon TCG: Kyogre Knock Out Collection",
-    "price": "$19.99",
-    "soldOut": false,
-    "description": "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!",
-    "imgUrl": "/images/kyogre-ko.png",
-    "stock": 1
-  },
-  {
-    "id": 612,
-    "setId": "misc",
-    "title": "Pokémon TCG: 2-Pack Blister [Raikou]",
-    "price": "$19.99",
-    "soldOut": false,
-    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
-    "imgUrl": "/images/raikou-blister.png",
-    "stock": 8
-  },
-  {
-    "id": 613,
-    "setId": "misc",
-    "title": "Pokémon TCG: Mega Charizard X/Y ex Tin",
-    "price": "$39.99",
-    "soldOut": true,
-    "description": "A sturdy, collectible metal tin featuring stunning Pokémon artwork. Contains 4 or 5 booster packs and a special foil promo card of the featured Pokémon. Perfect for storing cards and adding a premium collectible to your display shelf.",
-    "imgUrl": "/images/mega-charizard-tin.png",
-    "stock": 0
-  },
-  {
-    "id": 104,
-    "setId": "surging-sparks",
-    "title": "Pokémon TCG: Scarlet & Violet Surging Sparks Booster Bundle",
-    "price": "$48.99",
-    "soldOut": true,
-    "description": "Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.",
-    "imgUrl": "/images/pe-sleeved.jpg",
-    "stock": 0
-  },
-  {
-    "id": 614,
-    "setId": "misc",
-    "title": "Pokémon TCG: Paldea Adventure Chest",
-    "price": "$79.99",
-    "soldOut": true,
-    "description": "Uncover a treasure trove of Pokémon goodies with the Adventure Chest. Contains 6 booster packs, 7 foil promo cards, 1 sticker sheet, 1 mini portfolio to store your cards, 1 squishy toy, and a beautiful collector's chest to store your entire collection.",
-    "imgUrl": "/images/paldea-chest.png",
-    "stock": 0
-  },
-  {
-    "id": 415,
-    "setId": "mega-evolution",
-    "title": "Pokémon TCG: Mega Evolution Sleeved Booster Pack",
-    "price": "$8.49",
-    "soldOut": true,
-    "description": "A single sleeved booster pack containing 10 cards from the Mega Evolution expansion. Case-fresh and tamper-evident packaging.",
-    "imgUrl": "/images/me-sleeved.jpg",
-    "stock": 0
-  },
-  {
-    "id": 416,
-    "setId": "phantasmal-flames",
-    "title": "Pokémon TCG: Phantasmal Flames Sleeved Booster Pack",
-    "price": "$8.49",
-    "soldOut": true,
-    "description": "A single sleeved booster pack from the Phantasmal Flames set. Expand your collection with these haunted and fiery rare pulls!",
-    "imgUrl": "/images/pf-sleeved.jpg",
     "stock": 0
   },
   {
@@ -1169,6 +1187,130 @@ export const PRODUCTS = [
     "hidden": false,
     "galleryUrls": [
       "https://i.ibb.co/7JSjB913/7b7af9ae4ddc.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1329,
+    "title": "Pokémon TCG: Mega Brave booster pack",
+    "price": "$3.99",
+    "setId": "japanese",
+    "imgUrl": "https://i.ibb.co/Wv6bSCps/7316684476b8.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 30,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/Wv6bSCps/7316684476b8.png",
+      "https://i.ibb.co/qFW6dpzD/4f7fc2d9434e.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1330,
+    "title": "Pokemon TCG: Mega Symphonia booster pack",
+    "price": "$3.99",
+    "setId": "japanese",
+    "imgUrl": "https://i.ibb.co/LD084YjL/89c457c485a5.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 30,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/LD084YjL/89c457c485a5.png",
+      "https://i.ibb.co/VpMKtnSQ/e9aa6d958119.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1331,
+    "title": "Pokemon TCG: Inferno X Booster Pack ",
+    "price": "$4.99",
+    "setId": "japanese",
+    "imgUrl": "https://i.ibb.co/W4DysfT6/6d60b5a58964.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 74,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/W4DysfT6/6d60b5a58964.png",
+      "https://i.ibb.co/b9V5rWf/6acd4fbb5fb8.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1332,
+    "title": "Pokémon TCG: Nihil Zero Booster pack ",
+    "price": "$3.49",
+    "setId": "japanese",
+    "imgUrl": "https://i.ibb.co/G3WRpC4K/6e313016d479.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 20,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/G3WRpC4K/6e313016d479.png",
+      "https://i.ibb.co/qL9BJCH7/5dcc6ebb589c.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1333,
+    "title": "Pokemon TCG: Chaos Rising Elite Trainer Box",
+    "price": "$87.99",
+    "setId": "chaos-rising",
+    "imgUrl": "https://i.ibb.co/6Rp3Dzrw/765b6301de0b.png",
+    "description": "The Pokémon TCG: Mega Evolution—Chaos Rising Elite Trainer Box includes:\n• 9 Pokémon TCG: Mega Evolution—Chaos Rising booster packs (contents vary by product)\n• 1 full-art foil promo card featuring Fennekin\n• 65 card sleeves\n• 40 Pokémon TCG Energy cards\n• A player’s guide to the Mega Evolution—Chaos Rising expansion\n• 6 damage-counter dice\n• 1 competition-legal coin-flip die\n• 1 plastic coin\n• A collector’s box to hold everything, with 6 dividers to keep it organized\n• A code card for Pokémon Trading Card Game Live",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/6Rp3Dzrw/765b6301de0b.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1334,
+    "title": "Pokémon TCG: Chaos Rising Booster Bundle ",
+    "price": "$48.99",
+    "setId": "chaos-rising",
+    "imgUrl": "https://i.ibb.co/JwmB8wRn/e33eb142fcba.png",
+    "description": "Expand your collection with this Booster Bundle containing six booster packs from Pokémon TCG: Mega Evolution—Chaos Rising.",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/JwmB8wRn/e33eb142fcba.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1335,
+    "title": "Pokemon TCG: Chaos Rising 3 Pack Blister ",
+    "price": "$24.99",
+    "setId": "chaos-rising",
+    "imgUrl": "https://i.ibb.co/fVqVLkKT/6848cdd54019.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/fVqVLkKT/6848cdd54019.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1336,
+    "title": "Pokémon TCG: Chaos Rising Sleeved Booster Pack ",
+    "price": "$7.99",
+    "setId": "chaos-rising",
+    "imgUrl": "https://i.ibb.co/XZsb3syz/47681da710cd.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 3,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/XZsb3syz/47681da710cd.png"
     ],
     "soldOut": false,
     "shippingWeight": ""
