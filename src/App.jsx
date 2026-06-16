@@ -757,6 +757,8 @@ function App() {
               <a href="#" onClick={(e) => { e.preventDefault(); navigateToPolicy('shipping'); }}>Shipping Policy</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigateToPolicy('privacy'); }}>Privacy Policy</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigateToPolicy('terms'); }}>Terms of Service</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('reviews'); window.scrollTo(0, 0); }}>Customer Reviews</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('contact'); window.scrollTo(0, 0); }}>Contact Us</a>
             </div>
 
             <div className="footer-links" style={{ flex: '1.2', minWidth: '240px', alignItems: 'flex-start' }}>

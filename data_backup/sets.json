@@ -24,46 +24,6 @@
     "emoji": "📦"
   },
   {
-    "id": "perfect-order",
-    "parent": "all-pokemon",
-    "name": "Perfect Order",
-    "imgUrl": "/images/po-logo.png",
-    "bannerUrl": "/images/po-logo.png",
-    "color": "#1E90FF"
-  },
-  {
-    "id": "phantasmal-flames",
-    "parent": "all-pokemon",
-    "name": "Phantasmal Flames",
-    "imgUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me02/logo/en-us/me02-logo.png",
-    "bannerUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me02/logo/en-us/me02-logo.png",
-    "color": "#7B2D8B"
-  },
-  {
-    "id": "ascended-heroes",
-    "parent": "all-pokemon",
-    "name": "Ascended Heroes",
-    "imgUrl": "/images/ascended-heroes-logo.png",
-    "bannerUrl": "/images/ascended-heroes-logo.png",
-    "color": "#2E8B2E"
-  },
-  {
-    "id": "mega-evolution",
-    "parent": "all-pokemon",
-    "name": "Mega Evolution",
-    "imgUrl": "https://images.pokemontcg.io/me1/symbol.png",
-    "bannerUrl": "https://images.pokemontcg.io/me1/logo.png",
-    "color": "#E3350D"
-  },
-  {
-    "id": "journey-together",
-    "parent": "all-pokemon",
-    "name": "Journey Together",
-    "imgUrl": "https://images.pokemontcg.io/sv9/symbol.png",
-    "bannerUrl": "https://images.pokemontcg.io/sv9/logo.png",
-    "color": "#2E8B57"
-  },
-  {
     "id": "bw-era",
     "parent": "all-pokemon",
     "name": "Black & White Era",
