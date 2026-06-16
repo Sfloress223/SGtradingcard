@@ -506,7 +506,7 @@ Blind Box Surprise Format</description>
       <title>Pokémon TCG: Scarlet &amp; Violet Surging Sparks Booster Bundle</title>
       <description>Contains 6 Surging Sparks booster packs to boost your collection.</description>
       <link>https://sgtradingcard.com/?product=104</link>
-      <g:image_link>https://i.ibb.co/qzjqNBY/5fe401d9e67b.png</g:image_link>
+      <g:image_link>https://sgtradingcard.com/images/pe-sleeved.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
       <g:price>48.99 USD</g:price>
@@ -579,46 +579,6 @@ Blind Box Surprise Format</description>
       <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
       <g:shipping_weight>1 lb</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1337</g:id>
-      <title>Pokémon TCG: Terastal Fest ex Booster Pack</title>
-      <description>Each Japanese Terastal Fest ex Booster Pack contains 10 random cards.</description>
-      <link>https://sgtradingcard.com/?product=1337</link>
-      <g:image_link>https://i.ibb.co/qYkXkrwr/c496048e47a5.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>out of stock</g:availability>
-      <g:price>12.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1338</g:id>
-      <title>Pokemon TCG: The Glory of Team Rocket Booster Pack</title>
-      <description>Each Japanese Glory of Team Rocket Booster Pack contains 5 random cards.</description>
-      <link>https://sgtradingcard.com/?product=1338</link>
-      <g:image_link>https://i.ibb.co/ZpSHWrLt/bdf13cc9e1c1.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>4.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
       <g:shipping>
         <g:country>US</g:country>
         <g:service>Standard</g:service>

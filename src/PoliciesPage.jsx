@@ -136,7 +136,7 @@ const PoliciesPage = ({ onBack, initialTab = 'privacy' }) => {
             <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
               <li><strong>Standard Shipping (Orders under $100):</strong> $5.99 flat rate.</li>
               <li><strong>Free Standard Shipping (Orders $100 or more):</strong> $0.00 standard shipping (automatically applied at checkout).</li>
-              <li><strong>Estimated Delivery:</strong> 3 to 5 business days transit time depending on your location.</li>
+              <li><strong>Estimated Delivery:</strong> 3 to 7 business days transit time depending on your location.</li>
             </ul>
 
             <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Carrier Services & Tracking</h3>
