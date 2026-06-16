@@ -108,7 +108,7 @@
     <item>
       <g:id>301</g:id>
       <title>Pokémon TCG: Scarlet &amp; Violet—Prismatic Evolutions Booster Bundle</title>
-      <description>Includes 6 Prismatic Evolutions booster packs wrapped in exclusive bundle packaging.</description>
+      <description>Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.</description>
       <link>https://sgtradingcard.com/?product=301</link>
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1786c526-f588-4355-baeb-e42f2756edf4/SuzieQ+LOGO+%2839%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
@@ -166,14 +166,54 @@
       </g:shipping>
     </item>
     <item>
-      <g:id>501</g:id>
-      <title>Pokémon TCG: Scarlet &amp; Violet—White Flare Elite Trainer Box</title>
-      <description>Includes 9 White Flare booster packs, a full-art promo card, 65 card sleeves, energy cards, and a premium box. Features Reshiram-themed artwork from the Black &amp; White era.</description>
-      <link>https://sgtradingcard.com/?product=501</link>
-      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a7607e61-8abe-40e3-aff8-19eb155009cd/SuzieQ+LOGO+%2824%29.png?format=500w</g:image_link>
+      <g:id>351</g:id>
+      <title>Pokémon TCG: Scarlet &amp; Violet-Journey Together Booster Pack</title>
+      <description>Contains 10 cards from the Journey Together expansion. Features Trainer &amp; Pokémon duo cards and new illustration rares celebrating iconic partnerships.</description>
+      <link>https://sgtradingcard.com/?product=351</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f5c77db2-def7-4c5b-b7d6-7e54b86dee44/JT+%282%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
-      <g:price>109.99 USD</g:price>
+      <g:price>6.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>352</g:id>
+      <title>Pokémon TCG: Scarlet &amp; Violet-Journey Together Booster Bundle</title>
+      <description>Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.</description>
+      <link>https://sgtradingcard.com/?product=352</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/0e5d7006-cef4-4105-b64e-3a5b3d8e58a4/SuzieQ+LOGO+%2841%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>38.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>6 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>353</g:id>
+      <title>Pokémon TCG: Scarlet &amp; Violet 9 Journey Together Elite Trainer Box</title>
+      <description>Packed with 9 Journey Together booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, and condition markers. Everything you need to play and collect.</description>
+      <link>https://sgtradingcard.com/?product=353</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/55a7e684-ce92-425d-b893-286e4cae8179/SuzieQ+LOGO+%283%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>65.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:google_product_category>505707</g:google_product_category>
       <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
@@ -182,7 +222,207 @@
       <g:shipping>
         <g:country>US</g:country>
         <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>401</g:id>
+      <title>Pokémon TCG: Mega Evolution Booster Pack</title>
+      <description>Contains 10 cards from the Mega Evolution expansion. Chance to pull powerful Mega EX cards featuring fan-favorite Pokémon like Charizard, Lucario, and Gardevoir.</description>
+      <link>https://sgtradingcard.com/?product=401</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2603873e-f184-4adc-8aa7-94a9c4520bb5/ME+%282%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:price>7.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>402</g:id>
+      <title>Pokémon TCG: Mega Evolution Booster Bundle</title>
+      <description>Includes 6 Mega Evolution booster packs in exclusive bundle packaging. A solid way to start your Mega Evolution collection.</description>
+      <link>https://sgtradingcard.com/?product=402</link>
+      <g:image_link>https://sgtradingcard.com/images/me-booster-bundle.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>38.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>6 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>403</g:id>
+      <title>Pokémon TCG: Mega Charizard X ex Ultra-Premium Collection</title>
+      <description>The ultimate collector's item! Includes 16 booster packs, a metal Mega Charizard X card, premium accessories, and exclusive full-art promo cards.</description>
+      <link>https://sgtradingcard.com/?product=403</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/4f78e0b9-dbe4-4d3d-8b06-aba438d6e4e9/SuzieQ+LOGO+%284%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>164.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>3.5 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
         <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>405</g:id>
+      <title>Pokémon TCG: Mega Evolution Elite Trainer Box (Mega Lucario)</title>
+      <description>The ultimate package for collectors, players, and trainers. This official Pokémon TCG Elite Trainer Box contains 9 booster packs, 1 full-art foil promo card, 65 premium card sleeves featuring set artwork, 45 Energy cards, 6 damage-counter dice, 1 competition-legal coin-flip die, condition markers, a player's guide, and a sturdy collector's box with dividers to keep your cards organized.</description>
+      <link>https://sgtradingcard.com/?product=405</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/8f3ff6a1-bc2c-49aa-a80a-adffef6a3123/SuzieQ+LOGO+%2813%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>84.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>406</g:id>
+      <title>Pokémon TCG: Mega Evolution Elite Trainer Box (Mega Gardevoir)</title>
+      <description>The ultimate package for collectors, players, and trainers. This official Pokémon TCG Elite Trainer Box contains 9 booster packs, 1 full-art foil promo card, 65 premium card sleeves featuring set artwork, 45 Energy cards, 6 damage-counter dice, 1 competition-legal coin-flip die, condition markers, a player's guide, and a sturdy collector's box with dividers to keep your cards organized.</description>
+      <link>https://sgtradingcard.com/?product=406</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f8813c9a-f790-43e8-bdb7-e01b3d6932a1/SuzieQ+LOGO+%2814%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>84.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>409</g:id>
+      <title>Pokémon TCG: Mega Heroes Mini Tin</title>
+      <description>Collectible mini tin containing 2 Mega Evolution booster packs and 1 art card. Features different Mega Pokémon designs on each tin.</description>
+      <link>https://sgtradingcard.com/?product=409</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d57fbe9c-708f-4c55-a219-8af24b86706e/SuzieQ+LOGO+%2831%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>19.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>4 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>410</g:id>
+      <title>Pokémon TCG: Mega Evolution-Phantasmal Flames Elite Trainer Box</title>
+      <description>Includes 9 Phantasmal Flames booster packs, an exclusive promo card, 65 card sleeves, energy cards, and storage box. Features Ghost and Fire-type themed artwork.</description>
+      <link>https://sgtradingcard.com/?product=410</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a51eae64-e8b8-46c0-b3e0-dace5c6f33d3/SuzieQ+LOGO+%2815%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>82.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>411</g:id>
+      <title>Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Bundle</title>
+      <description>Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.</description>
+      <link>https://sgtradingcard.com/?product=411</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/931f7b6e-91aa-44c2-aa2d-b8345eb01418/SuzieQ+LOGO+%2850%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>63.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>6 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>412</g:id>
+      <title>Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Pack</title>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
+      <link>https://sgtradingcard.com/?product=412</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/9c3cfcca-a812-49ec-8701-8b71a4b6616c/PF+%282%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>7.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>501</g:id>
+      <title>Pokémon TCG: Scarlet &amp; Violet—White Flare Elite Trainer Box</title>
+      <description>Includes 9 White Flare booster packs, a full-art promo card, 65 card sleeves, energy cards, and a premium box. Features Reshiram-themed artwork from the Black &amp; White era.</description>
+      <link>https://sgtradingcard.com/?product=501</link>
+      <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a7607e61-8abe-40e3-aff8-19eb155009cd/SuzieQ+LOGO+%2824%29.png?format=500w</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>82.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
       </g:shipping>
     </item>
     <item>
@@ -193,7 +433,7 @@
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/6014c06f-3e43-40f5-8700-b58c25d459a8/SuzieQ+LOGO+%2827%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
-      <g:price>109.99 USD</g:price>
+      <g:price>82.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:google_product_category>505707</g:google_product_category>
       <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
@@ -202,7 +442,7 @@
       <g:shipping>
         <g:country>US</g:country>
         <g:service>Standard</g:service>
-        <g:price>0.00 USD</g:price>
+        <g:price>5.99 USD</g:price>
       </g:shipping>
     </item>
     <item>
@@ -228,7 +468,7 @@
     <item>
       <g:id>504</g:id>
       <title>Pokémon TCG: Scarlet &amp; Violet-Black Bolt Booster Bundle</title>
-      <description>Includes 6 Black Bolt booster packs in collectible bundle packaging.</description>
+      <description>Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.</description>
       <link>https://sgtradingcard.com/?product=504</link>
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/127d72d8-2c4d-4574-a842-3f596d782f52/SuzieQ+LOGO+%2848%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
@@ -248,7 +488,7 @@
     <item>
       <g:id>505</g:id>
       <title>Pokémon TCG: Scarlet &amp; Violet-White Flare Booster Pack</title>
-      <description>Contains 10 cards from the White Flare expansion. Features classic Pokémon with modern Scarlet &amp; Violet mechanics.</description>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
       <link>https://sgtradingcard.com/?product=505</link>
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/998a969c-249d-4618-8e50-96f2a1c4b30a/WF+%282%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
@@ -268,7 +508,7 @@
     <item>
       <g:id>506</g:id>
       <title>Pokémon TCG: Scarlet &amp; Violet-Black Bolt Booster Pack</title>
-      <description>Contains 10 cards from the Black Bolt expansion. Features classic Pokémon with modern Scarlet &amp; Violet mechanics.</description>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
       <link>https://sgtradingcard.com/?product=506</link>
       <g:image_link>https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/5ddb0c36-903d-4eb6-b61e-ebaebf64b36b/BB+%282%29.png?format=500w</g:image_link>
       <g:condition>new</g:condition>
@@ -446,9 +686,109 @@
       </g:shipping>
     </item>
     <item>
+      <g:id>1101</g:id>
+      <title>Pokémon TCG: Mega Evolution—Perfect Order Elite Trainer Box</title>
+      <description>Includes 9 Perfect Order booster packs, a full-art promo card, 65 card sleeves featuring Mega Zygarde, energy cards, and a premium collector's box.</description>
+      <link>https://sgtradingcard.com/?product=1101</link>
+      <g:image_link>https://sgtradingcard.com/images/po-etb.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:price>79.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1102</g:id>
+      <title>Pokémon TCG: Mega Evolution—Perfect Order 3-Pack Blister</title>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
+      <link>https://sgtradingcard.com/?product=1102</link>
+      <g:image_link>https://sgtradingcard.com/images/po-blister.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:price>24.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1103</g:id>
+      <title>Pokémon TCG: Mega Evolution—Perfect Order Booster Bundle</title>
+      <description>Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.</description>
+      <link>https://sgtradingcard.com/?product=1103</link>
+      <g:image_link>https://sgtradingcard.com/images/po-bundle.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:price>46.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>6 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1104</g:id>
+      <title>Pokémon TCG: Mega Evolution—Perfect Order Booster Pack</title>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
+      <link>https://sgtradingcard.com/?product=1104</link>
+      <g:image_link>https://sgtradingcard.com/images/po-booster.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:price>6.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1105</g:id>
+      <title>Pokémon TCG: Mega Evolution—Perfect Order Mini Tin</title>
+      <description>A collectible mini tin that perfectly stores your favorite cards! Includes 2 booster packs and 1 matching Pokémon art card.</description>
+      <link>https://sgtradingcard.com/?product=1105</link>
+      <g:image_link>https://sgtradingcard.com/images/po-minitin.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>18.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>4 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>103</g:id>
       <title>Pokémon TCG: Scarlet &amp; Violet-Surging Sparks Booster Box</title>
-      <description>Contains 36 Surging Sparks booster packs.</description>
+      <description>Launch your deck building or booster opening experience to the next level with a full factory-sealed booster box. Contains 36 booster packs, each loaded with 10 cards and a basic Energy or VSTAR marker. Hunt for the most coveted Secret Rares, Special Illustration Rares, and Gold cards from the expansion in this complete box.</description>
       <link>https://sgtradingcard.com/?product=103</link>
       <g:image_link>https://i.ibb.co/JjFR8NVL/02801f936817.png</g:image_link>
       <g:condition>new</g:condition>
@@ -506,9 +846,29 @@
       </g:shipping>
     </item>
     <item>
+      <g:id>414</g:id>
+      <title>Pokémon TCG: Mega Evolution—Ascended Heroes Collection</title>
+      <description>An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.</description>
+      <link>https://sgtradingcard.com/?product=414</link>
+      <g:image_link>https://i.ibb.co/0VXYScYd/2c68da566dfc.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>49.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>305</g:id>
       <title>Pokémon TCG: Scarlet &amp; Violet - Prismatic Evolutions Booster Pack</title>
-      <description>Contains 10 cards from the gorgeous Prismatic Evolutions set.</description>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
       <link>https://sgtradingcard.com/?product=305</link>
       <g:image_link>https://sgtradingcard.com/images/ss-booster-bundle.jpg</g:image_link>
       <g:condition>new</g:condition>
@@ -584,7 +944,7 @@ Blind Box Surprise Format</description>
     <item>
       <g:id>610</g:id>
       <title>Pokémon TCG: Suicune Knock Out Collection</title>
-      <description>Suicune Knock Out Collection featuring 2 booster packs and 3 foil promo cards.</description>
+      <description>A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!</description>
       <link>https://sgtradingcard.com/?product=610</link>
       <g:image_link>https://sgtradingcard.com/images/suicune-ko.png</g:image_link>
       <g:condition>new</g:condition>
@@ -604,7 +964,7 @@ Blind Box Surprise Format</description>
     <item>
       <g:id>611</g:id>
       <title>Pokémon TCG: Kyogre Knock Out Collection</title>
-      <description>Kyogre Knock Out Collection featuring 2 booster packs and 3 foil promo cards.</description>
+      <description>A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!</description>
       <link>https://sgtradingcard.com/?product=611</link>
       <g:image_link>https://sgtradingcard.com/images/kyogre-ko.png</g:image_link>
       <g:condition>new</g:condition>
@@ -624,7 +984,7 @@ Blind Box Surprise Format</description>
     <item>
       <g:id>612</g:id>
       <title>Pokémon TCG: 2-Pack Blister [Raikou]</title>
-      <description>Includes 2 booster packs and a special Raikou promotional coin and card.</description>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
       <link>https://sgtradingcard.com/?product=612</link>
       <g:image_link>https://sgtradingcard.com/images/raikou-blister.png</g:image_link>
       <g:condition>new</g:condition>
@@ -644,7 +1004,7 @@ Blind Box Surprise Format</description>
     <item>
       <g:id>613</g:id>
       <title>Pokémon TCG: Mega Charizard X/Y ex Tin</title>
-      <description>A beautifully crafted tin featuring the mighty Mega Charizard.</description>
+      <description>A sturdy, collectible metal tin featuring stunning Pokémon artwork. Contains 4 or 5 booster packs and a special foil promo card of the featured Pokémon. Perfect for storing cards and adding a premium collectible to your display shelf.</description>
       <link>https://sgtradingcard.com/?product=613</link>
       <g:image_link>https://sgtradingcard.com/images/mega-charizard-tin.png</g:image_link>
       <g:condition>new</g:condition>
@@ -664,9 +1024,9 @@ Blind Box Surprise Format</description>
     <item>
       <g:id>104</g:id>
       <title>Pokémon TCG: Scarlet &amp; Violet Surging Sparks Booster Bundle</title>
-      <description>Contains 6 Surging Sparks booster packs to boost your collection.</description>
+      <description>Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.</description>
       <link>https://sgtradingcard.com/?product=104</link>
-      <g:image_link>https://i.ibb.co/qzjqNBY/5fe401d9e67b.png</g:image_link>
+      <g:image_link>https://sgtradingcard.com/images/pe-sleeved.jpg</g:image_link>
       <g:condition>new</g:condition>
       <g:availability>out of stock</g:availability>
       <g:price>48.99 USD</g:price>
@@ -684,7 +1044,7 @@ Blind Box Surprise Format</description>
     <item>
       <g:id>614</g:id>
       <title>Pokémon TCG: Paldea Adventure Chest</title>
-      <description>A massive chest of Pokémon TCG treasures from the Paldea region.</description>
+      <description>Uncover a treasure trove of Pokémon goodies with the Adventure Chest. Contains 6 booster packs, 7 foil promo cards, 1 sticker sheet, 1 mini portfolio to store your cards, 1 squishy toy, and a beautiful collector's chest to store your entire collection.</description>
       <link>https://sgtradingcard.com/?product=614</link>
       <g:image_link>https://sgtradingcard.com/images/paldea-chest.png</g:image_link>
       <g:condition>new</g:condition>
@@ -702,9 +1062,149 @@ Blind Box Surprise Format</description>
       </g:shipping>
     </item>
     <item>
+      <g:id>415</g:id>
+      <title>Pokémon TCG: Mega Evolution Sleeved Booster Pack</title>
+      <description>A single sleeved booster pack containing 10 cards from the Mega Evolution expansion. Case-fresh and tamper-evident packaging.</description>
+      <link>https://sgtradingcard.com/?product=415</link>
+      <g:image_link>https://sgtradingcard.com/images/me-sleeved.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>8.49 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>416</g:id>
+      <title>Pokémon TCG: Phantasmal Flames Sleeved Booster Pack</title>
+      <description>A single sleeved booster pack from the Phantasmal Flames set. Expand your collection with these haunted and fiery rare pulls!</description>
+      <link>https://sgtradingcard.com/?product=416</link>
+      <g:image_link>https://sgtradingcard.com/images/pf-sleeved.jpg</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>8.49 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1106</g:id>
+      <title>Pokémon TCG: Perfect Order Sleeved Booster Pack</title>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
+      <link>https://sgtradingcard.com/?product=1106</link>
+      <g:image_link>https://sgtradingcard.com/images/po-sleeved.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>7.49 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1301</g:id>
+      <title>Pokémon TCG: Mega Evolution—Ascended Heroes 2-Pack Blister</title>
+      <description>Contains 2 Ascended Heroes booster packs, a collectible coin, and a special foil promo card featuring Tangela. A great entry point for the newest Mega Evolution expansion.</description>
+      <link>https://sgtradingcard.com/?product=1301</link>
+      <g:image_link>https://i.ibb.co/cSKk2v9y/c97e6cf95e77.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>22.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1302</g:id>
+      <title>Pokémon TCG: Mega Evolution—Ascended Heroes Tech Sticker Collection</title>
+      <description>Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card.</description>
+      <link>https://sgtradingcard.com/?product=1302</link>
+      <g:image_link>https://i.ibb.co/Rk0FpnQb/a1ccdc351ac1.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>34.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1303</g:id>
+      <title>Pokémon TCG: Mega Evolution—Ascended Heroes Mini Tin</title>
+      <description>Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!</description>
+      <link>https://sgtradingcard.com/?product=1303</link>
+      <g:image_link>https://i.ibb.co/TM74jRQ3/78f2520a8295.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>out of stock</g:availability>
+      <g:price>24.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>4 oz</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>5.99 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
+      <g:id>1304</g:id>
+      <title>Pokémon TCG: Mega Evolution—Ascended Heroes Elite Trainer Box</title>
+      <description>The ultimate Ascended Heroes experience! Includes 9 booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, damage counters, and a premium collector's box featuring legendary artwork.</description>
+      <link>https://sgtradingcard.com/?product=1304</link>
+      <g:image_link>https://i.ibb.co/QFqjsyCQ/fe17944ec0ef.png</g:image_link>
+      <g:condition>new</g:condition>
+      <g:availability>in stock</g:availability>
+      <g:price>159.99 USD</g:price>
+      <g:brand>S&amp;G Trading</g:brand>
+      <g:google_product_category>505707</g:google_product_category>
+      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:identifier_exists>no</g:identifier_exists>
+      <g:shipping_weight>1.6 lb</g:shipping_weight>
+      <g:shipping>
+        <g:country>US</g:country>
+        <g:service>Standard</g:service>
+        <g:price>0.00 USD</g:price>
+      </g:shipping>
+    </item>
+    <item>
       <g:id>1326</g:id>
       <title>Destined rival Single booster pack</title>
-      <description></description>
+      <description>Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!</description>
       <link>https://sgtradingcard.com/?product=1326</link>
       <g:image_link>https://i.ibb.co/XZVV03wk/81dfd5932fa2.png</g:image_link>
       <g:condition>new</g:condition>
@@ -755,293 +1255,13 @@ Blind Box Surprise Format</description>
       <link>https://sgtradingcard.com/?product=1328</link>
       <g:image_link>https://i.ibb.co/7JSjB913/7b7af9ae4ddc.png</g:image_link>
       <g:condition>new</g:condition>
-      <g:availability>out of stock</g:availability>
+      <g:availability>in stock</g:availability>
       <g:price>39.99 USD</g:price>
       <g:brand>S&amp;G Trading</g:brand>
       <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
+      <g:product_type>Trading Cards &gt; Graded Slabs &gt; Pokémon</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
       <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1329</g:id>
-      <title>Pokémon TCG: Mega Brave booster pack</title>
-      <description>Each pack contains 5 random cards</description>
-      <link>https://sgtradingcard.com/?product=1329</link>
-      <g:image_link>https://i.ibb.co/Wv6bSCps/7316684476b8.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>3.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1330</g:id>
-      <title>Pokemon TCG: Mega Symphonia booster pack</title>
-      <description>Each pack contains 5 random cards</description>
-      <link>https://sgtradingcard.com/?product=1330</link>
-      <g:image_link>https://i.ibb.co/LD084YjL/89c457c485a5.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>3.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1331</g:id>
-      <title>Pokemon TCG: Inferno X Booster Pack </title>
-      <description>Each pack contains 5 random cards</description>
-      <link>https://sgtradingcard.com/?product=1331</link>
-      <g:image_link>https://i.ibb.co/W4DysfT6/6d60b5a58964.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>4.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1332</g:id>
-      <title>Pokémon TCG: Nihil Zero Booster pack </title>
-      <description>Each pack contains 5 random cards</description>
-      <link>https://sgtradingcard.com/?product=1332</link>
-      <g:image_link>https://i.ibb.co/G3WRpC4K/6e313016d479.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>3.49 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1333</g:id>
-      <title>Pokemon TCG: Chaos Rising Elite Trainer Box</title>
-      <description>The Pokémon TCG: Mega Evolution—Chaos Rising Elite Trainer Box includes:
-• 9 Pokémon TCG: Mega Evolution—Chaos Rising booster packs (contents vary by product)
-• 1 full-art foil promo card featuring Fennekin
-• 65 card sleeves
-• 40 Pokémon TCG Energy cards
-• A player’s guide to the Mega Evolution—Chaos Rising expansion
-• 6 damage-counter dice
-• 1 competition-legal coin-flip die
-• 1 plastic coin
-• A collector’s box to hold everything, with 6 dividers to keep it organized
-• A code card for Pokémon Trading Card Game Live</description>
-      <link>https://sgtradingcard.com/?product=1333</link>
-      <g:image_link>https://i.ibb.co/6Rp3Dzrw/765b6301de0b.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>84.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1.6 lb</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1334</g:id>
-      <title>Pokémon TCG: Chaos Rising Booster Bundle </title>
-      <description>Expand your collection with this Booster Bundle containing six booster packs from Pokémon TCG: Mega Evolution—Chaos Rising.</description>
-      <link>https://sgtradingcard.com/?product=1334</link>
-      <g:image_link>https://i.ibb.co/JwmB8wRn/e33eb142fcba.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>48.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>6 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1335</g:id>
-      <title>Pokemon TCG: Chaos Rising 3 Pack Blister </title>
-      <description>Each blister comes with 3 booster packs and promotional card. (Pokémon TCG booster packs and contents vary by product)</description>
-      <link>https://sgtradingcard.com/?product=1335</link>
-      <g:image_link>https://i.ibb.co/fVqVLkKT/6848cdd54019.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>24.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1336</g:id>
-      <title>Pokémon TCG: Chaos Rising Sleeved Booster Pack </title>
-      <description>Each sealed Chaos Rising Booster Pack in a cardboard guard contains 10 random cards (contents vary by product)</description>
-      <link>https://sgtradingcard.com/?product=1336</link>
-      <g:image_link>https://i.ibb.co/XZsb3syz/47681da710cd.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>7.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1337</g:id>
-      <title>Pokémon TCG: Terastal Fest ex Booster Pack</title>
-      <description>Each Japanese Terastal Fest ex Booster Pack contains 10 random cards.</description>
-      <link>https://sgtradingcard.com/?product=1337</link>
-      <g:image_link>https://i.ibb.co/qYkXkrwr/c496048e47a5.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>out of stock</g:availability>
-      <g:price>12.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1338</g:id>
-      <title>Pokemon TCG: The Glory of Team Rocket Booster Pack</title>
-      <description>Each Japanese Glory of Team Rocket Booster Pack contains 5 random cards.</description>
-      <link>https://sgtradingcard.com/?product=1338</link>
-      <g:image_link>https://i.ibb.co/ZpSHWrLt/bdf13cc9e1c1.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>4.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Booster Packs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 oz</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1339</g:id>
-      <title>Pokémon TCG: Mega Zygarde ex Premium Collection</title>
-      <description>Includes:
-• 1 foil promo card featuring Mega Zygarde ex
-• 1 oversize lenticular promo card featuring Mega Zygarde ex
-• 1 tech sticker featuring Mega Zygarde ex
-• 8 Pokémon TCG booster packs</description>
-      <link>https://sgtradingcard.com/?product=1339</link>
-      <g:image_link>https://i.ibb.co/HDcmRGfP/0862315aaacf.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>59.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>1 lb</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1340</g:id>
-      <title>Pokémon TCG: Mega Moonlit Tin [Mega Gengar ex]</title>
-      <description>The Pokémon TCG: Mega Moonlit Tin includes:
-• 1 foil promo card featuring Mega Gengar ex
-• 4 Pokémon TCG booster packs
-• A code card for Pokémon TCG Live</description>
-      <link>https://sgtradingcard.com/?product=1340</link>
-      <g:image_link>https://i.ibb.co/yBg200V8/34b414edee2b.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>34.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>0.8 lb</g:shipping_weight>
-      <g:shipping>
-        <g:country>US</g:country>
-        <g:service>Standard</g:service>
-        <g:price>5.99 USD</g:price>
-      </g:shipping>
-    </item>
-    <item>
-      <g:id>1341</g:id>
-      <title>Pokémon TCG: Mega Moonlit Tin [Mega Clefable ex]</title>
-      <description>The Pokémon TCG: Mega Moonlit Tin includes:
-• 1 foil promo card featuring Mega Clefable ex
-• 4 Pokémon TCG booster packs
-• A code card for Pokémon TCG Live</description>
-      <link>https://sgtradingcard.com/?product=1341</link>
-      <g:image_link>https://i.ibb.co/VpPbvrkJ/4b4ec7749114.png</g:image_link>
-      <g:condition>new</g:condition>
-      <g:availability>in stock</g:availability>
-      <g:price>34.99 USD</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
-      <g:product_type>Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
-      <g:shipping_weight>0.8 lb</g:shipping_weight>
       <g:shipping>
         <g:country>US</g:country>
         <g:service>Standard</g:service>
