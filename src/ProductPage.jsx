@@ -9,6 +9,49 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
     setSelectedImage(null);
   }
 
+  useEffect(() => {
+    if (!product) return;
+
+    let script = document.getElementById('product-schema-jsonld');
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'product-schema-jsonld';
+      script.type = 'application/ld+json';
+      document.head.appendChild(script);
+    }
+
+    const priceNum = parseFloat(product.price.replace('$', '').replace(/,/g, '')) || 0;
+    const availability = product.soldOut ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock';
+    const condition = product.condition ? (product.condition.toLowerCase().includes('10') || product.condition.toLowerCase().includes('mint') ? 'https://schema.org/NewCondition' : 'https://schema.org/UsedCondition') : 'https://schema.org/NewCondition';
+
+    const schema = {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": product.title,
+      "image": product.imgUrl && product.imgUrl.startsWith('http') ? product.imgUrl : `https://sgtradingcard.com${product.imgUrl}`,
+      "description": product.description || `Buy ${product.title} at S&G Trading.`,
+      "brand": {
+        "@type": "Brand",
+        "name": "S&G Trading"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": `https://sgtradingcard.com/?product=${product.id}`,
+        "priceCurrency": "USD",
+        "price": priceNum.toString(),
+        "itemCondition": condition,
+        "availability": availability
+      }
+    };
+
+    script.text = JSON.stringify(schema, null, 2);
+
+    return () => {
+      const el = document.getElementById('product-schema-jsonld');
+      if (el) el.remove();
+    };
+  }, [product]);
+
   if (!product) return null;
 
   const galleryList = product.galleryUrls && product.galleryUrls.length > 0 
