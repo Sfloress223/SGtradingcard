@@ -7,7 +7,7 @@ const PoliciesPage = ({ onBack, initialTab = 'privacy' }) => {
     setActiveTab(initialTab);
   }, [initialTab]);
 
-  const storePhone = import.meta.env.VITE_STORE_PHONE || "(214) 258-5838";
+  const storePhone = import.meta.env.VITE_STORE_PHONE || "(469) 364-4613";
   const storeEmail = import.meta.env.VITE_STORE_EMAIL || "sgtradingcard+help@gmail.com";
   const storeAddress = import.meta.env.VITE_STORE_ADDRESS || "11605 Harry Hines Blvd, Dallas, TX 75229";
 
