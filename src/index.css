@@ -42,18 +42,21 @@ a {
   font-weight: bold;
 }
 
-/* Breadcrumb URL Bar */
+/* Breadcrumb URL Bar (Visually hidden for SEO crawler validation) */
 .breadcrumb-bar {
-  background: #f0f2f5;
-  border-bottom: 1px solid #dde1e7;
-  padding: 7px 5%;
-  font-size: 0.82rem;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border: none;
+  background: transparent;
   display: flex;
   align-items: center;
   gap: 4px;
   max-width: 100%;
-  overflow: hidden;
   white-space: nowrap;
 }
 
