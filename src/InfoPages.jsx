@@ -136,3 +136,42 @@ export const ContactPage = ({ onBack }) => {
     </div>
   );
 };
+
+export const AboutPage = ({ onBack }) => {
+  return (
+    <div className="policies-page" style={{ padding: '0 5%', maxWidth: '800px', margin: '0 auto', textAlign: 'left' }}>
+      <button 
+        onClick={onBack} 
+        style={{ background: 'none', border: 'none', cursor: 'pointer', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '5px', color: '#666' }}
+      >
+        ← Back to Home
+      </button>
+
+      <h1 style={{ marginBottom: '1.5rem', fontSize: '2.5rem' }}>About Us</h1>
+      
+      <div style={{ lineHeight: '1.8', fontSize: '1.1rem', color: '#2d3748' }}>
+        <p style={{ marginBottom: '1.5rem' }}>
+          Welcome to <strong>S&amp;G Trading</strong>! Our story is simple: we are two high school friends who shared a passion for collecting, trading, and playing trading card games. Over the years, we watched the hobby grow, but we also saw it become increasingly difficult for fans and collectors to get authentic cards at fair prices without worrying about fakes, resealed packs, or price gouging.
+        </p>
+
+        <p style={{ marginBottom: '1.5rem' }}>
+          We started S&amp;G Trading to change that. Our mission is to build a fun, welcoming community of collectors and players who share our love for Pokémon TCG and other trading card collectibles.
+        </p>
+
+        <h3 style={{ fontSize: '1.4rem', color: '#1a202c', marginTop: '2rem', marginBottom: '1rem' }}>🛡️ Our Guarantee: 100% Authentic, No Fakes</h3>
+        <p style={{ marginBottom: '1.5rem' }}>
+          As collectors ourselves, we know there is nothing worse than the disappointment of receiving a fake or tampered pack. That is why we enforce a strict <strong>zero-tolerance policy</strong> on counterfeits. We source every single one of our sealed products directly from verified, authorized distributors, and inspect all graded cards and singles with professional care. When you shop with us, you can buy with complete confidence.
+        </p>
+
+        <h3 style={{ fontSize: '1.4rem', color: '#1a202c', marginTop: '2rem', marginBottom: '1rem' }}>🤝 Building a Community</h3>
+        <p style={{ marginBottom: '1.5rem' }}>
+          More than just a store, we want to create a space where beginners and veteran collectors alike can connect, swap stories, and enjoy the thrill of the pull. We are committed to keeping our prices fair and getting products out to the masses so that everyone can enjoy the hobby.
+        </p>
+
+        <p>
+          Thank you for supporting our dream and being a part of our growing community. Happy hunting, and may your next pack have the ultimate pull!
+        </p>
+      </div>
+    </div>
+  );
+};

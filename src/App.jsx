@@ -15,7 +15,7 @@ import GrandExchangeMarket from './GrandExchangeMarket';
 import SellerProfile from './SellerProfile';
 import PoliciesPage from './PoliciesPage';
 import ReviewsPage from './ReviewsPage';
-import { FaqPage, ContactPage } from './InfoPages';
+import { FaqPage, ContactPage, AboutPage } from './InfoPages';
 import { PRODUCTS as FALLBACK_PRODUCTS, SETS as FALLBACK_SETS } from './data';
 
 const API = import.meta.env.PROD ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
@@ -358,6 +358,7 @@ function App() {
     policies:        { label: 'policies' },
     faq:             { label: 'faq' },
     contact:         { label: 'contact' },
+    about:           { label: 'about' },
     product:         { label: selectedProduct ? `product` : null },
     'seller-profile': { label: 'thegrandexchange / seller' },
   };
@@ -529,6 +530,14 @@ function App() {
       );
     }
 
+    if (currentPage === 'about') {
+      return (
+        <main style={{ minHeight: '70vh', padding: '2rem 0' }}>
+          <AboutPage onBack={() => { setCurrentPage('home'); window.scrollTo(0, 0); }} />
+        </main>
+      );
+    }
+
     // Default: Home Page
     return (
       <main>
@@ -666,6 +675,7 @@ function App() {
             <nav className="main-nav">
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('home'); }}>Home</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('shop'); }}>Shop</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('about'); }}>About Us</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('grand-exchange'); }}>The Grand Exchange</a>
             </nav>
             <div className="header-social-icons" style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
@@ -698,6 +708,7 @@ function App() {
           <div className="mobile-nav-panel" onClick={e => e.stopPropagation()}>
             <button className="mobile-nav-link" onClick={() => { setCurrentPage('home'); setMobileNavOpen(false); }}>Home</button>
             <button className="mobile-nav-link" onClick={() => { setCurrentPage('shop'); setMobileNavOpen(false); }}>Shop</button>
+            <button className="mobile-nav-link" onClick={() => { setCurrentPage('about'); setMobileNavOpen(false); }}>About Us</button>
             <button className="mobile-nav-link" onClick={() => { setCurrentPage('grand-exchange'); setMobileNavOpen(false); }}>The Grand Exchange</button>
             <button className="mobile-nav-link" onClick={() => { setCurrentPage('cart'); setMobileNavOpen(false); }}>Cart ({cartCount})</button>
             {userToken ? (
@@ -752,6 +763,7 @@ function App() {
             
             <div className="footer-links" style={{ flex: '1', minWidth: '180px', alignItems: 'flex-start' }}>
               <h4 style={{ color: '#fff', marginBottom: '1rem' }}>Policies &amp; Info</h4>
+              <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('about'); window.scrollTo(0, 0); }}>About Us</a>
               <a href="#" onClick={(e) => { e.preventDefault(); setCurrentPage('faq'); window.scrollTo(0, 0); }}>FAQ</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigateToPolicy('refund'); }}>Return &amp; Refund Policy</a>
               <a href="#" onClick={(e) => { e.preventDefault(); navigateToPolicy('shipping'); }}>Shipping Policy</a>
