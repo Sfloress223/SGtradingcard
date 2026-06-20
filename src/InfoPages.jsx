@@ -151,25 +151,25 @@ export const AboutPage = ({ onBack }) => {
       
       <div style={{ lineHeight: '1.8', fontSize: '1.1rem', color: '#2d3748' }}>
         <p style={{ marginBottom: '1.5rem' }}>
-          Welcome to <strong>S&amp;G Trading</strong>! Our story is simple: we are two high school friends who shared a passion for collecting, trading, and playing trading card games. Over the years, we watched the hobby grow, but we also saw it become increasingly difficult for fans and collectors to get authentic cards at fair prices without worrying about fakes, resealed packs, or price gouging.
+          We are just two high school friends who grew up trading cards, playing the games, and opening packs together. Over the years, we watched the trading card community grow, but we also saw how hard it became for regular collectors to find authentic cards at decent prices. Between crazy markups, resealed booster packs, and the constant worry of ending up with fakes, we felt like the hobby was losing its magic.
         </p>
 
         <p style={{ marginBottom: '1.5rem' }}>
-          We started S&amp;G Trading to change that. Our mission is to build a fun, welcoming community of collectors and players who share our love for Pokémon TCG and other trading card collectibles.
+          We set up S&amp;G Trading to try and change that. Our main goal is to get booster packs, sealed boxes, and collectibles into the hands of real people at fair prices, and build a fun community along the way.
         </p>
 
-        <h3 style={{ fontSize: '1.4rem', color: '#1a202c', marginTop: '2rem', marginBottom: '1rem' }}>🛡️ Our Guarantee: 100% Authentic, No Fakes</h3>
+        <h3 style={{ fontSize: '1.4rem', color: '#1a202c', marginTop: '2rem', marginBottom: '1rem' }}>No Fakes, No Exceptions</h3>
         <p style={{ marginBottom: '1.5rem' }}>
-          As collectors ourselves, we know there is nothing worse than the disappointment of receiving a fake or tampered pack. That is why we enforce a strict <strong>zero-tolerance policy</strong> on counterfeits. We source every single one of our sealed products directly from verified, authorized distributors, and inspect all graded cards and singles with professional care. When you shop with us, you can buy with complete confidence.
+          We collect too, so we know exactly how disappointing it is to buy a card or a pack and realize it's been tampered with. We have a zero-tolerance rule for fakes. Every single piece of sealed product we sell comes straight from verified distributors, and we carefully look over every single card and slab. If we wouldn't put it in our own collection, we won't sell it to you.
         </p>
 
-        <h3 style={{ fontSize: '1.4rem', color: '#1a202c', marginTop: '2rem', marginBottom: '1rem' }}>🤝 Building a Community</h3>
+        <h3 style={{ fontSize: '1.4rem', color: '#1a202c', marginTop: '2rem', marginBottom: '1rem' }}>A Community for Everyone</h3>
         <p style={{ marginBottom: '1.5rem' }}>
-          More than just a store, we want to create a space where beginners and veteran collectors alike can connect, swap stories, and enjoy the thrill of the pull. We are committed to keeping our prices fair and getting products out to the masses so that everyone can enjoy the hobby.
+          We want S&amp;G Trading to be a place where collectors—whether you're just starting out or you've been doing this for decades—can hang out, trade stories, and share the excitement of a great pull. We keep our prices as low as we can because we believe everyone should have access to the hobby without feeling ripped off.
         </p>
 
         <p>
-          Thank you for supporting our dream and being a part of our growing community. Happy hunting, and may your next pack have the ultimate pull!
+          Thanks for checking out our shop and helping us build this community. Good luck on your next pull!
         </p>
       </div>
     </div>
