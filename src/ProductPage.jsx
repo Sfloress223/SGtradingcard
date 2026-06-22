@@ -24,6 +24,9 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
     const availability = product.soldOut ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock';
     const condition = product.condition ? (product.condition.toLowerCase().includes('10') || product.condition.toLowerCase().includes('mint') ? 'https://schema.org/NewCondition' : 'https://schema.org/UsedCondition') : 'https://schema.org/NewCondition';
 
+    const isMantaRay = (product.title || "").toLowerCase().includes('manta ray');
+    const brandName = isMantaRay ? "S&G Trading" : "Pokémon";
+
     const schema = {
       "@context": "https://schema.org/",
       "@type": "Product",
@@ -32,7 +35,7 @@ const ProductPage = ({ product, onAddToCart, onBack, onViewSellerProfile }) => {
       "description": product.description || `Buy ${product.title} at S&G Trading.`,
       "brand": {
         "@type": "Brand",
-        "name": "S&G Trading"
+        "name": brandName
       },
       "offers": {
         "@type": "Offer",

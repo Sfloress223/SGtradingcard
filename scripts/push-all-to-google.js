@@ -48,6 +48,12 @@ async function run() {
         }
       }
       
+      const titleLower = (product.title || "").toLowerCase();
+      let brand = 'Pokémon';
+      if (titleLower.includes('manta ray')) {
+        brand = 'S&G Trading';
+      }
+
       const requestBody = {
         offerId: product.id.toString(),
         title: cleanTitle,
@@ -63,7 +69,7 @@ async function run() {
           value: product.price ? product.price.replace('$', '') : '0.00',
           currency: 'USD'
         },
-        brand: 'S&G Trading',
+        brand: brand,
         identifierExists: false
       };
       
