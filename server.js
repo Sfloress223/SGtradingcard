@@ -389,6 +389,11 @@ app.get('/google-feed.xml', (req, res) => {
         productType = 'Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs';
       }
 
+      let brand = 'Pokémon';
+      if (titleLower.includes('manta ray')) {
+        brand = 'S&amp;G Trading';
+      }
+
       xml += `
     <item>
       <g:id>${product.id}</g:id>
@@ -399,7 +404,7 @@ app.get('/google-feed.xml', (req, res) => {
       <g:condition>${condition}</g:condition>
       <g:availability>${product.soldOut || product.stock === 0 ? 'out of stock' : 'in stock'}</g:availability>
       <g:price>${priceStr}</g:price>
-      <g:brand>S&amp;G Trading</g:brand>
+      <g:brand>${brand}</g:brand>
       <g:google_product_category>505707</g:google_product_category>
       <g:product_type>${productType}</g:product_type>
       <g:identifier_exists>no</g:identifier_exists>
