@@ -59,9 +59,63 @@ try {
   console.error('Failed to initialize Google Content API:', err.message);
 }
 
+function getGoogleWeightFallback(title) {
+  let t = (title || "").toLowerCase();
+  if (t.includes('ultra-premium')) return '3.5 lb';
+  if (t.includes('adventure chest') || t.includes('gift box')) return '2.5 lb';
+  if (t.includes('elite trainer box')) return '1.6 lb';
+  if (t.includes('booster box')) return '1.8 lb';
+  if (t.includes('collection') && t.includes('box')) return '1.2 lb';
+  if (t.includes('tin') && !t.includes('mini')) return '0.8 lb';
+  if (t.includes('mini tin')) return '4 oz';
+  if (t.includes('booster bundle')) return '6 oz';
+  if (t.includes('battle deck')) return '6 oz';
+  if (t.includes('psa')) return '4 oz';
+  if (t.includes('plush') || t.includes('charm')) return '2 oz';
+  if (t.includes('figure') || t.includes('terrarium')) return '6 oz';
+  if (t.includes('booster pack') || t.includes('pack')) return '1 oz';
+  if (t.includes('blister')) return '3 oz';
+  if (t.includes('knock out collection')) return '5 oz';
+  if (t.includes('tin')) return '0.8 lb'; 
+  if (t.includes('single') || t.includes('card')) return '1 oz';
+  return '1 lb'; 
+}
+
+function parseGoogleWeight(weightStr) {
+  if (!weightStr) return null;
+  const parts = weightStr.trim().split(' ');
+  if (parts.length === 2 && !isNaN(parseFloat(parts[0]))) {
+     return { value: parseFloat(parts[0]), unit: parts[1].toLowerCase() };
+  }
+  return null;
+}
+
 // Helper to instantly push inventory updates
 async function syncGoogleProduct(product) {
   if (!contentApi || !process.env.MERCHANT_ID) return;
+  
+  // Skip Seller items
+  if (product.sellerId) return;
+
+  const rawPrice = parseFloat((product.price || "").replace('$', '').replace(/,/g, '')) || 0;
+  if (product.hidden || rawPrice <= 0) {
+    try {
+      console.log(`🗑️ Deleting hidden/zero-priced product from Google via sync: ${product.title} (ID: ${product.id})`);
+      await contentApi.products.delete({
+        merchantId: process.env.MERCHANT_ID,
+        productId: `online:en:US:${product.id}`
+      });
+      console.log(`📦 Deleted Google Merchant Center for product ${product.id}`);
+    } catch (err) {
+      if (err.code === 404 || (err.message && err.message.toLowerCase().includes('not found'))) {
+        // Already absent
+      } else {
+        console.error(`Failed to delete Google product ${product.id}:`, err.message);
+      }
+    }
+    return;
+  }
+
   try {
     const cleanDesc = (product.description || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     const cleanTitle = (product.title || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -69,14 +123,8 @@ async function syncGoogleProduct(product) {
     const imgUrl = product.imgUrl && product.imgUrl.startsWith('http') ? product.imgUrl : `https://sgtradingcard.com${product.imgUrl}`;
     const condition = product.condition ? (product.condition.toLowerCase().includes('10') || product.condition.toLowerCase().includes('mint') ? 'new' : 'used') : 'new';
     
-    // Parse shippingWeight (e.g. "1.6 lb")
-    let parsedWeight = null;
-    if (product.shippingWeight) {
-      const parts = product.shippingWeight.trim().split(' ');
-      if (parts.length === 2 && !isNaN(parseFloat(parts[0]))) {
-         parsedWeight = { value: parseFloat(parts[0]), unit: parts[1].toLowerCase() };
-      }
-    }
+    const weightStr = product.shippingWeight || getGoogleWeightFallback(product.title);
+    const parsedWeight = parseGoogleWeight(weightStr);
     
     const titleLower = (product.title || "").toLowerCase();
     let brand = 'Pokémon';
@@ -96,7 +144,7 @@ async function syncGoogleProduct(product) {
         availability: product.soldOut ? 'out of stock' : 'in stock',
         condition: condition,
         price: {
-          value: product.price ? product.price.replace('$', '') : '0.00',
+          value: rawPrice.toFixed(2),
           currency: 'USD'
         },
         brand: brand,
