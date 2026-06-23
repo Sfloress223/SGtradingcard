@@ -1,5 +1,1171 @@
 const fs = require('fs');
-let data = [{"id":101,"setId":"surging-sparks","title":"Pokémon TCG: Scarlet & Violet-Surging Sparks Booster Pack","price":"$7.99","soldOut":false,"description":"Contains 10 cards from the Surging Sparks expansion. Each pack may include rare holographic, illustration rare, or special art rare cards.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/224a05f2-8828-4f97-9299-1d207332261a/SuzieQ+LOGO+%289%29.png?format=500w"},{"id":102,"setId":"surging-sparks","title":"Pokémon TCG: Surging Sparks Elite Trainer Box","price":"$65.99","soldOut":true,"description":"Includes 9 Surging Sparks booster packs, 1 full-art promo card, 65 card sleeves, 45 energy cards, and a player's guide. Great for building competitive decks.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/3f7eaa48-463e-4eb7-848b-6beab5e61491/SuzieQ+LOGO+%2816%29.png?format=500w"},{"id":201,"setId":"151","title":"Pokémon TCG: Scarlet & Violet 151 Booster Pack","price":"$11.99","soldOut":true,"description":"Contains 10 cards celebrating the original 151 Kanto Pokémon. Chase the iconic Charizard, Blastoise, and Venusaur illustration rares in this fan-favorite set.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/99353457-f7de-440e-b6ba-da27f7cc9f5a/SuzieQ+LOGO+%286%29.png?format=500w"},{"id":202,"setId":"151","title":"Pokémon TCG: Scarlet & Violet—151 Elite Trainer Box","price":"$165.99","soldOut":true,"description":"Includes 11 Scarlet & Violet—151 booster packs, a full-art promo card, 65 card sleeves featuring Poké Ball designs, energy cards, damage counters, and a collector's box.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/b51a206d-68bd-4fe3-bafb-fdf198028551/SuzieQ+LOGO+%285%29.png?format=500w"},{"id":203,"setId":"151","title":"Pokémon TCG: Scarlet & Violet—151 Mini Tin","price":"$21.99","soldOut":true,"description":"Compact collector's tin containing 2 Scarlet & Violet—151 booster packs and 1 art card. Each tin features a different original Kanto Pokémon design.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/73b5a3ce-c96c-44e2-9535-6f54feabc5db/SuzieQ+LOGO+%281%29.png?format=500w"},{"id":301,"setId":"prismatic","title":"Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Booster Bundle","price":"$64.99","soldOut":false,"description":"Includes 6 Prismatic Evolutions booster packs wrapped in exclusive bundle packaging.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1786c526-f588-4355-baeb-e42f2756edf4/SuzieQ+LOGO+%2839%29.png?format=500w"},{"id":302,"setId":"prismatic","title":"Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Elite Trainer Box","price":"$69.99","soldOut":true,"description":"Contains 9 Prismatic Evolutions booster packs, a special holographic promo card, 65 card sleeves, energy cards, and a premium storage box featuring Eevee artwork.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/cf3a8205-f4d4-4488-897a-e78baf4bc263/SuzieQ+LOGO+%287%29.png?format=500w"},{"id":303,"setId":"prismatic","title":"Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Mini Tin","price":"$14.99","soldOut":true,"description":"A pocket-sized collector's tin with 2 Prismatic Evolutions booster packs and 1 art card. Perfect for collecting all Eeveelution designs.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/05afc2f2-41a7-4475-a225-65d0a213e817/SuzieQ+LOGO+%2835%29.png?format=500w"},{"id":351,"setId":"journey-together","title":"Pokémon TCG: Scarlet & Violet-Journey Together Booster Pack","price":"$6.99","soldOut":false,"description":"Contains 10 cards from the Journey Together expansion. Features Trainer & Pokémon duo cards and new illustration rares celebrating iconic partnerships.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f5c77db2-def7-4c5b-b7d6-7e54b86dee44/JT+%282%29.png?format=500w"},{"id":352,"setId":"journey-together","title":"Pokémon TCG: Scarlet & Violet-Journey Together Booster Bundle","price":"$38.99","soldOut":true,"description":"Includes 6 Journey Together booster packs in a collectible bundle box. Great value for pulling rare Trainer duo cards.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/0e5d7006-cef4-4105-b64e-3a5b3d8e58a4/SuzieQ+LOGO+%2841%29.png?format=500w"},{"id":353,"setId":"journey-together","title":"Pokémon TCG: Scarlet & Violet 9 Journey Together Elite Trainer Box","price":"$65.99","soldOut":true,"description":"Packed with 9 Journey Together booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, and condition markers. Everything you need to play and collect.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/55a7e684-ce92-425d-b893-286e4cae8179/SuzieQ+LOGO+%283%29.png?format=500w"},{"id":401,"setId":"mega-evolution","title":"Pokémon TCG: Mega Evolution Booster Pack","price":"$8.99","soldOut":false,"description":"Contains 10 cards from the Mega Evolution expansion. Chance to pull powerful Mega EX cards featuring fan-favorite Pokémon like Charizard, Lucario, and Gardevoir.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2603873e-f184-4adc-8aa7-94a9c4520bb5/ME+%282%29.png?format=500w"},{"id":402,"setId":"mega-evolution","title":"Pokémon TCG: Mega Evolution Booster Bundle","price":"$38.99","soldOut":true,"description":"Includes 6 Mega Evolution booster packs in exclusive bundle packaging. A solid way to start your Mega Evolution collection.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/02df7a19-02a1-4fc3-86ce-88c92fa159a5/SuzieQ+LOGO+%2847%29.png?format=500w"},{"id":403,"setId":"mega-evolution","title":"Pokémon TCG: Mega Charizard X ex Ultra-Premium Collection","price":"$164.99","soldOut":true,"description":"The ultimate collector's item! Includes 16 booster packs, a metal Mega Charizard X card, premium accessories, and exclusive full-art promo cards.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/4f78e0b9-dbe4-4d3d-8b06-aba438d6e4e9/SuzieQ+LOGO+%284%29.png?format=500w"},{"id":405,"setId":"mega-evolution","title":"Pokémon TCG: Mega Evolution Elite Trainer Box (Mega Lucario)","price":"$84.99","soldOut":false,"description":"Features Mega Lucario artwork. Includes 9 booster packs, a full-art promo card.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/8f3ff6a1-bc2c-49aa-a80a-adffef6a3123/SuzieQ+LOGO+%2813%29.png?format=500w"},{"id":406,"setId":"mega-evolution","title":"Pokémon TCG: Mega Evolution Elite Trainer Box (Mega Gardevoir)","price":"$84.99","soldOut":false,"description":"Features Mega Gardevoir artwork. Includes 9 booster packs, a full-art promo card.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/f8813c9a-f790-43e8-bdb7-e01b3d6932a1/SuzieQ+LOGO+%2814%29.png?format=500w"},{"id":409,"setId":"mega-evolution","title":"Pokémon TCG: Mega Heroes Mini Tin","price":"$14.99","soldOut":true,"description":"Collectible mini tin containing 2 Mega Evolution booster packs and 1 art card. Features different Mega Pokémon designs on each tin.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d57fbe9c-708f-4c55-a219-8af24b86706e/SuzieQ+LOGO+%2831%29.png?format=500w"},{"id":410,"setId":"phantasmal-flames","title":"Pokémon TCG: Mega Evolution-Phantasmal Flames Elite Trainer Box","price":"$79.99","soldOut":true,"description":"Includes 9 Phantasmal Flames booster packs, an exclusive promo card, 65 card sleeves, energy cards, and storage box. Features Ghost and Fire-type themed artwork.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a51eae64-e8b8-46c0-b3e0-dace5c6f33d3/SuzieQ+LOGO+%2815%29.png?format=500w"},{"id":411,"setId":"phantasmal-flames","title":"Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Bundle","price":"$38.99","soldOut":true,"description":"Includes 6 Phantasmal Flames booster packs. Chase the rare illustration cards exclusive to this expansion.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/931f7b6e-91aa-44c2-aa2d-b8345eb01418/SuzieQ+LOGO+%2850%29.png?format=500w"},{"id":412,"setId":"phantasmal-flames","title":"Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Pack","price":"$7.99","soldOut":false,"description":"Contains 10 cards from the Phantasmal Flames expansion.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/9c3cfcca-a812-49ec-8701-8b71a4b6616c/PF+%282%29.png?format=500w"},{"id":501,"setId":"bw-era","title":"Pokémon TCG: Scarlet & Violet—White Flare Elite Trainer Box","price":"$68.99","soldOut":true,"description":"Includes 9 White Flare booster packs, a full-art promo card, 65 card sleeves, energy cards, and a premium box. Features Reshiram-themed artwork from the Black & White era.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/a7607e61-8abe-40e3-aff8-19eb155009cd/SuzieQ+LOGO+%2824%29.png?format=500w"},{"id":502,"setId":"bw-era","title":"Pokémon TCG: Scarlet & Violet—Black Bolt Elite Trainer Box","price":"$68.99","soldOut":true,"description":"Includes 9 Black Bolt booster packs, a full-art promo card, 65 card sleeves, energy cards, and a premium box. Features Zekrom-themed artwork from the Black & White era.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/6014c06f-3e43-40f5-8700-b58c25d459a8/SuzieQ+LOGO+%2827%29.png?format=500w"},{"id":503,"setId":"bw-era","title":"Pokémon TCG: Scarlet & Violet-White Flare Booster Bundle","price":"$38.99","soldOut":true,"description":"Includes 6 White Flare booster packs in collectible bundle packaging. Pull powerful cards from the Black & White-inspired set.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/04ebf0f4-25fd-4afb-adaa-7ea2006526f8/SuzieQ+LOGO+%2843%29.png?format=500w"},{"id":504,"setId":"bw-era","title":"Pokémon TCG: Scarlet & Violet-Black Bolt Booster Bundle","price":"$56.99","soldOut":false,"description":"Includes 6 Black Bolt booster packs in collectible bundle packaging.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/127d72d8-2c4d-4574-a842-3f596d782f52/SuzieQ+LOGO+%2848%29.png?format=500w"},{"id":505,"setId":"bw-era","title":"Pokémon TCG: Scarlet & Violet-White Flare Booster Pack","price":"$7.49","soldOut":true,"description":"Contains 10 cards from the White Flare expansion. Features classic Pokémon with modern Scarlet & Violet mechanics.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/998a969c-249d-4618-8e50-96f2a1c4b30a/WF+%282%29.png?format=500w"},{"id":506,"setId":"bw-era","title":"Pokémon TCG: Scarlet & Violet-Black Bolt Booster Pack","price":"$7.49","soldOut":true,"description":"Contains 10 cards from the Black Bolt expansion. Features classic Pokémon with modern Scarlet & Violet mechanics.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/5ddb0c36-903d-4eb6-b61e-ebaebf64b36b/BB+%282%29.png?format=500w"},{"id":601,"setId":"misc","title":"Pokémon TCG: Scarlet & Violet—Twilight Masquerade Elite Trainer Box","price":"$65.99","soldOut":true,"description":"Includes 9 Twilight Masquerade booster packs, a full-art promo card, 65 card sleeves, energy cards, and accessories. Features mysterious mask-themed artwork.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/8986f12b-dec4-4456-aebb-4096283dbc8b/SuzieQ+LOGO+%2817%29.png?format=500w"},{"id":602,"setId":"misc","title":"Pokémon TCG: Scarlet & Violet—Temporal Forces Elite Trainer Box","price":"$65.99","soldOut":true,"description":"Includes 9 Temporal Forces booster packs, a full-art promo card, 65 card sleeves, energy cards, and a collector's box. Chase the rare ACE SPEC cards.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/94b8cbd4-4f6d-45fb-a36f-d88fd144de00/SuzieQ+LOGO+%2814%29.png?format=500w"},{"id":603,"setId":"misc","title":"Pokémon TCG: Archaludon ex Box","price":"$29.99","soldOut":false,"description":"Contains a foil promo Archaludon ex card, 4 booster packs, and an oversized card.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/64d7fc24-f6c5-4157-86f2-e48e4329c4b1/SuzieQ+LOGO+%288%29.png?format=500w"},{"id":604,"setId":"misc","title":"Pokémon TCG: Reshiram ex Box","price":"$32.99","soldOut":true,"description":"Contains a foil promo Reshiram ex card, 4 booster packs from various Scarlet & Violet sets, and a code card for the online game.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/2164b2bc-b83d-4ba1-95dc-583fe2d9aeb9/SuzieQ+LOGO+%287%29.png?format=500w"},{"id":605,"setId":"misc","title":"Pokémon TCG: ex Battle Deck - Tapu Koko","price":"$14.99","soldOut":false,"description":"A ready-to-play 60-card deck featuring Tapu Koko ex. Includes damage counters, a coin, a deck box, and a quick-start guide — perfect for beginners.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/d7b1a8c3-575f-47ce-96cd-872a5a44635d/SuzieQ+LOGO+%285%29.png?format=500w"},{"id":606,"setId":"misc","title":"Pokémon TCG: ex Battle Deck - Iron Leaves","price":"$14.99","soldOut":false,"description":"A ready-to-play 60-card deck featuring Iron Leaves ex. Includes damage counters, a coin, a deck box, and a quick-start guide — perfect for beginners.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/adbc1830-d516-4719-b325-0a9840f6ebfd/SuzieQ+LOGO.png?format=500w"},{"id":607,"setId":"misc","title":"Pokémon TCG: Unova Mini Tin","price":"$20.99","soldOut":false,"description":"Collectible mini tin featuring Unova region Pokémon artwork. Contains 2 booster packs and 1 art card. Collect all designs!","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/1971202f-3b55-40c3-b97d-2c666ec4eda5/SuzieQ+LOGO+%2830%29.png?format=500w"},{"id":608,"setId":"misc","title":"Pokémon TCG: Scarlet & Violet— Destined Rivals Elite Trainer Box","price":"$65.99","soldOut":true,"description":"Includes 9 Destined Rivals booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, and a premium collector's box.","imgUrl":"https://images.squarespace-cdn.com/content/v1/68e06d2a2c7b551478df5338/657531d7-0a47-4484-856b-ef1220919b74/SuzieQ+LOGO.png?format=500w"},{"id":701,"setId":"japanese","title":"Japanese Pokémon TCG Booster Box (Placeholder)","price":"$59.99","soldOut":false,"description":"Japanese booster box containing 30 packs with 5 cards each. Japanese sets are known for exclusive artwork and higher pull rates.","imgUrl":""},{"id":702,"setId":"japanese","title":"Japanese Pokémon TCG Single Pack (Placeholder)","price":"$4.99","soldOut":false,"description":"A single Japanese booster pack with 5 cards. Imported directly from Japan with authentic packaging.","imgUrl":""},{"id":801,"setId":"chinese","title":"Simplified Chinese Pokémon TCG Gift Box (Placeholder)","price":"$85.99","soldOut":false,"description":"Premium gift box from the Simplified Chinese Pokémon TCG line. Contains multiple booster packs, promo cards, and exclusive accessories.","imgUrl":""},{"id":802,"setId":"chinese","title":"Traditional Chinese Pokémon Booster Box (Placeholder)","price":"$45.99","soldOut":false,"description":"Traditional Chinese booster box with 30 packs. Features region-exclusive artwork and card designs.","imgUrl":""},{"id":901,"setId":"other-tcg","title":"One Piece Card Game Booster Box (Placeholder)","price":"$110.00","soldOut":false,"description":"Contains 24 booster packs from the One Piece Card Game. Each pack has 6 cards with a chance to pull rare leader and secret rare cards.","imgUrl":""},{"id":902,"setId":"other-tcg","title":"Disney Lorcana Set Pack (Placeholder)","price":"$6.99","soldOut":false,"description":"A single Disney Lorcana booster pack with 12 cards. Collect enchanted and legendary Disney characters in card form.","imgUrl":""},{"id":1001,"setId":"pokemon-merch","title":"Pikachu 8-inch Plush (Placeholder)","price":"$14.99","soldOut":false,"description":"Soft and cuddly 8-inch Pikachu plush toy. Perfect for display or cuddling.","imgUrl":""},{"id":1002,"setId":"pokemon-merch","title":"Poké Ball Replica (Placeholder)","price":"$29.99","soldOut":false,"description":"High-quality die-cast Poké Ball replica with touch and proximity-sensing light features.","imgUrl":""},{"id":1101,"setId":"perfect-order","title":"Pokémon TCG: Mega Evolution—Perfect Order Elite Trainer Box","price":"$49.99","soldOut":false,"description":"Includes 9 Perfect Order booster packs, a full-art promo card, 65 card sleeves featuring Mega Zygarde, energy cards, and a premium collector's box.","imgUrl":"/images/po-etb.png"},{"id":1102,"setId":"perfect-order","title":"Pokémon TCG: Mega Evolution—Perfect Order 3-Pack Blister","price":"$14.99","soldOut":false,"description":"Contains 3 Perfect Order booster packs, a shiny coin, and a special foil promo card to boost your collection.","imgUrl":"/images/po-blister.jpg"},{"id":1103,"setId":"perfect-order","title":"Pokémon TCG: Mega Evolution—Perfect Order Booster Bundle","price":"$26.99","soldOut":false,"description":"Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.","imgUrl":"/images/po-bundle.png"},{"id":1104,"setId":"perfect-order","title":"Pokémon TCG: Mega Evolution—Perfect Order Booster Pack","price":"$4.49","soldOut":false,"description":"Contains 10 cards from the Perfect Order expansion. Uncover powerful new Pokémon ex and stunning illustration rares.","imgUrl":"/images/po-booster.png"},{"id":1105,"setId":"perfect-order","title":"Pokémon TCG: Mega Evolution—Perfect Order Mini Tin","price":"$9.99","soldOut":false,"description":"A collectible mini tin that perfectly stores your favorite cards! Includes 2 booster packs and 1 matching Pokémon art card.","imgUrl":"/images/po-minitin.jpg"},{"id":103,"setId":"surging-sparks","title":"Pokémon TCG: Scarlet & Violet-Surging Sparks Booster Box","price":"$234.99","soldOut":false,"description":"Contains 36 Surging Sparks booster packs.","imgUrl":"/images/po-logo.png"},{"id":413,"setId":"mega-evolution","title":"Pokémon TCG: Mega Evolution Booster Pack","price":"$36.99","soldOut":false,"description":"Set of 5 Mega Evolution booster packs.","imgUrl":"/images/po-logo.png"},{"id":609,"setId":"misc","title":"Pokémon TCG: Pokemon Day 2026 Collection","price":"$29.99","soldOut":false,"description":"Commemorative Pokémon Day collection offering an array of packs and exclusive promos.","imgUrl":"/images/po-logo.png"},{"id":1003,"setId":"pokemon-merch","title":"Cute Manta Ray Plush Bag Charm - Perfect Gift for Marine Lovers","price":"$8.99","soldOut":false,"description":"Adorable Manta Ray plush bag charm.","imgUrl":"/images/manta-ray.png"},{"id":414,"setId":"mega-evolution","title":"Pokémon TCG: Mega Evolution - Ascended Heroes Collection","price":"$24.99","soldOut":false,"description":"An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.","imgUrl":"/images/ascended-heroes.png"},{"id":304,"setId":"prismatic","title":"Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Surprise Box","price":"$46.99","soldOut":false,"description":"A mystery surprise box full of Prismatic Evolutions boosters and collectibles.","imgUrl":"/images/po-logo.png"},{"id":1201,"setId":"graded-cards","title":"PSA 10 GEM MINT 2022 Pokemon Japanese Zamazenta V #232 VSTAR Universe","price":"$54.99","soldOut":false,"description":"Professionally graded PSA 10 Gem Mint Japanese Zamazenta V card.","imgUrl":"/images/zamazenta-psa.png"},{"id":305,"setId":"prismatic","title":"Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Booster Pack","price":"$10.99","soldOut":false,"description":"Contains 10 cards from the gorgeous Prismatic Evolutions set.","imgUrl":"/images/po-logo.png"},{"id":1004,"setId":"pokemon-merch","title":"Re-Ment Terrarium Mini Figure Blind Box EX Paldea - Pokémon Licensed Collectible","price":"$15.99","soldOut":false,"description":"Official blind box terrarium figure from the Paldea region.","imgUrl":"/images/rement-paldea.png"},{"id":1005,"setId":"pokemon-merch","title":"Re-Ment Terrarium Mini Figure Blind Box - Pokémon Licensed Collectible","price":"$15.99","soldOut":false,"description":"Official classic blind box terrarium figure.","imgUrl":"/images/rement-classic.png"},{"id":610,"setId":"misc","title":"Pokémon TCG: Suicune Knock Out Collection","price":"$18.99","soldOut":false,"description":"Suicune Knock Out Collection featuring 2 booster packs and 3 foil promo cards.","imgUrl":"/images/suicune-ko.png"},{"id":611,"setId":"misc","title":"Pokémon TCG: Kyogre Knock Out Collection","price":"$19.99","soldOut":false,"description":"Kyogre Knock Out Collection featuring 2 booster packs and 3 foil promo cards.","imgUrl":"/images/kyogre-ko.png"},{"id":612,"setId":"misc","title":"Pokémon TCG: 2-Pack Blister [Raikou]","price":"$22.99","soldOut":false,"description":"Includes 2 booster packs and a special Raikou promotional coin and card.","imgUrl":"/images/po-logo.png"},{"id":613,"setId":"misc","title":"Pokémon TCG: Mega Charizard X/Y ex Tin","price":"$39.99","soldOut":false,"description":"A beautifully crafted tin featuring the mighty Mega Charizard.","imgUrl":"/images/mega-charizard-tin.png"},{"id":1202,"setId":"graded-cards","title":"N's Zorua #108 Pokemon Japanese Battle Partners PSA GEM MINT 10","price":"$35.99","soldOut":false,"description":"Immaculate PSA 10 Graded N's Zorua from the Japanese Battle Partners set.","imgUrl":"/images/zorua-psa.png"},{"id":104,"setId":"surging-sparks","title":"Pokémon TCG: Scarlet & Violet Surging Sparks Booster Bundle","price":"$48.99","soldOut":false,"description":"Contains 6 Surging Sparks booster packs to boost your collection.","imgUrl":"/images/po-logo.png"},{"id":1203,"setId":"graded-cards","title":"2014 Pokémon TCG Dragonite EX #74 MINT PSA 9","price":"$48.99","soldOut":false,"description":"Near Mint PSA 9 Dragonite EX from 2014.","imgUrl":"/images/dragonite-psa.png"},{"id":1204,"setId":"graded-cards","title":"2023 Pokémon TCG Roaring Moon EX Special Illustration Rare Card #251 MINT PSA 9","price":"$49.99","soldOut":false,"description":"A beautiful Roaring Moon EX Special Illustration Rare piece graded PSA 9.","imgUrl":"/images/roaring-moon-psa.png"},{"id":614,"setId":"misc","title":"Pokémon TCG: Paldea Adventure Chest","price":"$79.99","soldOut":false,"description":"A massive chest of Pokémon TCG treasures from the Paldea region.","imgUrl":"/images/paldea-chest.png"}];
+let data = [
+  {
+    "id": 101,
+    "setId": "surging-sparks",
+    "title": "Pokémon TCG: Scarlet & Violet-Surging Sparks Booster Pack",
+    "price": "$6.99",
+    "soldOut": false,
+    "description": "Contains 10 cards from the Surging Sparks expansion. Each pack may include rare holographic, illustration rare, or special art rare cards.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-surging-sparks-booster-pack_101.png",
+    "stock": 28
+  },
+  {
+    "id": 102,
+    "setId": "surging-sparks",
+    "title": "Pokémon TCG: Surging Sparks Elite Trainer Box",
+    "price": "$72.99",
+    "soldOut": true,
+    "description": "Includes 9 Surging Sparks booster packs, 1 full-art promo card, 65 card sleeves, 45 energy cards, and a player's guide. Great for building competitive decks.",
+    "imgUrl": "/images/pok-mon-tcg-surging-sparks-elite-trainer-box_102.png",
+    "stock": 0
+  },
+  {
+    "id": 103,
+    "setId": "surging-sparks",
+    "title": "Pokémon TCG: Scarlet & Violet-Surging Sparks Booster Box",
+    "price": "$234.99",
+    "soldOut": true,
+    "description": "Launch your deck building or booster opening experience to the next level with a full factory-sealed booster box. Contains 36 booster packs, each loaded with 10 cards and a basic Energy or VSTAR marker. Hunt for the most coveted Secret Rares, Special Illustration Rares, and Gold cards from the expansion in this complete box.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-surging-sparks-booster-box_103.png",
+    "stock": 0,
+    "galleryUrls": [
+      "https://i.ibb.co/JjFR8NVL/02801f936817.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 104,
+    "setId": "surging-sparks",
+    "title": "Pokémon TCG: Scarlet & Violet Surging Sparks Booster Bundle",
+    "price": "$48.99",
+    "soldOut": true,
+    "description": "Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.",
+    "imgUrl": "/images/pe-sleeved.jpg",
+    "stock": 0
+  },
+  {
+    "id": 201,
+    "setId": "151",
+    "title": "Pokémon TCG: Scarlet & Violet 151 Booster Pack",
+    "price": "$12.99",
+    "soldOut": true,
+    "description": "Contains 10 cards celebrating the original 151 Kanto Pokémon. Chase the iconic Charizard, Blastoise, and Venusaur illustration rares in this fan-favorite set.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-151-booster-pack_201.png",
+    "stock": 0
+  },
+  {
+    "id": 202,
+    "setId": "151",
+    "title": "Pokémon TCG: Scarlet & Violet—151 Elite Trainer Box",
+    "price": "$165.99",
+    "soldOut": true,
+    "description": "Includes 11 Scarlet & Violet—151 booster packs, a full-art promo card, 65 card sleeves featuring Poké Ball designs, energy cards, damage counters, and a collector's box.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-151-elite-trainer-box_202.png",
+    "stock": 0
+  },
+  {
+    "id": 203,
+    "setId": "151",
+    "title": "Pokémon TCG: Scarlet & Violet—151 Mini Tin",
+    "price": "$21.99",
+    "soldOut": true,
+    "description": "Compact collector's tin containing 2 Scarlet & Violet—151 booster packs and 1 art card. Each tin features a different original Kanto Pokémon design.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-151-mini-tin_203.png",
+    "stock": 0
+  },
+  {
+    "id": 301,
+    "setId": "prismatic",
+    "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Booster Bundle",
+    "price": "$64.99",
+    "soldOut": true,
+    "description": "Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-prismatic-evolutions-booster-bundle_301.png",
+    "stock": 0
+  },
+  {
+    "id": 302,
+    "setId": "prismatic",
+    "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Elite Trainer Box",
+    "price": "$129.99",
+    "soldOut": true,
+    "description": "Contains 9 Prismatic Evolutions booster packs, a special holographic promo card, 65 card sleeves, energy cards, and a premium storage box featuring Eevee artwork.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-prismatic-evolutions-elite-trainer-box_302.png",
+    "stock": 0
+  },
+  {
+    "id": 303,
+    "setId": "prismatic",
+    "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Mini Tin",
+    "price": "$22.99",
+    "soldOut": true,
+    "description": "A pocket-sized collector's tin with 2 Prismatic Evolutions booster packs and 1 art card. Perfect for collecting all Eeveelution designs.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-prismatic-evolutions-mini-tin_303.png",
+    "stock": 0
+  },
+  {
+    "id": 304,
+    "setId": "prismatic",
+    "title": "Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Surprise Box",
+    "price": "$46.99",
+    "soldOut": true,
+    "description": "Open up a world of fun with this special Surprise Box! Contains 4 booster packs, 1 premium foil promo card, and additional deck accessories. A perfect gift for any Pokémon fan looking for a fun opening experience.",
+    "imgUrl": "",
+    "stock": 0,
+    "hidden": true,
+    "galleryUrls": [],
+    "shippingWeight": ""
+  },
+  {
+    "id": 305,
+    "setId": "prismatic",
+    "title": "Pokémon TCG: Scarlet & Violet - Prismatic Evolutions Booster Pack",
+    "price": "$10.99",
+    "soldOut": true,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/ss-booster-bundle.jpg",
+    "stock": 0
+  },
+  {
+    "id": 351,
+    "setId": "journey-together",
+    "title": "Pokémon TCG: Scarlet & Violet-Journey Together Booster Pack",
+    "price": "$6.99",
+    "soldOut": true,
+    "description": "Contains 10 cards from the Journey Together expansion. Features Trainer & Pokémon duo cards and new illustration rares celebrating iconic partnerships.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-journey-together-booster-pack_351.png",
+    "stock": 0
+  },
+  {
+    "id": 352,
+    "setId": "journey-together",
+    "title": "Pokémon TCG: Scarlet & Violet-Journey Together Booster Bundle",
+    "price": "$38.99",
+    "soldOut": true,
+    "description": "Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-journey-together-booster-bundle_352.png",
+    "stock": 0
+  },
+  {
+    "id": 353,
+    "setId": "journey-together",
+    "title": "Pokémon TCG: Scarlet & Violet 9 Journey Together Elite Trainer Box",
+    "price": "$65.99",
+    "soldOut": true,
+    "description": "Packed with 9 Journey Together booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, and condition markers. Everything you need to play and collect.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-9-journey-together-elite-trainer-box_353.png",
+    "stock": 0
+  },
+  {
+    "id": 401,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Evolution Booster Pack",
+    "price": "$7.99",
+    "soldOut": false,
+    "description": "Contains 10 cards from the Mega Evolution expansion. Chance to pull powerful Mega EX cards featuring fan-favorite Pokémon like Charizard, Lucario, and Gardevoir.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-booster-pack_401.png",
+    "stock": 25
+  },
+  {
+    "id": 402,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Evolution Booster Bundle",
+    "price": "$38.99",
+    "soldOut": true,
+    "description": "Includes 6 Mega Evolution booster packs in exclusive bundle packaging. A solid way to start your Mega Evolution collection.",
+    "imgUrl": "/images/me-booster-bundle.jpg",
+    "stock": 0
+  },
+  {
+    "id": 403,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Charizard X ex Ultra-Premium Collection",
+    "price": "$164.99",
+    "soldOut": true,
+    "description": "The ultimate collector's item! Includes 16 booster packs, a metal Mega Charizard X card, premium accessories, and exclusive full-art promo cards.",
+    "imgUrl": "/images/pok-mon-tcg-mega-charizard-x-ex-ultra-premium-collection_403.png",
+    "stock": 0
+  },
+  {
+    "id": 405,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Evolution Elite Trainer Box (Mega Lucario)",
+    "price": "$84.99",
+    "soldOut": true,
+    "description": "The ultimate package for collectors, players, and trainers. This official Pokémon TCG Elite Trainer Box contains 9 booster packs, 1 full-art foil promo card, 65 premium card sleeves featuring set artwork, 45 Energy cards, 6 damage-counter dice, 1 competition-legal coin-flip die, condition markers, a player's guide, and a sturdy collector's box with dividers to keep your cards organized.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-elite-trainer-box-mega-lucario_405.png",
+    "stock": 0
+  },
+  {
+    "id": 406,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Evolution Elite Trainer Box (Mega Gardevoir)",
+    "price": "$84.99",
+    "soldOut": true,
+    "description": "The ultimate package for collectors, players, and trainers. This official Pokémon TCG Elite Trainer Box contains 9 booster packs, 1 full-art foil promo card, 65 premium card sleeves featuring set artwork, 45 Energy cards, 6 damage-counter dice, 1 competition-legal coin-flip die, condition markers, a player's guide, and a sturdy collector's box with dividers to keep your cards organized.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-elite-trainer-box-mega-gardevoir_406.png",
+    "stock": 0
+  },
+  {
+    "id": 409,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Heroes Mini Tin",
+    "price": "$19.99",
+    "soldOut": true,
+    "description": "Collectible mini tin containing 2 Mega Evolution booster packs and 1 art card. Features different Mega Pokémon designs on each tin.",
+    "imgUrl": "/images/pok-mon-tcg-mega-heroes-mini-tin_409.png",
+    "stock": 0
+  },
+  {
+    "id": 410,
+    "setId": "phantasmal-flames",
+    "title": "Pokémon TCG: Mega Evolution-Phantasmal Flames Elite Trainer Box",
+    "price": "$82.99",
+    "soldOut": true,
+    "description": "Includes 9 Phantasmal Flames booster packs, an exclusive promo card, 65 card sleeves, energy cards, and storage box. Features Ghost and Fire-type themed artwork.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-phantasmal-flames-elite-trainer-box_410.png",
+    "stock": 0
+  },
+  {
+    "id": 411,
+    "setId": "phantasmal-flames",
+    "title": "Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Bundle",
+    "price": "$63.99",
+    "soldOut": true,
+    "description": "Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolutions-phantasmal-flames-booster-bundle_411.png",
+    "stock": 0
+  },
+  {
+    "id": 412,
+    "setId": "phantasmal-flames",
+    "title": "Pokémon TCG: Mega Evolutions-Phantasmal Flames Booster Pack",
+    "price": "$7.99",
+    "soldOut": true,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolutions-phantasmal-flames-booster-pack_412.png",
+    "stock": 0
+  },
+  {
+    "id": 414,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Collection",
+    "price": "$49.99",
+    "soldOut": true,
+    "description": "An exclusive box celebrating the ascended heroes of the Mega Evolution timeline.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-ascended-heroes-collection_414.png",
+    "stock": 0,
+    "galleryUrls": [
+      "https://i.ibb.co/0VXYScYd/2c68da566dfc.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 415,
+    "setId": "mega-evolution",
+    "title": "Pokémon TCG: Mega Evolution Sleeved Booster Pack",
+    "price": "$8.49",
+    "soldOut": true,
+    "description": "A single sleeved booster pack containing 10 cards from the Mega Evolution expansion. Case-fresh and tamper-evident packaging.",
+    "imgUrl": "/images/me-sleeved.jpg",
+    "stock": 0
+  },
+  {
+    "id": 416,
+    "setId": "phantasmal-flames",
+    "title": "Pokémon TCG: Phantasmal Flames Sleeved Booster Pack",
+    "price": "$8.49",
+    "soldOut": true,
+    "description": "A single sleeved booster pack from the Phantasmal Flames set. Expand your collection with these haunted and fiery rare pulls!",
+    "imgUrl": "/images/pf-sleeved.jpg",
+    "stock": 0
+  },
+  {
+    "id": 501,
+    "setId": "bw-era",
+    "title": "Pokémon TCG: Scarlet & Violet—White Flare Elite Trainer Box",
+    "price": "$82.99",
+    "soldOut": true,
+    "description": "Includes 9 White Flare booster packs, a full-art promo card, 65 card sleeves, energy cards, and a premium box. Features Reshiram-themed artwork from the Black & White era.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-white-flare-elite-trainer-box_501.png",
+    "stock": 0
+  },
+  {
+    "id": 502,
+    "setId": "bw-era",
+    "title": "Pokémon TCG: Scarlet & Violet—Black Bolt Elite Trainer Box",
+    "price": "$82.99",
+    "soldOut": true,
+    "description": "Includes 9 Black Bolt booster packs, a full-art promo card, 65 card sleeves, energy cards, and a premium box. Features Zekrom-themed artwork from the Black & White era.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-black-bolt-elite-trainer-box_502.png",
+    "stock": 0
+  },
+  {
+    "id": 503,
+    "setId": "bw-era",
+    "title": "Pokémon TCG: Scarlet & Violet-White Flare Booster Bundle",
+    "price": "$56.99",
+    "soldOut": true,
+    "description": "Includes 6 White Flare booster packs in collectible bundle packaging. Pull powerful cards from the Black & White-inspired set.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-white-flare-booster-bundle_503.png",
+    "stock": 0
+  },
+  {
+    "id": 504,
+    "setId": "bw-era",
+    "title": "Pokémon TCG: Scarlet & Violet-Black Bolt Booster Bundle",
+    "price": "$56.99",
+    "soldOut": true,
+    "description": "Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-black-bolt-booster-bundle_504.png",
+    "stock": 0
+  },
+  {
+    "id": 505,
+    "setId": "bw-era",
+    "title": "Pokémon TCG: Scarlet & Violet-White Flare Booster Pack",
+    "price": "$8.99",
+    "soldOut": true,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-white-flare-booster-pack_505.png",
+    "stock": 0
+  },
+  {
+    "id": 506,
+    "setId": "bw-era",
+    "title": "Pokémon TCG: Scarlet & Violet-Black Bolt Booster Pack",
+    "price": "$8.99",
+    "soldOut": true,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-black-bolt-booster-pack_506.png",
+    "stock": 0
+  },
+  {
+    "id": 601,
+    "setId": "misc",
+    "title": "Pokémon TCG: Scarlet & Violet—Twilight Masquerade Elite Trainer Box",
+    "price": "$72.99",
+    "soldOut": true,
+    "description": "Includes 9 Twilight Masquerade booster packs, a full-art promo card, 65 card sleeves, energy cards, and accessories. Features mysterious mask-themed artwork.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-twilight-masquerade-elite-trainer-box_601.png",
+    "stock": 0
+  },
+  {
+    "id": 602,
+    "setId": "misc",
+    "title": "Pokémon TCG: Scarlet & Violet—Temporal Forces Elite Trainer Box",
+    "price": "$65.99",
+    "soldOut": true,
+    "description": "Includes 9 Temporal Forces booster packs, a full-art promo card, 65 card sleeves, energy cards, and a collector's box. Chase the rare ACE SPEC cards.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-temporal-forces-elite-trainer-box_602.png",
+    "stock": 0
+  },
+  {
+    "id": 603,
+    "setId": "misc",
+    "title": "Pokémon TCG: Archaludon ex Box",
+    "price": "$29.99",
+    "soldOut": true,
+    "description": "Contains a foil promo Archaludon ex card, 4 booster packs, and an oversized card.",
+    "imgUrl": "/images/pok-mon-tcg-archaludon-ex-box_603.png",
+    "stock": 0
+  },
+  {
+    "id": 604,
+    "setId": "misc",
+    "title": "Pokémon TCG: Reshiram ex Box",
+    "price": "$32.99",
+    "soldOut": true,
+    "description": "Contains a foil promo Reshiram ex card, 4 booster packs from various Scarlet & Violet sets, and a code card for the online game.",
+    "imgUrl": "/images/pok-mon-tcg-reshiram-ex-box_604.png",
+    "stock": 0
+  },
+  {
+    "id": 605,
+    "setId": "misc",
+    "title": "Pokémon TCG: ex Battle Deck - Tapu Koko",
+    "price": "$14.99",
+    "soldOut": false,
+    "description": "A ready-to-play 60-card deck featuring Tapu Koko ex. Includes damage counters, a coin, a deck box, and a quick-start guide — perfect for beginners.",
+    "imgUrl": "/images/pok-mon-tcg-ex-battle-deck-tapu-koko_605.png",
+    "stock": 1
+  },
+  {
+    "id": 606,
+    "setId": "misc",
+    "title": "Pokémon TCG: ex Battle Deck - Iron Leaves",
+    "price": "$14.99",
+    "soldOut": false,
+    "description": "A ready-to-play 60-card deck featuring Iron Leaves ex. Includes damage counters, a coin, a deck box, and a quick-start guide — perfect for beginners.",
+    "imgUrl": "/images/pok-mon-tcg-ex-battle-deck-iron-leaves_606.png",
+    "stock": 1
+  },
+  {
+    "id": 607,
+    "setId": "misc",
+    "title": "Pokémon TCG: Unova Mini Tin",
+    "price": "$20.99",
+    "soldOut": true,
+    "description": "Collectible mini tin featuring Unova region Pokémon artwork. Contains 2 booster packs and 1 art card. Collect all designs!",
+    "imgUrl": "/images/pok-mon-tcg-unova-mini-tin_607.png",
+    "stock": 0
+  },
+  {
+    "id": 608,
+    "setId": "misc",
+    "title": "Pokémon TCG: Scarlet & Violet— Destined Rivals Elite Trainer Box",
+    "price": "$165.99",
+    "soldOut": true,
+    "description": "Includes 9 Destined Rivals booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, and a premium collector's box.",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-destined-rivals-elite-trainer-box_608.png",
+    "stock": 0
+  },
+  {
+    "id": 609,
+    "setId": "misc",
+    "title": "Pokémon TCG: Pokemon Day 2026 Collection",
+    "price": "$29.99",
+    "soldOut": true,
+    "description": "Commemorative Pokémon Day collection offering an array of packs and exclusive promos.",
+    "imgUrl": "/images/pokemon-day-2026.png",
+    "stock": 0
+  },
+  {
+    "id": 610,
+    "setId": "misc",
+    "title": "Pokémon TCG: Suicune Knock Out Collection",
+    "price": "$18.99",
+    "soldOut": true,
+    "description": "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!",
+    "imgUrl": "/images/suicune-ko.png",
+    "stock": 0
+  },
+  {
+    "id": 611,
+    "setId": "misc",
+    "title": "Pokémon TCG: Kyogre Knock Out Collection",
+    "price": "$19.99",
+    "soldOut": false,
+    "description": "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!",
+    "imgUrl": "/images/kyogre-ko.png",
+    "stock": 1
+  },
+  {
+    "id": 612,
+    "setId": "misc",
+    "title": "Pokémon TCG: 2-Pack Blister [Raikou]",
+    "price": "$19.99",
+    "soldOut": false,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/raikou-blister.png",
+    "stock": 8
+  },
+  {
+    "id": 613,
+    "setId": "misc",
+    "title": "Pokémon TCG: Mega Charizard X/Y ex Tin",
+    "price": "$39.99",
+    "soldOut": true,
+    "description": "A sturdy, collectible metal tin featuring stunning Pokémon artwork. Contains 4 or 5 booster packs and a special foil promo card of the featured Pokémon. Perfect for storing cards and adding a premium collectible to your display shelf.",
+    "imgUrl": "/images/mega-charizard-tin.png",
+    "stock": 0
+  },
+  {
+    "id": 614,
+    "setId": "misc",
+    "title": "Pokémon TCG: Paldea Adventure Chest",
+    "price": "$79.99",
+    "soldOut": true,
+    "description": "Uncover a treasure trove of Pokémon goodies with the Adventure Chest. Contains 6 booster packs, 7 foil promo cards, 1 sticker sheet, 1 mini portfolio to store your cards, 1 squishy toy, and a beautiful collector's chest to store your entire collection.",
+    "imgUrl": "/images/paldea-chest.png",
+    "stock": 0
+  },
+  {
+    "id": 1003,
+    "setId": "pokemon-merch",
+    "title": "Cute Manta Ray Plush Bag Charm - Perfect Gift for Marine Lovers",
+    "price": "$8.99",
+    "soldOut": false,
+    "description": "Adorable Manta Ray plush bag charm.",
+    "imgUrl": "/images/manta-ray.png",
+    "stock": 7
+  },
+  {
+    "id": 1004,
+    "setId": "pokemon-merch",
+    "title": "Re-Ment Terrarium Mini Figure Blind Box EX Paldea - Pokémon Licensed Collectible",
+    "price": "$15.99",
+    "soldOut": false,
+    "description": "Series 13 Line-Up\n·Pikachu & Eevee\n·Latias\n·Aron\n·Quilava\n·Oshawott\n·Jolteon\nBlind Box Surprise Format 🎁\n·Buy 1 box, receive 1 random design.\n·Buy a full set (6 boxes), receive all 6 different designs (no duplicates).",
+    "imgUrl": "/images/re-ment-terrarium-mini-figure-blind-box-ex-paldea-pok-mon-licensed-collectible_1004.png",
+    "stock": 25,
+    "galleryUrls": [
+      "https://i.ibb.co/27xp4NNv/8ae6c3e377ee.png",
+      "https://i.ibb.co/pvyy9zsC/3a688343bb8e.png",
+      "/images/rement-paldea.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1005,
+    "setId": "pokemon-merch",
+    "title": "Re-Ment Terrarium Mini Figure Blind Box - Pokémon Licensed Collectible",
+    "price": "$15.99",
+    "soldOut": false,
+    "description": "Unique Designs Included\n·Pikachu & Pawmi\n·Fuecoco\n·Quaxly\n·Sprigatito\n·Tatsugiri\n·Clodsire\nBlind Box Surprise Format",
+    "imgUrl": "/images/re-ment-terrarium-mini-figure-blind-box-pok-mon-licensed-collectible_1005.png",
+    "stock": 25,
+    "galleryUrls": [
+      "https://i.ibb.co/mCGLnQJv/91ffb803c4ba.png",
+      "https://i.ibb.co/RktnmDfq/a4ffeea891dc.png",
+      "https://i.ibb.co/PJh8bp2/1f91bad6385e.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1101,
+    "setId": "perfect-order",
+    "title": "Pokémon TCG: Mega Evolution—Perfect Order Elite Trainer Box",
+    "price": "$79.99",
+    "soldOut": false,
+    "description": "Includes 9 Perfect Order booster packs, a full-art promo card, 65 card sleeves featuring Mega Zygarde, energy cards, and a premium collector's box.",
+    "imgUrl": "/images/po-etb.png",
+    "stock": 1
+  },
+  {
+    "id": 1102,
+    "setId": "perfect-order",
+    "title": "Pokémon TCG: Mega Evolution—Perfect Order 3-Pack Blister",
+    "price": "$24.99",
+    "soldOut": false,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/po-blister.jpg",
+    "stock": 3
+  },
+  {
+    "id": 1103,
+    "setId": "perfect-order",
+    "title": "Pokémon TCG: Mega Evolution—Perfect Order Booster Bundle",
+    "price": "$46.99",
+    "soldOut": false,
+    "description": "Expand your collection with this Booster Bundle containing 6 booster packs from the Mega Evolution—Perfect Order expansion.",
+    "imgUrl": "/images/po-bundle.png",
+    "stock": 3
+  },
+  {
+    "id": 1104,
+    "setId": "perfect-order",
+    "title": "Pokémon TCG: Mega Evolution—Perfect Order Booster Pack",
+    "price": "$6.99",
+    "soldOut": false,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/po-booster.png",
+    "stock": 36
+  },
+  {
+    "id": 1105,
+    "setId": "perfect-order",
+    "title": "Pokémon TCG: Mega Evolution—Perfect Order Mini Tin",
+    "price": "$18.99",
+    "soldOut": true,
+    "description": "A collectible mini tin that perfectly stores your favorite cards! Includes 2 booster packs and 1 matching Pokémon art card.",
+    "imgUrl": "/images/po-minitin.jpg",
+    "stock": 0
+  },
+  {
+    "id": 1106,
+    "setId": "perfect-order",
+    "title": "Pokémon TCG: Perfect Order Sleeved Booster Pack",
+    "price": "$7.49",
+    "soldOut": true,
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "imgUrl": "/images/po-sleeved.png",
+    "stock": 0
+  },
+  {
+    "id": 1301,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes 2-Pack Blister",
+    "price": "$22.99",
+    "soldOut": true,
+    "description": "Contains 2 Ascended Heroes booster packs, a collectible coin, and a special foil promo card featuring Tangela. A great entry point for the newest Mega Evolution expansion.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-ascended-heroes-2-pack-blister_1301.png",
+    "stock": 0,
+    "galleryUrls": [
+      "https://i.ibb.co/cSKk2v9y/c97e6cf95e77.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1302,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Tech Sticker Collection",
+    "price": "$34.99",
+    "soldOut": true,
+    "description": "Includes 3 Ascended Heroes booster packs, a set of exclusive Pokémon tech stickers, and a special foil promo card.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-ascended-heroes-tech-sticker-collection_1302.png",
+    "stock": 0,
+    "galleryUrls": [
+      "https://i.ibb.co/Rk0FpnQb/a1ccdc351ac1.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1303,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Mini Tin",
+    "price": "$24.99",
+    "soldOut": true,
+    "description": "Collectible mini tin containing 2 Ascended Heroes booster packs and 1 art card. Collect all 5 designs featuring fan-favorite Pokémon!",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-ascended-heroes-mini-tin_1303.png",
+    "stock": 0,
+    "galleryUrls": [
+      "https://i.ibb.co/TM74jRQ3/78f2520a8295.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1304,
+    "setId": "ascended-heroes",
+    "title": "Pokémon TCG: Mega Evolution—Ascended Heroes Elite Trainer Box",
+    "price": "$159.99",
+    "soldOut": false,
+    "description": "The ultimate Ascended Heroes experience! Includes 9 booster packs, a full-art promo card, 65 card sleeves, energy cards, dice, damage counters, and a premium collector's box featuring legendary artwork.",
+    "imgUrl": "/images/pok-mon-tcg-mega-evolution-ascended-heroes-elite-trainer-box_1304.png",
+    "stock": 1,
+    "galleryUrls": [
+      "https://i.ibb.co/QFqjsyCQ/fe17944ec0ef.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1305,
+    "title": "Mystery Graded Card #1",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-1.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-1.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1306,
+    "title": "Mystery Graded Card #2",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-2.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-2.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1307,
+    "title": "Mystery Graded Card #3",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-3.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-3.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1308,
+    "title": "Mystery Graded Card #4",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-4.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-4.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1309,
+    "title": "Mystery Graded Card #5",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-5.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-5.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1310,
+    "title": "Mystery Graded Card #6",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-6.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-6.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1311,
+    "title": "Mystery Graded Card #7",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-7.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-7.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1312,
+    "title": "Mystery Graded Card #8",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-8.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-8.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1313,
+    "title": "Mystery Graded Card #9",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-9.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-9.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1314,
+    "title": "Mystery Graded Card #10",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-10.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-10.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1315,
+    "title": "Mystery Graded Card #11",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-11.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-11.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1316,
+    "title": "Mystery Graded Card #12",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-12.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-12.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1317,
+    "title": "Mystery Graded Card #13",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-13.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-13.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1318,
+    "title": "Mystery Graded Card #14",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-14.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-14.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1319,
+    "title": "Mystery Graded Card #15",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-15.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-15.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1320,
+    "title": "Mystery Graded Card #16",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-16.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-16.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1321,
+    "title": "Mystery Graded Card #17",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-17.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-17.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1322,
+    "title": "Mystery Graded Card #18",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-18.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-18.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1323,
+    "title": "Mystery Graded Card #19",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-19.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-19.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1324,
+    "title": "Mystery Graded Card #20",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-20.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-20.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1325,
+    "title": "Mystery Graded Card #21",
+    "price": ".00",
+    "imgUrl": "/images/graded-cards/slab-21.png",
+    "setId": "graded-cards",
+    "condition": "PSA 10",
+    "stock": 1,
+    "isPreorder": false,
+    "soldOut": false,
+    "description": "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.",
+    "hidden": true,
+    "galleryUrls": [
+      "/images/graded-cards/slab-21.png"
+    ],
+    "shippingWeight": ""
+  },
+  {
+    "id": 1326,
+    "title": "Destined rival Single booster pack",
+    "price": "8.99",
+    "setId": "misc",
+    "imgUrl": "/images/destined-rival-single-booster-pack_1326.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/XZVV03wk/81dfd5932fa2.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1327,
+    "title": "Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Poster collection ",
+    "price": "39.99",
+    "setId": "prismatic",
+    "imgUrl": "/images/pok-mon-tcg-scarlet-violet-prismatic-evolutions-poster-collection_1327.png",
+    "description": "The Pokémon TCG: Scarlet & Violet—Prismatic Evolutions Poster Collection includes:\n• 3 foil promo cards featuring Flareon, Vaporeon, and Jolteon\n• 1 poster featuring 27 card illustrations of Eevee and its Evolutions\n• 3 Pokémon TCG: Scarlet & Violet—Prismatic Evolutions booster packs\n• A code card for Pokémon TCG Live",
+    "stock": 0,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/93wd9GtQ/dfcc21797ea7.png"
+    ],
+    "soldOut": true,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1328,
+    "title": "Mega Latias ex Box - Miscellaneous Cards",
+    "price": "39.99",
+    "setId": "graded-cards",
+    "imgUrl": "/images/mega-latias-ex-box-miscellaneous-cards_1328.png",
+    "description": "The Pokémon TCG: Mega Latias ex Box includes:\n• 1 foil promo card featuring Mega Latias ex\n• 1 oversize lenticular promo card featuring Mega Latias ex\n• 4 Pokémon TCG booster packs",
+    "stock": 1,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/7JSjB913/7b7af9ae4ddc.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1329,
+    "title": "Pokémon TCG: Mega Brave booster pack",
+    "price": "$3.99",
+    "setId": "japanese",
+    "imgUrl": "/images/pok-mon-tcg-mega-brave-booster-pack_1329.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 30,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/Wv6bSCps/7316684476b8.png",
+      "https://i.ibb.co/qFW6dpzD/4f7fc2d9434e.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1330,
+    "title": "Pokemon TCG: Mega Symphonia booster pack",
+    "price": "$3.99",
+    "setId": "japanese",
+    "imgUrl": "/images/pokemon-tcg-mega-symphonia-booster-pack_1330.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 30,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/LD084YjL/89c457c485a5.png",
+      "https://i.ibb.co/VpMKtnSQ/e9aa6d958119.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1331,
+    "title": "Pokemon TCG: Inferno X Booster Pack ",
+    "price": "$4.99",
+    "setId": "japanese",
+    "imgUrl": "/images/pokemon-tcg-inferno-x-booster-pack_1331.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 74,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/W4DysfT6/6d60b5a58964.png",
+      "https://i.ibb.co/b9V5rWf/6acd4fbb5fb8.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1332,
+    "title": "Pokémon TCG: Nihil Zero Booster pack ",
+    "price": "$3.49",
+    "setId": "japanese",
+    "imgUrl": "/images/pok-mon-tcg-nihil-zero-booster-pack_1332.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 20,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/G3WRpC4K/6e313016d479.png",
+      "https://i.ibb.co/qL9BJCH7/5dcc6ebb589c.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1333,
+    "title": "Pokemon TCG: Chaos Rising Elite Trainer Box",
+    "price": "$87.99",
+    "setId": "chaos-rising",
+    "imgUrl": "/images/pokemon-tcg-chaos-rising-elite-trainer-box_1333.png",
+    "description": "The Pokémon TCG: Mega Evolution—Chaos Rising Elite Trainer Box includes:\n• 9 Pokémon TCG: Mega Evolution—Chaos Rising booster packs (contents vary by product)\n• 1 full-art foil promo card featuring Fennekin\n• 65 card sleeves\n• 40 Pokémon TCG Energy cards\n• A player’s guide to the Mega Evolution—Chaos Rising expansion\n• 6 damage-counter dice\n• 1 competition-legal coin-flip die\n• 1 plastic coin\n• A collector’s box to hold everything, with 6 dividers to keep it organized\n• A code card for Pokémon Trading Card Game Live",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/6Rp3Dzrw/765b6301de0b.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1334,
+    "title": "Pokémon TCG: Chaos Rising Booster Bundle ",
+    "price": "$48.99",
+    "setId": "chaos-rising",
+    "imgUrl": "/images/pok-mon-tcg-chaos-rising-booster-bundle_1334.png",
+    "description": "Expand your collection with this Booster Bundle containing six booster packs from Pokémon TCG: Mega Evolution—Chaos Rising.",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/JwmB8wRn/e33eb142fcba.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1335,
+    "title": "Pokemon TCG: Chaos Rising 3 Pack Blister ",
+    "price": "$24.99",
+    "setId": "chaos-rising",
+    "imgUrl": "/images/pokemon-tcg-chaos-rising-3-pack-blister_1335.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 2,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/fVqVLkKT/6848cdd54019.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  },
+  {
+    "id": 1336,
+    "title": "Pokémon TCG: Chaos Rising Sleeved Booster Pack ",
+    "price": "$7.99",
+    "setId": "chaos-rising",
+    "imgUrl": "/images/pok-mon-tcg-chaos-rising-sleeved-booster-pack_1336.png",
+    "description": "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!",
+    "stock": 3,
+    "hidden": false,
+    "galleryUrls": [
+      "https://i.ibb.co/XZsb3syz/47681da710cd.png"
+    ],
+    "soldOut": false,
+    "shippingWeight": ""
+  }
+]
 data.forEach(p => {
   if (p.id === 612) p.imgUrl = '/images/raikou-blister.png';
   if (p.id === 609) p.imgUrl = '/images/pokemon-day-2026.png';

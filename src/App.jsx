@@ -64,7 +64,10 @@ function App() {
   const [sets, setSets] = useState(FALLBACK_SETS);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [streamStatus, setStreamStatus] = useState({ isLive: false, queueMessage: '', currentCustomer: '' });
-  const [policiesTab, setPoliciesTab] = useState('privacy');
+  const [policiesTab, setPoliciesTab] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('tab') || 'privacy';
+  });
 
   const navigateToPolicy = (tabName) => {
     setPoliciesTab(tabName);
@@ -217,8 +220,7 @@ function App() {
       confirmation: `Order Confirmed — ${base}`,
       admin:        `Admin Dashboard — ${base}`,
       dashboard:    `Seller Dashboard — ${base}`,
-      login:        `Login — ${base}`,
-      register:     `Create Account — ${base}`,
+      auth:         `Login / Register — ${base}`,
       product:      selectedProduct
         ? `${selectedProduct.title} | Buy Now — ${base}`
         : `Product — ${base}`,
@@ -714,7 +716,7 @@ function App() {
             {userToken ? (
               <button className="mobile-nav-link" onClick={() => { setCurrentPage('dashboard'); setMobileNavOpen(false); }}>My Account</button>
             ) : (
-              <button className="mobile-nav-link" onClick={() => { setCurrentPage('login'); setMobileNavOpen(false); }}>Login / Register</button>
+              <button className="mobile-nav-link" onClick={() => { setCurrentPage('auth'); setMobileNavOpen(false); }}>Login / Register</button>
             )}
             <div className="mobile-nav-socials">
               <a href="https://www.tiktok.com/@sgtradingcard" target="_blank" rel="noreferrer">
