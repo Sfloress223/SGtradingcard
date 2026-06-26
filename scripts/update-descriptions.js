@@ -16,91 +16,177 @@ if (!fs.existsSync(backupPath)) {
 
 const products = JSON.parse(fs.readFileSync(backupPath, 'utf8'));
 
-const getEnrichedDescription = (title, currentDesc) => {
+const SET_METADATA = {
+  '151': {
+    name: "Scarlet & Violet—151",
+    theme: "Team up with Bulbasaur, Charmander, and Squirtle, and witness a brand-new dawn in Kanto! Discover the extraordinary Venusaur ex, Charizard ex, and Blastoise ex, and explore a reinvigorated land to find the elusive Mew ex.",
+    promo: "featuring Snorlax"
+  },
+  'surging-sparks': {
+    name: "Scarlet & Violet—Surging Sparks",
+    theme: "Terawatts of electricity crash down from the sky in a tropical paradise, setting the stage for the supercharged Pikachu ex! Currents crackle and dragons roar with the power of a Stellar Tera Pokémon ex.",
+    promo: "featuring Magneton"
+  },
+  'prismatic': {
+    name: "Scarlet & Violet—Prismatic Evolutions",
+    theme: "Explore the colorful world of Eevee and its many Evolutions! Discover stellar new Tera Pokémon ex and search for rare special illustration cards featuring your favorite Eeveelutions.",
+    promo: "featuring Eevee"
+  },
+  'journey-together': {
+    name: "Scarlet & Violet—Journey Together",
+    theme: "Embark on a new journey together with partner Pokémon from Paldea and beyond! Explore new strategies and capture the excitement of a new day.",
+    promo: "featuring Latias"
+  },
+  'mega-evolution': {
+    name: "Mega Evolution",
+    theme: "Reintroduce the legendary power of Mega Evolution to the Pokémon TCG! Evolve your favorite Pokémon into powerhouse Mega Evolution ex cards and dominate the arena.",
+    promo: "featuring Mega Audino ex"
+  },
+  'phantasmal-flames': {
+    name: "Mega Evolution—Phantasmal Flames",
+    theme: "As the darkness gathers and the flames arise, Mega Charizard X ex and Mega Gengar ex emerge to set the night ablaze! Harness the power of Fire and Darkness-type Mega Evolution ex cards.",
+    promo: "featuring Mega Gengar ex"
+  },
+  'ascended-heroes': {
+    name: "Mega Evolution—Ascended Heroes",
+    theme: "Celebrate the return of Mega Evolution with Trainer's Pokémon and Stellar Tera Pokémon ex! Incorporating cards from the Japanese MEGA Dream ex subset.",
+    promo: "featuring Larry's Mega Altaria ex"
+  },
+  'bw-era': {
+    name: "Scarlet & Violet—Black Bolt & White Flare",
+    theme: "Unleash the legendary power of the Unova region with Reshiram and Zekrom! Harness the black lightning and white fire in this epic subset.",
+    promo: "featuring Zekrom"
+  },
+  'perfect-order': {
+    name: "Mega Evolution—Perfect Order",
+    theme: "Enter the world of Pokémon Legends: Z-A and Lumiose City! Harness the perfect balance of Mega Zygarde ex and other Mega Evolution Pokémon ex.",
+    promo: "featuring Mega Skarmory ex"
+  },
+  'chaos-rising': {
+    name: "Mega Evolution—Chaos Rising",
+    theme: "Lumiose City is thrown into havoc by the appearance of Mega Floette ex! Mega Greninja ex leads the charge in this expansion featuring the high-risk 'Unstable Evolution' coin-flip mechanic.",
+    promo: "featuring Mega Greninja ex"
+  }
+};
+
+const SPECIFIC_OVERRIDES = {
+  403: "The ultimate collection for fans of the flame! This factory-sealed Ultra-Premium Collection is centered on Mega Charizard X ex. Includes 16 booster packs from various expansions, 1 metal promo card featuring Mega Charizard X ex, premium play accessories (such as metal damage counter dice and condition markers), and exclusive full-art foil promo cards.",
+  603: "The Pokémon TCG: Archaludon ex Box features the metal-type Alloy Pokémon Archaludon. This collection contains 1 foil promo card featuring Archaludon ex, 1 foil card featuring Duraludon, 1 oversize foil card featuring Archaludon ex, 4 Pokémon TCG booster packs, and a code card for Pokémon TCG Live.",
+  604: "The Pokémon TCG: Reshiram ex Box features the legendary Vast White Pokémon Reshiram. This collection contains 1 foil promo card featuring Reshiram ex, 1 foil promo card featuring Reshiram, 1 oversize foil card featuring Reshiram ex, 4 Pokémon TCG booster packs, and a code card for Pokémon TCG Live.",
+  605: "The Pokémon TCG: Tapu Koko ex Battle Deck is a ready-to-play 60-card deck led by Tapu Koko ex. The box includes 1 preconstructed 60-card deck, 3 reference cards, 1 rules booklet, 1 single-player playmat, 1 set of damage counters, 1 large metallic coin, 1 deck box, 1 strategy sheet, and a code card for Pokémon TCG Live.",
+  606: "The Pokémon TCG: Iron Leaves ex Battle Deck is a ready-to-play 60-card deck led by Iron Leaves ex. The box includes 1 preconstructed 60-card deck, 3 reference cards, 1 rules booklet, 1 single-player playmat, 1 set of damage counters, 1 large metallic coin, 1 deck box, 1 strategy sheet, and a code card for Pokémon TCG Live.",
+  607: "The Pokémon TCG: Unova Mini Tin features artwork inspired by the Unova region. Each tin contains 2 Pokémon TCG booster packs, 1 sticker card, and 1 Pokémon art card featuring the art from the tin. Collect and combine all eight unique designs to complete the full illustration puzzle!",
+  610: "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection!",
+  611: "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection!",
+  612: "Give your collection a boost! The Pokémon TCG: Raikou 2-Pack Blister includes 2 booster packs from recent expansions, 1 special foil promo card featuring Raikou, and a collectible metallic flip coin.",
+  613: "A sturdy, collectible metal tin featuring stunning Pokémon artwork. Contains 4 or 5 booster packs and a special foil promo card of the featured Pokémon (Mega Charizard X or Y ex). Perfect for storing cards and adding a premium collectible to your display.",
+  614: "The Pokémon TCG: Paldea Adventure Chest includes 6 booster packs, 7 foil promo cards, 1 sticker sheet, 1 mini portfolio to store your cards, 1 squishy toy, and a beautiful collector's chest to store your entire collection.",
+  1003: "Add a splash of cuteness to your bag or keys with this adorable Manta Ray plush charm! Crafted from ultra-soft fabric with high-quality embroidery, this licensed pocket-sized plush is perfect for collectors and fans of cute marine life.",
+  1005: "The Re-Ment Pokémon Terrarium Collection features beloved Pokémon displayed within a clear, Poké Ball-shaped terrarium container. Renowned for their meticulous attention to detail, these high-quality pre-painted miniatures capture enchanting Pokémon moments. Sold in a blind box format, each package contains one randomly selected design along with its Poké Ball display case.",
+  1328: "The Pokémon TCG: Mega Latias ex Box includes 1 foil promo card featuring Mega Latias ex, 1 foil card featuring Latias, 1 oversize foil card featuring Mega Latias ex, 4 Pokémon TCG booster packs, and a code card for Pokémon TCG Live."
+};
+
+const getEnrichedDescription = (title, currentDesc, setId, id) => {
   let t = (title || "").toLowerCase();
-  let desc = (currentDesc || "").trim();
-
-  // If description is already very detailed (longer than 120 chars), we keep it
-  if (desc.length > 120) {
-    return desc;
+  
+  if (SPECIFIC_OVERRIDES[id]) {
+    return SPECIFIC_OVERRIDES[id];
+  }
+  
+  let setMeta = SET_METADATA[setId];
+  
+  if (!setMeta) {
+    if (t.includes('temporal forces')) {
+      setMeta = {
+        name: "Scarlet & Violet—Temporal Forces",
+        theme: "An epic clash of Ancient and Future Pokémon, bringing the return of ACE SPEC cards to the battlefield!",
+        promo: "featuring either Walking Wake or Iron Leaves"
+      };
+    } else if (t.includes('twilight masquerade')) {
+      setMeta = {
+        name: "Scarlet & Violet—Twilight Masquerade",
+        theme: "Welcome to the land of Kitakami, where people and Pokémon live in harmony with nature. Uncover the mystery of the masked Legendary Pokémon Ogerpon ex!",
+        promo: "featuring Teal Mask Ogerpon"
+      };
+    } else if (t.includes('destined rival')) {
+      setMeta = {
+        name: "Scarlet & Violet—Destined Rivals",
+        theme: "Trainers, be on high alert! Team Rocket returns with over 80 cards related to the group. Cynthia, Steven, Ethan, and other legendary trainers join the clash.",
+        promo: "featuring Cynthia's Garchomp ex"
+      };
+    } else if (setId === 'japanese' || t.includes('japanese')) {
+      if (t.includes('mega brave')) {
+        setMeta = {
+          name: "Mega Brave",
+          theme: "Unleash the power of Mega Evolution in this inaugural Japanese Mega expansion (released August 2025) featuring new Mega Evolution Pokémon ex and beautiful Art Rare collectibles."
+        };
+      } else if (t.includes('mega symphonia')) {
+        setMeta = {
+          name: "Mega Symphonia",
+          theme: "Released alongside Mega Brave in August 2025, this expansion reintroduces Mega Evolution to the Japanese TCG with a focus on musical and artistic theme elements."
+        };
+      } else if (t.includes('inferno x')) {
+        setMeta = {
+          name: "Inferno X",
+          theme: "Ignite your collection with powerful Fire-type ex cards, holographic Rares, and elusive Secret Rares in this factory-sealed Japanese import pack."
+        };
+      } else if (t.includes('nihil zero')) {
+        setMeta = {
+          name: "Nihil Zero (Munikisu Zero)",
+          theme: "Based on Pokémon Legends: Z-A and released in Japan in January 2026, this set features Mega Zygarde ex, ancient Pokémon, and a unique raw art style."
+        };
+      }
+    }
   }
 
-  // 1. Mystery Graded Cards
-  if (t.includes('mystery graded card') || (t.includes('mystery') && t.includes('graded'))) {
-    return "Expand your collection with a premium, officially certified and graded Pokémon card. Every slab is preserved in an archival-grade protective shell, rated in Mint condition (PSA 10 / CGC Gem Mint). Ideal for investment, long-term preservation, and display in any serious collector's gallery. Card selection is random and features top fan-favorites from modern and vintage sets.";
+  if (setMeta) {
+    if (t.includes('elite trainer box') || t.includes('etb')) {
+      const promoText = setMeta.promo ? `\n• 1 full-art foil promo card ${setMeta.promo}` : "";
+      return `The Pokémon TCG: ${setMeta.name} Elite Trainer Box includes:
+• 9 Pokémon TCG: ${setMeta.name} booster packs${promoText}
+• 65 card sleeves featuring set artwork
+• 45 Pokémon TCG Energy cards
+• A player’s guide to the ${setMeta.name} expansion
+• 6 damage-counter dice
+• 1 competition-legal coin-flip die
+• 2 plastic condition markers
+• A collector’s box to hold everything, with 4 dividers to keep it organized
+• A code card for Pokémon Trading Card Game Live`;
+    }
+    
+    if (t.includes('booster box')) {
+      return `${setMeta.theme}\n\nStart your adventure in the ${setMeta.name} expansion with a full display box! Contains 36 Pokémon TCG: ${setMeta.name} booster packs. Each pack contains 10 cards and 1 Basic Energy.`;
+    }
+    
+    if (t.includes('booster bundle')) {
+      return `Get a quick boost to your collection with this official Pokémon TCG: ${setMeta.name} Booster Bundle. Contains 6 booster packs from the ${setMeta.name} expansion, offering a great way to hunt for the top chase cards without any extra accessories.`;
+    }
+    
+    if (t.includes('sleeved booster pack') || t.includes('booster pack') || t.includes('pack')) {
+      if (setId === 'japanese' || t.includes('japanese')) {
+        return `The Japanese ${setMeta.name} booster pack contains 5 random cards. ${setMeta.theme}`;
+      }
+      return `${setMeta.theme}\n\nExpand your collection with this authentic sleeved booster pack from the Pokémon TCG: ${setMeta.name} expansion. Each pack contains 10 cards and 1 Basic Energy.`;
+    }
+    
+    if (t.includes('blister')) {
+      return `Give your collection a boost! The Pokémon TCG: ${setMeta.name} 3-Pack Blister includes 3 booster packs from the expansion, 1 special foil promo card, and a collectible metallic flip coin.`;
+    }
+    
+    if (t.includes('mini tin') || t.includes('tin')) {
+      return `A collectible metal tin featuring stunning artwork from the ${setMeta.name} expansion. Inside, you will find 2 Pokémon TCG: ${setMeta.name} booster packs, 1 sticker card, and 1 Pokémon art card featuring the art from the tin.`;
+    }
   }
 
-  // 2. Elite Trainer Box / ETB
-  if (t.includes('elite trainer box') || t.includes('etb')) {
-    return "The ultimate package for collectors, players, and trainers. This official Pokémon TCG Elite Trainer Box contains 9 booster packs, 1 full-art foil promo card, 65 premium card sleeves featuring set artwork, 45 Energy cards, 6 damage-counter dice, 1 competition-legal coin-flip die, condition markers, a player's guide, and a sturdy collector's box with dividers to keep your cards organized.";
-  }
-
-  // 3. Booster Box
-  if (t.includes('booster box')) {
-    return "Launch your deck building or booster opening experience to the next level with a full factory-sealed booster box. Contains 36 booster packs, each loaded with 10 cards and a basic Energy or VSTAR marker. Hunt for the most coveted Secret Rares, Special Illustration Rares, and Gold cards from the expansion in this complete box.";
-  }
-
-  // 4. Booster Bundle
-  if (t.includes('booster bundle')) {
-    return "Get a quick boost to your collection with this official Pokémon TCG Booster Bundle. Contains 6 booster packs from the set, offering a great way to hunt for the top chase cards, rare holos, and special illustration cards without any extra filler accessories.";
-  }
-
-  // 5. Booster Pack
-  if (t.includes('booster pack') || t.includes('single booster') || t.includes('pack')) {
-    return "Expand your collection with this authentic Pokémon TCG booster pack. Each pack contains 10 cards and 1 Basic Energy. Look for rare Holo Rares, Ultra Rares, and Special Illustration Rares. Perfect for players and collectors alike!";
-  }
-
-  // 6. Mini Tin / Tin
-  if (t.includes('mini tin')) {
-    return "A collectible tin that is perfect for carrying your favorite cards on the go! This official Pokémon TCG Mini Tin contains 2 booster packs, 1 metallic Pokémon coin, and a special art card showing the artwork from the tin. Collect all designs in the series to complete the full artwork puzzle!";
-  }
-  if (t.includes('tin')) {
-    return "A sturdy, collectible metal tin featuring stunning Pokémon artwork. Contains 4 or 5 booster packs and a special foil promo card of the featured Pokémon. Perfect for storing cards and adding a premium collectible to your display shelf.";
-  }
-
-  // 7. ex Battle Deck
-  if (t.includes('battle deck')) {
-    return "A ready-to-play 60-card deck featuring a powerful ex Pokémon. This deck is built for beginners and experienced players alike to learn strategies. Includes damage counters, a playmat, a deck box, a strategy guide, and a quick-start guide to get you playing right out of the box.";
-  }
-
-  // 8. Knock Out Collection
-  if (t.includes('knock out collection')) {
-    return "A special Knock Out Collection box containing 2 official Pokémon TCG booster packs, 1 collector's metallic coin, and 3 foil promo cards featuring classic fan-favorite Pokémon. A perfect addition to any collection or gift for new collectors!";
-  }
-
-  // 9. Adventure Chest / Chest
-  if (t.includes('adventure chest') || t.includes('chest')) {
-    return "Uncover a treasure trove of Pokémon goodies with the Adventure Chest. Contains 6 booster packs, 7 foil promo cards, 1 sticker sheet, 1 mini portfolio to store your cards, 1 squishy toy, and a beautiful collector's chest to store your entire collection.";
-  }
-
-  // 10. Blister Pack / Blister
-  if (t.includes('blister')) {
-    return "An official Pokémon TCG blister pack. Contains 2 or 3 booster packs, a collectible metallic flip coin, and a special foil promo card. Great for adding specific promo cards to your collection while boosting your card pool.";
-  }
-
-  // 11. Poster Collection
-  if (t.includes('poster collection')) {
-    return "Celebrate the expansion with this special Poster Collection! Includes 3 foil promo cards, 3 Pokémon TCG booster packs, 1 large double-sided poster featuring gorgeous set artwork, and a code card for Pokémon TCG Live.";
-  }
-
-  // 12. Surprise Box
-  if (t.includes('surprise box')) {
-    return "Open up a world of fun with this special Surprise Box! Contains 4 booster packs, 1 premium foil promo card, and additional deck accessories. A perfect gift for any Pokémon fan looking for a fun opening experience.";
-  }
-
-  // Generic fallback if description is empty or too brief
-  if (desc.length < 20) {
-    return `Authentic, official product from the ${title.includes('Scarlet & Violet') ? 'Scarlet & Violet' : 'Pokémon TCG'} collection. Perfect for expanding your card pool, building decks, or adding to your sealed collection. Factory sealed and guaranteed 100% genuine.`;
-  }
-
-  return desc;
+  // Fallback
+  return currentDesc;
 };
 
 // Update products
 const updatedProducts = products.map(p => {
   return {
     ...p,
-    description: getEnrichedDescription(p.title, p.description)
+    description: getEnrichedDescription(p.title, p.description, p.setId, p.id)
   };
 });
 

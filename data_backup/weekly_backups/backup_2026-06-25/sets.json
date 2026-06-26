@@ -130,9 +130,9 @@
   },
   {
     "id": "pokemon-merch",
-    "name": "Merchandise & Toys",
-    "imgUrl": "/images/merchandise_toys.png",
-    "bannerUrl": "/images/merchandise_toys.png",
+    "name": "Pokémon Merchandise & Toys",
+    "imgUrl": "/images/merch.svg",
+    "bannerUrl": "/images/merch.svg",
     "color": "#FF8C00",
     "emoji": "🧸"
   },
