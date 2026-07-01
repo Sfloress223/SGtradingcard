@@ -224,7 +224,7 @@ if (fs.existsSync(BACKUP_DIR)) {
 
 // Startup database sync is handled dynamically above only if target files are missing or empty.
 
-function runWeeklyBackup() {
+function runDailyBackup() {
   try {
     const backupTrackerFile = path.join(DATA_DIR, 'last_backup.json');
     let lastBackupDate = null;
@@ -240,16 +240,16 @@ function runWeeklyBackup() {
     }
 
     const now = new Date();
-    const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+    const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
-    if (!lastBackupDate || (now - lastBackupDate) >= ONE_WEEK_MS) {
-      console.log('⏳ Running scheduled weekly database backup...');
+    if (!lastBackupDate || (now - lastBackupDate) >= ONE_DAY_MS) {
+      console.log('⏳ Running scheduled daily database backup...');
       
       const dataFiles = fs.readdirSync(DATA_DIR);
       const dateString = now.toISOString().slice(0, 10); // YYYY-MM-DD
-      const weeklyBackupDir = path.join(BACKUP_DIR, 'weekly_backups', `backup_${dateString}`);
+      const dailyBackupDir = path.join(BACKUP_DIR, 'daily_backups', `backup_${dateString}`);
       
-      fs.mkdirSync(weeklyBackupDir, { recursive: true });
+      fs.mkdirSync(dailyBackupDir, { recursive: true });
       fs.mkdirSync(BACKUP_DIR, { recursive: true });
       
       let backedUpCount = 0;
@@ -257,10 +257,10 @@ function runWeeklyBackup() {
         if (file.endsWith('.json') && file !== 'last_backup.json') {
           const sourcePath = path.join(DATA_DIR, file);
           const targetBackupPath = path.join(BACKUP_DIR, file);
-          const targetWeeklyPath = path.join(weeklyBackupDir, file);
+          const targetDailyPath = path.join(dailyBackupDir, file);
           
           fs.copyFileSync(sourcePath, targetBackupPath);
-          fs.copyFileSync(sourcePath, targetWeeklyPath);
+          fs.copyFileSync(sourcePath, targetDailyPath);
           backedUpCount++;
         }
       }
@@ -269,21 +269,21 @@ function runWeeklyBackup() {
       fs.writeFileSync(backupTrackerFile, JSON.stringify(trackerData, null, 2));
       fs.writeFileSync(path.join(BACKUP_DIR, 'last_backup.json'), JSON.stringify(trackerData, null, 2));
 
-      console.log(`🎉 Weekly backup complete! Backed up ${backedUpCount} files to data_backup/ and weekly_backups/backup_${dateString}`);
+      console.log(`🎉 Daily backup complete! Backed up ${backedUpCount} files to data_backup/ and daily_backups/backup_${dateString}`);
     } else {
-      const hoursLeft = Math.round((ONE_WEEK_MS - (now - lastBackupDate)) / (1000 * 60 * 60));
-      console.log(`ℹ️ Weekly backup is up to date. Next backup scheduled in ${hoursLeft} hours.`);
+      const hoursLeft = Math.round((ONE_DAY_MS - (now - lastBackupDate)) / (1000 * 60 * 60));
+      console.log(`ℹ️ Daily backup is up to date. Next backup scheduled in ${hoursLeft} hours.`);
     }
   } catch (err) {
-    console.error('❌ Weekly backup error:', err.message);
+    console.error('❌ Daily backup error:', err.message);
   }
 }
 
-// Run weekly backup check on boot
-runWeeklyBackup();
+// Run daily backup check on boot
+runDailyBackup();
 
-// Periodically check every 24 hours
-setInterval(runWeeklyBackup, 24 * 60 * 60 * 1000);
+// Periodically check every hour to see if a daily backup is due
+setInterval(runDailyBackup, 60 * 60 * 1000);
 
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const SETS_FILE = path.join(DATA_DIR, 'sets.json');
