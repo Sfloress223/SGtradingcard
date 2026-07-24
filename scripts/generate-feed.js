@@ -79,24 +79,39 @@ PRODUCTS.forEach(product => {
       </g:shipping>`;
   }
 
+  let googleProductCategory = '505707'; // Default: Trading Card Game Single Cards / Collectibles
   let productType = 'Trading Cards &gt; Collectibles';
   let titleLower = (product.title || "").toLowerCase();
   const isGraded = product.setId === 'graded-cards' || (product.condition && ['psa', 'cgc', 'beckett'].some(g => product.condition.toLowerCase().includes(g))) || (titleLower.includes('psa') || titleLower.includes('cgc') || titleLower.includes('beckett') || titleLower.includes('graded') || titleLower.includes('slab'));
   const isSingle = product.setId === 'singles' || product.cardType === 'Single';
   
+  let brand = 'Pokémon';
   if (isGraded) {
     productType = 'Trading Cards &gt; Graded Slabs &gt; Pokémon';
+    if (titleLower.includes('cgc')) brand = 'CGC';
+    else if (titleLower.includes('beckett') || titleLower.includes('bgs')) brand = 'Beckett';
+    else brand = 'PSA';
   } else if (isSingle) {
     productType = 'Trading Cards &gt; Singles &gt; Pokémon';
+    googleProductCategory = '505707';
   } else if (titleLower.includes('pack') || titleLower.includes('blister')) {
     productType = 'Trading Cards &gt; Sealed Product &gt; Booster Packs';
+    googleProductCategory = '6001';
   } else if (titleLower.includes('box') || titleLower.includes('etb') || titleLower.includes('bundle') || titleLower.includes('tin') || titleLower.includes('chest') || titleLower.includes('collection')) {
     productType = 'Trading Cards &gt; Sealed Product &gt; Boxes &amp; ETBs';
+    googleProductCategory = '6001';
   }
 
-  let brand = 'Pokémon';
-  if (titleLower.includes('manta ray')) {
+  if (titleLower.includes('one piece')) {
+    brand = 'Bandai';
+  } else if (titleLower.includes('manta ray') || titleLower.includes('s&g') || titleLower.includes('sg trading')) {
     brand = 'S&amp;G Trading';
+  }
+
+  let mpnXml = `<g:mpn>SG-${product.id}</g:mpn>`;
+  let identifierExistsXml = `<g:identifier_exists>no</g:identifier_exists>`;
+  if (product.gtin || product.barcode) {
+    identifierExistsXml = `<g:gtin>${product.gtin || product.barcode}</g:gtin>\n      <g:identifier_exists>yes</g:identifier_exists>`;
   }
 
   xml += `
@@ -110,9 +125,10 @@ PRODUCTS.forEach(product => {
       <g:availability>${product.soldOut ? 'out of stock' : 'in stock'}</g:availability>
       <g:price>${priceStr}</g:price>
       <g:brand>${brand}</g:brand>
-      <g:google_product_category>505707</g:google_product_category>
+      ${mpnXml}
+      <g:google_product_category>${googleProductCategory}</g:google_product_category>
       <g:product_type>${productType}</g:product_type>
-      <g:identifier_exists>no</g:identifier_exists>
+      ${identifierExistsXml}
       <g:shipping_weight>${weight}</g:shipping_weight>${shippingXml}
     </item>`;
 });
