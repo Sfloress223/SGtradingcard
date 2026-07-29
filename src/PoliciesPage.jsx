@@ -96,7 +96,7 @@ const PoliciesPage = ({ onBack, initialTab = 'privacy' }) => {
             <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
               <li><strong>Unopened & Sealed Items Only:</strong> Returns are accepted within <strong>14 days of delivery</strong> for unopened, factory-sealed products in their original manufacturer packaging.</li>
               <li><strong>Opened / Unsealed Products:</strong> Due to the nature of collectible trading cards, individual single cards, opened booster packs, unsealed boxes, and graded slabs are strictly non-returnable once opened or unsealed.</li>
-              <li><strong>Restocking Fee:</strong> A restocking fee of up to 20% may apply to returned items at our discretion depending on return condition.</li>
+              <li><strong>Restocking Fee:</strong> A restocking fee of up to 20% may apply to returned items at our discretion.</li>
               <li><strong>Return Shipping:</strong> Customers are responsible for return shipping costs and providing a valid tracking number.</li>
             </ul>
 
