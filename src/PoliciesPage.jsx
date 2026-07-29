@@ -89,30 +89,39 @@ const PoliciesPage = ({ onBack, initialTab = 'privacy' }) => {
           <section>
             <h2 style={{ color: '#2d3748', marginBottom: '1.2rem', fontSize: '1.8rem' }}>Return & Refund Policy</h2>
             <p style={{ marginBottom: '1.2rem' }}>
-              Due to the collectible nature of trading cards (including booster packs, elite trainer boxes, singles, and graded slabs) and the potential for tampering or resealing, <strong>there are absolutely no returns, refunds, or exchanges</strong> on any products once they have shipped. All sales are final.
+              At S&G Trading, we want you to be confident in every purchase. We offer a <strong>14-Day Return Policy</strong> for unopened, factory-sealed products from the date of delivery.
             </p>
             
-            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Exceptions & Damaged Items</h3>
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Return Eligibility & Guidelines</h3>
+            <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
+              <li><strong>Unopened & Sealed Items Only:</strong> Returns are accepted within <strong>14 days of delivery</strong> for unopened, factory-sealed products in their original manufacturer packaging.</li>
+              <li><strong>Opened / Unsealed Products:</strong> Due to the nature of collectible trading cards, individual single cards, opened booster packs, unsealed boxes, and graded slabs are strictly non-returnable once opened or unsealed.</li>
+              <li><strong>Restocking Fee:</strong> A <strong>20% restocking fee</strong> applies to all voluntary returns.</li>
+              <li><strong>Return Shipping:</strong> Customers are responsible for return shipping costs and providing a valid tracking number.</li>
+            </ul>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Inspection & Anti-Tampering Verification</h3>
             <p style={{ marginBottom: '1.2rem' }}>
-              The only exception to this policy is if an item arrives physically damaged upon delivery. In the event of shipping damage, you must contact us within <strong>48 hours of delivery</strong> to report the issue:
+              All returned items undergo strict visual and physical inspection upon arrival. Returned merchandise must match the exact item, seal, and condition recorded at fulfillment. Any item showing signs of opening, resealing, unsealing, or tampering will be denied a refund.
+            </p>
+
+            <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Damaged or Defective Items</h3>
+            <p style={{ marginBottom: '1.2rem' }}>
+              If your package arrives physically damaged during transit, please contact us within <strong>48 hours of delivery</strong>:
             </p>
             <ul style={{ paddingLeft: '1.5rem', marginBottom: '1.5rem' }}>
               <li>Email us at <strong>{storeEmail}</strong> or call us at <strong>{storePhone}</strong>.</li>
-              <li>Provide your order number and clear, high-resolution photographs of the damaged product and outer packaging.</li>
-              <li>If a return is approved, we will provide a prepaid return shipping label. The item must be shipped back in the condition it was received.</li>
+              <li>Provide your order number and clear photos of the damaged product and outer packaging.</li>
+              <li>If approved, we will provide a prepaid return label and issue a full replacement or refund.</li>
             </ul>
 
             <h3 style={{ fontSize: '1.2rem', margin: '1.5rem 0 0.5rem 0', color: '#2d3748' }}>Return Address</h3>
             <p style={{ marginBottom: '1.2rem' }}>
-              All approved returns must be shipped back to our physical storefront address:
+              All authorized returns must be shipped to:
               <br />
               <strong>S&G Trading (Returns Dept)</strong>
               <br />
               {storeAddress}
-            </p>
-            
-            <p>
-              If you have any questions or concerns regarding this policy, please don't hesitate to reach out and contact us before placing your order.
             </p>
           </section>
         )}
