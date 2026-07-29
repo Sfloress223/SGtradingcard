@@ -627,6 +627,30 @@ function App() {
           <span>Free shipping on all orders over $100!</span>
         </div>
 
+        {/* Trust & Reputation Bar */}
+        <div className="trust-badges-bar" style={{
+          background: '#f8fafc',
+          borderBottom: '1px solid #e2e8f0',
+          padding: '8px 15px',
+          textAlign: 'center',
+          fontSize: '0.85rem',
+          color: '#4a5568',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1.5rem',
+          flexWrap: 'wrap',
+          fontWeight: '500'
+        }}>
+          <span>🔒 256-Bit SSL Encrypted Checkout</span>
+          <span>•</span>
+          <span>📦 100% Authentic Factory Sealed Items</span>
+          <span>•</span>
+          <span>🚚 Fast 24h Order Dispatch</span>
+          <span>•</span>
+          <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setCurrentPage('reviews')}>⭐ Verified Customer Reviews</span>
+        </div>
+
         {/* Rip n Ship Live Alert */}
         {streamStatus.isLive && (
           <div className="stream-live-bar" style={{ 
