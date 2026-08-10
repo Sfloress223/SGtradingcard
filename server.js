@@ -165,7 +165,7 @@ async function syncGoogleProduct(product) {
   }
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY) : null;
 const app = express();
 
 app.get('/google*.html', (req, res) => {
