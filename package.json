@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "node server.js",
     "start:server": "node server.js",
     "build": "node scripts/generate-feed.js && vite build",
     "lint": "eslint .",
