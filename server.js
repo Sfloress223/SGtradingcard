@@ -176,7 +176,7 @@ try {
 
 const app = express();
 
-app.get('/google*.html', (req, res) => {
+app.get(/^\/google.*\.html$/, (req, res) => {
   res.setHeader('Content-Type', 'text/html');
   res.send('google-site-verification: googlef25e8322cea53299.html');
 });
@@ -563,11 +563,6 @@ app.get('/google-feed.xml', (req, res) => {
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/uploads', express.static(path.join(__dirname, 'data', 'uploads')));
-
-app.get('/google*.html', (req, res) => {
-  res.setHeader('Content-Type', 'text/html');
-  res.send('google-site-verification: googlef25e8322cea53299.html');
-});
 
 // ─── Helpers ───
 function readJSON(filePath) {
