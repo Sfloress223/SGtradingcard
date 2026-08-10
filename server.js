@@ -176,9 +176,10 @@ try {
 
 const app = express();
 
-app.get(/^\/google.*\.html$/, (req, res) => {
+app.get('/google*.html', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
-  res.send('google-site-verification: googlef25e8322cea53299.html');
+  const filename = path.basename(req.path);
+  res.send(`google-site-verification: ${filename}`);
 });
 
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'sg-trading-secret-key-change-me-in-production') {
