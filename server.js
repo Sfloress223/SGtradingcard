@@ -168,6 +168,11 @@ async function syncGoogleProduct(product) {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const app = express();
 
+app.get('/google*.html', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.send('google-site-verification: googlef25e8322cea53299.html');
+});
+
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'sg-trading-secret-key-change-me-in-production') {
   console.warn('⚠️ CRITICAL SECURITY WARNING: JWT_SECRET is not set or is using the default insecure value! User sessions are vulnerable.');
 }
