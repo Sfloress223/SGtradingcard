@@ -552,15 +552,8 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/uploads', express.static(path.join(__dirname, 'data', 'uploads')));
 
 app.get('/google*.html', (req, res) => {
-  const fileInPublic = path.join(__dirname, 'public', req.path);
-  if (fs.existsSync(fileInPublic)) {
-    return res.sendFile(fileInPublic);
-  }
-  const fileInDist = path.join(__dirname, 'dist', req.path);
-  if (fs.existsSync(fileInDist)) {
-    return res.sendFile(fileInDist);
-  }
-  res.status(404).send('Not Found');
+  res.setHeader('Content-Type', 'text/html');
+  res.send('google-site-verification: googlef25e8322cea53299.html');
 });
 
 // ─── Helpers ───
