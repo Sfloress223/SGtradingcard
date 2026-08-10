@@ -186,8 +186,9 @@ app.get('/googlef25e8322cea53299.html', (req, res) => {
   res.send('google-site-verification: googlef25e8322cea53299.html');
 });
 
-app.get('/robots.txt', (req, res) => {
-  res.type('text/plain');
+app.get(['/robots.txt', '/Robots.txt', '/ROBOTS.TXT'], (req, res) => {
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
   res.send('User-agent: *\nAllow: /\n\nSitemap: https://sgtradingcard.com/sitemap.xml\nSitemap: https://sgtradingcard.com/google-feed.xml\n');
 });
 
