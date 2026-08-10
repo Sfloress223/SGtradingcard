@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sgtradingcard.com/sitemap.xml
+Sitemap: https://sgtradingcard.com/google-feed.xml

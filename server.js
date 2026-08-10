@@ -186,6 +186,11 @@ app.get('/googlef25e8322cea53299.html', (req, res) => {
   res.send('google-site-verification: googlef25e8322cea53299.html');
 });
 
+app.get('/robots.txt', (req, res) => {
+  res.type('text/plain');
+  res.send('User-agent: *\nAllow: /\n\nSitemap: https://sgtradingcard.com/sitemap.xml\nSitemap: https://sgtradingcard.com/google-feed.xml\n');
+});
+
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'sg-trading-secret-key-change-me-in-production') {
   console.warn('⚠️ CRITICAL SECURITY WARNING: JWT_SECRET is not set or is using the default insecure value! User sessions are vulnerable.');
 }
