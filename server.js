@@ -173,6 +173,7 @@ try {
 } catch (err) {
   console.warn('⚠️ Stripe initialization skipped:', err.message);
 }
+
 const app = express();
 
 app.get('/google*.html', (req, res) => {
