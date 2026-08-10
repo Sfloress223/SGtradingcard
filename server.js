@@ -176,10 +176,14 @@ try {
 
 const app = express();
 
-app.get('/google*.html', (req, res) => {
+app.get('/googleac4d129fda148541.html', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
-  const filename = req.path.replace(/^\//, '');
-  res.send(`google-site-verification: ${filename}`);
+  res.send('google-site-verification: googleac4d129fda148541.html');
+});
+
+app.get('/googlef25e8322cea53299.html', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.send('google-site-verification: googlef25e8322cea53299.html');
 });
 
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'sg-trading-secret-key-change-me-in-production') {
