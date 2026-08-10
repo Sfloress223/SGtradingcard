@@ -178,7 +178,7 @@ const app = express();
 
 app.get('/google*.html', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
-  const filename = path.basename(req.path);
+  const filename = req.path.replace(/^\//, '');
   res.send(`google-site-verification: ${filename}`);
 });
 
