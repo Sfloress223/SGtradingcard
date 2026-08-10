@@ -547,8 +547,21 @@ app.get('/google-feed.xml', (req, res) => {
   }
 });
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/uploads', express.static(path.join(__dirname, 'data', 'uploads')));
+
+app.get('/google*.html', (req, res) => {
+  const fileInPublic = path.join(__dirname, 'public', req.path);
+  if (fs.existsSync(fileInPublic)) {
+    return res.sendFile(fileInPublic);
+  }
+  const fileInDist = path.join(__dirname, 'dist', req.path);
+  if (fs.existsSync(fileInDist)) {
+    return res.sendFile(fileInDist);
+  }
+  res.status(404).send('Not Found');
+});
 
 // ─── Helpers ───
 function readJSON(filePath) {
