@@ -18,9 +18,10 @@ import ReviewsPage from './ReviewsPage';
 import { FaqPage, ContactPage, AboutPage } from './InfoPages';
 import { PRODUCTS as FALLBACK_PRODUCTS, SETS as FALLBACK_SETS } from './data';
 
-const API = import.meta.env.PROD ? 'https://sgtradingcard.onrender.com' : 'http://localhost:3001';
+const API = import.meta.env.PROD ? '' : 'http://localhost:3001';
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+const stripeKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_test_placeholder';
+const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 const stripeOptions = { disableLink: true };
 
 function App() {
