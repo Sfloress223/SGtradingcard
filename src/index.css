@@ -3,8 +3,8 @@
   --primary: #FFCB05; /* Subtle usage for highlights if needed */
   --text-dark: #1a1a1a;
   --text-light: #666666;
-  --bg-white: #0f172a;
-  --bg-offwhite: #1e293b;
+  --bg-white: #f8fafc;
+  --bg-offwhite: #f1f5f9;
   --border-color: #e5e5e5;
   --badge-bg: #f4f4f4;
 }
