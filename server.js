@@ -392,7 +392,7 @@ async function syncTikTokProduct(product) {
 // --- TikTok OAuth 2.0 Endpoints ---
 app.get('/api/tiktok/auth', (req, res) => {
   const state = Math.random().toString(36).substring(7);
-  const targetRegion = req.query.region === 'us' ? 'https://services.tiktokshops.us' : 'https://services.tiktokshop.com';
+  const targetRegion = req.query.region === 'global' ? 'https://services.tiktokshop.com' : 'https://services.tiktokshops.us';
   const url = `${targetRegion}/open/authorize?service_id=${process.env.TIKTOK_APP_KEY}&state=${state}`;
   res.redirect(url);
 });
